@@ -27,7 +27,7 @@ To add this project on your workspace follow the steps: <br><br>
 -> Picking up an object has been done. <br>
 
 
-> We have donne this project thanks to a 'Java 2D Game Tutorial' <br> https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&index=1 <br><br>
+> We have done this project thanks to a playlist named 'Java 2D Game Tutorial' <br> https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&index=1 <br><br>
 We've used these topics in our project from this tutorial:
 > - Usig Keyboard for controls. <br>
 > - Making map and manage it. <br>
