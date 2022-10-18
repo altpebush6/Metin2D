@@ -123,13 +123,13 @@ public class Player extends Entity {
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(!collisionOn) {
 				switch(direction) {
-				case "upleft": worldY -= speed; worldX -= speed; break;
+				case "upleft": worldY -= speed; worldX -= speed/2; break;
 				
-				case "upright": worldY -= speed; worldX += speed; break;
+				case "upright": worldY -= speed; worldX += speed/2; break;
 					
-				case "downleft": worldY += speed; worldX -= speed; break;
+				case "downleft": worldY += speed; worldX -= speed/2; break;
 					
-				case "downright": worldY += speed; worldX += speed; break;
+				case "downright": worldY += speed; worldX += speed/2; break;
 				
 				case "up": worldY -= speed; break;
 				
