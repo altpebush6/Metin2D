@@ -29,7 +29,7 @@ To add this project on your workspace follow the steps: <br><br>
 
 > We have donne this project thanks to a 'Java 2D Game Tutorial' <br> https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&index=1 <br>
 We've used these topics in our project from this tutorial:
-- Usig Keyboard for controls. <br>
-- Making map and manage it. <br>
-- How to interact with objects. <br>
-- Collision detection.
+> - Usig Keyboard for controls. <br>
+> - Making map and manage it. <br>
+> - How to interact with objects. <br>
+> - Collision detection.
