@@ -10,7 +10,6 @@ public class MouseHandler implements MouseListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 		screenX = e.getPoint().x;
 		screenY = e.getPoint().y;
