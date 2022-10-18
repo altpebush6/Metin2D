@@ -35,6 +35,7 @@ public class Player extends Entity {
 	boolean goalReachedY = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
+		System.out.println("sa");
 		this.gp = gp;
 		this.keyH = keyH;
 		this.mouseH = mouseH;
