@@ -4,17 +4,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 public class OBJ_Dolunay extends SuperObject{
 	
+	GamePanel gp;
 	
-	public OBJ_Dolunay() {
+	public OBJ_Dolunay(GamePanel gp) {
+		
+		this.gp = gp;
 		
 		name = "Dolunay";
 		
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/objects/dolunay.png"));
+			uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+			
 		} catch (IOException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 	

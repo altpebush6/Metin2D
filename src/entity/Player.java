@@ -2,6 +2,7 @@ package entity;
 
 import main.KeyHandler;
 import main.MouseHandler;
+import main.UtilityTool;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -64,18 +65,31 @@ public class Player extends Entity {
 	}
 	
 	public void getPlayerImage() {
+		up1 = setup("up1");
+		up2 = setup("up2");
+		down1 = setup("down1");
+		down2 = setup("down2");
+		left1 = setup("left1");
+		left2 = setup("left2");
+		right1 = setup("right1");
+		right2 = setup("right2");
+	}
+	
+	public BufferedImage setup(String imageName) {
+		
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
+		
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/up1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/up2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/down1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/down2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/left2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/right1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/right2.png"));
+			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return image;
+		
 	}
 	
 	public void update() {
@@ -174,7 +188,11 @@ public class Player extends Entity {
 				
 				if(worldX > beforeClickX - goalX) { // If goal point is still on the left of character
 					if(!collisionOn) {
-						worldX -= speed;
+						if(goalY != 0) { // If player moves on x and y axis divide speed by 2
+							worldX -= speed / 2;
+						}else {
+							worldX -= speed;
+						}
 					}
 					direction = "left";	
 				}else { // If character reaches the point
@@ -185,7 +203,11 @@ public class Player extends Entity {
 				
 				if(worldX < beforeClickX - goalX) { // If goal point is still on the right of character
 					if(!collisionOn) {
-						worldX += speed;
+						if(goalY != 0) { // If player moves on x and y axis divide speed by 2
+							worldX += speed / 2;
+						}else {
+							worldX += speed;
+						}
 					}
 					direction = "right";
 				}else { // If character reaches the point
@@ -197,7 +219,11 @@ public class Player extends Entity {
 				
 				if(worldY > beforeClickY - goalY) { // If goal point is still on the top of character
 					if(!collisionOn) {
-						worldY -= speed;
+						if(goalX != 0) { // If player moves on x and y axis divide speed by 2
+							worldY -= speed / 2;
+						}else {
+							worldY -= speed;
+						}
 					}
 					direction = "up";	
 				}else { // If character reaches the point
@@ -208,7 +234,11 @@ public class Player extends Entity {
 				
 				if(worldY < beforeClickY - goalY) { // If goal point is still on the bottom of character
 					if(!collisionOn) {
-						worldY += speed;
+						if(goalX != 0) { // If player moves on x and y axis divide speed by 2
+							worldY += speed / 2;
+						}else {
+							worldY += speed;
+						}
 					}
 					direction = "down";
 				}else { // If character reaches the point
@@ -231,10 +261,12 @@ public class Player extends Entity {
 			if(goalReachedX) {
 				mouseH.screenX = 0;
 				goalReachedX = false;
+				goalX = 0;
 			}
 			if(goalReachedY) {
 				mouseH.screenY = 0;
 				goalReachedY = false;
+				goalY = 0;
 			}
 
 		}

@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed, quotePressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, quotePressed, openDebug;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {}
@@ -30,6 +30,13 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_QUOTEDBL) {
 			quotePressed = true;
+		}
+		if(code == KeyEvent.VK_T) {
+			if(openDebug) {
+				openDebug = false;
+			}else {
+				openDebug = true;
+			}
 		}
 			
 	}
