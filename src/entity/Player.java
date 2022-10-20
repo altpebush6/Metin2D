@@ -73,6 +73,12 @@ public class Player extends Entity {
 		left2 = setup("left2");
 		right1 = setup("right1");
 		right2 = setup("right2");
+		
+		
+		walk1 = setup("walk1");
+		walk2 = setup("walk2");
+		walk3 = setup("walk3");
+		walk4 = setup("walk4");
 	}
 	
 	public BufferedImage setup(String imageName) {
@@ -157,12 +163,12 @@ public class Player extends Entity {
 			}
 			
 			spriteCounter++;
-			if(spriteCounter > 10) {
-				if(spriteNum == 1) {
-					spriteNum = 2;
-				}
-				else if(spriteNum == 2) {
+			if(spriteCounter > 5) {
+				if(spriteNum == 4) {
 					spriteNum = 1;
+				}
+				else {
+					spriteNum++;
 				}
 				spriteCounter = 0; 
 			}
@@ -331,9 +337,13 @@ public class Player extends Entity {
 				break;
 			case "right":
 				if(spriteNum == 1)
-					image = right1;
+					image = walk1;
 				if(spriteNum == 2)
-					image = right2;
+					image = walk2;
+				if(spriteNum == 3)
+					image = walk3;
+				if(spriteNum == 4)
+					image = walk4;
 				break; 
 		}
 		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

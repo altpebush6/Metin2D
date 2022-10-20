@@ -1,9 +1,16 @@
 /background/
 /entity/
 /main/
+<<<<<<< Updated upstream
 /maps/
 /object/
 /objects/
 /player/
 /sounds/
 /tile/
+=======
+/object/
+/sounds/
+/tile/
+/player/
+>>>>>>> Stashed changes
