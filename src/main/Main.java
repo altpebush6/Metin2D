@@ -26,6 +26,6 @@ public class Main {
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
 		f.setIconImage(favicon.getImage());
 
-		System.out.println("ebuyu siktim");
+		System.out.println("amuck siktim");
 	}
 }
