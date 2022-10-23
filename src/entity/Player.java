@@ -72,12 +72,6 @@ public class Player extends Entity {
 		left2 = setup("left2");
 		right1 = setup("right1");
 		right2 = setup("right2");
-		
-		
-		walk1 = setup("walk1");
-		walk2 = setup("walk2");
-		walk3 = setup("walk3");
-		walk4 = setup("walk4");
 	}
 	
 	public BufferedImage setup(String imageName) {
@@ -175,8 +169,8 @@ public class Player extends Entity {
 			}
 			
 			spriteCounter++;
-			if(spriteCounter > 5) {
-				if(spriteNum == 4) {
+			if(spriteCounter > 12) {
+				if(spriteNum == 2) {
 					spriteNum = 1;
 				}
 				else {
@@ -264,6 +258,19 @@ public class Player extends Entity {
 				}
 			}
 			
+	        // Step Sound
+            stepCounter++;
+            if(stepCounter == 20) {
+                if(stepType == 0) {
+                    gp.playSE(4);
+                    stepType = 1;
+                }else if(stepType == 1){
+                    gp.playSE(5);
+                    stepType = 0;
+                }
+                stepCounter = 0;
+            }
+			
 			// to animate character movement
 			spriteCounter++;
 			if(spriteCounter > 10) {
@@ -349,13 +356,9 @@ public class Player extends Entity {
 				break;
 			case "right":
 				if(spriteNum == 1)
-					image = walk1;
+					image = right1;
 				if(spriteNum == 2)
-					image = walk2;
-				if(spriteNum == 3)
-					image = walk3;
-				if(spriteNum == 4)
-					image = walk4;
+					image = right2;
 				break; 
 		}
 		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

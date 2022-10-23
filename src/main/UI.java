@@ -12,7 +12,7 @@ public class UI {
 
 	GamePanel gp;
 	Font arial_30;
-	BufferedImage coinImage, bottomBarImage, dolunayImage;
+	BufferedImage coinImage, dolunayImage;
 	
 	public boolean messageOn = false;
 	public String message = "";
@@ -26,7 +26,6 @@ public class UI {
 		
 		try {
 			coinImage = ImageIO.read(getClass().getResourceAsStream("/objects/yang.png"));
-			bottomBarImage = ImageIO.read(getClass().getResourceAsStream("/background/bottomBar.png"));
 			dolunayImage = ImageIO.read(getClass().getResourceAsStream("/objects/dolunayItem.png"));
 		} catch (IOException e) {}
 	}
@@ -45,9 +44,6 @@ public class UI {
 		// COIN
 		g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize,null);
 		g2.drawString(" "+gp.player.playerCoin, 60, 60);
-		
-		// BOTTOM BAR
-		g2.drawImage(bottomBarImage, 0, gp.screenHeight - gp.tileSize , gp.screenWidth, gp.tileSize,null);
 
 		switch(itemIndex) {
 			case 1:

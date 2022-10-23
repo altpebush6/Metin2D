@@ -57,6 +57,9 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_S) {
 			downPressed = false;	
 		}
+	    if(code == KeyEvent.VK_QUOTEDBL) {
+	        quotePressed = false;    
+	    }
 	}
 
 }
