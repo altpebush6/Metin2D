@@ -36,7 +36,6 @@ public class Player extends Entity {
 	boolean goalReachedY = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
-		System.out.println("sa");
 		this.gp = gp;
 		this.keyH = keyH;
 		this.mouseH = mouseH;
@@ -160,6 +159,19 @@ public class Player extends Entity {
 				case "right": worldX += speed;break;
 				
 				}
+			}
+			
+			// Step Sound
+			stepCounter++;
+			if(stepCounter == 20) {
+				if(stepType == 0) {
+					gp.playSE(4);
+					stepType = 1;
+				}else if(stepType == 1){
+					gp.playSE(5);
+					stepType = 0;
+				}
+				stepCounter = 0;
 			}
 			
 			spriteCounter++;

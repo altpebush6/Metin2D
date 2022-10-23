@@ -13,6 +13,9 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	
+	public int stepCounter = 0;
+	public int stepType = 0;
+	
 	public Rectangle solidArea;
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisionOn = false;

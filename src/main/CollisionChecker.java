@@ -31,11 +31,17 @@ public class CollisionChecker {
 				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
 				
 				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+				/*
 				if(gp.tileM.tile[tileNum1].collision) {
 					entity.worldX += entity.speed;
 					entity.collisionOn = true;
 				}else if(gp.tileM.tile[tileNum2].collision){
 					entity.worldX -= entity.speed;
+					entity.collisionOn = true;
+				}
+				*/
+				
+				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
 					entity.collisionOn = true;
 				}
 
@@ -65,6 +71,7 @@ public class CollisionChecker {
 				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 				
 				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+				/*
 				if(gp.tileM.tile[tileNum1].collision) {
 					entity.worldX += entity.speed;
 					entity.collisionOn = true;
@@ -72,6 +79,12 @@ public class CollisionChecker {
 					entity.worldX -= entity.speed;
 					entity.collisionOn = true;
 				}
+				*/
+				
+				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+					entity.collisionOn = true;
+				}
+				
 				break;
 				
 			case "downleft":
@@ -98,6 +111,7 @@ public class CollisionChecker {
 				tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 				
 				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+				/*
 				if(gp.tileM.tile[tileNum1].collision) {
 					entity.worldY += entity.speed;
 					entity.collisionOn = true;
@@ -105,6 +119,12 @@ public class CollisionChecker {
 					entity.worldY -= entity.speed;
 					entity.collisionOn = true;
 				}
+				*/
+				
+				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+					entity.collisionOn = true;
+				}
+				
 				break;
 				
 			case "right":
@@ -114,6 +134,7 @@ public class CollisionChecker {
 				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 				
 				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+				/*
 				if(gp.tileM.tile[tileNum1].collision) {
 					entity.worldY += entity.speed;
 					entity.collisionOn = true;
@@ -121,6 +142,12 @@ public class CollisionChecker {
 					entity.worldY -= entity.speed;
 					entity.collisionOn = true;
 				}
+				*/
+				
+				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+					entity.collisionOn = true;
+				}
+				
 				break;
 		}
 	}
