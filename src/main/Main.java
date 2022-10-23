@@ -24,5 +24,7 @@ public class Main {
 		
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
 		f.setIconImage(favicon.getImage());
+		
+		System.out.println("canı siktim");
 	}
 }
