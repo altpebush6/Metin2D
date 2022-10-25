@@ -37,6 +37,9 @@ public class UI {
 	}
 	
 	public void draw(Graphics2D g2) {
+	    
+	    
+	    // Game State yapan kişi buradaki kodları alıp gp.playState if inin içine atsın
 		
 		g2.setFont(arial_30);
 		g2.setColor(Color.white);
