@@ -36,6 +36,7 @@ public class Player extends Entity {
 	boolean goalReachedY = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
+	    super(gp);
 		this.gp = gp;
 		this.keyH = keyH;
 		this.mouseH = mouseH;
@@ -51,44 +52,23 @@ public class Player extends Entity {
 		solidArea.width = gp.tileSize;
 		solidArea.height = gp.tileSize; // change for mt2 char
 		
-		setDefaultValues();
+        worldX = 25 * gp.tileSize; // Where character will start on map X
+        worldY = 25 * gp.tileSize; // Where character will start on map Y
+        speed = 2;  
+        direction = "down";
+	      
 		getPlayerImage();
 	}
 	
-	public void setDefaultValues() {
-		
-		worldX = 25 * gp.tileSize; // Where character will start on map X
-		worldY = 25 * gp.tileSize; // Where character will start on map Y
-		speed = 2;	
-		direction = "down";
-	}
-	
 	public void getPlayerImage() {
-		up1 = setup("up1");
-		up2 = setup("up2");
-		down1 = setup("down1");
-		down2 = setup("down2");
-		left1 = setup("left1");
-		left2 = setup("left2");
-		right1 = setup("right1");
-		right2 = setup("right2");
-	}
-	
-	public BufferedImage setup(String imageName) {
-		
-		UtilityTool uTool = new UtilityTool();
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return image;
-		
+		up1 = setup("/player/up1");
+		up2 = setup("/player/up2");
+		down1 = setup("/player/down1");
+		down2 = setup("/player/down2");
+		left1 = setup("/player/left1");
+		left2 = setup("/player/left2");
+		right1 = setup("/player/right1");
+		right2 = setup("/player/right2");
 	}
 	
 	public void update() {
@@ -102,7 +82,6 @@ public class Player extends Entity {
 				gp.ui.showMessage("Press \" to pick up item.");
 			}
 		}
-
 		
 		if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			
