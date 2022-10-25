@@ -2,15 +2,11 @@ package entity;
 
 import main.KeyHandler;
 import main.MouseHandler;
-import main.UtilityTool;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
 
 import javax.imageio.ImageIO;
 
@@ -35,6 +31,8 @@ public class Player extends Entity {
 	boolean goalReachedX = false;
 	boolean goalReachedY = false;
 	
+	public int punchTimeOut = 0;
+	
 	public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
 	    super(gp);
 		this.gp = gp;
@@ -45,33 +43,48 @@ public class Player extends Entity {
 		screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 		
 		solidArea = new Rectangle();
-		solidArea.x = 0;
-		solidArea.y = 0;
+		solidArea.x = 8;
+		solidArea.y = 30;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		solidArea.width = gp.tileSize;
-		solidArea.height = gp.tileSize; // change for mt2 char
+		solidArea.width = 32;
+		solidArea.height = 18; // change for mt2 char
 		
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
         speed = 2;  
         direction = "down";
 	      
-		getPlayerImage();
+		getImage();
 	}
 	
-	public void getPlayerImage() {
+	public void getImage() {
 		up1 = setup("/player/up1");
 		up2 = setup("/player/up2");
+		up3 = setup("/player/up2");
+		
 		down1 = setup("/player/down1");
 		down2 = setup("/player/down2");
+		down3 = setup("/player/down2");
+		
 		left1 = setup("/player/left1");
 		left2 = setup("/player/left2");
+		left3 = setup("/player/left2");
+		
 		right1 = setup("/player/right1");
 		right2 = setup("/player/right2");
+		right3 = setup("/player/right2");
 	}
 	
 	public void update() {
+	    
+	    punchTimeOut++;
+	    if(keyH.spacePressed && punchTimeOut >= 120) {
+	        gp.playSE(9);
+	        System.out.println("Punched");
+	        punchTimeOut = 0;
+	    }
+	    
 		// Check Object Collision
 		int objIndex = gp.collisionChecker.checkObject(this, true);
 		if(objIndex != -1) {
@@ -112,6 +125,10 @@ public class Player extends Entity {
 			collisionOn = false;
 			gp.collisionChecker.checkTile(this);
 			
+			// CHECK ENEMY COLLISION
+			int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
+			startFight(enemyIndex);
+			
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(!collisionOn) {
 				switch(direction) {
@@ -149,7 +166,7 @@ public class Player extends Entity {
 			
 			spriteCounter++;
 			if(spriteCounter > 12) {
-				if(spriteNum == 2) {
+				if(spriteNum == 3) {
 					spriteNum = 1;
 				}
 				else {
@@ -277,6 +294,7 @@ public class Player extends Entity {
 	}
 	
 	public void pickUpObject(int index) {
+	    
 		if(index != -1) {
 			
 			String objName = gp.obj[index].name;
@@ -284,8 +302,8 @@ public class Player extends Entity {
 			switch(objName) {
 				case "Coin":
 					gp.playSE(2);
-					playerCoin += gp.obj[index].value;
-					gp.ui.showMessage(gp.obj[index].value + " yang collected.");
+					playerCoin += gp.obj[index].coinValue;
+					gp.ui.showMessage(gp.obj[index].coinValue + " yang collected.");
 					gp.obj[index] = null;
 					break;
 				case "Dolunay":
@@ -293,53 +311,31 @@ public class Player extends Entity {
 					playerWeapon = gp.obj[index].name;
 					gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
 					gp.ui.itemIndex = 1;
-					try {
-						down1 = ImageIO.read(getClass().getResourceAsStream("/player/down1_dolunay.png"));
-						down2 = ImageIO.read(getClass().getResourceAsStream("/player/down2_dolunay.png"));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 					gp.obj[index] = null;
 					break;
 			}
 		}
 	}
 	
-	public void draw(Graphics2D g2) {
-	
-		BufferedImage image = null;
-		
-		switch(direction) {
-			case "up":
-			case "upleft":
-			case "upright":
-				if(spriteNum == 1)
-					image = up1;
-				if(spriteNum == 2)
-					image = up2;
-				break;
-			case "down":
-			case "downleft":
-			case "downright":
-				if(spriteNum == 1)
-					image = down1;
-				if(spriteNum == 2)
-					image = down2;
-				break;
-			case "left":
-				if(spriteNum == 1)
-					image = left1;
-				if(spriteNum == 2)
-					image = left2;
-				break;
-			case "right":
-				if(spriteNum == 1)
-					image = right1;
-				if(spriteNum == 2)
-					image = right2;
-				break; 
-		}
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+	public void startFight(int index) {
+	    
+	    if(index != -1) {
+	        
+	        String enemyName = gp.enemy[index].name;
+	        switch(enemyName) {
+	            case "wolf":
+	                enemySoundCounter++;
+	                if(enemySoundCounter == 20) {
+	                    gp.playSE(7);
+	                }else if(enemySoundCounter == 40) {
+	                    gp.playSE(8);
+	                    enemySoundCounter = 0;
+	                }
+	                
+	                System.out.println("Fight with Wolf!");
+	                break;
+	        }
+	    }
 	}
+	
 }

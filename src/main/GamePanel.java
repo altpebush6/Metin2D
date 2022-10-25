@@ -4,11 +4,15 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -46,7 +50,9 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	// ENTITY AND OBJECT
 	public Player player = new Player(this,keyH,mouseH);
-	public SuperObject obj[] = new SuperObject[10];
+	public Entity obj[] = new Entity[10];
+	public Entity enemy[] = new Entity[10];
+	ArrayList<Entity> entityList = new ArrayList<>();
 	
 
 	
@@ -65,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void setupGame() {
 		
 		aSetter.setObject();
+		aSetter.setEnemy();
 		
 		playMusic(0);
 	}
@@ -147,8 +154,17 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update() {
-			
+		
+	    // Player
 		player.update();
+		
+		// Enemy
+		for(int i = 0; i < enemy.length; i++) {
+		    if(enemy[i] != null) {
+		        enemy[i].update();
+		    }
+		}
+		
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -163,15 +179,41 @@ public class GamePanel extends JPanel implements Runnable{
 		// TILE
 		tileM.draw(g2);
 		
-		// OBJECT
+		// ADD ENTITIES TO THE LIST
+		entityList.add(player);
+		
 		for(int i=0; i < obj.length; i++) {
-			if(obj[i] != null) {
-				obj[i].draw(g2, this);
-			}
+		    if(obj[i] != null) {
+		        entityList.add(obj[i]);
+		    }
 		}
 		
-		// PLAYER
-		player.draw(g2);
+		for(int i=0; i < enemy.length; i++) { 
+            if(enemy[i] != null) {
+                entityList.add(enemy[i]);
+            }
+        }
+		
+		// SORT ENTITIES
+		Collections.sort(entityList, new Comparator<Entity>() {
+
+            @Override
+            public int compare(Entity e1, Entity e2) {
+                int result = Integer.compare(e1.worldY, e2.worldY);
+                return result;
+            }
+		});
+		
+		// DRAW ENTITIES
+		for(int i=0; i < entityList.size(); i++) {
+		    entityList.get(i).draw(g2);
+		}
+		// EMPTY ENTITY LIST 
+        for(int i=0; i < entityList.size(); i++) {
+            entityList.remove(i).draw(g2);
+        }	
+		
+
 		
 		// UI
 		ui.draw(g2);

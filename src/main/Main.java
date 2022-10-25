@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -8,6 +10,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		JFrame f = new JFrame("Metin2");
+		
 		//f.setUndecorated(true); // To close top bar
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
 		

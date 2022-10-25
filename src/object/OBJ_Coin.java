@@ -1,30 +1,17 @@
 package object;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Coin extends SuperObject{
+public class OBJ_Coin extends Entity{
 	
-	GamePanel gp;
-	
-	public OBJ_Coin(int newValue, GamePanel gp) {
+	public OBJ_Coin(GamePanel gp, int newValue) {
 		
-		this.gp = gp;
+		super(gp);
 		
 		name = "Coin";
-		value = newValue;
+		down1 = setup("/objects/coin");
+		coinValue = newValue;
 		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objects/coin.png"));
-			uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	
 	}
 }

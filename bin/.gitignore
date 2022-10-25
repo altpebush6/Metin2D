@@ -1,10 +1,7 @@
-<<<<<<< Updated upstream
-/main/
-=======
+/wolf/
+/enemy/
 /entity/
 /main/
 /object/
-/sounds/
-/tile/
->>>>>>> Stashed changes
 /player/
+/sounds/
