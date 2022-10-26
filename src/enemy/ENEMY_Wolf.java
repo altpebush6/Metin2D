@@ -7,6 +7,8 @@ import main.GamePanel;
 
 public class ENEMY_Wolf extends Entity {
 
+    Random rand = new Random();
+    
     public ENEMY_Wolf(GamePanel gp) {
         super(gp);
         
@@ -14,6 +16,7 @@ public class ENEMY_Wolf extends Entity {
         speed = 1;
         maxLife = 5;
         life = maxLife;
+        type = 1;
         direction = "down";
         
         if(direction == "up" || direction == "down") {
@@ -57,35 +60,18 @@ public class ENEMY_Wolf extends Entity {
         if(actionLockCounter == 120) {
             
             standing = false;
-            
-            Random rand = new Random();
+
             int nextMove = rand.nextInt(8) + 1;
             
             switch(nextMove) {
-                case 1:
-                    direction = "up";
-                    break;
-                case 2:
-                    direction = "upleft";
-                    break;
-                case 3:
-                    direction = "upright";
-                    break;
-                case 4:
-                    direction = "down";
-                    break;
-                case 5:
-                    direction = "downleft";
-                    break;
-                case 6:
-                    direction = "downright";
-                    break;
-                case 7:
-                    direction = "left";
-                    break;
-                case 8:
-                    direction = "right";
-                    break;
+                case 1: direction = "up";       break;
+                case 2: direction = "upleft";   break;
+                case 3: direction = "upright";  break;
+                case 4: direction = "down";     break;
+                case 5: direction = "downleft"; break;
+                case 6: direction = "downright";break;
+                case 7: direction = "left";     break;
+                case 8: direction = "right";    break;
             }
         }
         

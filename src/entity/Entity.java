@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -11,6 +12,8 @@ import main.GamePanel;
 import main.UtilityTool;
 
 public class Entity {
+    
+    public Random rand = new Random();
     
     public BufferedImage image;
     public boolean collision = false;
@@ -30,9 +33,6 @@ public class Entity {
 	public String direction = "down";
 	public boolean standing = false;
 	
-	public int spriteCounter = 0;
-	public int spriteNum = 1;
-	
 	public int stepCounter = 0;
 	public int stepType = 0;
 	
@@ -40,7 +40,14 @@ public class Entity {
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisionOn = false;
 	
-	public int enemySoundCounter;
+	public int type;  // player=0, enemy=1
+	
+	public int enemySoundCounter = 0;
+	
+	public int damageCounter = 0;
+	public boolean getDamage = true;
+	
+	public int spriteNum = 1, spriteCounter = 0;
 	
 	public Entity(GamePanel gp) {
         this.gp = gp;
@@ -61,6 +68,7 @@ public class Entity {
         
         // CHECK PLAYER COLLISION 
         gp.collisionChecker.checkPlayer(this);
+    
         
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(!collisionOn && !standing) {

@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	// SYSTEM	
 	KeyHandler keyH = new KeyHandler();
-	MouseHandler mouseH = new MouseHandler();
+	MouseHandler mouseH = new MouseHandler(this);
 	Sound soundtrack = new Sound();
 	Sound se = new Sound(); // sound effects
 	TileManager tileM = new TileManager(this);

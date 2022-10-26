@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 
 public class CollisionChecker {
@@ -204,7 +206,7 @@ public class CollisionChecker {
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
                 
-                // Get Object's solid area position
+                // Get Target's solid area position
                 target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
                 target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
                 
@@ -220,7 +222,7 @@ public class CollisionChecker {
                 }
                 
                 if(entity.solidArea.intersects(target[i].solidArea)) {
-                    if(target[i] != entity) {
+                    if(target[i] != entity) { // to avoid detect itself
                         entity.collisionOn = true;
                         index = i;      
                     }
@@ -236,13 +238,15 @@ public class CollisionChecker {
         return index;
 	}
 	
-	public void checkPlayer(Entity entity) {
+	public boolean checkPlayer(Entity entity) {
+	    
+	    boolean contactPlayer = false;
 	    
         // Get Entity's solid area position
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
         entity.solidArea.y = entity.worldY + entity.solidArea.y;
         
-        // Get Object's solid area position
+        // Get Player's solid area position
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
         
@@ -259,12 +263,45 @@ public class CollisionChecker {
         
         if(entity.solidArea.intersects(gp.player.solidArea)) {
             entity.collisionOn = true;
+            contactPlayer = true;
         }
 
         entity.solidArea.x = entity.solidAreaDefaultX;
         entity.solidArea.y = entity.solidAreaDefaultY;
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        
+        return contactPlayer;
 	}
 	
+	
+	public int checkFightArea(Entity entity, Entity enemy[]) {
+	    int index = -1;
+        
+        for(int i=0; i < enemy.length; i++ ) {
+            if(enemy[i] != null) {
+                
+                // Get Entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                
+                // Get Enemy's Fight Area (3*3)
+                int enemyAreaX = enemy[i].worldX - gp.tileSize;         // Subtract tileSize from enemy's location X
+                int enemyAreaY = enemy[i].worldY - gp.tileSize;         // Subtract tileSize from enemy's location Y
+                int enemyAreaWidth = gp.tileSize * 3;                   // Width equals to 3 times of tileSize
+                int enemyAreaHeight = gp.tileSize * 3;                  // Heights equals to 3 times of tileSize
+                
+                Rectangle enemyArea = new Rectangle(enemyAreaX, enemyAreaY, enemyAreaWidth, enemyAreaHeight);
+
+                if(entity.solidArea.intersects(enemyArea)) {
+                    index = i;
+                }
+
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+            }
+        }
+        
+        return index;
+	}
 }

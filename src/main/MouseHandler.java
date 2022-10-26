@@ -8,11 +8,24 @@ public class MouseHandler implements MouseListener {
 	public int screenX, screenY;
 	public boolean pressed = false;
 	
+	GamePanel gp;
+	
+	public MouseHandler(GamePanel gp){
+	    this.gp = gp;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+	    
+	    screenX = e.getPoint().x;
+	    screenY = e.getPoint().y;
+	    
+	    gp.player.beforeClickX = gp.player.worldX;
+	    gp.player.beforeClickY = gp.player.worldY;
+	    
+	    gp.player.goalX = gp.player.screenX - screenX + gp.tileSize / 2;
+	    gp.player.goalY = gp.player.screenY - screenY + gp.tileSize / 2;
 		
-		screenX = e.getPoint().x;
-		screenY = e.getPoint().y;
 		pressed = true;
 	}
 
@@ -24,7 +37,7 @@ public class MouseHandler implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+	    pressed = false;
 	}
 
 	@Override

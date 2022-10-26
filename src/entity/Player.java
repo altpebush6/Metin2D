@@ -3,10 +3,12 @@ package entity;
 import main.KeyHandler;
 import main.MouseHandler;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -21,15 +23,20 @@ public class Player extends Entity {
 	public final int screenX; // Where we draw player on screen X
 	public final int screenY; // Where we draw player on screen Y
 	
-	public int playerCoin = 0;
-	public String playerWeapon="";
+	// Player Specification
+	public int playerCoin;
+	public int playerHealth;
+	public String playerWeapon;
 	
-	int goalX;
-	int goalY;
-	int beforeClickX;
-	int beforeClickY;
+	// Mouse Click Movement
+	public int goalX;
+	public int goalY;
+	public int beforeClickX;
+	public int beforeClickY;
 	boolean goalReachedX = false;
 	boolean goalReachedY = false;
+	
+	public Random rand = new Random();
 	
 	public int punchTimeOut = 0;
 	
@@ -38,6 +45,8 @@ public class Player extends Entity {
 		this.gp = gp;
 		this.keyH = keyH;
 		this.mouseH = mouseH;
+		
+		
 		
 		screenX = gp.screenWidth / 2 - gp.tileSize / 2;
 		screenY = gp.screenHeight / 2 - gp.tileSize / 2;
@@ -49,13 +58,24 @@ public class Player extends Entity {
 		solidAreaDefaultY = solidArea.y;
 		solidArea.width = 32;
 		solidArea.height = 18; // change for mt2 char
-		
+	      
+		getImage();
+		setPlayer();
+	}
+	
+	public void setPlayer() {
+	    
+	    // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
         speed = 2;  
         direction = "down";
-	      
-		getImage();
+	    
+        // Player Specifications
+        playerHealth = 100;
+        playerCoin = 0;
+        playerWeapon = "";
+	    
 	}
 	
 	public void getImage() {
@@ -78,6 +98,15 @@ public class Player extends Entity {
 	
 	public void update() {
 	    
+	    if(!getDamage) {
+	        damageCounter++;
+	        if(damageCounter == 60) {
+	            getDamage = true;
+	            damageCounter = 0;
+	        }
+	    }
+
+	    
 	    punchTimeOut++;
 	    if(keyH.spacePressed && punchTimeOut >= 120) {
 	        gp.playSE(9);
@@ -95,6 +124,10 @@ public class Player extends Entity {
 				gp.ui.showMessage("Press \" to pick up item.");
 			}
 		}
+		
+        // CHECK ENEMY COLLISION
+        int enemyIndex = gp.collisionChecker.checkFightArea(this, gp.enemy);
+        startFight(enemyIndex);
 		
 		if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			
@@ -125,9 +158,8 @@ public class Player extends Entity {
 			collisionOn = false;
 			gp.collisionChecker.checkTile(this);
 			
-			// CHECK ENEMY COLLISION
-			int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
-			startFight(enemyIndex);
+	        // CHECK ENEMY COLLISION
+	        gp.collisionChecker.checkEntity(this, gp.enemy);
 			
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(!collisionOn) {
@@ -174,24 +206,15 @@ public class Player extends Entity {
 				}
 				spriteCounter = 0; 
 			}
-		}else if(mouseH.screenX != 0 || mouseH.screenY != 0) { // if there is a point to go
+		}else if(goalX != 0 || goalY != 0) { // if there is a point to go
 						
 			// Check Tile Collision 
 			collisionOn = false;
 			gp.collisionChecker.checkTile(this);
 			
-			if(mouseH.pressed) { // if mouse pressed 
-				
-				beforeClickX = worldX; // save worldX position
-				beforeClickY = worldY;	// save worldY position
-				
-				goalX = (screenX - mouseH.screenX + gp.tileSize / 2); // Find how much pixel we should go on x axis from worldX position
-				goalY = (screenY - mouseH.screenY + gp.tileSize / 2); // Find how much pixel we should go on y axis from worldY position
-				
-				mouseH.pressed = false; // set mouse pressed false
-			}
+            // CHECK ENEMY COLLISION
+            gp.collisionChecker.checkEntity(this, gp.enemy);
 			
-				
 			if(goalX > 0) { // If X goal is on the left side of char
 				
 				if(worldX > beforeClickX - goalX) { // If goal point is still on the left of character
@@ -289,9 +312,62 @@ public class Player extends Entity {
 				goalReachedY = false;
 				goalY = 0;
 			}
-
 		}
 	}
+	
+	public void draw(Graphics2D g2) {
+        
+        BufferedImage image = null;
+    
+        switch(direction) {
+            case "up":
+            case "upleft":
+            case "upright":
+                if(spriteNum == 1)
+                    image = up1;
+                if(spriteNum == 2)
+                    image = up2;
+                if(spriteNum == 3)
+                    image = up3;
+                break;
+            case "down":
+            case "downleft":
+            case "downright":
+                if(spriteNum == 1)
+                    image = down1;
+                if(spriteNum == 2)
+                    image = down2;
+                if(spriteNum == 3)
+                    image = down3;
+                break;
+            case "left":
+                if(spriteNum == 1)
+                    image = left1;
+                if(spriteNum == 2)
+                    image = left2;
+                if(spriteNum == 3)
+                    image = left3;
+                break;
+            case "right":
+                if(spriteNum == 1)
+                    image = right1;
+                if(spriteNum == 2)
+                    image = right2;
+                if(spriteNum == 3)
+                    image = right3;
+                break;        
+        }
+        
+        // Set player transparent after damage
+        if(!getDamage) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
+        
+        g2.drawImage(image, screenX, screenY, null);
+        
+        // Reset transparency
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+    }
 	
 	public void pickUpObject(int index) {
 	    
@@ -322,20 +398,34 @@ public class Player extends Entity {
 	    if(index != -1) {
 	        
 	        String enemyName = gp.enemy[index].name;
+	        
 	        switch(enemyName) {
 	            case "wolf":
 	                enemySoundCounter++;
-	                if(enemySoundCounter == 20) {
-	                    gp.playSE(7);
-	                }else if(enemySoundCounter == 40) {
-	                    gp.playSE(8);
+	                if(enemySoundCounter == 40) {
+
+	                    int soundChoice = rand.nextInt(2);
+	                    
+	                    if(soundChoice == 0) {
+	                        gp.playSE(7);
+	                    }else if(soundChoice == 1) {
+	                        gp.playSE(8);
+	                    }
 	                    enemySoundCounter = 0;
-	                }
+	                }  
+	                int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
+                    if(enemyIndex != -1) {
+                           if(getDamage) {
+                                int damage = rand.nextInt(5) + 1;
+                                playerHealth -= damage;
+                                
+                                System.out.println("Get Damage: " + damage + " Health: " + playerHealth);
+                                getDamage = false;
+                            }
+                    }
 	                
-	                System.out.println("Fight with Wolf!");
 	                break;
 	        }
 	    }
 	}
-	
 }
