@@ -33,6 +33,7 @@ public class Entity {
 	public String direction = "down";
 	public boolean standing = false;
 	
+	// Step sound
 	public int stepCounter = 0;
 	public int stepType = 0;
 	

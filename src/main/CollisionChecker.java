@@ -281,6 +281,23 @@ public class CollisionChecker {
         for(int i=0; i < enemy.length; i++ ) {
             if(enemy[i] != null) {
                 
+                int enemyX = enemy[i].worldX;
+                int enemyY = enemy[i].worldY;
+                
+                int playerX = entity.worldX + entity.solidArea.x / 2;
+                int playerY = entity.worldY + entity.solidArea.y / 2;
+                
+                int diffX = Math.abs(playerX - enemyX);
+                int diffY = Math.abs(playerY - enemyY);
+                
+                double hipotenus = Math.sqrt(diffX * diffX + diffY * diffY);
+                
+                double distance = Math.sqrt(gp.tileSize * gp.tileSize + gp.tileSize * gp.tileSize);
+                
+                if(hipotenus <= distance) {
+                    System.out.println("fight");
+                }
+                /*
                 // Get Entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
@@ -299,6 +316,7 @@ public class CollisionChecker {
 
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
+                */
             }
         }
         
