@@ -18,6 +18,8 @@ To add this project on your workspace follow the steps: <br><br>
 5-) Choose the directory from Browse option and click the Finish Button. <br><br>
 <img src="https://user-images.githubusercontent.com/93250409/196501038-b1505671-3195-4992-a9e9-474c16c4b632.png" width="200" />
 
+<hr>
+
 *Report 1* <br> <br>
 <img src="https://user-images.githubusercontent.com/93250409/196496576-3fde0132-ea03-4890-8600-299646a2b71e.png" width="400" />
 
@@ -26,6 +28,18 @@ To add this project on your workspace follow the steps: <br><br>
 -> Background sound has been added. <br>
 -> Picking up an object has been done. <br>
 
+<hr>
+
+*Report 2* <br> <br>
+<img src="https://user-images.githubusercontent.com/93250409/198342058-8eb1a745-48d9-4874-9773-b4cc09267231.png" width="400" />
+
+-> Picking object bug fixed. <br>
+-> Enemy Wolf class has been created. And given it some specifications:  <br>
+1) Wandering randomly
+2) Barking while player is less than 2 tile away.
+3) Attacking while player is near of the wolf.
+
+<hr>
 
 > We have done this project thanks to a playlist named 'Java 2D Game Tutorial' <br> https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&index=1 <br><br>
 We've used these topics in our project from this tutorial:
