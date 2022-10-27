@@ -10,6 +10,6 @@ public class OBJ_Dolunay extends Entity{
 		super(gp);
 		
 		name = "Dolunay";
-		down1 = setup("/objects/dolunay");
+		down1 = setup("/objects/dolunay", gp.tileSize, gp.tileSize);
 	}
 }

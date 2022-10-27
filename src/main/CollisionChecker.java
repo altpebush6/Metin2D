@@ -298,7 +298,8 @@ public class CollisionChecker {
                 double distance = Math.sqrt(gp.tileSize * gp.tileSize + gp.tileSize * gp.tileSize);
                 
                 if(hipotenus <= distance) {
-                    System.out.println("fight");
+                    index = i;
+                    System.out.println("Enemy Attacks!");
                 }
                 /*
                 // Get Entity's solid area position

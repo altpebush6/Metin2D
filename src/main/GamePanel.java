@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int FPS = 60;
 
 	// SYSTEM	
-	KeyHandler keyH = new KeyHandler();
+	KeyHandler keyH = new KeyHandler(this);
 	MouseHandler mouseH = new MouseHandler(this);
 	Sound soundtrack = new Sound();
 	Sound se = new Sound(); // sound effects
@@ -218,9 +218,7 @@ public class GamePanel extends JPanel implements Runnable{
 		    entityList.get(i).draw(g2);
 		}
 		// EMPTY ENTITY LIST 
-        for(int i=0; i < entityList.size(); i++) {
-            entityList.remove(i).draw(g2);
-        }	
+		entityList.clear();
 		
 
 		
