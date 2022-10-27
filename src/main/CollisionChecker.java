@@ -177,12 +177,15 @@ public class CollisionChecker {
                     case "right":   entity.solidArea.x += entity.speed; break;
                 }
 				
-                if(gp.obj[i].collision) {
-                    entity.collisionOn = true;
+                if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                    if(gp.obj[i].collision) {
+                        entity.collisionOn = true;
+                    }
+                    if(player) {
+                        index = i;
+                    }
                 }
-                if(player) {
-                    index = i;
-                }
+			
 				entity.solidArea.x = entity.solidAreaDefaultX;
 				entity.solidArea.y = entity.solidAreaDefaultY;
 				gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;

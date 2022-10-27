@@ -179,14 +179,23 @@ public class GamePanel extends JPanel implements Runnable{
 		// TILE
 		tileM.draw(g2);
 		
+		// OBJECTS 
+        for(int i=0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                obj[i].draw(g2);
+            }
+        }
+		
 		// ADD ENTITIES TO THE LIST
 		entityList.add(player);
 		
+		/*
 		for(int i=0; i < obj.length; i++) {
 		    if(obj[i] != null) {
 		        entityList.add(obj[i]);
 		    }
 		}
+		*/
 		
 		for(int i=0; i < enemy.length; i++) { 
             if(enemy[i] != null) {
