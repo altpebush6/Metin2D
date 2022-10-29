@@ -8,9 +8,13 @@ import main.GamePanel;
 public class ENEMY_Wolf extends Entity {
 
     Random rand = new Random();
+    GamePanel gp;
     
     public ENEMY_Wolf(GamePanel gp) {
+        
         super(gp);
+        
+        this.gp = gp;
         
         name = "wolf";
         speed = 1;
@@ -38,18 +42,18 @@ public class ENEMY_Wolf extends Entity {
     }
     
     public void getImage() {
-        up1 = setup("/wolf/up1");
-        up2 = setup("/wolf/up2");
-        up3 = setup("/wolf/up3");
-        down1 = setup("/wolf/down1");
-        down2 = setup("/wolf/down2");
-        down3 = setup("/wolf/down3");
-        left1 = setup("/wolf/left1");
-        left2 = setup("/wolf/left2");
-        left3 = setup("/wolf/left3");
-        right1 = setup("/wolf/right1");
-        right2 = setup("/wolf/right2"); 
-        right3 = setup("/wolf/right3");
+        up1 = setup("/wolf/up1", gp.tileSize, gp.tileSize);
+        up2 = setup("/wolf/up2", gp.tileSize, gp.tileSize);
+        up3 = setup("/wolf/up3", gp.tileSize, gp.tileSize);
+        down1 = setup("/wolf/down1", gp.tileSize, gp.tileSize);
+        down2 = setup("/wolf/down2", gp.tileSize, gp.tileSize);
+        down3 = setup("/wolf/down3", gp.tileSize, gp.tileSize);
+        left1 = setup("/wolf/left1", gp.tileSize, gp.tileSize);
+        left2 = setup("/wolf/left2", gp.tileSize, gp.tileSize);
+        left3 = setup("/wolf/left3", gp.tileSize, gp.tileSize);
+        right1 = setup("/wolf/right1", gp.tileSize, gp.tileSize);
+        right2 = setup("/wolf/right2", gp.tileSize, gp.tileSize); 
+        right3 = setup("/wolf/right3", gp.tileSize, gp.tileSize);
     }
     
     public void setAction() {

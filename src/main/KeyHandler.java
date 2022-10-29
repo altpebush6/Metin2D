@@ -8,6 +8,12 @@ public class KeyHandler implements KeyListener{
 
 	public boolean upPressed, downPressed, leftPressed, rightPressed, quotePressed, openDebug, spacePressed;
 	
+   GamePanel gp;
+    
+    public KeyHandler(GamePanel gp){
+        this.gp = gp;
+    }
+	
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
@@ -65,6 +71,7 @@ public class KeyHandler implements KeyListener{
 	    }
        if(code == KeyEvent.VK_SPACE) {
             spacePressed = false;
+            gp.player.attacking = false;
         }
 	}
 
