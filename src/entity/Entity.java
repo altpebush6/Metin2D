@@ -158,7 +158,7 @@ public class Entity {
             
             // Set entity transparent after damage
             if(invincible) {
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             }
             
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

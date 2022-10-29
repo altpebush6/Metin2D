@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -341,7 +342,7 @@ public class Player extends Entity {
         
         BufferedImage image = null;
         
-        // To avoid sliding image when image sizes are different
+        // To avoid sliding image when  sizes are different
         int tempScreenX = screenX;
         int tempScreenY = screenY;
     
@@ -401,7 +402,7 @@ public class Player extends Entity {
         
         // Set player transparent after damage
         if(invincible) {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
         }
         
         g2.drawImage(image, tempScreenX, tempScreenY, null);
@@ -520,6 +521,23 @@ public class Player extends Entity {
 	            
 	            if(gp.enemy[enemyIndex].life <= 0) {
 	                gp.playSE(6);
+	                int coinNumber = rand.nextInt(3) + 1;
+	                
+	                int coinCounter = 0;
+	                for (int i = coinNumber; i > 0 ; i--) {
+	                    if(coinCounter == 0) {
+	                        gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX + i * gp.tileSize / 10, gp.enemy[enemyIndex].worldY + i * gp.tileSize / 10);
+	                    }else if(coinCounter == 1){
+	                        gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX - i * gp.tileSize / 10, gp.enemy[enemyIndex].worldY - i * gp.tileSize / 10);
+	                    }else if(coinCounter == 2) {
+	                        gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX - i * gp.tileSize / 10, gp.enemy[enemyIndex].worldY + i * gp.tileSize / 10);
+	                    }else if(coinCounter == 3) {
+	                        gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX + i * gp.tileSize / 10, gp.enemy[enemyIndex].worldY - i * gp.tileSize / 10);
+	                        coinCounter = 0;
+	                    }
+	                    coinCounter++;
+                    }
+	                
 	                gp.enemy[enemyIndex] = null;
 	            }
 	        }
