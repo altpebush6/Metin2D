@@ -40,6 +40,8 @@ public class Player extends Entity {
 	public Random rand = new Random();
 	
 	public int punchTimeOut = 0;
+	public int holdingNum = 0;
+	public int holdingCounter = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
 	    super(gp);
@@ -120,11 +122,20 @@ public class Player extends Entity {
 	    
 	   // When pressed space 
        punchTimeOut++;
-        if(keyH.spacePressed && punchTimeOut >= 10) {
-            gp.playSE(9);
-            punchTimeOut = 0;
-            attacking = true;
-        }
+       if(keyH.spacePressed) {
+           holdingCounter++;
+           System.out.println(holdingCounter);
+           if(punchTimeOut >= 45) {
+               if(holdingNum == 0){             gp.playSE(10);  holdingNum++;}
+               else if(holdingNum == 1){        gp.playSE(11);  holdingNum++;}
+               else if(holdingNum == 2){        gp.playSE(12);  holdingNum++;}
+               else if(holdingNum == 3){        gp.playSE(13);  holdingNum=0;   holdingCounter = 0;}
+
+               punchTimeOut = 0;
+               attacking = true;
+           }
+       }
+
 	    
 	    // To avoid player to get damage every frame. Instead waits for 1 seconds and get damage.
 	    if(invincible) {
@@ -152,8 +163,11 @@ public class Player extends Entity {
         
         if(attacking) {
             attack();
-        }else if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-			
+            speed = 1;
+        }else{
+           speed = 2;
+        }
+        if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			// Finish mouse event
 			mouseH.pressed = false;
 			goalReachedX = true;
@@ -413,7 +427,6 @@ public class Player extends Entity {
 	
 	public void attack() {
 	    
-	    spriteCounter++;
 	    if(spriteCounter <= 5) {
 	        spriteNum = 1;
 	    }else if(spriteCounter > 5 && spriteCounter <= 25) {
@@ -501,6 +514,7 @@ public class Player extends Entity {
                            if(!invincible) {
                                 int damage = rand.nextInt(5) + 1;
                                 playerHealth -= damage;
+                                gp.ui.healthBar -= damage;
                                 
                                 System.out.println("Get Damage: " + damage + " Health: " + playerHealth);
                                 invincible = true;

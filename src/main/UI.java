@@ -14,6 +14,8 @@ public class UI {
 	Font arial_30;
 	BufferedImage coinImage, dolunayImage;
 	
+	public int healthBar = 192;
+	
 	public boolean messageOn = false;
 	public String message = "";
 	int messageCounter = 0;
@@ -38,6 +40,11 @@ public class UI {
 	
 	public void draw(Graphics2D g2) {
 	    
+	    
+	    // Health Bar
+	    g2.drawRect(100, 400, 192, 50);
+	    g2.setColor(Color.red);
+	    g2.fillRect(100, 400, healthBar, 50);
 	    
 	    // Game State yapan kişi buradaki kodları alıp gp.playState if inin içine atsın
 		
