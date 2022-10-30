@@ -73,6 +73,7 @@ public class KeyHandler implements KeyListener{
             spacePressed = false;
             gp.player.attacking = false;
             gp.player.holdingCounter = 0;
+            gp.player.holdingNum = 0;
         }
 	}
 
