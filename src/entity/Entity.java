@@ -234,8 +234,8 @@ public class Entity {
                 hpBarImage = setup("/UI/HpBar2", (int) hpBarValue, gp.tileSize / 8);
                 emptyBarImage = setup("/UI/emptyBar2", (int) hpBarValue, gp.tileSize / 8);
                 
-                g2.drawImage(emptyBarImage, screenX - 1, screenY - 10, (int)maxBar, gp.tileSize / 8, null);
-                g2.drawImage(hpBarImage, screenX + 4, screenY - 10, (int)hpBarValue, gp.tileSize / 8, null);
+                g2.drawImage(emptyBarImage, screenX, screenY - 10, (int)maxBar, gp.tileSize / 8, null);
+                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, (int)hpBarValue - 3, gp.tileSize / 8, null);
                 
 
                 hpBarCounter++;
@@ -267,16 +267,17 @@ public class Entity {
 
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
-
-        if (dyingCounter < 60) {
-            changeAlpha(g2, 1f);
-        } else if (dyingCounter < 120) {
-            changeAlpha(g2, 0.4f);
-        } else {
-            changeAlpha(g2, 0f);
-            gp.obj[deadIndex] = null;
-
-        }
+        if (dyingCounter < 20) {            changeAlpha(g2, 1f);
+        } else if (dyingCounter < 40)   {   changeAlpha(g2, 0.9f);
+        } else if (dyingCounter < 60)   {   changeAlpha(g2, 0.8f);
+        } else if (dyingCounter < 80)   {   changeAlpha(g2, 0.7f);
+        } else if (dyingCounter < 100)  {   changeAlpha(g2, 0.6f);
+        } else if (dyingCounter < 120)  {   changeAlpha(g2, 0.5f);
+        } else if (dyingCounter < 140)  {   changeAlpha(g2, 0.4f);
+        } else if (dyingCounter < 160)  {   changeAlpha(g2, 0.3f);
+        } else if (dyingCounter < 180)  {   changeAlpha(g2, 0.2f);
+        } else if (dyingCounter < 200)  {   changeAlpha(g2, 0.1f);
+        } else {changeAlpha(g2, 0f);gp.obj[deadIndex] = null;   }
     }
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
