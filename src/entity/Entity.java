@@ -23,8 +23,11 @@ public class Entity {
     // Object Attributes
     public int coinValue;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 =======
+=======
+>>>>>>> Stashed changes
     public boolean deadObj = false;
     
 >>>>>>> Stashed changes
@@ -49,6 +52,7 @@ public class Entity {
     public int life;
     public int actionLockCounter = 0;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
@@ -68,6 +72,8 @@ public class Entity {
 
     public Entity(GamePanel gp) {
 =======
+=======
+>>>>>>> Stashed changes
     public int deadIndex;
 	
 	// Images
@@ -240,6 +246,7 @@ public class Entity {
 
             // Set entity transparent after damage
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             if (invincible) {
                 hpBarOn = true;
                 hpBarCounter = 0;
@@ -250,6 +257,14 @@ public class Entity {
 =======
             if(invincible) {
                 changeAlpha(g2, 0.8f);
+=======
+            if(invincible) {
+                changeAlpha(g2, 0.8f);
+            }
+            
+            if(deadObj) {
+                dyingAnimation(g2);
+>>>>>>> Stashed changes
             }
             
             if(deadObj) {
@@ -289,6 +304,9 @@ public class Entity {
         }else {
             changeAlpha(g2, 0f); 
             gp.obj[deadIndex] = null;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         }
     }
