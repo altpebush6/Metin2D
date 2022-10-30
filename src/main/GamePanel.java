@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 	// ENTITY AND OBJECT
 	public Player player = new Player(this,keyH,mouseH);
 	public Entity obj[] = new Entity[10];
-	public Entity enemy[] = new Entity[10];
+	public Entity enemy[] = new Entity[100];
 	ArrayList<Entity> entityList = new ArrayList<>();
 	
 
@@ -161,7 +161,7 @@ public class GamePanel extends JPanel implements Runnable{
 		// Enemy
 		for(int i = 0; i < enemy.length; i++) {
 		    if(enemy[i] != null) {
-		        if(enemy[i].alive && !enemy[i].dying) {
+		        if(enemy[i].alive) {
 		            enemy[i].update();
 		        }else {
 		            enemy[i] = null;

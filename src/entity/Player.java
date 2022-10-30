@@ -141,7 +141,6 @@ public class Player extends Entity {
         punchTimeOut++;
         if (keyH.spacePressed) {
             holdingCounter++;
-            System.out.println(holdingCounter);
             if (punchTimeOut >= 45) {
                 if (holdingNum == 0) {
                     gp.playSE(10);
@@ -480,13 +479,13 @@ public class Player extends Entity {
 
         // Set player transparent after damage
         if (invincible) {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+            changeAlpha(g2, 0.8f);
         }
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);
 
         // Reset transparency
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        changeAlpha(g2, 1f);
     }
 
     public void attack() {
@@ -592,7 +591,7 @@ public class Player extends Entity {
                             playerHealth -= damage;
                             gp.ui.healthBar -= damage;
 
-                            System.out.println("Get Damage: " + damage + " Health: " + playerHealth);
+                            //System.out.println("Get Damage: " + damage + " Health: " + playerHealth);
                             invincible = true;
                         }
                     }
@@ -635,7 +634,7 @@ public class Player extends Entity {
 
     public void damageEnemy(int enemyIndex) {
 
-        if (enemyIndex != -1) {
+        if (enemyIndex != -1 && gp.enemy[enemyIndex].alive) {
             if (!gp.enemy[enemyIndex].invincible) {
                 gp.enemy[enemyIndex].life -= 1;
                 gp.enemy[enemyIndex].invincible = true;
@@ -664,6 +663,8 @@ public class Player extends Entity {
                     }
 
                     gp.enemy[enemyIndex].dying = true;
+                    gp.enemy[enemyIndex].alive = false;     
+                    deadIndex = gp.aSetter.createDeadWolf(worldX, worldY + gp.tileSize / 2);
                 }
             }
         }

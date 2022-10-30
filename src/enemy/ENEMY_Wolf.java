@@ -45,15 +45,20 @@ public class ENEMY_Wolf extends Entity {
         up1 = setup("/wolf/up1", gp.tileSize, gp.tileSize);
         up2 = setup("/wolf/up2", gp.tileSize, gp.tileSize);
         up3 = setup("/wolf/up3", gp.tileSize, gp.tileSize);
+        
         down1 = setup("/wolf/down1", gp.tileSize, gp.tileSize);
         down2 = setup("/wolf/down2", gp.tileSize, gp.tileSize);
         down3 = setup("/wolf/down3", gp.tileSize, gp.tileSize);
+        
         left1 = setup("/wolf/left1", gp.tileSize, gp.tileSize);
         left2 = setup("/wolf/left2", gp.tileSize, gp.tileSize);
         left3 = setup("/wolf/left3", gp.tileSize, gp.tileSize);
+        
         right1 = setup("/wolf/right1", gp.tileSize, gp.tileSize);
         right2 = setup("/wolf/right2", gp.tileSize, gp.tileSize); 
         right3 = setup("/wolf/right3", gp.tileSize, gp.tileSize);
+        
+        deadImage = setup("/wolf/deadWolf", gp.tileSize, gp.tileSize);
     }
     
     public void setAction() {

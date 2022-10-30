@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.UtilityTool;
+import object.OBJ_Coin;
 
 public class Entity {
 
@@ -21,7 +22,12 @@ public class Entity {
 
     // Object Attributes
     public int coinValue;
+<<<<<<< Updated upstream
 
+=======
+    public boolean deadObj = false;
+    
+>>>>>>> Stashed changes
     // States
     public int worldX, worldY, screenX, screenY, speed;
     public boolean collision = false;
@@ -42,6 +48,7 @@ public class Entity {
     public int maxLife;
     public int life;
     public int actionLockCounter = 0;
+<<<<<<< Updated upstream
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
@@ -60,6 +67,26 @@ public class Entity {
     int hpBarCounter = 0;
 
     public Entity(GamePanel gp) {
+=======
+    public int deadIndex;
+	
+	// Images
+	public BufferedImage up1,up2,up3,down1,down2,down3,left1,left2,left3,right1,right2,right3;
+	public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
+	public BufferedImage image, deadImage;
+	
+	// Counter
+	public int stepCounter = 0;
+	public int stepType = 0;
+	public int enemySoundCounter = 0;
+	public int invincibleCounter = 0;
+	public boolean invincible = false;
+	public int spriteNum = 1, spriteCounter = 0;
+	int dyingCounter = 0;
+	
+	
+	public Entity(GamePanel gp) {
+>>>>>>> Stashed changes
         this.gp = gp;
     }
 
@@ -212,6 +239,7 @@ public class Entity {
             }
 
             // Set entity transparent after damage
+<<<<<<< Updated upstream
             if (invincible) {
                 hpBarOn = true;
                 hpBarCounter = 0;
@@ -219,6 +247,13 @@ public class Entity {
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             }
             if (dying) {
+=======
+            if(invincible) {
+                changeAlpha(g2, 0.8f);
+            }
+            
+            if(deadObj) {
+>>>>>>> Stashed changes
                 dyingAnimation(g2);
             }
 
@@ -226,8 +261,9 @@ public class Entity {
             changeAlpha(g2, 1F);
 
             // Reset transparency
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            changeAlpha(g2, 1f);
         }
+<<<<<<< Updated upstream
     }
 
     public void dyingAnimation(Graphics2D g2) {
@@ -240,6 +276,20 @@ public class Entity {
         } else {
             dying = false;
             alive = false;
+=======
+	}
+	
+	public void dyingAnimation(Graphics2D g2) {
+	    
+        dyingCounter++;
+        if(dyingCounter < 60) {
+            changeAlpha(g2, 1f); 
+        }else if(dyingCounter < 120) {
+            changeAlpha(g2, 0.4f); 
+        }else {
+            changeAlpha(g2, 0f); 
+            gp.obj[deadIndex] = null;
+>>>>>>> Stashed changes
         }
     }
 

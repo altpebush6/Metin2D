@@ -159,7 +159,7 @@ public class CollisionChecker {
 		int index = -1;
 		
 		for(int i=0; i < gp.obj.length; i++ ) {
-			if(gp.obj[i] != null) {
+			if(gp.obj[i] != null && !gp.obj[i].deadObj) {
 				
 				// Get Entity's solid area position
 				entity.solidArea.x = entity.worldX + entity.solidArea.x;
@@ -282,7 +282,7 @@ public class CollisionChecker {
 	    int index = -1;
         
         for(int i=0; i < enemy.length; i++ ) {
-            if(enemy[i] != null) {
+            if(enemy[i] != null && enemy[i].alive) {
                 
                 int enemyX = enemy[i].worldX;
                 int enemyY = enemy[i].worldY;
@@ -299,7 +299,7 @@ public class CollisionChecker {
                 
                 if(hipotenus <= distance) {
                     index = i;
-                    System.out.println("Enemy Attacks!");
+                    //System.out.println("Enemy Attacks!");
                 }
                 /*
                 // Get Entity's solid area position

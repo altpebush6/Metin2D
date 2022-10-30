@@ -38,12 +38,24 @@ public class AssetSetter {
         gp.obj[index].worldY = worldY;
         index++;
 	}
-	
+
+   public int createDeadWolf(int worldX, int worldY) {
+        gp.obj[index] = new OBJ_DeadWolf(gp);
+        gp.obj[index].worldX = worldX;
+        gp.obj[index].worldY = worldY;
+        index++;
+        return index-1;
+    }
+	   
 	public void setEnemy() {
 	    
 	    gp.enemy[0] = new ENEMY_Wolf(gp);
 	    gp.enemy[0].worldX = gp.tileSize * 30;
 	    gp.enemy[0].worldY = gp.tileSize * 24;
+	    
+	    gp.enemy[1] = new ENEMY_Wolf(gp);
+        gp.enemy[1].worldX = gp.tileSize * 25;
+        gp.enemy[1].worldY = gp.tileSize * 24;
 	    
 	}
 }
