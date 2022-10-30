@@ -205,7 +205,7 @@ public class Entity {
                 double oneScale = (double) gp.tileSize / maxLife;
                 double hpBarValue = oneScale * life;
                 g2.setColor(new Color(35, 35, 35));
-                g2.fillRoundRect(screenX - 1, screenY - 16, (int) hpBarValue, gp.tileSize / 8, 10, 10);
+                g2.drawRoundRect(screenX - 1, screenY - 16, (int) (oneScale * maxLife), gp.tileSize / 8, 10, 10);
                 g2.setColor(new Color(178, 34, 34));
                 g2.fillRoundRect(screenX, screenY - 15, (int) hpBarValue, gp.tileSize / 8, 10, 10);
                 g2.setColor(Color.black);
