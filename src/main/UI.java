@@ -14,8 +14,8 @@ public class UI {
     Font arial_30;
     BufferedImage coinImage, dolunayImage;
 
-    public int healthBar ;
-    public int spBar ;
+    public int healthBar;
+    public int spBar;
 
     public boolean messageOn = false;
     public String message = "";
@@ -46,15 +46,17 @@ public class UI {
         spBar = gp.player.playerSp * 2;
 
         // Health Bar
-        g2.drawRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), 201, 15, 20, 20);
+        g2.drawRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1),
+                gp.player.startPlayerHealth * (101 / 100) * 2, 15, 20, 20);
         g2.setColor(Color.red);
         g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), healthBar, 15, 20, 20);
 
         // Sp Bar
         g2.setColor(Color.black);
-        g2.drawRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow -1) + (gp.tileSize/2), 201, 15, 20, 20);
+        g2.drawRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1) + (gp.tileSize / 2),
+                gp.player.startPlayerSp * (101 / 100) * 2, 15, 20, 20);
         g2.setColor(Color.blue);
-        g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow -1) +(gp.tileSize/2), spBar, 15, 20, 20);
+        g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1) + (gp.tileSize / 2), spBar, 15, 20, 20);
 
         // Game State yapan kişi buradaki kodları alıp gp.playState if inin içine atsın
 
