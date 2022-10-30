@@ -45,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
 	TileManager tileM = new TileManager(this);
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
+	public UI ui = new UI(this);
 	Thread gameThread;
 	
 	// ENTITY AND OBJECT
@@ -53,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public Entity enemy[] = new Entity[10];
 	ArrayList<Entity> entityList = new ArrayList<>();
 	
-	public UI ui = new UI(this);
 
 	
 	
