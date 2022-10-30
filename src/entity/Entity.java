@@ -23,6 +23,7 @@ public class Entity {
     // Object Attributes
     public int coinValue;
     public boolean deadObj = false;
+    
     // States
     public int worldX, worldY, screenX, screenY, speed;
     public boolean collision = false;
@@ -44,12 +45,14 @@ public class Entity {
     public int life;
     public int actionLockCounter = 0;
     public int deadIndex;
+    public int level = 1;
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
             attackRight2;
     public BufferedImage image, deadImage;
+    public BufferedImage hpBarImage, emptyBarImage;
 
     // Counter
     public int stepCounter = 0;
@@ -60,6 +63,8 @@ public class Entity {
     public int spriteNum = 1, spriteCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    public int damageCounter = 0; 
+    public int damageTimeOut = 45;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -141,7 +146,7 @@ public class Entity {
 
         if (invincible) {
             invincibleCounter++;
-            if (invincibleCounter == 60) {
+            if (invincibleCounter == damageTimeOut) {
                 invincible = false;
                 invincibleCounter = 0;
             }
@@ -198,21 +203,40 @@ public class Entity {
                         image = right3;
                     break;
             }
+            
+            // Enemy fill Hp
+            damageCounter++;
+            if (type == 1 && damageCounter == 360) {
+                if(life != maxLife) {
+                    life++;
+                    damageCounter = 0;
+                }
+            }
+            
+            // Enemy Label
+            if(type == 1) {
+                g2.setFont(new Font("Courier New",Font.BOLD,12));
+                
+                g2.setColor(Color.green);
+                g2.drawString("Lv " + level, screenX - 10, screenY - 20);
+                
+                g2.setColor(Color.red);
+                g2.drawString(name, screenX + 25, screenY - 20);
+            }
 
             // Enemy Hp bar
             if (type == 1 && hpBarOn == true) {
-
+                
                 double oneScale = (double) gp.tileSize / maxLife;
                 double hpBarValue = oneScale * life;
                 double maxBar = oneScale * maxLife;
+                                
+                hpBarImage = setup("/UI/HpBar2", (int) hpBarValue, gp.tileSize / 8);
+                emptyBarImage = setup("/UI/emptyBar2", (int) hpBarValue, gp.tileSize / 8);
                 
-                g2.setColor(new Color(35, 35, 35));
-                g2.drawRoundRect(screenX - 1, screenY - 16, (int)maxBar, gp.tileSize / 8, 10, 10);
-                g2.setColor(new Color(178, 34, 34));
-                g2.fillRoundRect(screenX, screenY - 15, (int) hpBarValue, gp.tileSize / 8, 10, 10);
-                g2.setColor(Color.black);
-                g2.setFont(new Font("Courier New",Font.BOLD,12));
-                g2.drawString(name, screenX + 10, screenY);
+                g2.drawImage(emptyBarImage, screenX - 1, screenY - 10, (int)maxBar, gp.tileSize / 8, null);
+                g2.drawImage(hpBarImage, screenX + 4, screenY - 10, (int)hpBarValue, gp.tileSize / 8, null);
+                
 
                 hpBarCounter++;
 

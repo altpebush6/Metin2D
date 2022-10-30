@@ -12,7 +12,7 @@ public class UI {
 
     GamePanel gp;
     Font arial_30;
-    BufferedImage coinImage, dolunayImage;
+    BufferedImage coinImage, dolunayImage, hpBarImage, emptyBarImage;
 
     public int healthBar;
     public int spBar;
@@ -30,6 +30,8 @@ public class UI {
         try {
             coinImage = ImageIO.read(getClass().getResourceAsStream("/objects/yang.png"));
             dolunayImage = ImageIO.read(getClass().getResourceAsStream("/objects/dolunayItem.png"));
+            hpBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar.png"));
+            emptyBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/emptyBar.png"));
         } catch (IOException e) {
         }
     }
@@ -48,10 +50,8 @@ public class UI {
 
         // Health Bar
         g2.setColor(Color.black);
-        g2.drawRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1),
-                (int) barWidth, 15, 15, 15);
-        g2.setColor(new Color(178, 34, 34));
-        g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) healthBar, 15, 15, 15);
+        g2.drawImage(emptyBarImage, gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) barWidth, 15, null);
+        g2.drawImage(hpBarImage, gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) healthBar, 15, null);
 
         // Sp Bar
         /*

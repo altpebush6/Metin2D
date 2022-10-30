@@ -16,9 +16,9 @@ public class ENEMY_Wolf extends Entity {
         
         this.gp = gp;
         
-        name = "wolf";
+        name = "Wolf";
         speed = 1;
-        maxLife = 3;
+        maxLife = 5;
         life = maxLife;
         type = 1;
         direction = "down";

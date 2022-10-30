@@ -84,7 +84,7 @@ public class Player extends Entity {
         // Player Specifications
         maxLife = 100;
         life = maxLife;
-        increaseLife = 10;
+        increaseLife = 1;
         playerTimer = 0;
         playerCoin = 0;
         playerWeapon = "";
@@ -130,7 +130,7 @@ public class Player extends Entity {
         if (keyH.spacePressed) {
             holdingCounter++;
             System.out.println(holdingCounter);
-            if (punchTimeOut >= 45) {
+            if (punchTimeOut >= damageTimeOut) {
                 if (holdingNum == 0) {
                     gp.playSE(10);
                     holdingNum++;
@@ -556,11 +556,10 @@ public class Player extends Entity {
 
     public void startFight(int index) {
         if (index != -1) {
-
             String enemyName = gp.enemy[index].name;
 
             switch (enemyName) {
-                case "wolf":
+                case "Wolf":
                     enemySoundCounter++;
                     if (enemySoundCounter == 40) {
 
@@ -588,7 +587,7 @@ public class Player extends Entity {
         } else {
             if ( life < maxLife) {
                 playerTimer++;
-                if (playerTimer == 3600) {
+                if (playerTimer == 120) {
                     if (maxLife - life < increaseLife) {
                         life += maxLife - life;
                         playerTimer = 0;
@@ -619,6 +618,7 @@ public class Player extends Entity {
 
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
+                gp.enemy[enemyIndex].damageCounter = 0;
                 gp.enemy[enemyIndex].life -= 1;
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
