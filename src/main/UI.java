@@ -40,7 +40,6 @@ public class UI {
 	
 	public void draw(Graphics2D g2) {
 	    
-	    
 	    // Health Bar
 	    g2.drawRect(100, 400, 192, 50);
 	    g2.setColor(Color.red);

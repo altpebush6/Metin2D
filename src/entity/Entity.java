@@ -31,6 +31,8 @@ public class Entity {
     public String direction = "down";
     public boolean standing = false;
     public boolean attacking = false;
+    public boolean alive = true;
+    public boolean dying = false;
 	
 	// Character Attributes
 	public int type;  // player=0, enemy=1
@@ -51,6 +53,7 @@ public class Entity {
 	public int invincibleCounter = 0;
 	public boolean invincible = false;
 	public int spriteNum = 1, spriteCounter = 0;
+	int dyingCounter = 0;
 	
 	
 	public Entity(GamePanel gp) {
@@ -160,14 +163,32 @@ public class Entity {
             if(invincible) {
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             }
+            if(dying) {
+                dyingAnimation(g2);
+            }
             
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             
             // Reset transparency
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-            
-            
         }
+	}
+	
+	public void dyingAnimation(Graphics2D g2) {
+	    dyingCounter++;
+	    
+	    if(dyingCounter < 20) {
+	        changeAlpha(g2, 0f);   
+	    }else if(dyingCounter > 20 && dyingCounter < 40) {
+	        changeAlpha(g2, 1f);  
+        }else {
+            dying = false;
+            alive = false;
+        }
+	}
+	
+	public void changeAlpha(Graphics2D g2, float alphaValue) {
+	    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));   
 	}
 	
 	public BufferedImage setup(String imagePath, int width, int height) {

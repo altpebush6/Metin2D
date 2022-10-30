@@ -45,7 +45,6 @@ public class GamePanel extends JPanel implements Runnable{
 	TileManager tileM = new TileManager(this);
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
-	public UI ui = new UI(this);
 	Thread gameThread;
 	
 	// ENTITY AND OBJECT
@@ -54,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public Entity enemy[] = new Entity[10];
 	ArrayList<Entity> entityList = new ArrayList<>();
 	
+	public UI ui = new UI(this);
 
 	
 	
@@ -161,7 +161,11 @@ public class GamePanel extends JPanel implements Runnable{
 		// Enemy
 		for(int i = 0; i < enemy.length; i++) {
 		    if(enemy[i] != null) {
-		        enemy[i].update();
+		        if(enemy[i].alive && !enemy[i].dying) {
+		            enemy[i].update();
+		        }else {
+		            enemy[i] = null;
+		        }
 		    }
 		}
 		

@@ -552,7 +552,7 @@ public class Player extends Entity {
 	                    coinCounter++;
                     }
 	                
-	                gp.enemy[enemyIndex] = null;
+	                gp.enemy[enemyIndex].dying = true;
 	            }
 	        }
 	    }
