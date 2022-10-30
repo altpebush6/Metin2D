@@ -27,7 +27,10 @@ public class Player extends Entity {
 	// Player Specification
 	public int playerCoin;
 	public int playerHealth;
+	public int playerSp;
+	public int playerHealthTimer =0;
 	public String playerWeapon;
+	public int barWidth;
 	
 	// Mouse Click Movement
 	public int goalX;
@@ -51,6 +54,8 @@ public class Player extends Entity {
 
 		screenX = gp.screenWidth / 2 - gp.tileSize / 2;
 		screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+		
+		barWidth = gp.tileSize*4;;
 		
 		// CHANGE THIS ACCORDING TO CHARACTER PIXEL ART  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		solidArea = new Rectangle();
@@ -489,7 +494,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void startFight(int index) {
+	public void startFight(int index) { 
 	    
 	    if(index != -1) {
 	        
@@ -514,8 +519,7 @@ public class Player extends Entity {
                            if(!invincible) {
                                 int damage = rand.nextInt(5) + 1;
                                 playerHealth -= damage;
-                                gp.ui.healthBar -= damage;
-                                
+                                gp.ui.healthBar-= damage*2;
                                 System.out.println("Get Damage: " + damage + " Health: " + playerHealth);
                                 invincible = true;
                             }
@@ -523,6 +527,38 @@ public class Player extends Entity {
 	                
 	                break;
 	        }
+	    }
+	    else {
+	        if(gp.ui.healthBar<playerHealth*2){
+	            playerHealthTimer++;
+	            if(playerHealthTimer == 3600){
+	                
+	                if(192 - gp.ui.healthBar < 8){
+	                    gp.ui.healthBar += (playerHealth*2) - gp.ui.healthBar;
+	                    playerHealthTimer =0;
+	                }
+	                else{
+	                    gp.ui.healthBar +=8;
+	                    playerHealthTimer =0;
+	                }
+	            }
+	        }
+	        
+	        if(gp.ui.spBar<192){
+                playerHealthTimer++;
+                if(playerHealthTimer == 3600){
+                    
+                    if(192 - gp.ui.spBar < 8){
+                        gp.ui.spBar += 192 - gp.ui.spBar;
+                        playerHealthTimer =0;
+                    }
+                    else{
+                        gp.ui.spBar +=4;
+                        playerHealthTimer =0;
+                    }
+                }
+            }
+	       
 	    }
 	}
 	

@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 public class UI {
 
+<<<<<<< Updated upstream
 	GamePanel gp;
 	Font arial_30;
 	BufferedImage coinImage, dolunayImage;
@@ -75,4 +76,78 @@ public class UI {
 		}
 	}
 	
+=======
+    GamePanel gp;
+    Font arial_30;
+    BufferedImage coinImage, dolunayImage;
+
+    public int healthBar;
+    public int spBar = 192;
+
+    public boolean messageOn = false;
+    public String message = "";
+    int messageCounter = 0;
+    public int itemIndex;
+
+    public UI(GamePanel gp) {
+        this.gp = gp;
+        healthBar = gp.player.playerHealth * 2;
+        arial_30 = new Font("Arial", Font.PLAIN, 30);
+
+        try {
+            coinImage = ImageIO.read(getClass().getResourceAsStream("/objects/yang.png"));
+            dolunayImage = ImageIO.read(getClass().getResourceAsStream("/objects/dolunayItem.png"));
+        } catch (IOException e) {
+        }
+    }
+
+    public void showMessage(String text) {
+
+        message = text;
+        messageOn = true;
+    }
+
+    public void draw(Graphics2D g2) {
+
+        //SP Bar
+        g2.drawRoundRect(24, 525, gp.player.barWidth, 20, 20, 20);
+        g2.setColor(Color.blue);
+        g2.fillRoundRect(24, 525, gp.player.barWidth, 20, 20, 20);
+        // Health Bar
+        g2.setColor(Color.black);
+        g2.drawRoundRect(24, 500, gp.player.barWidth, 20, 20, 20);
+        g2.setColor(Color.red);
+        g2.fillRoundRect(24, 500, gp.player.playerHealth*2, 20, 20, 20);
+
+        // Game State yapan kişi buradaki kodları alıp gp.playState if inin içine atsın
+
+        g2.setFont(arial_30);
+        g2.setColor(Color.white);
+
+        // COIN
+        g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        g2.drawString(" " + gp.player.playerCoin, 60, 60);
+
+        switch (itemIndex) {
+            case 1:
+                g2.drawImage(dolunayImage, 335, 550, gp.tileSize / 2, gp.tileSize / 2, null);
+                break;
+        }
+
+        // MESSAGE
+        if (messageOn) {
+            g2.setFont(g2.getFont().deriveFont(20F));
+            g2.drawString(message, gp.tileSize, gp.tileSize * 11);
+
+            messageCounter++;
+
+            if (messageCounter > 120) { // Because of FPS is 60. 120 means 2 seconds
+                messageCounter = 0;
+                messageOn = false;
+            }
+
+        }
+    }
+
+>>>>>>> Stashed changes
 }
