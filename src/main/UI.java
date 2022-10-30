@@ -41,15 +41,16 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
-
-        healthBar = gp.player.playerHealth * 2;
+        double oneScale =  4 * gp.tileSize /gp.player.startPlayerHealth ;
+        double healthBar = oneScale * gp.player.playerHealth ;
+        double barWidth = oneScale * gp.player.startPlayerHealth;
         spBar = gp.player.playerSp * 2;
 
         // Health Bar
         g2.drawRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1),
-                gp.player.startPlayerHealth * (101 / 100) * 2, 15, 20, 20);
+                (int)barWidth * (101 / 100) * 2, 15, 20, 20);
         g2.setColor(Color.red);
-        g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), healthBar, 15, 20, 20);
+        g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int)healthBar *2, 15, 20, 20);
 
         // Sp Bar
         g2.setColor(Color.black);
