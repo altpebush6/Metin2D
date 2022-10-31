@@ -4,6 +4,8 @@ import main.KeyHandler;
 import main.MouseHandler;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -43,12 +45,16 @@ public class Player extends Entity {
     public int punchTimeOut = 0;
     public int holdingNum = 0;
     public int holdingCounter = 0;
+    public int noPunchCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
         this.gp = gp;
         this.keyH = keyH;
         this.mouseH = mouseH;
+        
+        type = 2;
+        name = "altpebush";
 
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
@@ -125,23 +131,21 @@ public class Player extends Entity {
 
     public void update() {
 
+        // If Player doesn't press space longer than damageTimeOut (45sec) second reset holding
+        noPunchCounter++;
+        if(noPunchCounter >= damageTimeOut) {
+            gp.player.holdingCounter = 0;
+            gp.player.holdingNum = 0;
+        }
         // When pressed space
         punchTimeOut++;
         if (keyH.spacePressed) {
+            noPunchCounter = 0;
             holdingCounter++;
-            System.out.println(holdingCounter);
             if (punchTimeOut >= damageTimeOut) {
-                if (holdingNum == 0) {
-                    gp.playSE(10);
-                    holdingNum++;
-                } else if (holdingNum == 1) {
-                    gp.playSE(11);
-                    holdingNum++;
-                } else if (holdingNum == 2) {
-                    gp.playSE(12);
-                    holdingNum++;
-                } else if (holdingNum == 3) {
-                    gp.playSE(13);
+                gp.playSE(holdingNum+10);
+                holdingNum++;
+                if (holdingNum == 4) {
                     holdingNum = 0;
                     holdingCounter = 0;
                 }
@@ -151,8 +155,7 @@ public class Player extends Entity {
             }
         }
 
-        // To avoid player to get damage every frame. Instead waits for 1 seconds and
-        // get damage.
+        // To avoid player to get damage every frame. Instead waits for 1 seconds and get damage.
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter == 60) {
@@ -188,23 +191,14 @@ public class Player extends Entity {
             goalReachedX = true;
             goalReachedY = true;
 
-            if (keyH.upPressed && keyH.leftPressed) {
-                direction = "upleft";
-            } else if (keyH.upPressed && keyH.rightPressed) {
-                direction = "upright";
-            } else if (keyH.downPressed && keyH.leftPressed) {
-                direction = "downleft";
-            } else if (keyH.downPressed && keyH.rightPressed) {
-                direction = "downright";
-            } else if (keyH.upPressed) {
-                direction = "up";
-            } else if (keyH.downPressed) {
-                direction = "down";
-            } else if (keyH.leftPressed) {
-                direction = "left";
-            } else if (keyH.rightPressed) {
-                direction = "right";
-            }
+            if (keyH.upPressed && keyH.leftPressed) {           direction = "upleft";} 
+            else if (keyH.upPressed && keyH.rightPressed) {     direction = "upright";} 
+            else if (keyH.downPressed && keyH.leftPressed) {    direction = "downleft";} 
+            else if (keyH.downPressed && keyH.rightPressed) {   direction = "downright";}
+            else if (keyH.upPressed) {                          direction = "up";}
+            else if (keyH.downPressed) {                        direction = "down";}
+            else if (keyH.leftPressed) {                        direction = "left";}
+            else if (keyH.rightPressed) {                       direction = "right";}
 
             // CHECK TILE COLLISION
             collisionOn = false;
@@ -216,42 +210,14 @@ public class Player extends Entity {
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
                 switch (direction) {
-                    case "upleft":
-                        worldY -= speed;
-                        worldX -= speed / 2;
-                        break;
-
-                    case "upright":
-                        worldY -= speed;
-                        worldX += speed / 2;
-                        break;
-
-                    case "downleft":
-                        worldY += speed;
-                        worldX -= speed / 2;
-                        break;
-
-                    case "downright":
-                        worldY += speed;
-                        worldX += speed / 2;
-                        break;
-
-                    case "up":
-                        worldY -= speed;
-                        break;
-
-                    case "down":
-                        worldY += speed;
-                        break;
-
-                    case "left":
-                        worldX -= speed;
-                        break;
-
-                    case "right":
-                        worldX += speed;
-                        break;
-
+                    case "upleft":      worldY -= speed;    worldX -= speed / 2;    break;
+                    case "upright":     worldY -= speed;    worldX += speed / 2;    break;
+                    case "downleft":    worldY += speed;    worldX -= speed / 2;    break;
+                    case "downright":   worldY += speed;    worldX += speed / 2;    break;
+                    case "up":          worldY -= speed;    break;
+                    case "down":        worldY += speed;    break;
+                    case "left":        worldX -= speed;    break;
+                    case "right":       worldX += speed;    break;
                 }
             }
 
@@ -287,7 +253,6 @@ public class Player extends Entity {
             gp.collisionChecker.checkEntity(this, gp.enemy);
 
             if (goalX > 0) { // If X goal is on the left side of char
-
                 if (worldX > beforeClickX - goalX) { // If goal point is still on the left of character
                     if (!collisionOn) {
                         if (goalY != 0) { // If player moves on x and y axis divide speed by 2
@@ -300,7 +265,6 @@ public class Player extends Entity {
                 } else { // If character reaches the point
                     goalReachedX = true;
                 }
-
             } else if (goalX < 0) { // If X goal is on the right side of char
 
                 if (worldX < beforeClickX - goalX) { // If goal point is still on the right of character
@@ -316,7 +280,6 @@ public class Player extends Entity {
                     goalReachedX = true;
                 }
             }
-
             if (goalY > 0) { // If Y goal is on the top side of char
 
                 if (worldY > beforeClickY - goalY) { // If goal point is still on the top of character
@@ -331,7 +294,6 @@ public class Player extends Entity {
                 } else { // If character reaches the point
                     goalReachedY = true;
                 }
-
             } else if (goalY < 0) { // If Y goal is on the bottom side of char
 
                 if (worldY < beforeClickY - goalY) { // If goal point is still on the bottom of character
@@ -392,6 +354,14 @@ public class Player extends Entity {
         // To avoid sliding image when sizes are different
         int tempScreenX = screenX;
         int tempScreenY = screenY;
+        
+        // Player Label
+        g2.setFont(new Font("Courier New",Font.BOLD,13));
+        g2.setColor(Color.green);
+        g2.drawString("Lv " + level, screenX - 25, screenY - 20);
+        
+        g2.setColor(Color.yellow);
+        g2.drawString(name, screenX + 20, screenY - 20);
 
         switch (direction) {
             case "up":
@@ -560,24 +530,23 @@ public class Player extends Entity {
 
             switch (enemyName) {
                 case "Wolf":
+                    
+                    // Wolf Barking
                     enemySoundCounter++;
                     if (enemySoundCounter == 40) {
-
-                        int soundChoice = rand.nextInt(2);
-
-                        if (soundChoice == 0) {
-                            gp.playSE(7);
-                        } else if (soundChoice == 1) {
-                            gp.playSE(8);
-                        }
+                        int soundChoice = rand.nextInt(2)+7;
+                        gp.playSE(soundChoice);
+                        
                         enemySoundCounter = 0;
                     }
+                    // Wolf Damaging
                     int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
                     if (enemyIndex != -1) {
                         if (!invincible) {
+                            int soundChoice = rand.nextInt(5)+14;
+                            gp.playSE(soundChoice);
                             int damage = rand.nextInt(5) + 1;
                             life -= damage;
-                            System.out.println("Get Damage: " + damage + " Health: " + life);
                             invincible = true;
                         }
                     }
@@ -622,6 +591,7 @@ public class Player extends Entity {
                 gp.enemy[enemyIndex].life -= 1;
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
+                
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.playSE(6);
                     int coinNumber = rand.nextInt(3) + 1;

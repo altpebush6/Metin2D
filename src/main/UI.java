@@ -1,8 +1,13 @@
 package main;
 
+import java.awt.Component;
+import java.awt.Window;
+import java.awt.Cursor;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -12,7 +17,7 @@ public class UI {
 
     GamePanel gp;
     Font arial_30;
-    BufferedImage coinImage, dolunayImage, hpBarImage, emptyBarImage;
+    BufferedImage coinImage, dolunayImage, hpBarImage, emptyBarImage, cursorImage;
 
     public int healthBar;
     public int spBar;
@@ -32,6 +37,7 @@ public class UI {
             dolunayImage = ImageIO.read(getClass().getResourceAsStream("/objects/dolunayItem.png"));
             hpBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar.png"));
             emptyBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/emptyBar.png"));
+            cursorImage = ImageIO.read(getClass().getResourceAsStream("/UI/cursorImage.png"));
         } catch (IOException e) {
         }
     }
@@ -47,7 +53,13 @@ public class UI {
         double healthBar = oneScale * gp.player.life;
         double barWidth = oneScale * gp.player.maxLife;
         // spBar = gp.player.playerSp * 2;
-
+        
+        // Change Cursor
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Point point = new Point(0,0);
+        Cursor cursor = toolkit.createCustomCursor(cursorImage, point, "Cursor");
+        gp.setCursor(cursor);
+        
         // Health Bar
         g2.setColor(Color.black);
         g2.drawImage(emptyBarImage, gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) barWidth, 15, null);

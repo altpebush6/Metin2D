@@ -18,7 +18,7 @@ public class ENEMY_Wolf extends Entity {
         
         name = "Wolf";
         speed = 1;
-        maxLife = 3;
+        maxLife = 4;
         life = maxLife;
         type = 1;
         direction = "down";

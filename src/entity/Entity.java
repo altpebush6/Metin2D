@@ -39,7 +39,7 @@ public class Entity {
     public boolean hpBarOn = false;
 
     // Character Attributes
-    public int type; // player=0, enemy=1
+    public int type; // enemy=1, player=2
     public String name;
     public int maxLife;
     public int life;
@@ -68,14 +68,14 @@ public class Entity {
 
     public Entity(GamePanel gp) {
         this.gp = gp;
+        
+        hpBarImage = setup("/UI/HpBar2", gp.tileSize, gp.tileSize / 8);
+        emptyBarImage = setup("/UI/emptyBar2", gp.tileSize, gp.tileSize / 8);
     }
 
-    public void setAction() {
-    }
+    public void setAction() {}
 
-    public void damageReaction() {
-
-    }
+    public void damageReaction() {}
 
     public void update() {
 
@@ -94,41 +94,14 @@ public class Entity {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn && !standing) {
             switch (direction) {
-                case "upleft":
-                    worldY -= speed;
-                    worldX -= speed / 2;
-                    break;
-
-                case "upright":
-                    worldY -= speed;
-                    worldX += speed / 2;
-                    break;
-
-                case "downleft":
-                    worldY += speed;
-                    worldX -= speed / 2;
-                    break;
-
-                case "downright":
-                    worldY += speed;
-                    worldX += speed / 2;
-                    break;
-
-                case "up":
-                    worldY -= speed;
-                    break;
-
-                case "down":
-                    worldY += speed;
-                    break;
-
-                case "left":
-                    worldX -= speed;
-                    break;
-
-                case "right":
-                    worldX += speed;
-                    break;
+                case "upleft":      worldY -= speed;    worldX -= speed / 2;    break;
+                case "upright":     worldY -= speed;    worldX += speed / 2;    break;
+                case "downleft":    worldY += speed;    worldX -= speed / 2;    break;
+                case "downright":   worldY += speed;    worldX += speed / 2;    break;
+                case "up":          worldY -= speed;    break;
+                case "down":        worldY += speed;    break;
+                case "left":        worldX -= speed;    break;
+                case "right":       worldX += speed;    break;
             }
         }
 
@@ -231,15 +204,10 @@ public class Entity {
                 double hpBarValue = oneScale * life;
                 double maxBar = oneScale * maxLife;
                                 
-                hpBarImage = setup("/UI/HpBar2", (int) hpBarValue, gp.tileSize / 8);
-                emptyBarImage = setup("/UI/emptyBar2", (int) hpBarValue, gp.tileSize / 8);
-                
                 g2.drawImage(emptyBarImage, screenX, screenY - 10, (int)maxBar, gp.tileSize / 8, null);
-                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, (int)hpBarValue - 3, gp.tileSize / 8, null);
-                
-
+                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int)hpBarValue - 3), gp.tileSize / 8, null);
+               
                 hpBarCounter++;
-
                 if (hpBarCounter > 600) {
                     hpBarCounter = 0;
                     hpBarOn = false;

@@ -299,7 +299,6 @@ public class CollisionChecker {
                 
                 if(hipotenus <= distance) {
                     index = i;
-                    System.out.println("Enemy Attacks!");
                 }
                 /*
                 // Get Entity's solid area position

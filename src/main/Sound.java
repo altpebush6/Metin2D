@@ -27,6 +27,11 @@ public class Sound {
         soundURL[11] = getClass().getResource("/sounds/fight2.wav");
         soundURL[12] = getClass().getResource("/sounds/fight3.wav");
         soundURL[13] = getClass().getResource("/sounds/fight4.wav");
+        soundURL[14] = getClass().getResource("/sounds/playerGetDamage1.wav");
+        soundURL[15] = getClass().getResource("/sounds/playerGetDamage2.wav");
+        soundURL[16] = getClass().getResource("/sounds/playerGetDamage3.wav");
+        soundURL[17] = getClass().getResource("/sounds/playerGetDamage4.wav");
+        soundURL[18] = getClass().getResource("/sounds/playerGetDamage5.wav");
 	}
 	
 	public void setFile(int index) {
