@@ -69,7 +69,11 @@ public class Entity {
     public Entity(GamePanel gp) {
         this.gp = gp;
         
-        hpBarImage = setup("/UI/HpBar2", gp.tileSize, gp.tileSize / 8);
+        getImages();
+    }
+    
+    public void getImages() {
+        hpBarImage = setup("/UI/HpBarEnemy", gp.tileSize, gp.tileSize / 8);
         emptyBarImage = setup("/UI/emptyBar2", gp.tileSize, gp.tileSize / 8);
     }
 

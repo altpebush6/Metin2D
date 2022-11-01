@@ -17,10 +17,13 @@ public class UI {
 
     GamePanel gp;
     Font arial_30;
-    BufferedImage coinImage, dolunayImage, hpBarImage, emptyBarImage, cursorImage;
+    BufferedImage coinImage, dolunayImage,hpBarImage, hpBarImage1,hpBarImage2,hpBarImage3,hpBarImage4,hpBarImage5,hpBarImage6,hpBarImage7,hpBarImage8, emptyBarImage, cursorImage;
 
+    
     public int healthBar;
     public int spBar;
+    
+    public int hpBarCounter = 0;
 
     public boolean messageOn = false;
     public String message = "";
@@ -35,7 +38,14 @@ public class UI {
         try {
             coinImage = ImageIO.read(getClass().getResourceAsStream("/objects/yang.png"));
             dolunayImage = ImageIO.read(getClass().getResourceAsStream("/objects/dolunayItem.png"));
-            hpBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar.png"));
+            hpBarImage1 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar.png"));
+            hpBarImage2 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar2.png"));
+            hpBarImage3 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar3.png"));
+            hpBarImage4 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar4.png"));
+            hpBarImage5 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar5.png"));
+            hpBarImage6 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar6.png"));
+            hpBarImage7 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar7.png"));
+            hpBarImage8 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar8.png"));
             emptyBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/emptyBar.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/UI/cursorImage.png"));
         } catch (IOException e) {
@@ -63,6 +73,27 @@ public class UI {
         // Health Bar
         g2.setColor(Color.black);
         g2.drawImage(emptyBarImage, gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) barWidth, 15, null);
+        
+        System.out.println(hpBarCounter++);;
+        if(hpBarCounter < 10) {
+            hpBarImage = hpBarImage1;
+        }else if(hpBarCounter < 20) {
+            hpBarImage = hpBarImage2;
+        }else if(hpBarCounter < 30) {
+            hpBarImage = hpBarImage3;
+        }else if(hpBarCounter < 40) {
+            hpBarImage = hpBarImage4;
+        }else if(hpBarCounter < 50) {
+            hpBarImage = hpBarImage5;
+        }else if(hpBarCounter < 60) {
+            hpBarImage = hpBarImage6;
+        }else if(hpBarCounter < 70) {
+            hpBarImage = hpBarImage7;
+        }else if(hpBarCounter < 80) {
+            hpBarImage = hpBarImage8;  
+            hpBarCounter = 0;
+        }
+        
         g2.drawImage(hpBarImage, gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) healthBar, 15, null);
 
         // Sp Bar
