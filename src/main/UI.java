@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.Component;
-import java.awt.Window;
 import java.awt.Cursor;
 import java.awt.Color;
 import java.awt.Font;
@@ -74,22 +72,22 @@ public class UI {
         g2.setColor(Color.black);
         g2.drawImage(emptyBarImage, gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1), (int) barWidth, 15, null);
         
-        System.out.println(hpBarCounter++);;
-        if(hpBarCounter < 10) {
+        hpBarCounter++;
+        if(hpBarCounter < 15) {
             hpBarImage = hpBarImage1;
-        }else if(hpBarCounter < 20) {
-            hpBarImage = hpBarImage2;
         }else if(hpBarCounter < 30) {
+            hpBarImage = hpBarImage2;
+        }else if(hpBarCounter < 45) {
             hpBarImage = hpBarImage3;
-        }else if(hpBarCounter < 40) {
-            hpBarImage = hpBarImage4;
-        }else if(hpBarCounter < 50) {
-            hpBarImage = hpBarImage5;
         }else if(hpBarCounter < 60) {
+            hpBarImage = hpBarImage4;
+        }else if(hpBarCounter < 75) {
+            hpBarImage = hpBarImage5;
+        }else if(hpBarCounter < 90) {
             hpBarImage = hpBarImage6;
-        }else if(hpBarCounter < 70) {
+        }else if(hpBarCounter < 105) {
             hpBarImage = hpBarImage7;
-        }else if(hpBarCounter < 80) {
+        }else if(hpBarCounter < 120) {
             hpBarImage = hpBarImage8;  
             hpBarCounter = 0;
         }

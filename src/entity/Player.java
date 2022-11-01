@@ -2,6 +2,7 @@ package entity;
 
 import main.KeyHandler;
 import main.MouseHandler;
+import main.MovePlayer;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -9,12 +10,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
-
 import main.GamePanel;
 
 public class Player extends Entity {
@@ -23,14 +19,15 @@ public class Player extends Entity {
     KeyHandler keyH;
     MouseHandler mouseH;
 
-    public final int screenX; // Where we draw player on screen X
-    public final int screenY; // Where we draw player on screen Y
+    public int screenX; // Where we draw player on screen X
+    public int screenY; // Where we draw player on screen Y
 
     // Player Specification
     public int playerCoin;
     public String playerWeapon;
     public int playerTimer;
     public int increaseLife;
+    public int speedDefault;
 
     // Mouse Click Movement
     public int goalX;
@@ -84,7 +81,8 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 2;
+        speed = 5;
+        speedDefault = speed;
         direction = "down";
 
         // Player Specifications
@@ -183,7 +181,7 @@ public class Player extends Entity {
             attack();
             speed = 1;
         } else {
-            speed = 2;
+            speed = speedDefault;
         }
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             // Finish mouse event
@@ -206,19 +204,11 @@ public class Player extends Entity {
 
             // CHECK ENEMY COLLISION
             gp.collisionChecker.checkEntity(this, gp.enemy);
-
+            
+            
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
-                switch (direction) {
-                    case "upleft":      worldY -= speed;    worldX -= speed / 2;    break;
-                    case "upright":     worldY -= speed;    worldX += speed / 2;    break;
-                    case "downleft":    worldY += speed;    worldX -= speed / 2;    break;
-                    case "downright":   worldY += speed;    worldX += speed / 2;    break;
-                    case "up":          worldY -= speed;    break;
-                    case "down":        worldY += speed;    break;
-                    case "left":        worldX -= speed;    break;
-                    case "right":       worldX += speed;    break;
-                }
+                MovePlayer.move(gp);
             }
 
             // Step Sound
