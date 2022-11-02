@@ -2,6 +2,9 @@ package main;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class UtilityTool {
 	
@@ -14,4 +17,20 @@ public class UtilityTool {
 		
 		return scaledImage;
 	}
+	
+    public BufferedImage setup(String imagePath, int width, int height) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image, width, height);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+    }
 }

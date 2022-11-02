@@ -17,6 +17,7 @@ public class UI {
     Font arial_30;
     BufferedImage coinImage, dolunayImage,hpBarImage, hpBarImage1,hpBarImage2,hpBarImage3,hpBarImage4,hpBarImage5,hpBarImage6,hpBarImage7,hpBarImage8, emptyBarImage, cursorImage;
     BufferedImage auroOfSwordImage, swordSpinImage;
+    BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     
     public int healthBar;
     public int spBar;
@@ -33,23 +34,24 @@ public class UI {
 
         arial_30 = new Font("Arial", Font.PLAIN, 30);
 
-        try {
-            coinImage = ImageIO.read(getClass().getResourceAsStream("/objects/yang.png"));
-            dolunayImage = ImageIO.read(getClass().getResourceAsStream("/objects/dolunayItem.png"));
-            hpBarImage1 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar.png"));
-            hpBarImage2 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar2.png"));
-            hpBarImage3 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar3.png"));
-            hpBarImage4 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar4.png"));
-            hpBarImage5 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar5.png"));
-            hpBarImage6 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar6.png"));
-            hpBarImage7 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar7.png"));
-            hpBarImage8 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar8.png"));
-            emptyBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/emptyBar.png"));
-            cursorImage = ImageIO.read(getClass().getResourceAsStream("/UI/cursorImage.png"));
-            auroOfSwordImage = ImageIO.read(getClass().getResourceAsStream("/skills/AuroOfSword.png"));
-            swordSpinImage = ImageIO.read(getClass().getResourceAsStream("/skills/SwordSpin.png"));
-        } catch (IOException e) {
+        coinImage           = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
+        dolunayImage        = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
+        hpBarImage1         = gp.uTool.setup("/UI/HpBar", gp.tileSize, gp.tileSize);
+        hpBarImage2         = gp.uTool.setup("/UI/HpBar2", gp.tileSize, gp.tileSize);
+        hpBarImage3         = gp.uTool.setup("/UI/HpBar3", gp.tileSize, gp.tileSize);
+        hpBarImage4         = gp.uTool.setup("/UI/HpBar4", gp.tileSize, gp.tileSize);
+        hpBarImage5         = gp.uTool.setup("/UI/HpBar5", gp.tileSize, gp.tileSize);
+        hpBarImage6         = gp.uTool.setup("/UI/HpBar6", gp.tileSize, gp.tileSize);
+        hpBarImage7         = gp.uTool.setup("/UI/HpBar7", gp.tileSize, gp.tileSize);
+        hpBarImage8         = gp.uTool.setup("/UI/HpBar8", gp.tileSize, gp.tileSize);
+        emptyBarImage       = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
+        cursorImage         = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
+        auroOfSwordImage    = gp.uTool.setup("/skills/AuroOfSword", gp.tileSize, gp.tileSize);
+        swordSpinImage      = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
+        for(int i=0;i<20;i++) {
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme"+(20-i), gp.tileSize, gp.tileSize);
         }
+        
     }
 
     public void showMessage(String text) {
@@ -65,8 +67,15 @@ public class UI {
         // spBar = gp.player.playerSp * 2;
         
         // Skills
-        if(gp.skills.swordSpinUsed) {
-            g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        System.out.println(gp.skills.swordSpinTimeOut);
+        
+        g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        
+        int i = gp.player.skillStandbyTime / 20; // 15 (per 15 seconds)
+        
+        if(gp.skills.swordSpinTimeOut != 0) {    
+                g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / i], gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);   
+
         }
         
         

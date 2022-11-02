@@ -44,6 +44,7 @@ public class Player extends Entity {
     public int holdingCounter = 0;
     public int noPunchCounter = 0;
     public int skillSpriteCounter = 0;
+    public int skillStandbyTime = 600; // 10s
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -155,15 +156,28 @@ public class Player extends Entity {
             }
         }
         
+        if(gp.skills.swordSpinTimeOut != 0) {
+            gp.skills.swordSpinTimeOut++;
+        }
+        
         // When pressed 2
-        int skillTimeOut = 180;
-        if (gp.skills.swordSpinUsed) {
-            System.out.println("Kılıç Çevirme Yenileniyor "+(skillTimeOut-gp.skills.swordSpinCounter)/60+"sn");
+        
+        
+        if(gp.skills.swordSpinTimeOut == skillStandbyTime) {
+            gp.skills.swordSpinTimeOut = 0;
+        }
+        
+        
+        int skillTimeOut = 120;
+        if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
             useSkill(gp.skills.skillType);
+            speed = 1;
             gp.skills.swordSpinCounter++;
             if(gp.skills.swordSpinCounter == skillTimeOut) {
                 gp.skills.swordSpinCounter = 0;
                 gp.skills.swordSpinUsed = false;
+                spriteNum = 1;
+                gp.skills.swordSpinTimeOut++;
             }
         }else if (attacking) {
             attack();
@@ -237,14 +251,16 @@ public class Player extends Entity {
                 stepCounter = 0;
             }
 
-            spriteCounter++;
-            if (spriteCounter > 12) {
-                if (spriteNum == 3) {
-                    spriteNum = 1;
-                } else {
-                    spriteNum++;
+            if(!gp.skills.swordSpinUsed && !attacking) {
+                spriteCounter++;
+                if (spriteCounter > 12) {
+                    if (spriteNum >= 3) {
+                        spriteNum = 1;
+                    } else {
+                        spriteNum++;
+                    }
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
             }
         } else if (goalX != 0 || goalY != 0) { // if there is a point to go
 
@@ -327,14 +343,16 @@ public class Player extends Entity {
             }
 
             // to animate character movement
-            spriteCounter++;
-            if (spriteCounter > 10) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            if(!gp.skills.swordSpinUsed && !attacking) {
+                spriteCounter++;
+                if (spriteCounter > 10) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
             }
 
             if (goalReachedX) {
@@ -365,88 +383,94 @@ public class Player extends Entity {
         
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 20, screenY - 20);
-
-        switch (direction) {
-            case "up":
-            case "upleft":
-            case "upright":
-                if (attacking) {
-                    if (spriteNum == 1)
-                        image = attackUp1;
-                    if (spriteNum == 2)
-                        image = attackUp2;
-
-                    tempScreenY = screenY - gp.tileSize; // To avoid sliding image when image sizes are different
-                } else {
-                    if (spriteNum == 1)
-                        image = up1;
-                    if (spriteNum == 2)
-                        image = up2;
-                    if (spriteNum == 3)
-                        image = up3;
-                }
-
-                break;
-            case "down":
-            case "downleft":
-            case "downright":
-                if (attacking) {
-                    if (spriteNum == 1)
-                        image = attackDown1;
-                    if (spriteNum == 2)
-                        image = attackDown2;
-                } else {
-                    if (spriteNum == 1)
-                        image = down1;
-                    if (spriteNum == 2)
-                        image = down2;
-                    if (spriteNum == 3)
-                        image = down3;
-                }
-                break;
-            case "left":
-                if (attacking) {
-                    if (spriteNum == 1)
-                        image = attackLeft1;
-                    if (spriteNum == 2)
-                        image = attackLeft2;
-
-                    tempScreenX = screenX - gp.tileSize; // To avoid sliding image when image sizes are different
-                } else {
-                    if (spriteNum == 1)
-                        image = left1;
-                    if (spriteNum == 2)
-                        image = left2;
-                    if (spriteNum == 3)
-                        image = left3;
-                }
-
-                break;
-            case "right":
-                if(gp.skills.swordSpinUsed) {
-                    if (spriteNum == 1)
-                        image = attackRight2;
-                    if (spriteNum == 2)
-                        image = attackUp2;
-                    if (spriteNum == 3)
-                        image = attackLeft2;
-                    if (spriteNum == 4)
-                        image = attackDown2;
-                }else if (attacking) {
-                    if (spriteNum == 1)
-                        image = attackRight1;
-                    if (spriteNum == 2)
-                        image = attackRight2;
-                } else {
-                    if (spriteNum == 1)
-                        image = right1;
-                    if (spriteNum == 2)
-                        image = right2;
-                    if (spriteNum == 3)
-                        image = right3;
-                }
-                break;
+        
+        if(gp.skills.swordSpinUsed) {
+            if (spriteNum == 1)
+                image = attackRight2;
+            if (spriteNum == 2) {
+                image = attackUp2;
+                tempScreenY = screenY - gp.tileSize;
+            }if (spriteNum == 3) {
+                tempScreenX = screenX - gp.tileSize;
+                image = attackLeft2;
+            }if (spriteNum == 4)
+                image = attackDown2;
+        }else {       
+            switch (direction) {
+                case "up":
+                case "upleft":
+                case "upright":
+                    if (attacking) {
+                        if (spriteNum == 1)
+                            image = attackUp1;
+                        if (spriteNum == 2)
+                            image = attackUp2;
+    
+                        tempScreenY = screenY - gp.tileSize; // To avoid sliding image when image sizes are different
+                    } else {
+                        if (spriteNum == 1)
+                            image = up1;
+                        if (spriteNum == 2)
+                            image = up2;
+                        if (spriteNum == 3)
+                            image = up3;
+                    }
+    
+                    break;
+                case "down":
+                case "downleft":
+                case "downright":
+                    if (attacking) {
+                        if (spriteNum == 1)
+                            image = attackDown1;
+                        if (spriteNum == 2)
+                            image = attackDown2;
+                    } else {
+                        if (spriteNum == 1)
+                            image = down1;
+                        if (spriteNum == 2)
+                            image = down2;
+                        if (spriteNum == 3)
+                            image = down3;
+                    }
+                    break;
+                case "left":
+                    if (attacking) {
+                        if (spriteNum == 1)
+                            image = attackLeft1;
+                        if (spriteNum == 2)
+                            image = attackLeft2;
+    
+                        tempScreenX = screenX - gp.tileSize; // To avoid sliding image when image sizes are different
+                    } else {
+                        if (spriteNum == 1)
+                            image = left1;
+                        if (spriteNum == 2)
+                            image = left2;
+                        if (spriteNum == 3)
+                            image = left3;
+                    }
+    
+                    break;
+                case "right":
+                    if (attacking) {
+                        if (spriteNum == 1)
+                            image = attackRight1;
+                        if (spriteNum == 2)
+                            image = attackRight2;
+                    } else {
+                        if (spriteNum == 1)
+                            image = right1;
+                        if (spriteNum == 2)
+                            image = right2;
+                        if (spriteNum == 3)
+                            image = right3;
+                    }
+                    break;  
+              }
         }
+
+ 
       
 
         // Set player transparent after damage
