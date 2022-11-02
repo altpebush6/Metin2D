@@ -38,11 +38,12 @@ public class Player extends Entity {
     boolean goalReachedY = false;
 
     public Random rand = new Random();
-
+    
     public int punchTimeOut = 0;
     public int holdingNum = 0;
     public int holdingCounter = 0;
     public int noPunchCounter = 0;
+    public int skillSpriteCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -135,6 +136,7 @@ public class Player extends Entity {
             gp.player.holdingCounter = 0;
             gp.player.holdingNum = 0;
         }
+        
         // When pressed space
         punchTimeOut++;
         if (keyH.spacePressed) {
@@ -151,6 +153,23 @@ public class Player extends Entity {
                 punchTimeOut = 0;
                 attacking = true;
             }
+        }
+        
+        // When pressed 2
+        int skillTimeOut = 180;
+        if (gp.skills.swordSpinUsed) {
+            System.out.println("Kılıç Çevirme Yenileniyor "+(skillTimeOut-gp.skills.swordSpinCounter)/60+"sn");
+            useSkill(gp.skills.skillType);
+            gp.skills.swordSpinCounter++;
+            if(gp.skills.swordSpinCounter == skillTimeOut) {
+                gp.skills.swordSpinCounter = 0;
+                gp.skills.swordSpinUsed = false;
+            }
+        }else if (attacking) {
+            attack();
+            speed = 1;
+        } else {
+            speed = speedDefault;
         }
 
         // To avoid player to get damage every frame. Instead waits for 1 seconds and get damage.
@@ -177,12 +196,6 @@ public class Player extends Entity {
         int enemyIndex = gp.collisionChecker.checkFightArea(this, gp.enemy);
         startFight(enemyIndex);
 
-        if (attacking) {
-            attack();
-            speed = 1;
-        } else {
-            speed = speedDefault;
-        }
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             // Finish mouse event
             mouseH.pressed = false;
@@ -410,7 +423,16 @@ public class Player extends Entity {
 
                 break;
             case "right":
-                if (attacking) {
+                if(gp.skills.swordSpinUsed) {
+                    if (spriteNum == 1)
+                        image = attackRight2;
+                    if (spriteNum == 2)
+                        image = attackUp2;
+                    if (spriteNum == 3)
+                        image = attackLeft2;
+                    if (spriteNum == 4)
+                        image = attackDown2;
+                }else if (attacking) {
                     if (spriteNum == 1)
                         image = attackRight1;
                     if (spriteNum == 2)
@@ -425,6 +447,7 @@ public class Player extends Entity {
                 }
                 break;
         }
+      
 
         // Set player transparent after damage
         if (invincible) {
@@ -488,6 +511,22 @@ public class Player extends Entity {
             spriteCounter = 0;
             attacking = false;
         }
+    }
+    
+    public void useSkill(int skillType) {
+        if(skillSpriteCounter < 5) {
+            spriteNum = 1;
+        }else if(skillSpriteCounter < 10) {
+            spriteNum = 2;
+        }else if(skillSpriteCounter < 15) {
+            spriteNum = 3;
+        }else if(skillSpriteCounter < 20) {
+            spriteNum = 4;
+        }else {
+            spriteNum = 1;
+            skillSpriteCounter = 0;
+        }
+        skillSpriteCounter++;
     }
 
     public void pickUpObject(int index) {
@@ -574,7 +613,6 @@ public class Player extends Entity {
     }
 
     public void damageEnemy(int enemyIndex) {
-
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
                 gp.enemy[enemyIndex].damageCounter = 0;

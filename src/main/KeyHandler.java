@@ -5,7 +5,9 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed, quotePressed, openDebug, spacePressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean quotePressed, openDebug;
+	public boolean spacePressed;
 	
    GamePanel gp;
     
@@ -43,9 +45,21 @@ public class KeyHandler implements KeyListener{
 				openDebug = true;
 			}
 		}
-		if(code == KeyEvent.VK_SPACE) {
-		    spacePressed = true;
-		}
+        if(code == KeyEvent.VK_SPACE) {
+            
+        }
+        if(code == KeyEvent.VK_1) {
+
+        }
+        if(code == KeyEvent.VK_2) {
+            gp.skills.swordSpinUsed = true;
+            gp.skills.swordSpinCounter++;
+            gp.skills.skillType = 2; 
+        }
+        if(code == KeyEvent.VK_3) {
+        }
+        if(code == KeyEvent.VK_4) {
+        }
 			
 	}
 

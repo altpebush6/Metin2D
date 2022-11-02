@@ -8,6 +8,7 @@ import java.util.Comparator;
 import javax.swing.JPanel;
 import entity.Entity;
 import entity.Player;
+import entity.Skills;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -46,9 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public Entity obj[] = new Entity[100];
 	public Entity enemy[] = new Entity[100];
 	ArrayList<Entity> entityList = new ArrayList<>();
-	
-
-	
+	public Skills skills = new Skills();
 	
 	public GamePanel() {
 		

@@ -16,7 +16,7 @@ public class UI {
     GamePanel gp;
     Font arial_30;
     BufferedImage coinImage, dolunayImage,hpBarImage, hpBarImage1,hpBarImage2,hpBarImage3,hpBarImage4,hpBarImage5,hpBarImage6,hpBarImage7,hpBarImage8, emptyBarImage, cursorImage;
-
+    BufferedImage auroOfSwordImage, swordSpinImage;
     
     public int healthBar;
     public int spBar;
@@ -46,6 +46,8 @@ public class UI {
             hpBarImage8 = ImageIO.read(getClass().getResourceAsStream("/UI/HpBar8.png"));
             emptyBarImage = ImageIO.read(getClass().getResourceAsStream("/UI/emptyBar.png"));
             cursorImage = ImageIO.read(getClass().getResourceAsStream("/UI/cursorImage.png"));
+            auroOfSwordImage = ImageIO.read(getClass().getResourceAsStream("/skills/AuroOfSword.png"));
+            swordSpinImage = ImageIO.read(getClass().getResourceAsStream("/skills/SwordSpin.png"));
         } catch (IOException e) {
         }
     }
@@ -61,6 +63,12 @@ public class UI {
         double healthBar = oneScale * gp.player.life;
         double barWidth = oneScale * gp.player.maxLife;
         // spBar = gp.player.playerSp * 2;
+        
+        // Skills
+        if(gp.skills.swordSpinUsed) {
+            g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        }
+        
         
         // Change Cursor
         Toolkit toolkit = Toolkit.getDefaultToolkit();
