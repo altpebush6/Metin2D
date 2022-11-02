@@ -83,7 +83,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 5;
+        speed = 2;
         speedDefault = speed;
         direction = "down";
 
@@ -143,7 +143,11 @@ public class Player extends Entity {
         if (keyH.spacePressed && !gp.skills.skillUsed) {
             noPunchCounter = 0;
             holdingCounter++;
+            spriteCounter++;
             if (punchTimeOut >= damageTimeOut) {
+                if(spriteCounter > 25) {
+                    spriteCounter = 0;
+                }
                 gp.playSE(holdingNum+10);
                 holdingNum++;
                 if (holdingNum == 4) {
@@ -484,7 +488,7 @@ public class Player extends Entity {
     }
 
     public void attack() {
-
+        System.out.println(spriteCounter);
         if (spriteCounter <= 5) {
             spriteNum = 1;
         } else if (spriteCounter > 5 && spriteCounter <= 25) {
