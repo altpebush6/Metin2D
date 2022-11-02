@@ -44,7 +44,7 @@ public class Player extends Entity {
     public int holdingCounter = 0;
     public int noPunchCounter = 0;
     public int skillSpriteCounter = 0;
-    public int skillStandbyTime = 600; // 10s
+    public int skillStandbyTime = 120; // 10s
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -140,7 +140,7 @@ public class Player extends Entity {
         
         // When pressed space
         punchTimeOut++;
-        if (keyH.spacePressed) {
+        if (keyH.spacePressed && !gp.skills.skillUsed) {
             noPunchCounter = 0;
             holdingCounter++;
             if (punchTimeOut >= damageTimeOut) {
@@ -160,22 +160,21 @@ public class Player extends Entity {
             gp.skills.swordSpinTimeOut++;
         }
         
-        // When pressed 2
-        
-        
         if(gp.skills.swordSpinTimeOut == skillStandbyTime) {
             gp.skills.swordSpinTimeOut = 0;
         }
-        
-        
         int skillTimeOut = 120;
         if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
-            useSkill(gp.skills.skillType);
+            if(gp.skills.swordSpinCounter > 45) {
+                useSkill(gp.skills.skillType);  
+                gp.skills.skillUsed = true;
+            }
             speed = 1;
             gp.skills.swordSpinCounter++;
             if(gp.skills.swordSpinCounter == skillTimeOut) {
                 gp.skills.swordSpinCounter = 0;
                 gp.skills.swordSpinUsed = false;
+                gp.skills.skillUsed = false;
                 spriteNum = 1;
                 gp.skills.swordSpinTimeOut++;
             }
@@ -185,7 +184,7 @@ public class Player extends Entity {
         } else {
             speed = speedDefault;
         }
-
+        
         // To avoid player to get damage every frame. Instead waits for 1 seconds and get damage.
         if (invincible) {
             invincibleCounter++;
@@ -251,7 +250,7 @@ public class Player extends Entity {
                 stepCounter = 0;
             }
 
-            if(!gp.skills.swordSpinUsed && !attacking) {
+            if(!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
                 if (spriteCounter > 12) {
                     if (spriteNum >= 3) {
@@ -343,7 +342,7 @@ public class Player extends Entity {
             }
 
             // to animate character movement
-            if(!gp.skills.swordSpinUsed && !attacking) {
+            if(!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
                 if (spriteCounter > 10) {
                     if (spriteNum == 1) {
@@ -384,7 +383,7 @@ public class Player extends Entity {
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 20, screenY - 20);
         
-        if(gp.skills.swordSpinUsed) {
+        if(gp.skills.skillUsed) {
             if (spriteNum == 1)
                 image = attackRight2;
             if (spriteNum == 2) {
@@ -538,19 +537,46 @@ public class Player extends Entity {
     }
     
     public void useSkill(int skillType) {
+        
+        // Save the current worldX, worldY, solidArea
+        int currentWorldX = worldX;
+        int currentWorldY = worldY;
+        int solidAreaWidth = solidArea.width;
+        int solidAreaHeight = solidArea.height;
+        
+        
         if(skillSpriteCounter < 5) {
             spriteNum = 1;
+            worldX += attackArea.width;
         }else if(skillSpriteCounter < 10) {
             spriteNum = 2;
+            worldY -= attackArea.height;
         }else if(skillSpriteCounter < 15) {
             spriteNum = 3;
+            worldX -= attackArea.width;
         }else if(skillSpriteCounter < 20) {
             spriteNum = 4;
+            worldY += attackArea.height;
         }else {
             spriteNum = 1;
             skillSpriteCounter = 0;
         }
         skillSpriteCounter++;
+        
+
+        // Attack area becomes solidArea
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+
+        int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy); // check enemy collision with the updated
+                                                                          // worldX, worldY and solidArea
+        damageEnemy(enemyIndex);
+
+        worldX = currentWorldX;
+        worldY = currentWorldY;
+        solidArea.width = solidAreaWidth;
+        solidArea.height = solidAreaHeight;
+    
     }
 
     public void pickUpObject(int index) {

@@ -66,9 +66,7 @@ public class UI {
         double barWidth = oneScale * gp.player.maxLife;
         // spBar = gp.player.playerSp * 2;
         
-        // Skills
-        System.out.println(gp.skills.swordSpinTimeOut);
-        
+        // Skills        
         g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
         
         int i = gp.player.skillStandbyTime / 20; // 15 (per 15 seconds)

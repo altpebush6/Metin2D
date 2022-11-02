@@ -53,9 +53,12 @@ public class KeyHandler implements KeyListener{
 
         }
         if(code == KeyEvent.VK_2) {
-            gp.skills.swordSpinUsed = true;
-            gp.skills.swordSpinCounter++;
-            gp.skills.skillType = 2; 
+            if(gp.skills.swordSpinTimeOut == 0) {
+                gp.skills.swordSpinUsed = true;
+                gp.skills.swordSpinCounter++;
+                gp.skills.skillType = 2; 
+                gp.playSE(19);
+            }
         }
         if(code == KeyEvent.VK_3) {
         }

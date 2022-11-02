@@ -25,11 +25,7 @@ public class AssetSetter {
         gp.obj[1].worldX = 28 * gp.tileSize;
         gp.obj[1].worldY = 18 * gp.tileSize;
 
-        gp.obj[2] = new OBJ_Dolunay(gp);
-        gp.obj[2].worldX = 27 * gp.tileSize;
-        gp.obj[2].worldY = 27 * gp.tileSize;
-
-        index += 3;
+        index += 5;
     }
 
     public void createCoin(int worldX, int worldY) {
@@ -56,6 +52,22 @@ public class AssetSetter {
         gp.enemy[1] = new ENEMY_Wolf(gp);
         gp.enemy[1].worldX = gp.tileSize * 25;
         gp.enemy[1].worldY = gp.tileSize * 24;
+        
+        gp.enemy[2] = new ENEMY_Wolf(gp);
+        gp.enemy[2].worldX = gp.tileSize * 26;
+        gp.enemy[2].worldY = gp.tileSize * 24;
+        
+        gp.enemy[3] = new ENEMY_Wolf(gp);
+        gp.enemy[3].worldX = gp.tileSize * 27;
+        gp.enemy[3].worldY = gp.tileSize * 24;
+        
+        gp.enemy[4] = new ENEMY_Wolf(gp);
+        gp.enemy[4].worldX = gp.tileSize * 22;
+        gp.enemy[4].worldY = gp.tileSize * 24;
+        
+        gp.enemy[5] = new ENEMY_Wolf(gp);
+        gp.enemy[5].worldX = gp.tileSize * 28;
+        gp.enemy[5].worldY = gp.tileSize * 24;
 
     }
 }
