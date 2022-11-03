@@ -52,22 +52,11 @@ public class AssetSetter {
         gp.enemy[1] = new ENEMY_Wolf(gp);
         gp.enemy[1].worldX = gp.tileSize * 25;
         gp.enemy[1].worldY = gp.tileSize * 24;
-        
-        gp.enemy[2] = new ENEMY_Wolf(gp);
-        gp.enemy[2].worldX = gp.tileSize * 26;
-        gp.enemy[2].worldY = gp.tileSize * 24;
-        
-        gp.enemy[3] = new ENEMY_Wolf(gp);
-        gp.enemy[3].worldX = gp.tileSize * 27;
-        gp.enemy[3].worldY = gp.tileSize * 24;
+
         
         gp.enemy[4] = new ENEMY_Wolf(gp);
         gp.enemy[4].worldX = gp.tileSize * 22;
         gp.enemy[4].worldY = gp.tileSize * 24;
         
-        gp.enemy[5] = new ENEMY_Wolf(gp);
-        gp.enemy[5].worldX = gp.tileSize * 28;
-        gp.enemy[5].worldY = gp.tileSize * 24;
-
     }
 }
