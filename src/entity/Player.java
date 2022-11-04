@@ -45,7 +45,11 @@ public class Player extends Entity {
     public int noPunchCounter = 0;
     public int skillSpriteCounter = 0;
     public int skillStandbyTime = 120; // 10s
-
+    public int clickCounter = 0;
+    public boolean spacePressed = false;
+    public boolean doubleClicked = false;
+    
+    
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
         this.gp = gp;
@@ -53,7 +57,7 @@ public class Player extends Entity {
         this.mouseH = mouseH;
         
         type = 2;
-        name = "altpebush";
+        name = "xKralTr";
 
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
@@ -131,7 +135,12 @@ public class Player extends Entity {
 
     public void update() {
 
+        clickCounter++;  // to detect double click
+        
+        
+        
         // If Player doesn't press space longer than damageTimeOut (45sec) second reset holding
+        
         noPunchCounter++;
         if(noPunchCounter >= damageTimeOut) {
             gp.player.holdingCounter = 0;
@@ -141,6 +150,7 @@ public class Player extends Entity {
         // When pressed space
         punchTimeOut++;
         if (keyH.spacePressed && !gp.skills.skillUsed) {
+            //System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut: "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
             holdingCounter++;
             spriteCounter++;
@@ -148,17 +158,17 @@ public class Player extends Entity {
                 if(spriteCounter > 25) {
                     spriteCounter = 0;
                 }
+                punchTimeOut = 0;
+                attacking = true;
                 gp.playSE(holdingNum+10);
                 holdingNum++;
                 if (holdingNum == 4) {
                     holdingNum = 0;
                     holdingCounter = 0;
                 }
-
-                punchTimeOut = 0;
-                attacking = true;
             }
         }
+        
         
         if(gp.skills.swordSpinTimeOut != 0) {
             gp.skills.swordSpinTimeOut++;
@@ -185,7 +195,7 @@ public class Player extends Entity {
         }else if (attacking) {
             attack();
             speed = 1;
-        } else {
+        }else {
             speed = speedDefault;
         }
         
@@ -488,7 +498,6 @@ public class Player extends Entity {
     }
 
     public void attack() {
-        System.out.println(spriteCounter);
         if (spriteCounter <= 5) {
             spriteNum = 1;
         } else if (spriteCounter > 5 && spriteCounter <= 25) {
