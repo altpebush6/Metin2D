@@ -2,28 +2,32 @@ package main;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JWindow;
 
 public class Main {
-
+    
+    public static JFrame window;
+    
 	public static void main(String[] args) throws Exception {
 
-		JFrame f = new JFrame("Metin2");
+		window = new JFrame("Metin2");
 		
 		//f.setUndecorated(true); // To close top bar
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		window.setUndecorated(true);
 		
 		GamePanel gamePanel = new GamePanel();
-		f.add(gamePanel);
-		f.pack(); // window will be sized to fit the preferred size and layouts of its subcomponents (GamePanel) 
+		window.add(gamePanel);
+		window.pack(); // window will be sized to fit the preferred size and layouts of its subcomponents (GamePanel) 
 		
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 		
 		gamePanel.setupGame();
 		
 		gamePanel.startGameThread();
 		
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
-		f.setIconImage(favicon.getImage());
+		window.setIconImage(favicon.getImage());
 	}
 }
