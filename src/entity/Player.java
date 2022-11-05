@@ -87,7 +87,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 2;
+        speed = 5;
         speedDefault = speed;
         direction = "down";
 
