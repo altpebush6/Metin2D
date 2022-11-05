@@ -177,9 +177,9 @@ public class Player extends Entity {
         if(gp.skills.swordSpinTimeOut == skillStandbyTime) {
             gp.skills.swordSpinTimeOut = 0;
         }
-        int skillTimeOut = 120;
+        int skillTimeOut = 75;
         if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
-            if(gp.skills.swordSpinCounter > 45) {
+            if(gp.skills.swordSpinCounter > 20) {
                 useSkill(gp.skills.skillType);  
                 gp.skills.skillUsed = true;
             }
@@ -558,16 +558,17 @@ public class Player extends Entity {
         int solidAreaHeight = solidArea.height;
         
         
-        if(skillSpriteCounter < 5) {
+        int increaseAmount = 3;
+        if(skillSpriteCounter < increaseAmount) {
             spriteNum = 1;
             worldX += attackArea.width;
-        }else if(skillSpriteCounter < 10) {
+        }else if(skillSpriteCounter < increaseAmount * 2) {
             spriteNum = 2;
             worldY -= attackArea.height;
-        }else if(skillSpriteCounter < 15) {
+        }else if(skillSpriteCounter < increaseAmount * 3) {
             spriteNum = 3;
             worldX -= attackArea.width;
-        }else if(skillSpriteCounter < 20) {
+        }else if(skillSpriteCounter < increaseAmount * 4) {
             spriteNum = 4;
             worldY += attackArea.height;
         }else {

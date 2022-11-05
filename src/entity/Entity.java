@@ -64,7 +64,7 @@ public class Entity {
     int dyingCounter = 0;
     int hpBarCounter = 0;
     public int damageCounter = 0; 
-    public int damageTimeOut = 45;
+    public int damageTimeOut = 20;
 
     public Entity(GamePanel gp) {
         this.gp = gp;

@@ -41,10 +41,10 @@ public class MovePlayer {
             
             // while moving player by speed, move screen by speed with the same direction
             switch (gp.player.direction) {
-                case "upleft":      newScreenX -= gp.player.speed; newScreenY -= gp.player.speed; newWorldY  -= gp.player.speed;  newWorldX -= gp.player.speed;  break;
-                case "upright":     newScreenX += gp.player.speed; newScreenY -= gp.player.speed; newWorldY  -= gp.player.speed;  newWorldX += gp.player.speed;  break;
-                case "downleft":    newScreenX -= gp.player.speed; newScreenY += gp.player.speed; newWorldY  += gp.player.speed;  newWorldX -= gp.player.speed;  break;
-                case "downright":   newScreenX += gp.player.speed; newScreenY += gp.player.speed; newWorldY  += gp.player.speed;  newWorldX += gp.player.speed;  break;
+                case "upleft":      newScreenX -= gp.player.speed * 0.707; newScreenY -= gp.player.speed * 0.707; newWorldY  -= gp.player.speed * 0.707;  newWorldX -= gp.player.speed * 0.707;  break;
+                case "upright":     newScreenX += gp.player.speed * 0.707; newScreenY -= gp.player.speed * 0.707; newWorldY  -= gp.player.speed * 0.707;  newWorldX += gp.player.speed * 0.707;  break;
+                case "downleft":    newScreenX -= gp.player.speed * 0.707; newScreenY += gp.player.speed * 0.707; newWorldY  += gp.player.speed * 0.707;  newWorldX -= gp.player.speed * 0.707;  break;
+                case "downright":   newScreenX += gp.player.speed * 0.707; newScreenY += gp.player.speed * 0.707; newWorldY  += gp.player.speed * 0.707;  newWorldX += gp.player.speed * 0.707;  break;
                 case "up":          newScreenY -= gp.player.speed; newWorldY  -= gp.player.speed;       break;
                 case "down":        newScreenY += gp.player.speed; newWorldY  += gp.player.speed;       break;
                 case "left":        newScreenX -= gp.player.speed; newWorldX  -= gp.player.speed;       break;
@@ -58,10 +58,10 @@ public class MovePlayer {
             }
             lockScreenCounterY = 0;
             switch (gp.player.direction) {
-                case "upleft":         newScreenX -= gp.player.speed; newWorldY -= gp.player.speed;  newWorldX -= gp.player.speed;  break;
-                case "upright":        newScreenX += gp.player.speed; newWorldY -= gp.player.speed;  newWorldX += gp.player.speed;  break;
-                case "downleft":       newScreenX -= gp.player.speed; newWorldY += gp.player.speed;  newWorldX -= gp.player.speed;  break;
-                case "downright":      newScreenX += gp.player.speed; newWorldY += gp.player.speed;  newWorldX += gp.player.speed;  break;
+                case "upleft":         newScreenX -= gp.player.speed * 0.707; newWorldY -= gp.player.speed * 0.707;  newWorldX -= gp.player.speed * 0.707;  break;
+                case "upright":        newScreenX += gp.player.speed * 0.707; newWorldY -= gp.player.speed * 0.707;  newWorldX += gp.player.speed * 0.707;  break;
+                case "downleft":       newScreenX -= gp.player.speed * 0.707; newWorldY += gp.player.speed * 0.707;  newWorldX -= gp.player.speed * 0.707;  break;
+                case "downright":      newScreenX += gp.player.speed * 0.707; newWorldY += gp.player.speed * 0.707;  newWorldX += gp.player.speed * 0.707;  break;
                 case "up":             newWorldY  -= gp.player.speed;                      break;
                 case "down":           newWorldY  += gp.player.speed;                      break;
                 case "left":           newScreenX -= gp.player.speed; newWorldX -= gp.player.speed;  break;
@@ -75,10 +75,10 @@ public class MovePlayer {
             }
             lockScreenCounterX = 0;
             switch (gp.player.direction) {
-                case "upleft":      newScreenY -= gp.player.speed; newWorldY  -= gp.player.speed;  newWorldX -= gp.player.speed;  break;
-                case "upright":     newScreenY -= gp.player.speed; newWorldY  -= gp.player.speed;  newWorldX += gp.player.speed;  break;
-                case "downleft":    newScreenY += gp.player.speed; newWorldY  += gp.player.speed;  newWorldX -= gp.player.speed;  break;
-                case "downright":   newScreenY += gp.player.speed; newWorldY  += gp.player.speed;  newWorldX += gp.player.speed;  break;
+                case "upleft":      newScreenY -= gp.player.speed * 0.707; newWorldY  -= gp.player.speed * 0.707;  newWorldX -= gp.player.speed * 0.707;  break;
+                case "upright":     newScreenY -= gp.player.speed * 0.707; newWorldY  -= gp.player.speed * 0.707;  newWorldX += gp.player.speed * 0.707;  break;
+                case "downleft":    newScreenY += gp.player.speed * 0.707; newWorldY  += gp.player.speed * 0.707;  newWorldX -= gp.player.speed * 0.707;  break;
+                case "downright":   newScreenY += gp.player.speed * 0.707; newWorldY  += gp.player.speed * 0.707;  newWorldX += gp.player.speed * 0.707;  break;
                 case "up":          newScreenY -= gp.player.speed; newWorldY  -= gp.player.speed;       break;
                 case "down":        newScreenY += gp.player.speed; newWorldY  += gp.player.speed;       break;
                 case "left":        newWorldX  -= gp.player.speed;  break;
@@ -88,10 +88,10 @@ public class MovePlayer {
             lockScreenCounterX = 0; 
             lockScreenCounterY = 0;
             switch (gp.player.direction) {
-                case "upleft":      newWorldY -= gp.player.speed;    newWorldX -= gp.player.speed;    break;
-                case "upright":     newWorldY -= gp.player.speed;    newWorldX += gp.player.speed;    break;
-                case "downleft":    newWorldY += gp.player.speed;    newWorldX -= gp.player.speed;    break;
-                case "downright":   newWorldY += gp.player.speed;    newWorldX += gp.player.speed;    break;
+                case "upleft":      newWorldY -= gp.player.speed * 0.707;    newWorldX -= gp.player.speed * 0.707;    break;
+                case "upright":     newWorldY -= gp.player.speed * 0.707;    newWorldX += gp.player.speed * 0.707;    break;
+                case "downleft":    newWorldY += gp.player.speed * 0.707;    newWorldX -= gp.player.speed * 0.707;    break;
+                case "downright":   newWorldY += gp.player.speed * 0.707;    newWorldX += gp.player.speed * 0.707;    break;
                 case "up":          newWorldY -= gp.player.speed;    break;
                 case "down":        newWorldY += gp.player.speed;    break;
                 case "left":        newWorldX -= gp.player.speed;    break;
