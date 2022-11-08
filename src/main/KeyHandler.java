@@ -88,7 +88,6 @@ public class KeyHandler implements KeyListener{
 	    }
        if(code == KeyEvent.VK_SPACE) {
             spacePressed = false;
-            gp.player.attacking = false;
             gp.player.punchTimeOut = 0;
             
             // to detect double click

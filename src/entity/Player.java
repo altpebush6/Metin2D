@@ -48,6 +48,7 @@ public class Player extends Entity {
     public int clickCounter = 0;
     public boolean spacePressed = false;
     public boolean doubleClicked = false;
+    int attackWalkingSpeed = 1;
     
     
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
@@ -153,11 +154,7 @@ public class Player extends Entity {
             //System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut: "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
             holdingCounter++;
-            spriteCounter++;
             if (punchTimeOut >= damageTimeOut) {
-                if(spriteCounter > 25) {
-                    spriteCounter = 0;
-                }
                 punchTimeOut = 0;
                 attacking = true;
                 gp.playSE(holdingNum+10);
@@ -183,7 +180,7 @@ public class Player extends Entity {
                 useSkill(gp.skills.skillType);  
                 gp.skills.skillUsed = true;
             }
-            speed = 1;
+            speed = attackWalkingSpeed;
             gp.skills.swordSpinCounter++;
             if(gp.skills.swordSpinCounter == skillTimeOut) {
                 gp.skills.swordSpinCounter = 0;
@@ -194,7 +191,6 @@ public class Player extends Entity {
             }
         }else if (attacking) {
             attack();
-            speed = 1;
         }else {
             speed = speedDefault;
         }
@@ -498,10 +494,13 @@ public class Player extends Entity {
     }
 
     public void attack() {
+        spriteCounter++;
         if (spriteCounter <= 5) {
             spriteNum = 1;
-        } else if (spriteCounter > 5 && spriteCounter <= 25) {
+        } else if (spriteCounter > 5 && spriteCounter <= 15) {
             spriteNum = 2;
+            
+            speed = attackWalkingSpeed;
 
             // Save the current worldX, worldY, solidArea
             int currentWorldX = worldX;
@@ -542,10 +541,11 @@ public class Player extends Entity {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
 
-        } else if (spriteCounter > 25) {
+        } else {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
+            speed = speedDefault;
         }
     }
     

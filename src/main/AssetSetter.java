@@ -22,16 +22,7 @@ public class AssetSetter {
     }
 
     public void setObjectManually() {
-
-        gp.obj[0] = new OBJ_Coin(gp, rand.nextInt(100));
-        gp.obj[0].worldX = 32 * gp.tileSize;
-        gp.obj[0].worldY = 22 * gp.tileSize;
-
-        gp.obj[1] = new OBJ_Coin(gp, rand.nextInt(100));
-        gp.obj[1].worldX = 28 * gp.tileSize;
-        gp.obj[1].worldY = 18 * gp.tileSize;
-
-        index += 2;
+        
     }
 
     public void createCoin(int worldX, int worldY) {
@@ -77,6 +68,21 @@ public class AssetSetter {
                     if(enemySolidArea.intersects(newEnemySolidArea)) {  // if wolf and newWolf intersects make collisionChecker true
                         collisionChecker = true;
                     }
+                }
+            }
+            
+            // If new enemy intersects with player
+            if(gp.enemy[0] != null) {
+                Rectangle newEnemySolidArea = new Rectangle(0, 0, 48, 48);
+                newEnemySolidArea.x = spawnWorldX + gp.enemy[0].solidArea.x;
+                newEnemySolidArea.y = spawnWorldY + gp.enemy[0].solidArea.y;
+                
+                Rectangle playerSolidArea = new Rectangle(0, 0, 48, 48);
+                playerSolidArea.x = gp.player.worldX + gp.player.solidArea.x;
+                playerSolidArea.y = gp.player.worldY + gp.player.solidArea.y;   
+                
+                if(playerSolidArea.intersects(newEnemySolidArea)) {  // if player and new enemy intersects make collisionChecker true
+                    collisionChecker = true;
                 }
             }
             
