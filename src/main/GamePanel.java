@@ -172,6 +172,9 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update() {
+	    
+	    // Increase enemy counter to spawn
+	    aSetter.setEnemy();
 		
 	    // Player
 		player.update();

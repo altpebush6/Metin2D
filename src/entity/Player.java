@@ -685,6 +685,7 @@ public class Player extends Entity {
                 gp.enemy[enemyIndex].damageReaction();
                 
                 if (gp.enemy[enemyIndex].life <= 0) {
+                    gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
                     int coinNumber = rand.nextInt(3) + 1;
 

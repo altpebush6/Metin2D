@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 import enemy.ENEMY_Wolf;
@@ -10,6 +11,11 @@ public class AssetSetter {
     GamePanel gp;
     Random rand = new Random();
     public int index = 0;
+    public int wolfCreateCounter = 300;
+    public int aliveWolfNum = 0;
+    
+    int playerWorldX, playerWorldY, playerWorldWidth, playerWorldHeight, spawnWorldX ,spawnWorldY;
+    
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
@@ -25,7 +31,7 @@ public class AssetSetter {
         gp.obj[1].worldX = 28 * gp.tileSize;
         gp.obj[1].worldY = 18 * gp.tileSize;
 
-        index += 5;
+        index += 2;
     }
 
     public void createCoin(int worldX, int worldY) {
@@ -44,19 +50,64 @@ public class AssetSetter {
     }
 
     public void setEnemy() {
-
-        gp.enemy[0] = new ENEMY_Wolf(gp);
-        gp.enemy[0].worldX = gp.tileSize * 27;
-        gp.enemy[0].worldY = gp.tileSize * 27;
-        
-        gp.enemy[1] = new ENEMY_Wolf(gp);
-        gp.enemy[1].worldX = gp.tileSize * 28;
-        gp.enemy[1].worldY = gp.tileSize * 28;
-        
-        gp.enemy[2] = new ENEMY_Wolf(gp);
-        gp.enemy[2].worldX = gp.tileSize * 26;
-        gp.enemy[2].worldY = gp.tileSize * 28;
-        
-        
+        wolfCreateCounter++;
+        if(wolfCreateCounter >= 300 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
+             
+            playerWorldX = gp.player.worldX - gp.tileSize * 5;
+            playerWorldWidth = gp.player.worldX + gp.tileSize * 5;
+            
+            playerWorldY = gp.player.worldY - gp.tileSize * 5;
+            playerWorldHeight = gp.player.worldY + gp.tileSize * 5;
+            
+            spawnWorldX = rand.nextInt(playerWorldX,playerWorldWidth); // new wolf worldX
+            spawnWorldY = rand.nextInt(playerWorldY,playerWorldHeight);// new wolf worldY
+            
+            boolean collisionChecker = false;
+            
+            for(int i=0; i < gp.enemy.length; i++) {
+                if(gp.enemy[i] != null) {
+                    Rectangle enemySolidArea = new Rectangle(0, 0, 48, 48);
+                    enemySolidArea.x = gp.enemy[i].worldX + gp.enemy[i].solidArea.x;
+                    enemySolidArea.y = gp.enemy[i].worldY + gp.enemy[i].solidArea.y;
+                    
+                    Rectangle newEnemySolidArea = new Rectangle(0, 0, 48, 48);
+                    newEnemySolidArea.x = spawnWorldX + gp.enemy[i].solidArea.x;
+                    newEnemySolidArea.y = spawnWorldY + gp.enemy[i].solidArea.y;
+                    
+                    if(enemySolidArea.intersects(newEnemySolidArea)) {  // if wolf and newWolf intersects make collisionChecker true
+                        collisionChecker = true;
+                    }
+                }
+            }
+            
+            if(!collisionChecker) { // if wolf and newWolf doesn't intersect
+                
+                int newEnemyNum = rand.nextInt(3) + 1;
+                aliveWolfNum += newEnemyNum;
+                
+                for(int i=0; i < newEnemyNum; i++) {
+                    
+                    switch(i) {
+                        case 0:
+                            gp.enemy[index] = new ENEMY_Wolf(gp);
+                            gp.enemy[index].worldX = spawnWorldX + i * gp.tileSize;
+                            gp.enemy[index].worldY = spawnWorldY + i * gp.tileSize ;
+                            index++;
+                            break;
+                        case 1:
+                            gp.enemy[index] = new ENEMY_Wolf(gp);
+                            gp.enemy[index].worldX = spawnWorldX + (i+1) * gp.tileSize;
+                            gp.enemy[index].worldY = spawnWorldY ;
+                            index++;
+                        case 3:
+                            gp.enemy[index] = new ENEMY_Wolf(gp);
+                            gp.enemy[index].worldX = spawnWorldX + i * gp.tileSize;
+                            gp.enemy[index].worldY = spawnWorldY + i * gp.tileSize ;
+                            index++;
+                    }
+                }
+            }
+            wolfCreateCounter = 0;
+        }
     }
 }
