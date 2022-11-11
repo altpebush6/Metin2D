@@ -86,8 +86,8 @@ public class Player extends Entity {
     public void setPlayer() {
 
         // Player Movement
-        worldX = 25 * gp.tileSize; // Where character will start on map X
-        worldY = 25 * gp.tileSize; // Where character will start on map Y
+        worldX = 4 * gp.tileSize; // Where character will start on map X
+        worldY = 32 * gp.tileSize; // Where character will start on map Y
         speed = 5;
         speedDefault = speed;
         direction = "down";
@@ -136,7 +136,7 @@ public class Player extends Entity {
 
     public void update() {
 
-        clickCounter++;  // to detect double click
+        //clickCounter++;  // to detect double click
         
         
         
@@ -497,7 +497,7 @@ public class Player extends Entity {
         spriteCounter++;
         if (spriteCounter <= 5) {
             spriteNum = 1;
-        } else if (spriteCounter > 5 && spriteCounter <= 15) {
+        } else if (spriteCounter > 5 && spriteCounter <= 20) {
             spriteNum = 2;
             
             speed = attackWalkingSpeed;

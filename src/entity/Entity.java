@@ -98,10 +98,10 @@ public class Entity {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn && !standing) {
             switch (direction) {
-                case "upleft":      worldY -= speed;    worldX -= speed / 2;    break;
-                case "upright":     worldY -= speed;    worldX += speed / 2;    break;
-                case "downleft":    worldY += speed;    worldX -= speed / 2;    break;
-                case "downright":   worldY += speed;    worldX += speed / 2;    break;
+                case "upleft":      worldY -= speed * 0.707;    worldX -= speed * 0.707;    break;
+                case "upright":     worldY -= speed * 0.707;    worldX += speed * 0.707;    break;
+                case "downleft":    worldY += speed * 0.707;    worldX -= speed * 0.707;    break;
+                case "downright":   worldY += speed * 0.707;    worldX += speed * 0.707;    break;
                 case "up":          worldY -= speed;    break;
                 case "down":        worldY += speed;    break;
                 case "left":        worldX -= speed;    break;

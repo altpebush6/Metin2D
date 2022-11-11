@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 
 public class CollisionChecker {
@@ -67,6 +69,7 @@ public class CollisionChecker {
 				
 			case "down":
 				entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+				System.out.println(entityLeftCol+" "+entityBottomRow+" "+entityRightCol+" "+entityBottomRow);
 				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 				
@@ -323,4 +326,43 @@ public class CollisionChecker {
         
         return index;
 	}
+	
+	// New Entity Collisions
+	public void checkTileForNewEntity(int entityWorldX, int entityWorldY) {
+        int tileNum = gp.tileM.mapTileNum[entityWorldX / gp.tileSize][entityWorldY / gp.tileSize];
+                
+        if(gp.tileM.tile[tileNum].collision) {
+            gp.aSetter.collisionOn = true;
+        }
+    }
+    
+    public void checkEntityForNewEntity(int entityWorldX, int entityWorldY,  Entity[] target) {
+        // Get Entity's solid area position
+        Rectangle newEntitySolidArea = new Rectangle(entityWorldX, entityWorldY, gp.tileSize, gp.tileSize);
+        
+        for(int i=0; i < target.length; i++ ) {
+            if(target[i] != null) {
+                // Get Target's solid area position
+                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+                
+                if(newEntitySolidArea.intersects(target[i].solidArea)) {
+                    gp.aSetter.collisionOn = true;
+                }
+            }
+        }
+    }
+    
+    public void checkPlayerForNewEntity(int entityWorldX, int entityWorldY) {     
+        // Get Entity's solid area position
+        Rectangle newEntitySolidArea = new Rectangle(entityWorldX, entityWorldY, gp.tileSize, gp.tileSize);
+
+        // Get Player's solid area position
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        
+        if(newEntitySolidArea.intersects(gp.player.solidArea)) {
+            gp.aSetter.collisionOn = true;
+        }
+    }
 }

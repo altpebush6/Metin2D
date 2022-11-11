@@ -14,6 +14,8 @@ public class AssetSetter {
     public int wolfCreateCounter = 300;
     public int aliveWolfNum = 0;
     
+    public boolean collisionOn;
+    
     int playerWorldX, playerWorldY, playerWorldWidth, playerWorldHeight, spawnWorldX ,spawnWorldY;
     
 
@@ -42,7 +44,8 @@ public class AssetSetter {
 
     public void setEnemy() {
         wolfCreateCounter++;
-        if(wolfCreateCounter >= 300 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
+        //wolfCreateCounter >= 300 && aliveWolfNum < 5
+        if(gp.keyH.spacePressed) { // if 5 seconds past and there are wolf less than 5
              
             playerWorldX = gp.player.worldX - gp.tileSize * 5;
             playerWorldWidth = gp.player.worldX + gp.tileSize * 5;
@@ -50,69 +53,60 @@ public class AssetSetter {
             playerWorldY = gp.player.worldY - gp.tileSize * 5;
             playerWorldHeight = gp.player.worldY + gp.tileSize * 5;
             
-            spawnWorldX = rand.nextInt(playerWorldX,playerWorldWidth); // new wolf worldX
-            spawnWorldY = rand.nextInt(playerWorldY,playerWorldHeight);// new wolf worldY
             
-            boolean collisionChecker = false;
+            do {
+                spawnWorldX = (int)(rand.nextInt(playerWorldX,playerWorldWidth) / gp.tileSize) * gp.tileSize;   // new wolf worldX
+                spawnWorldY = (int)(rand.nextInt(playerWorldY,playerWorldHeight) / gp.tileSize * gp.tileSize);  // new wolf worldY
+            }while(spawnWorldX <= 0 || spawnWorldX >= gp.maxWorldCol * gp.tileSize || spawnWorldY <= 0 || spawnWorldY >= gp.maxWorldRow * gp.tileSize);
             
-            for(int i=0; i < gp.enemy.length; i++) {
-                if(gp.enemy[i] != null) {
-                    Rectangle enemySolidArea = new Rectangle(0, 0, 48, 48);
-                    enemySolidArea.x = gp.enemy[i].worldX + gp.enemy[i].solidArea.x;
-                    enemySolidArea.y = gp.enemy[i].worldY + gp.enemy[i].solidArea.y;
-                    
-                    Rectangle newEnemySolidArea = new Rectangle(0, 0, 48, 48);
-                    newEnemySolidArea.x = spawnWorldX + gp.enemy[i].solidArea.x;
-                    newEnemySolidArea.y = spawnWorldY + gp.enemy[i].solidArea.y;
-                    
-                    if(enemySolidArea.intersects(newEnemySolidArea)) {  // if wolf and newWolf intersects make collisionChecker true
-                        collisionChecker = true;
-                    }
-                }
-            }
+            int newEnemyNum = rand.nextInt(3) + 1; // 1 2 3
             
-            // If new enemy intersects with player
-            if(gp.enemy[0] != null) {
-                Rectangle newEnemySolidArea = new Rectangle(0, 0, 48, 48);
-                newEnemySolidArea.x = spawnWorldX + gp.enemy[0].solidArea.x;
-                newEnemySolidArea.y = spawnWorldY + gp.enemy[0].solidArea.y;
+            for(int i=0; i < newEnemyNum; i++) {
                 
-                Rectangle playerSolidArea = new Rectangle(0, 0, 48, 48);
-                playerSolidArea.x = gp.player.worldX + gp.player.solidArea.x;
-                playerSolidArea.y = gp.player.worldY + gp.player.solidArea.y;   
-                
-                if(playerSolidArea.intersects(newEnemySolidArea)) {  // if player and new enemy intersects make collisionChecker true
-                    collisionChecker = true;
-                }
-            }
-            
-            if(!collisionChecker) { // if wolf and newWolf doesn't intersect
-                
-                int newEnemyNum = rand.nextInt(3) + 1;
-                aliveWolfNum += newEnemyNum;
-                
-                for(int i=0; i < newEnemyNum; i++) {
-                    
-                    switch(i) {
-                        case 0:
+                switch(i) {
+                    case 0:
+                        collisionOn = false;
+                        gp.collisionChecker.checkTileForNewEntity(spawnWorldX, spawnWorldY);
+                        //gp.collisionChecker.checkEntityForNewEntity(spawnWorldX, spawnWorldY, gp.enemy);
+                        //gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX, spawnWorldY);                        
+                        if(!collisionOn) {
                             gp.enemy[index] = new ENEMY_Wolf(gp);
-                            gp.enemy[index].worldX = spawnWorldX + i * gp.tileSize;
-                            gp.enemy[index].worldY = spawnWorldY + i * gp.tileSize ;
+                            gp.enemy[index].worldX = spawnWorldX;
+                            gp.enemy[index].worldY = spawnWorldY;
                             index++;
-                            break;
-                        case 1:
+                            aliveWolfNum++;
+                        }
+                        break;
+                    case 1:
+                        collisionOn = false;
+                        gp.collisionChecker.checkTileForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY);
+                        //gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY, gp.enemy);
+                        //gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY); 
+                        if(!collisionOn) {
                             gp.enemy[index] = new ENEMY_Wolf(gp);
-                            gp.enemy[index].worldX = spawnWorldX + (i+1) * gp.tileSize;
-                            gp.enemy[index].worldY = spawnWorldY ;
+                            gp.enemy[index].worldX = spawnWorldX + 2 * gp.tileSize;
+                            gp.enemy[index].worldY = spawnWorldY;
                             index++;
-                        case 3:
+                            aliveWolfNum++;
+                        }
+                        break;
+                    case 2:
+                        collisionOn = false;
+                        gp.collisionChecker.checkTileForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize);
+                        //gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize, gp.enemy);
+                        //gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize); 
+                        if(!collisionOn) {
                             gp.enemy[index] = new ENEMY_Wolf(gp);
-                            gp.enemy[index].worldX = spawnWorldX + i * gp.tileSize;
-                            gp.enemy[index].worldY = spawnWorldY + i * gp.tileSize ;
+                            gp.enemy[index].worldX = spawnWorldX + gp.tileSize;
+                            gp.enemy[index].worldY = spawnWorldY + 2 * gp.tileSize ;
                             index++;
-                    }
+                            aliveWolfNum++;
+                        }
+                        break;
                 }
+               
             }
+            System.out.println("");
             wolfCreateCounter = 0;
         }
     }
