@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="Metin2/mt2/metin2.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Metin2/JarBuild.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="false" mainClassHandleIdentifier="=Metin2/src&lt;main{Main.java[Main" manifestLocation="/Metin2/manifest" manifestVersion="1.0" reuseManifest="true" saveManifest="true" usesManifest="true">
+        <sealing sealJar="true">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/Metin2/.classpath"/>
+        <file path="/Metin2/.project"/>
+        <folder path="/Metin2/doc"/>
+        <javaElement handleIdentifier="=Metin2/src"/>
+        <javaElement handleIdentifier="=Metin2/resources"/>
+    </selectedElements>
+</jardesc>
