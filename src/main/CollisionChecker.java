@@ -349,6 +349,9 @@ public class CollisionChecker {
                 if(newEntitySolidArea.intersects(target[i].solidArea)) {
                     gp.aSetter.collisionOn = true;
                 }
+                
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
             }
         }
     }
@@ -364,5 +367,8 @@ public class CollisionChecker {
         if(newEntitySolidArea.intersects(gp.player.solidArea)) {
             gp.aSetter.collisionOn = true;
         }
+        
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
     }
 }

@@ -44,8 +44,8 @@ public class AssetSetter {
 
     public void setEnemy() {
         wolfCreateCounter++;
-        //wolfCreateCounter >= 300 && aliveWolfNum < 5
-        if(gp.keyH.spacePressed) { // if 5 seconds past and there are wolf less than 5
+
+        if(wolfCreateCounter >= 300 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
              
             playerWorldX = gp.player.worldX - gp.tileSize * 5;
             playerWorldWidth = gp.player.worldX + gp.tileSize * 5;
@@ -67,8 +67,8 @@ public class AssetSetter {
                     case 0:
                         collisionOn = false;
                         gp.collisionChecker.checkTileForNewEntity(spawnWorldX, spawnWorldY);
-                        //gp.collisionChecker.checkEntityForNewEntity(spawnWorldX, spawnWorldY, gp.enemy);
-                        //gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX, spawnWorldY);                        
+                        gp.collisionChecker.checkEntityForNewEntity(spawnWorldX, spawnWorldY, gp.enemy);
+                        gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX, spawnWorldY);                        
                         if(!collisionOn) {
                             gp.enemy[index] = new ENEMY_Wolf(gp);
                             gp.enemy[index].worldX = spawnWorldX;
@@ -80,8 +80,8 @@ public class AssetSetter {
                     case 1:
                         collisionOn = false;
                         gp.collisionChecker.checkTileForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY);
-                        //gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY, gp.enemy);
-                        //gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY); 
+                        gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY, gp.enemy);
+                        gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY); 
                         if(!collisionOn) {
                             gp.enemy[index] = new ENEMY_Wolf(gp);
                             gp.enemy[index].worldX = spawnWorldX + 2 * gp.tileSize;
@@ -93,8 +93,8 @@ public class AssetSetter {
                     case 2:
                         collisionOn = false;
                         gp.collisionChecker.checkTileForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize);
-                        //gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize, gp.enemy);
-                        //gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize); 
+                        gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize, gp.enemy);
+                        gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize); 
                         if(!collisionOn) {
                             gp.enemy[index] = new ENEMY_Wolf(gp);
                             gp.enemy[index].worldX = spawnWorldX + gp.tileSize;
