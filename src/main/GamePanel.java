@@ -2,6 +2,9 @@ package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,15 +21,20 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale; // 48x48 tile
-	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;
+	public final int maxScreenCol = 32;
+	public final int maxScreenRow = 18;
 	
-	public final int screenWidth = tileSize * maxScreenCol; // 1920 pixels
+	public final int screenWidth = tileSize * maxScreenCol; // 960 pixels
 	public final int screenHeight = tileSize * maxScreenRow; // 1080 pixels
 	
 	// WORLD SETTINGS
 	public final int maxWorldCol = 50;
 	public final int maxWorldRow = 50;
+	//FOR FULL SCREEN
+	int screenWidth2 = screenWidth;
+	int screenHeight2 = screenHeight;
+	BufferedImage tempScreen;
+	Graphics2D g2;
 
 	// FPS
 	final int FPS = 60;
@@ -45,8 +53,8 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	// ENTITY AND OBJECT
 	public Player player = new Player(this,keyH,mouseH);
-	public Entity obj[] = new Entity[100];
-	public Entity enemy[] = new Entity[100];
+	public Entity obj[] = new Entity[1000];
+	public Entity enemy[] = new Entity[1000];
 	ArrayList<Entity> entityList = new ArrayList<>();
 	public Skills skills = new Skills();
 	
@@ -66,9 +74,25 @@ public class GamePanel extends JPanel implements Runnable{
 		aSetter.setObjectManually();
 		aSetter.setEnemy();
 		
-		playMusic(0);
+		//playMusic(0);
+		
+		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+		g2 = (Graphics2D) tempScreen.getGraphics();
+		
+		setFullScreen();
 	}
-	
+	public void setFullScreen() {
+        //GET LOCAL SCREEN DEVICE
+	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice gd = ge.getDefaultScreenDevice();
+	    gd.setFullScreenWindow(Main.window);
+	    
+	    //GET FULL SCREEN WIDTH AND HEIGHT
+	    
+	    screenWidth2 = Main.window.getWidth();
+	    screenHeight2 = Main.window.getHeight();
+	    
+    }
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -98,7 +122,8 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			if(delta > 1) {
 				update();
-				repaint();
+				drawToTempScreen(); //draw everything to the buffered image
+				drawToScreen(); // draw the buffered image to the screen
 				delta --;
 				drawCount++; // To show FPS
 			}
@@ -147,6 +172,9 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update() {
+	    
+	    // Increase enemy counter to spawn
+	    aSetter.setEnemy();
 		
 	    // Player
 		player.update();
@@ -163,77 +191,79 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		
 	}
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		
-		// DEBUG
-		long startTime = 0;
-		if(keyH.openDebug) {
-			startTime = System.nanoTime();
-		}
-		
-		// TILE
-		tileM.draw(g2);
-		
-		// OBJECTS 
+	
+	public void drawToTempScreen() {
+	 // DEBUG
+        long startTime = 0;
+        if(keyH.openDebug) {
+            startTime = System.nanoTime();
+        }
+        
+        // TILE
+        tileM.draw(g2);
+        
+        // OBJECTS 
         for(int i=0; i < obj.length; i++) {
             if(obj[i] != null) {
                 obj[i].draw(g2);
             }
         }
-		
-		// ADD ENTITIES TO THE LIST
-		entityList.add(player);
-		
-		/*
-		for(int i=0; i < obj.length; i++) {
-		    if(obj[i] != null) {
-		        entityList.add(obj[i]);
-		    }
-		}
-		*/
-		
-		for(int i=0; i < enemy.length; i++) { 
+        
+        // ADD ENTITIES TO THE LIST
+        entityList.add(player);
+        
+        /*
+        for(int i=0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                entityList.add(obj[i]);
+            }
+        }
+        */
+        
+        for(int i=0; i < enemy.length; i++) { 
             if(enemy[i] != null) {
                 entityList.add(enemy[i]);
             }
         }
-		
-		// SORT ENTITIES
-		Collections.sort(entityList, new Comparator<Entity>() {
+        
+        // SORT ENTITIES
+        Collections.sort(entityList, new Comparator<Entity>() {
 
             @Override
             public int compare(Entity e1, Entity e2) {
                 int result = Integer.compare(e1.worldY, e2.worldY);
                 return result;
             }
-		});
-		
-		// DRAW ENTITIES
-		for(int i=0; i < entityList.size(); i++) {
-		    entityList.get(i).draw(g2);
-		}
-		// EMPTY ENTITY LIST 
-		entityList.clear();
-		
+        });
+        
+        // DRAW ENTITIES
+        for(int i=0; i < entityList.size(); i++) {
+            entityList.get(i).draw(g2);
+        }
+        // EMPTY ENTITY LIST 
+        entityList.clear();
+        
 
-		
-		// UI
-		ui.draw(g2);
-		
-		// DEBUG (How many seconds it takes to draw the things above)
-		if(keyH.openDebug) {
-			long endTime = System.nanoTime();
-			long diff = endTime - startTime;
-			g2.drawString("Drawing Time: " + (diff*1.0/1000000000), 10, 300);
-		}
-		
-		g2.dispose();
-		
+        
+        // UI
+        ui.draw(g2);
+        
+        // DEBUG (How many seconds it takes to draw the things above)
+        if(keyH.openDebug) {
+            long endTime = System.nanoTime();
+            long diff = endTime - startTime;
+            g2.drawString("Drawing Time: " + (diff*1.0/1000000000), 10, 300);
+        }
+	    
 	}
 	
-	public void playMusic(int index) {
+	public void drawToScreen() {
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
+    }
+	    
+	 public void playMusic(int index) {
 		
 		soundtrack.setFile(index);
 		soundtrack.play();

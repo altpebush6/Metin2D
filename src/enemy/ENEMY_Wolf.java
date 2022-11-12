@@ -22,6 +22,7 @@ public class ENEMY_Wolf extends Entity {
         life = maxLife;
         type = 1;
         direction = "down";
+        standing = true;
         
         if(direction == "up" || direction == "down") {
             solidArea.x = 10;

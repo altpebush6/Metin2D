@@ -48,6 +48,7 @@ public class Player extends Entity {
     public int clickCounter = 0;
     public boolean spacePressed = false;
     public boolean doubleClicked = false;
+    int attackWalkingSpeed = 1;
     
     
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
@@ -87,7 +88,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 2;
+        speed = 5;
         speedDefault = speed;
         direction = "down";
 
@@ -135,7 +136,7 @@ public class Player extends Entity {
 
     public void update() {
 
-        clickCounter++;  // to detect double click
+        //clickCounter++;  // to detect double click
         
         
         
@@ -153,11 +154,7 @@ public class Player extends Entity {
             //System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut: "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
             holdingCounter++;
-            spriteCounter++;
             if (punchTimeOut >= damageTimeOut) {
-                if(spriteCounter > 25) {
-                    spriteCounter = 0;
-                }
                 punchTimeOut = 0;
                 attacking = true;
                 gp.playSE(holdingNum+10);
@@ -177,13 +174,13 @@ public class Player extends Entity {
         if(gp.skills.swordSpinTimeOut == skillStandbyTime) {
             gp.skills.swordSpinTimeOut = 0;
         }
-        int skillTimeOut = 120;
+        int skillTimeOut = 75;
         if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
-            if(gp.skills.swordSpinCounter > 45) {
+            if(gp.skills.swordSpinCounter > 20) {
                 useSkill(gp.skills.skillType);  
                 gp.skills.skillUsed = true;
             }
-            speed = 1;
+            speed = attackWalkingSpeed;
             gp.skills.swordSpinCounter++;
             if(gp.skills.swordSpinCounter == skillTimeOut) {
                 gp.skills.swordSpinCounter = 0;
@@ -194,7 +191,6 @@ public class Player extends Entity {
             }
         }else if (attacking) {
             attack();
-            speed = 1;
         }else {
             speed = speedDefault;
         }
@@ -498,10 +494,13 @@ public class Player extends Entity {
     }
 
     public void attack() {
+        spriteCounter++;
         if (spriteCounter <= 5) {
             spriteNum = 1;
-        } else if (spriteCounter > 5 && spriteCounter <= 25) {
+        } else if (spriteCounter > 5 && spriteCounter <= 20) {
             spriteNum = 2;
+            
+            speed = attackWalkingSpeed;
 
             // Save the current worldX, worldY, solidArea
             int currentWorldX = worldX;
@@ -542,10 +541,11 @@ public class Player extends Entity {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
 
-        } else if (spriteCounter > 25) {
+        } else {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
+            speed = speedDefault;
         }
     }
     
@@ -558,16 +558,17 @@ public class Player extends Entity {
         int solidAreaHeight = solidArea.height;
         
         
-        if(skillSpriteCounter < 5) {
+        int increaseAmount = 3;
+        if(skillSpriteCounter < increaseAmount) {
             spriteNum = 1;
             worldX += attackArea.width;
-        }else if(skillSpriteCounter < 10) {
+        }else if(skillSpriteCounter < increaseAmount * 2) {
             spriteNum = 2;
             worldY -= attackArea.height;
-        }else if(skillSpriteCounter < 15) {
+        }else if(skillSpriteCounter < increaseAmount * 3) {
             spriteNum = 3;
             worldX -= attackArea.width;
-        }else if(skillSpriteCounter < 20) {
+        }else if(skillSpriteCounter < increaseAmount * 4) {
             spriteNum = 4;
             worldY += attackArea.height;
         }else {
@@ -684,6 +685,7 @@ public class Player extends Entity {
                 gp.enemy[enemyIndex].damageReaction();
                 
                 if (gp.enemy[enemyIndex].life <= 0) {
+                    gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
                     int coinNumber = rand.nextInt(3) + 1;
 

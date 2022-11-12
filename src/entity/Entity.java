@@ -64,7 +64,7 @@ public class Entity {
     int dyingCounter = 0;
     int hpBarCounter = 0;
     public int damageCounter = 0; 
-    public int damageTimeOut = 45;
+    public int damageTimeOut = 20;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -98,10 +98,10 @@ public class Entity {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn && !standing) {
             switch (direction) {
-                case "upleft":      worldY -= speed;    worldX -= speed / 2;    break;
-                case "upright":     worldY -= speed;    worldX += speed / 2;    break;
-                case "downleft":    worldY += speed;    worldX -= speed / 2;    break;
-                case "downright":   worldY += speed;    worldX += speed / 2;    break;
+                case "upleft":      worldY -= speed * 0.707;    worldX -= speed * 0.707;    break;
+                case "upright":     worldY -= speed * 0.707;    worldX += speed * 0.707;    break;
+                case "downleft":    worldY += speed * 0.707;    worldX -= speed * 0.707;    break;
+                case "downright":   worldY += speed * 0.707;    worldX += speed * 0.707;    break;
                 case "up":          worldY -= speed;    break;
                 case "down":        worldY += speed;    break;
                 case "left":        worldX -= speed;    break;
