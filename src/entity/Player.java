@@ -43,8 +43,6 @@ public class Player extends Entity {
     public int holdingNum = 0;
     public int holdingCounter = 0;
     public int noPunchCounter = 0;
-    public int skillSpriteCounter = 0;
-    public int skillStandbyTime = 120; // 10s
     public int clickCounter = 0;
     public boolean spacePressed = false;
     public boolean doubleClicked = false;
@@ -171,18 +169,18 @@ public class Player extends Entity {
             gp.skills.swordSpinTimeOut++;
         }
         
-        if(gp.skills.swordSpinTimeOut == skillStandbyTime) {
+        if(gp.skills.swordSpinTimeOut == gp.skills.skillStandbyTime) {
             gp.skills.swordSpinTimeOut = 0;
         }
-        int skillTimeOut = 75;
+        
         if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
             if(gp.skills.swordSpinCounter > 20) {
-                useSkill(gp.skills.skillType);  
+                gp.skills.useSkill(gp.skills.swordSpinType);
                 gp.skills.skillUsed = true;
             }
             speed = attackWalkingSpeed;
             gp.skills.swordSpinCounter++;
-            if(gp.skills.swordSpinCounter == skillTimeOut) {
+            if(gp.skills.swordSpinCounter == gp.skills.skillTimeOut) {
                 gp.skills.swordSpinCounter = 0;
                 gp.skills.swordSpinUsed = false;
                 gp.skills.skillUsed = false;
@@ -548,50 +546,7 @@ public class Player extends Entity {
             speed = speedDefault;
         }
     }
-    
-    public void useSkill(int skillType) {
-        
-        // Save the current worldX, worldY, solidArea
-        int currentWorldX = worldX;
-        int currentWorldY = worldY;
-        int solidAreaWidth = solidArea.width;
-        int solidAreaHeight = solidArea.height;
-        
-        
-        int increaseAmount = 3;
-        if(skillSpriteCounter < increaseAmount) {
-            spriteNum = 1;
-            worldX += attackArea.width;
-        }else if(skillSpriteCounter < increaseAmount * 2) {
-            spriteNum = 2;
-            worldY -= attackArea.height;
-        }else if(skillSpriteCounter < increaseAmount * 3) {
-            spriteNum = 3;
-            worldX -= attackArea.width;
-        }else if(skillSpriteCounter < increaseAmount * 4) {
-            spriteNum = 4;
-            worldY += attackArea.height;
-        }else {
-            spriteNum = 1;
-            skillSpriteCounter = 0;
-        }
-        skillSpriteCounter++;
-        
-
-        // Attack area becomes solidArea
-        solidArea.width = attackArea.width;
-        solidArea.height = attackArea.height;
-
-        int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy); // check enemy collision with the updated
-                                                                          // worldX, worldY and solidArea
-        damageEnemy(enemyIndex);
-
-        worldX = currentWorldX;
-        worldY = currentWorldY;
-        solidArea.width = solidAreaWidth;
-        solidArea.height = solidAreaHeight;
-    
-    }
+   
 
     public void pickUpObject(int index) {
 

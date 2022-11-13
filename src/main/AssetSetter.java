@@ -62,51 +62,22 @@ public class AssetSetter {
             int newEnemyNum = rand.nextInt(3) + 1; // 1 2 3
             
             for(int i=0; i < newEnemyNum; i++) {
+                int xPosition = rand.nextInt(3);
+                int yPosition = rand.nextInt(3);
                 
-                switch(i) {
-                    case 0:
-                        collisionOn = false;
-                        gp.collisionChecker.checkTileForNewEntity(spawnWorldX, spawnWorldY);
-                        gp.collisionChecker.checkEntityForNewEntity(spawnWorldX, spawnWorldY, gp.enemy);
-                        gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX, spawnWorldY);                        
-                        if(!collisionOn) {
-                            gp.enemy[index] = new ENEMY_Wolf(gp);
-                            gp.enemy[index].worldX = spawnWorldX;
-                            gp.enemy[index].worldY = spawnWorldY;
-                            index++;
-                            aliveWolfNum++;
-                        }
-                        break;
-                    case 1:
-                        collisionOn = false;
-                        gp.collisionChecker.checkTileForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY);
-                        gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY, gp.enemy);
-                        gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + 2 * gp.tileSize, spawnWorldY); 
-                        if(!collisionOn) {
-                            gp.enemy[index] = new ENEMY_Wolf(gp);
-                            gp.enemy[index].worldX = spawnWorldX + 2 * gp.tileSize;
-                            gp.enemy[index].worldY = spawnWorldY;
-                            index++;
-                            aliveWolfNum++;
-                        }
-                        break;
-                    case 2:
-                        collisionOn = false;
-                        gp.collisionChecker.checkTileForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize);
-                        gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize, gp.enemy);
-                        gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + gp.tileSize, spawnWorldY + 2 * gp.tileSize); 
-                        if(!collisionOn) {
-                            gp.enemy[index] = new ENEMY_Wolf(gp);
-                            gp.enemy[index].worldX = spawnWorldX + gp.tileSize;
-                            gp.enemy[index].worldY = spawnWorldY + 2 * gp.tileSize ;
-                            index++;
-                            aliveWolfNum++;
-                        }
-                        break;
+                collisionOn = false;
+                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.enemy);
+                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize); 
+                if(!collisionOn) {
+                    gp.enemy[index] = new ENEMY_Wolf(gp);
+                    gp.enemy[index].worldX = spawnWorldX + xPosition * gp.tileSize;
+                    gp.enemy[index].worldY = spawnWorldY + yPosition * gp.tileSize ;
+                    index++;
+                    aliveWolfNum++;
                 }
                
             }
-            System.out.println("");
             wolfCreateCounter = 0;
         }
     }

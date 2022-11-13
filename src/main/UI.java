@@ -69,7 +69,7 @@ public class UI {
         // Skills        
         g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
         
-        int i = gp.player.skillStandbyTime / 20; // 15 (per 15 seconds)
+        int i = gp.skills.skillStandbyTime / 20; // 15 (per 15 seconds)
         
         if(gp.skills.swordSpinTimeOut != 0) {    
                 g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / i], gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);   

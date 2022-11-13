@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public Entity obj[] = new Entity[1000];
 	public Entity enemy[] = new Entity[1000];
 	ArrayList<Entity> entityList = new ArrayList<>();
-	public Skills skills = new Skills();
+	public Skills skills = new Skills(this);
 	
 	public GamePanel() {
 		

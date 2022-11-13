@@ -69,7 +69,6 @@ public class CollisionChecker {
 				
 			case "down":
 				entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-				System.out.println(entityLeftCol+" "+entityBottomRow+" "+entityRightCol+" "+entityBottomRow);
 				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 				
