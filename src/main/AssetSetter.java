@@ -70,11 +70,12 @@ public class AssetSetter {
                 gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.enemy);
                 gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize); 
                 if(!collisionOn) {
-                    gp.enemy[index] = new ENEMY_Wolf(gp);
+                    gp.enemy[index] = new ENEMY_Wolf(gp,index);
                     gp.enemy[index].worldX = spawnWorldX + xPosition * gp.tileSize;
-                    gp.enemy[index].worldY = spawnWorldY + yPosition * gp.tileSize ;
+                    gp.enemy[index].worldY = spawnWorldY + yPosition * gp.tileSize;
                     index++;
                     aliveWolfNum++;
+                    
                 }
                
             }

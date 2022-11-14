@@ -30,6 +30,10 @@ public class GamePanel extends JPanel implements Runnable{
 	// WORLD SETTINGS
 	public final int maxWorldCol = 50;
 	public final int maxWorldRow = 50;
+    public boolean isPlayerAtLeftEdge = false;
+    public boolean isPlayerAtRightEdge = false;
+    public boolean isPlayerAtTopEdge = false;
+    public boolean isPlayerAtBottomEdge = false;
 	//FOR FULL SCREEN
 	int screenWidth2 = screenWidth;
 	int screenHeight2 = screenHeight;
@@ -72,7 +76,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public void setupGame() {
 		
 		aSetter.setObjectManually();
-		aSetter.setEnemy();
 		
 		//playMusic(0);
 		

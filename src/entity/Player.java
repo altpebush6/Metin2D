@@ -21,6 +21,8 @@ public class Player extends Entity {
 
     public int screenX; // Where we draw player on screen X
     public int screenY; // Where we draw player on screen Y
+    public int defaultScreenX; // Where we draw player on screen X
+    public int defaultScreenY; // Where we draw player on screen Y
 
     // Player Specification
     public int playerCoin;
@@ -58,8 +60,8 @@ public class Player extends Entity {
         type = 2;
         name = "xKralTr";
 
-        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
-        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+        defaultScreenX = screenX = gp.screenWidth / 2 - gp.tileSize / 2;
+        defaultScreenY = screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();

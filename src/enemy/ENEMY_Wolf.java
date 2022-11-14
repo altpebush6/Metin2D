@@ -9,20 +9,21 @@ public class ENEMY_Wolf extends Entity {
 
     Random rand = new Random();
     GamePanel gp;
-    
-    public ENEMY_Wolf(GamePanel gp) {
+        
+    public ENEMY_Wolf(GamePanel gp, int id) {
         
         super(gp);
         
         this.gp = gp;
         
         name = "Wolf";
+        wolfID = id;
         speed = 1;
         maxLife = 4;
         life = maxLife;
         type = 1;
         direction = "down";
-        standing = true;
+        standing = true;        
         
         if(direction == "up" || direction == "down") {
             solidArea.x = 10;
@@ -55,7 +56,6 @@ public class ENEMY_Wolf extends Entity {
         right1 = setup("/wolf/right1", gp.tileSize, gp.tileSize);
         right2 = setup("/wolf/right2", gp.tileSize, gp.tileSize); 
         right3 = setup("/wolf/right3", gp.tileSize, gp.tileSize);
-        deadImage = setup("/wolf/deadWolf", gp.tileSize, gp.tileSize);
     }
     
     public void setAction() {

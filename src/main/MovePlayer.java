@@ -26,7 +26,7 @@ public class MovePlayer {
         overY = gp.maxWorldRow * gp.tileSize - gp.player.worldY - gp.tileSize < (gp.maxScreenRow * gp.tileSize / 2 - gp.tileSize/2);
         
         if((overX && overY) || (overX && underY) || (underX && overY) || (underX && underY)) { // CORNERS
-            
+
             // when screen reaches to edge for the first time, newScreenX and newScreenY doesn't increase or decrease by speed so we add
             if(lockScreenCounterX == 0) {
                 if(overX)   newScreenX += gp.player.speed;
@@ -51,6 +51,7 @@ public class MovePlayer {
                 case "right":       newScreenX += gp.player.speed; newWorldX  += gp.player.speed;       break;
             }
         }else if(overX || underX) { // RIGHT | LEFT
+
             if(lockScreenCounterX == 0) {
                 if(overX)   newScreenX += gp.player.speed;
                 else        newScreenX -= gp.player.speed;  
@@ -68,6 +69,7 @@ public class MovePlayer {
                 case "right":          newScreenX += gp.player.speed; newWorldX += gp.player.speed;  break;
             }
         }else if(overY || underY) { // BOTTOM | TOP
+
             if(lockScreenCounterY == 0) {
                 if(overY)   newScreenY += gp.player.speed;
                 else        newScreenY -= gp.player.speed;                  
@@ -85,6 +87,7 @@ public class MovePlayer {
                 case "right":       newWorldX  += gp.player.speed;  break;
             } 
         }else {
+
             lockScreenCounterX = 0; 
             lockScreenCounterY = 0;
             switch (gp.player.direction) {
@@ -106,7 +109,20 @@ public class MovePlayer {
             gp.player.worldX = newWorldX;
             gp.player.worldY = newWorldY;
            
-        }        
+        }      
+        
+        if(overX) gp.isPlayerAtRightEdge = true;
+        else      gp.isPlayerAtRightEdge = false;
+        
+        if(overY) gp.isPlayerAtBottomEdge = true;
+        else      gp.isPlayerAtBottomEdge = false;
+        
+        if(underX) gp.isPlayerAtLeftEdge = true;
+        else      gp.isPlayerAtLeftEdge = false;
+        
+        if(underY) gp.isPlayerAtTopEdge = true;
+        else      gp.isPlayerAtTopEdge = false;
+
     }
     
 }

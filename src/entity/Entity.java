@@ -65,6 +65,10 @@ public class Entity {
     int hpBarCounter = 0;
     public int damageCounter = 0; 
     public int damageTimeOut = 20;
+    int counter = 0;
+    
+    // Enemy
+    public int wolfID;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -131,17 +135,40 @@ public class Entity {
     }
 
     public void draw(Graphics2D g2) {
-
+        
         BufferedImage image = null;
 
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        
+        /* 
+          when player moves to the edges of the map, 
+          in the if below was thinking screen moves but at the edges screen doesn't move
+          so we added the missing parts here
+        */
+        
+        int missingLeft;
+        int missingRight;
+        int missingTop;
+        int missingBottom;
+        
+        if(gp.isPlayerAtLeftEdge)   missingLeft = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
+        else                        missingLeft = 0;
+        
+        if(gp.isPlayerAtTopEdge)    missingTop = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
+        else                        missingTop = 0;
+        
+        if(gp.isPlayerAtRightEdge)  missingRight = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
+        else                        missingRight = 0;
+        
+        if(gp.isPlayerAtBottomEdge) missingBottom = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
+        else                        missingBottom = 0;
 
-        if (worldX > gp.player.worldX - gp.player.screenX - gp.tileSize &&
-                worldX < gp.player.worldX + gp.player.screenX + gp.tileSize &&
-                worldY > gp.player.worldY - gp.player.screenY - gp.tileSize &&
-                worldY < gp.player.worldY + gp.player.screenY + gp.tileSize) {
-
+        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - gp.tileSize && // is entity's location more than screenX 
+            worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + gp.tileSize && // is entity's location less than screenX 
+            worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - gp.tileSize && // is entity's location more than screenY 
+            worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + gp.tileSize) { // is entity's location less than screenY 
+ 
             switch (direction) {
                 case "up":
                 case "upleft":
@@ -230,6 +257,8 @@ public class Entity {
             }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            
+            
             changeAlpha(g2, 1F);
 
             // Reset transparency
