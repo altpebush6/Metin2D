@@ -19,11 +19,18 @@ public class ENEMY_Wolf extends Entity {
         name = "Wolf";
         wolfID = id;
         speed = 1;
-        maxLife = 4;
+        maxLife = 30;
         life = maxLife;
         type = 1;
-        direction = "down";
         standing = true;        
+        
+        int bornDirection = rand.nextInt(4) + 1;
+        switch(bornDirection) {
+            case 1: direction = "up";       break;
+            case 2: direction = "down";     break;
+            case 3: direction = "left";     break;
+            case 4: direction = "right";    break;
+        }
         
         if(direction == "up" || direction == "down") {
             solidArea.x = 10;
@@ -62,31 +69,46 @@ public class ENEMY_Wolf extends Entity {
         
         actionLockCounter++;
         
-        // after 5 seconds change direction
-        if(actionLockCounter == 120) {
-            
+        int firstChange = 60;
+        int increaseAmount = 180;
+        
+        // 1 seconds after born, change direction
+        if(actionLockCounter == firstChange) {
             standing = false;
-
-            int nextMove = rand.nextInt(8) + 1;
-            
-            switch(nextMove) {
-                case 1: direction = "up";       break;
-                case 2: direction = "upleft";   break;
-                case 3: direction = "upright";  break;
-                case 4: direction = "down";     break;
-                case 5: direction = "downleft"; break;
-                case 6: direction = "downright";break;
-                case 7: direction = "left";     break;
-                case 8: direction = "right";    break;
-            }
+            changeDirection();
         }
         
-        // stop for a while
-        if(actionLockCounter == 240) {
+        // 3 seconds after first change direction, stop
+        if(actionLockCounter == (firstChange + increaseAmount)) {
             standing = true;
-            actionLockCounter = 0;
+        }       
+        
+        // 3 seconds after, change direction again
+        if(actionLockCounter == (firstChange + increaseAmount * 2)) {
+            standing = false;
+            changeDirection();
         }
         
+        // stop for 3 seconds and enter to the second if
+        if(actionLockCounter == (firstChange + increaseAmount * 3)) {
+            standing = true;
+            actionLockCounter = firstChange;
+        }
+    }
+    
+    public void changeDirection(){
+        int nextMove = rand.nextInt(8) + 1;
+        
+        switch(nextMove) {
+            case 1: direction = "up";       break;
+            case 2: direction = "upleft";   break;
+            case 3: direction = "upright";  break;
+            case 4: direction = "down";     break;
+            case 5: direction = "downleft"; break;
+            case 6: direction = "downright";break;
+            case 7: direction = "left";     break;
+            case 8: direction = "right";    break;
+        }
     }
     
     public void damageReaction() {

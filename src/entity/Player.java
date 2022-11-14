@@ -30,6 +30,7 @@ public class Player extends Entity {
     public int playerTimer;
     public int increaseLife;
     public int speedDefault;
+    public int playerXP;
 
     // Mouse Click Movement
     public int goalX;
@@ -99,6 +100,8 @@ public class Player extends Entity {
         playerTimer = 0;
         playerCoin = 0;
         playerWeapon = "";
+        
+        playerXP = 0;
 
     }
 
@@ -109,7 +112,8 @@ public class Player extends Entity {
 
         down1 = setup("/player/down1", gp.tileSize, gp.tileSize);
         down2 = setup("/player/down2", gp.tileSize, gp.tileSize);
-        down3 = setup("/player/down2", gp.tileSize, gp.tileSize);
+        down3 = setup("/player/down3", gp.tileSize, gp.tileSize);
+        down4 = setup("/player/down4", gp.tileSize, gp.tileSize);
 
         left1 = setup("/player/left1", gp.tileSize, gp.tileSize);
         left2 = setup("/player/left2", gp.tileSize, gp.tileSize);
@@ -263,7 +267,7 @@ public class Player extends Entity {
             if(!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
                 if (spriteCounter > 12) {
-                    if (spriteNum >= 3) {
+                    if (spriteNum == 2) {
                         spriteNum = 1;
                     } else {
                         spriteNum++;
@@ -421,8 +425,6 @@ public class Player extends Entity {
                             image = up1;
                         if (spriteNum == 2)
                             image = up2;
-                        if (spriteNum == 3)
-                            image = up3;
                     }
     
                     break;
@@ -439,8 +441,6 @@ public class Player extends Entity {
                             image = down1;
                         if (spriteNum == 2)
                             image = down2;
-                        if (spriteNum == 3)
-                            image = down3;
                     }
                     break;
                 case "left":
@@ -456,8 +456,6 @@ public class Player extends Entity {
                             image = left1;
                         if (spriteNum == 2)
                             image = left2;
-                        if (spriteNum == 3)
-                            image = left3;
                     }
     
                     break;
@@ -472,8 +470,6 @@ public class Player extends Entity {
                             image = right1;
                         if (spriteNum == 2)
                             image = right2;
-                        if (spriteNum == 3)
-                            image = right3;
                     }
                     break;  
               }
@@ -637,32 +633,24 @@ public class Player extends Entity {
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
                 gp.enemy[enemyIndex].damageCounter = 0;
-                gp.enemy[enemyIndex].life -= 1;
+                gp.enemy[enemyIndex].life -= level * (rand.nextInt(3) + 3);
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
                 
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
-                    int coinNumber = rand.nextInt(3) + 1;
-
-                    int coinCounter = 0;
+                    
+                    playerXP += rand.nextInt(10) + 100 / level;
+                    level = (playerXP / 920) + 1;
+                                        
+                    int coinNumber = rand.nextInt(3) + 3;
                     for (int i = coinNumber; i > 0; i--) {
-                        if (coinCounter == 0) {
-                            gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX + i * gp.tileSize / 10,
-                                    gp.enemy[enemyIndex].worldY + i * gp.tileSize / 10);
-                        } else if (coinCounter == 1) {
-                            gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX - i * gp.tileSize / 10,
-                                    gp.enemy[enemyIndex].worldY - i * gp.tileSize / 10);
-                        } else if (coinCounter == 2) {
-                            gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX - i * gp.tileSize / 10,
-                                    gp.enemy[enemyIndex].worldY + i * gp.tileSize / 10);
-                        } else if (coinCounter == 3) {
-                            gp.aSetter.createCoin(gp.enemy[enemyIndex].worldX + i * gp.tileSize / 10,
-                                    gp.enemy[enemyIndex].worldY - i * gp.tileSize / 10);
-                            coinCounter = 0;
-                        }
-                        coinCounter++;
+                        
+                        int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                        int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+                        
+                        gp.aSetter.createCoin(xPosition , yPosition);
                     }
 
                     gp.enemy[enemyIndex].dying = true;

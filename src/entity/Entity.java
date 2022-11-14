@@ -48,7 +48,7 @@ public class Entity {
     public int level = 1;
 
     // Images
-    public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
+    public BufferedImage up1, up2, up3, down1, down2, down3, down4, left1, left2, left3, right1, right2, right3;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
             attackRight2;
     public BufferedImage image, deadImage;
@@ -65,7 +65,8 @@ public class Entity {
     int hpBarCounter = 0;
     public int damageCounter = 0; 
     public int damageTimeOut = 20;
-    int counter = 0;
+    public boolean newBorn = false;
+    public int bornCounter = 0;
     
     // Enemy
     public int wolfID;
@@ -101,16 +102,25 @@ public class Entity {
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn && !standing) {
+            int newWorldX = worldX;
+            int newWorldY = worldY;
+            
             switch (direction) {
-                case "upleft":      worldY -= speed * 0.707;    worldX -= speed * 0.707;    break;
-                case "upright":     worldY -= speed * 0.707;    worldX += speed * 0.707;    break;
-                case "downleft":    worldY += speed * 0.707;    worldX -= speed * 0.707;    break;
-                case "downright":   worldY += speed * 0.707;    worldX += speed * 0.707;    break;
-                case "up":          worldY -= speed;    break;
-                case "down":        worldY += speed;    break;
-                case "left":        worldX -= speed;    break;
-                case "right":       worldX += speed;    break;
+                case "upleft":      newWorldY -= speed;    newWorldX -= speed;    break;
+                case "upright":     newWorldY -= speed;    newWorldX += speed;    break;
+                case "downleft":    newWorldY += speed;    newWorldX -= speed;    break;
+                case "downright":   newWorldY += speed;    newWorldX += speed;    break;
+                case "up":          newWorldY -= speed;    break;
+                case "down":        newWorldY += speed;    break;
+                case "left":        newWorldX -= speed;    break;
+                case "right":       newWorldX += speed;    break;
             }
+            
+            if(newWorldX > 0 && newWorldX < (gp.maxWorldCol-1) * gp.tileSize &&
+               newWorldY > 0 && newWorldY < (gp.maxWorldRow-2) * gp.tileSize) {
+                     worldX = newWorldX;
+                     worldY = newWorldY;
+            }      
         }
 
         if (!standing) {
@@ -208,6 +218,11 @@ public class Entity {
                     break;
             }
             
+            // if enemy is new born animate
+            if (newBorn) {
+                bornAnimation(g2);
+            }
+            
             // Enemy fill Hp
             damageCounter++;
             if (type == 1 && damageCounter == 360) {
@@ -252,6 +267,7 @@ public class Entity {
                 changeAlpha(g2, 0.4F);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             }
+            
             if (deadObj) {
                 dyingAnimation(g2);
             }
@@ -268,17 +284,34 @@ public class Entity {
 
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
-        if (dyingCounter < 20) {            changeAlpha(g2, 1f);
-        } else if (dyingCounter < 40)   {   changeAlpha(g2, 0.9f);
-        } else if (dyingCounter < 60)   {   changeAlpha(g2, 0.8f);
-        } else if (dyingCounter < 80)   {   changeAlpha(g2, 0.7f);
-        } else if (dyingCounter < 100)  {   changeAlpha(g2, 0.6f);
-        } else if (dyingCounter < 120)  {   changeAlpha(g2, 0.5f);
-        } else if (dyingCounter < 140)  {   changeAlpha(g2, 0.4f);
-        } else if (dyingCounter < 160)  {   changeAlpha(g2, 0.3f);
-        } else if (dyingCounter < 180)  {   changeAlpha(g2, 0.2f);
-        } else if (dyingCounter < 200)  {   changeAlpha(g2, 0.1f);
+        int increaseAmount = 5;
+        if (dyingCounter < increaseAmount) {            changeAlpha(g2, 1f);
+        } else if (dyingCounter < increaseAmount * 2)   {   changeAlpha(g2, 0.9f);
+        } else if (dyingCounter < increaseAmount * 3)   {   changeAlpha(g2, 0.8f);
+        } else if (dyingCounter < increaseAmount * 4)   {   changeAlpha(g2, 0.7f);
+        } else if (dyingCounter < increaseAmount * 5)  {   changeAlpha(g2, 0.6f);
+        } else if (dyingCounter < increaseAmount * 6)  {   changeAlpha(g2, 0.5f);
+        } else if (dyingCounter < increaseAmount * 7)  {   changeAlpha(g2, 0.4f);
+        } else if (dyingCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.3f);
+        } else if (dyingCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.2f);
+        } else if (dyingCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.1f);
         } else {changeAlpha(g2, 0f);gp.obj[deadIndex] = null;   }
+    }
+    
+    public void bornAnimation(Graphics2D g2) {
+        bornCounter++;
+        int increaseAmount = 3;
+        if (bornCounter < increaseAmount) {            changeAlpha(g2, 0f);
+        } else if (bornCounter < increaseAmount * 2)   {   changeAlpha(g2, 0.1f);
+        } else if (bornCounter < increaseAmount * 3)   {   changeAlpha(g2, 0.2f);
+        } else if (bornCounter < increaseAmount * 4)   {   changeAlpha(g2, 0.3f);
+        } else if (bornCounter < increaseAmount * 5)  {   changeAlpha(g2, 0.4f);
+        } else if (bornCounter < increaseAmount * 6)  {   changeAlpha(g2, 0.5f);
+        } else if (bornCounter < increaseAmount * 7)  {   changeAlpha(g2, 0.6f);
+        } else if (bornCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.7f);
+        } else if (bornCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.8f);
+        } else if (bornCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.9f);
+        } else {   changeAlpha(g2, 1f);    newBorn = false;   }
     }
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {

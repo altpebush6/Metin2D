@@ -18,6 +18,7 @@ public class UI {
     BufferedImage coinImage, dolunayImage,hpBarImage, hpBarImage1,hpBarImage2,hpBarImage3,hpBarImage4,hpBarImage5,hpBarImage6,hpBarImage7,hpBarImage8, emptyBarImage, cursorImage;
     BufferedImage auroOfSwordImage, swordSpinImage;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
+    BufferedImage[] xpTupe = new BufferedImage[23];
     
     public int healthBar;
     public int spBar;
@@ -28,7 +29,10 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public int itemIndex;
-
+    
+    public int fillTupeNum = 0;
+    public int tupeImg;
+    
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -47,9 +51,14 @@ public class UI {
         emptyBarImage       = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
         cursorImage         = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
         auroOfSwordImage    = gp.uTool.setup("/skills/AuroOfSword", gp.tileSize, gp.tileSize);
+        
         swordSpinImage      = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
-        for(int i=0;i<20;i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme"+(20-i), gp.tileSize, gp.tileSize);
+        for(int i = 0; i < swordSpinImageUsed.length; i++) {
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme"+(swordSpinImageUsed.length-i), gp.tileSize, gp.tileSize);
+        }
+        
+        for(int i = 0; i < xpTupe.length; i++) {
+            xpTupe[i] = gp.uTool.setup("/xpTupe/xpTupe"+(i+1), gp.tileSize, gp.tileSize);
         }
         
     }
@@ -76,7 +85,50 @@ public class UI {
 
         }
         
+        fillTupeNum = (gp.player.playerXP % 920) / 230;
         
+        switch (fillTupeNum) {
+            case 0:
+                tupeImg = (gp.player.playerXP % 230) / 10;
+
+                g2.drawImage(xpTupe[tupeImg], gp.tileSize * 7/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[0], gp.tileSize * 8/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[0], gp.tileSize * 9/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[0], gp.tileSize * 10/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);  
+                break;
+            case 1:
+                tupeImg = (gp.player.playerXP % 230) / 10;
+
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 7/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[tupeImg], gp.tileSize * 8/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[0], gp.tileSize * 9/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[0], gp.tileSize * 10/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);  
+                break;
+            case 2:
+                tupeImg = (gp.player.playerXP % 230) / 10;
+
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 7/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 8/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[tupeImg], gp.tileSize * 9/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[0], gp.tileSize * 10/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);  
+                break;
+            case 3:
+                tupeImg = (gp.player.playerXP % 230) / 10;
+
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 7/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 8/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 9/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[tupeImg], gp.tileSize * 10/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);  
+                break;
+                
+            default:
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 7/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 8/2 , gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 9/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);   
+                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 10/2, gp.tileSize * (gp.maxScreenRow - 1) - 4, gp.tileSize / 2, gp.tileSize / 2, null);  
+                break;
+        }
+   
         // Change Cursor
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Point point = new Point(0,0);
