@@ -41,6 +41,18 @@ To add this project on your workspace follow the steps: <br><br>
 
 <hr>
 
+*Report 3* <br> <br>
+<img src="https://user-images.githubusercontent.com/93250409/201967891-e2fd8b2f-bc3e-4d6c-aa9e-dd919d6cd69c.png" width="400" />
+
+-> Health bar has done. <br>
+-> When player moves to the edges of the map camera has fixed. <br>
+-> Added spin sword skill. <br>
+-> Enemy spawns better (not on a collision tile, on player or on an entity) <br>
+-> Fullscreen done. <br>
+-> Fight animation has fixed. <br>
+
+<hr>
+
 > We have done this project thanks to a playlist named 'Java 2D Game Tutorial' <br> https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&index=1 <br><br>
 We've used these topics in our project from this tutorial:
 > - Usig Keyboard for controls. <br>
