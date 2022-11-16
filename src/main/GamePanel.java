@@ -1,4 +1,5 @@
 package main;
+import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -179,6 +180,8 @@ public class GamePanel extends JPanel implements Runnable{
 	    
 	    // Increase enemy counter to spawn
 	    aSetter.setEnemy();
+	    
+	    
 		
 	    // Player
 		player.update();
@@ -195,6 +198,11 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		
 	}
+	
+	
+    public void changeAlpha(Graphics2D g2, float alphaValue) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
 	
 	public void drawToTempScreen() {
 	 // DEBUG

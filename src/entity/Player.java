@@ -589,10 +589,14 @@ public class Player extends Entity {
                     int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
                     if (enemyIndex != -1) {
                         if (!invincible) {
-                            int soundChoice = rand.nextInt(5)+14;
-                            gp.playSE(soundChoice);
                             int damage = rand.nextInt(5) + 1;
-                            life -= damage;
+                            if(life - damage >= 0) {
+                                int soundChoice = rand.nextInt(5)+14;
+                                gp.playSE(soundChoice);
+                                life -= damage;
+                            }else {
+                                life = 0;
+                            }
                             invincible = true;
                         }
                     }
@@ -600,7 +604,7 @@ public class Player extends Entity {
                     break;
             }
         } else {
-            if ( life < maxLife) {
+            if (life < maxLife) {
                 playerTimer++;
                 if (playerTimer == 120) {
                     if (maxLife - life < increaseLife) {

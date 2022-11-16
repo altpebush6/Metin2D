@@ -23,6 +23,7 @@ public class Entity {
     // Object Attributes
     public int coinValue;
     public boolean deadObj = false;
+    public int objIndex;
     
     // States
     public int worldX, worldY, screenX, screenY, speed;
@@ -39,18 +40,16 @@ public class Entity {
     public boolean hpBarOn = false;
 
     // Character Attributes
-    public int type; // enemy=1, player=2
+    public int type; // enemy=1, player=2, object=3
     public String name;
     public int maxLife;
     public int life;
     public int actionLockCounter = 0;
-    public int deadIndex;
     public int level = 1;
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, down4, left1, left2, left3, right1, right2, right3;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
-            attackRight2;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, deadImage;
     public BufferedImage hpBarImage, emptyBarImage;
 
@@ -67,6 +66,7 @@ public class Entity {
     public int damageTimeOut = 20;
     public boolean newBorn = false;
     public int bornCounter = 0;
+    public int objectCounter = 0;
     
     // Enemy
     public int wolfID;
@@ -147,7 +147,7 @@ public class Entity {
     public void draw(Graphics2D g2) {
         
         BufferedImage image = null;
-
+        
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         
@@ -223,6 +223,14 @@ public class Entity {
                 bornAnimation(g2);
             }
             
+            // if object not collected remove it
+            if(type == 3) {
+                objectCounter++;
+                if(objectCounter == 300) {
+                    deadObj = true;
+                }
+            }
+            
             // Enemy fill Hp
             damageCounter++;
             if (type == 1 && damageCounter == 360) {
@@ -295,7 +303,7 @@ public class Entity {
         } else if (dyingCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.3f);
         } else if (dyingCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.2f);
         } else if (dyingCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.1f);
-        } else {changeAlpha(g2, 0f);gp.obj[deadIndex] = null;   }
+        } else {changeAlpha(g2, 0f);gp.obj[objIndex] = null;   }
     }
     
     public void bornAnimation(Graphics2D g2) {

@@ -31,6 +31,7 @@ public class AssetSetter {
         gp.obj[index] = new OBJ_Coin(gp, rand.nextInt(100));
         gp.obj[index].worldX = worldX;
         gp.obj[index].worldY = worldY;
+        gp.obj[index].objIndex = index;
         index++;
     }
 
@@ -38,7 +39,7 @@ public class AssetSetter {
         gp.obj[index] = new OBJ_DeadWolf(gp);
         gp.obj[index].worldX = worldX;
         gp.obj[index].worldY = worldY;
-        gp.obj[index].deadIndex = index;
+        gp.obj[index].objIndex = index;
         index++;
     }
     
@@ -65,7 +66,7 @@ public class AssetSetter {
             do {
                 spawnWorldX = (int)(rand.nextInt(playerWorldX,playerWorldWidth) / gp.tileSize) * gp.tileSize;   // new wolf worldX
                 spawnWorldY = (int)(rand.nextInt(playerWorldY,playerWorldHeight) / gp.tileSize * gp.tileSize);  // new wolf worldY
-            }while(spawnWorldX <= 0 || spawnWorldX >= gp.maxWorldCol * gp.tileSize || spawnWorldY <= 0 || spawnWorldY >= gp.maxWorldRow * gp.tileSize);
+            }while(spawnWorldX <= 0 || spawnWorldX + 3 * gp.tileSize >= gp.maxWorldCol * gp.tileSize || spawnWorldY <= 0 || spawnWorldY + 3 * gp.tileSize >= gp.maxWorldRow * gp.tileSize);
             
             int newEnemyNum = rand.nextInt(3) + 1; // 1 2 3
             
