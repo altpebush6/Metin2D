@@ -97,7 +97,10 @@ public class Entity {
 
         // CHECK ENEMY COLLISION
         gp.collisionChecker.checkEntity(this, gp.enemy);
-
+        
+        // CHECK NPC COLLISION
+        gp.collisionChecker.checkEntity(this, gp.npc);
+        
         // CHECK PLAYER COLLISION
         gp.collisionChecker.checkPlayer(this);
     }
@@ -378,6 +381,7 @@ public class Entity {
             int entityRightX = worldX + solidArea.x + solidArea.width;
             int entityTopY = worldY + solidArea.y;
             int entityBottomY = worldY + solidArea.y + solidArea.height;
+           
             
             if(entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
                 direction = "up";
@@ -424,6 +428,7 @@ public class Entity {
                     direction = "right";
                 }
             }
+            
             
             // If reaches the goal, stop searching
             /*

@@ -96,8 +96,8 @@ public class ENEMY_Wolf extends Entity {
 
             speed = 2;
 
-            int goalCol = (gp.player.worldX) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
-            int goalRow = (gp.player.worldY) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
 
             searchPath(goalCol, goalRow);
         } else {

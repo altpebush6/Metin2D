@@ -80,12 +80,10 @@ public class AssetSetter {
                 int yPosition = rand.nextInt(3);
 
                 collisionOn = false;
-                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize);
-                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize, gp.enemy);
-                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.enemy);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.npc);
+                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
                 if (!collisionOn) {
                     gp.enemy[index] = new ENEMY_Wolf(gp, index);
                     gp.enemy[index].worldX = spawnWorldX + xPosition * gp.tileSize;

@@ -38,28 +38,35 @@ public class Npc_Blacksmith extends Entity {
     }
 
     public void setAction() {
+        
+        if (onPath) {
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
 
-        npcActionCounter++;
-
-        if (npcActionCounter == 120) {
-            Random random = new Random();
-            int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
-
-            if (i <= 25) {
-                direction = "up";
+            searchPath(goalCol, goalRow);
+        } else {
+            npcActionCounter++;
+    
+            if (npcActionCounter == 120) {
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
+    
+                if (i <= 25) {
+                    direction = "up";
+                }
+                if (i > 25 && i <= 50) {
+                    direction = "down";
+                }
+                if (i > 50 & i <= 75) {
+                    direction = "left";
+                }
+                if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+    
+                npcActionCounter = 0;
+    
             }
-            if (i > 25 && i <= 50) {
-                direction = "down";
-            }
-            if (i > 50 & i <= 75) {
-                direction = "left";
-            }
-            if (i > 75 && i <= 100) {
-                direction = "right";
-            }
-
-            npcActionCounter = 0;
-
         }
 
     }
