@@ -41,7 +41,7 @@ public class Player extends Entity {
     boolean goalReachedY = false;
 
     public Random rand = new Random();
-    
+
     public int punchTimeOut = 0;
     public int holdingNum = 0;
     public int holdingCounter = 0;
@@ -50,14 +50,13 @@ public class Player extends Entity {
     public boolean spacePressed = false;
     public boolean doubleClicked = false;
     int attackWalkingSpeed = 1;
-    
-    
+
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
         this.gp = gp;
         this.keyH = keyH;
         this.mouseH = mouseH;
-        
+
         type = 2;
         name = "xKralTr";
 
@@ -100,7 +99,7 @@ public class Player extends Entity {
         playerTimer = 0;
         playerCoin = 0;
         playerWeapon = "";
-        
+
         playerXP = 0;
 
     }
@@ -140,28 +139,28 @@ public class Player extends Entity {
 
     public void update() {
 
-        //clickCounter++;  // to detect double click
-        
-        
-        
-        // If Player doesn't press space longer than damageTimeOut (45sec) second reset holding
-        
+        // clickCounter++; // to detect double click
+
+        // If Player doesn't press space longer than damageTimeOut (45sec) second reset
+        // holding
+
         noPunchCounter++;
-        if(noPunchCounter >= damageTimeOut) {
+        if (noPunchCounter >= damageTimeOut) {
             gp.player.holdingCounter = 0;
             gp.player.holdingNum = 0;
         }
-        
+
         // When pressed space
         punchTimeOut++;
         if (keyH.spacePressed && !gp.skills.skillUsed) {
-            //System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut: "+punchTimeOut+" holdingCounter: "+holdingCounter);
+            // System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut:
+            // "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
             holdingCounter++;
             if (punchTimeOut >= damageTimeOut) {
                 punchTimeOut = 0;
                 attacking = true;
-                gp.playSE(holdingNum+10);
+                gp.playSE(holdingNum + 10);
                 holdingNum++;
                 if (holdingNum == 4) {
                     holdingNum = 0;
@@ -169,37 +168,37 @@ public class Player extends Entity {
                 }
             }
         }
-        
-        
-        if(gp.skills.swordSpinTimeOut != 0) {
+
+        if (gp.skills.swordSpinTimeOut != 0) {
             gp.skills.swordSpinTimeOut++;
         }
-        
-        if(gp.skills.swordSpinTimeOut == gp.skills.skillStandbyTime) {
+
+        if (gp.skills.swordSpinTimeOut == gp.skills.skillStandbyTime) {
             gp.skills.swordSpinTimeOut = 0;
         }
-        
+
         if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
-            if(gp.skills.swordSpinCounter > 20) {
+            if (gp.skills.swordSpinCounter > 20) {
                 gp.skills.useSkill(gp.skills.swordSpinType);
                 gp.skills.skillUsed = true;
             }
             speed = attackWalkingSpeed;
             gp.skills.swordSpinCounter++;
-            if(gp.skills.swordSpinCounter == gp.skills.skillTimeOut) {
+            if (gp.skills.swordSpinCounter == gp.skills.skillTimeOut) {
                 gp.skills.swordSpinCounter = 0;
                 gp.skills.swordSpinUsed = false;
                 gp.skills.skillUsed = false;
                 spriteNum = 1;
                 gp.skills.swordSpinTimeOut++;
             }
-        }else if (attacking) {
+        } else if (attacking) {
             attack();
-        }else {
+        } else {
             speed = speedDefault;
         }
-        
-        // To avoid player to get damage every frame. Instead waits for 1 seconds and get damage.
+
+        // To avoid player to get damage every frame. Instead waits for 1 seconds and
+        // get damage.
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter == 60) {
@@ -229,14 +228,23 @@ public class Player extends Entity {
             goalReachedX = true;
             goalReachedY = true;
 
-            if (keyH.upPressed && keyH.leftPressed) {           direction = "upleft";} 
-            else if (keyH.upPressed && keyH.rightPressed) {     direction = "upright";} 
-            else if (keyH.downPressed && keyH.leftPressed) {    direction = "downleft";} 
-            else if (keyH.downPressed && keyH.rightPressed) {   direction = "downright";}
-            else if (keyH.upPressed) {                          direction = "up";}
-            else if (keyH.downPressed) {                        direction = "down";}
-            else if (keyH.leftPressed) {                        direction = "left";}
-            else if (keyH.rightPressed) {                       direction = "right";}
+            if (keyH.upPressed && keyH.leftPressed) {
+                direction = "upleft";
+            } else if (keyH.upPressed && keyH.rightPressed) {
+                direction = "upright";
+            } else if (keyH.downPressed && keyH.leftPressed) {
+                direction = "downleft";
+            } else if (keyH.downPressed && keyH.rightPressed) {
+                direction = "downright";
+            } else if (keyH.upPressed) {
+                direction = "up";
+            } else if (keyH.downPressed) {
+                direction = "down";
+            } else if (keyH.leftPressed) {
+                direction = "left";
+            } else if (keyH.rightPressed) {
+                direction = "right";
+            }
 
             // CHECK TILE COLLISION
             collisionOn = false;
@@ -244,8 +252,11 @@ public class Player extends Entity {
 
             // CHECK ENEMY COLLISION
             gp.collisionChecker.checkEntity(this, gp.enemy);
-            
-            
+
+            // CHECK NPC COLLISION
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
+            interactNpc(npcIndex);
+
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
                 MovePlayer.move(gp);
@@ -264,7 +275,7 @@ public class Player extends Entity {
                 stepCounter = 0;
             }
 
-            if(!gp.skills.skillUsed && !attacking) {
+            if (!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
                 if (spriteCounter > 12) {
                     if (spriteNum == 2) {
@@ -356,7 +367,7 @@ public class Player extends Entity {
             }
 
             // to animate character movement
-            if(!gp.skills.skillUsed && !attacking) {
+            if (!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
                 if (spriteCounter > 10) {
                     if (spriteNum == 1) {
@@ -388,27 +399,29 @@ public class Player extends Entity {
         // To avoid sliding image when sizes are different
         int tempScreenX = screenX;
         int tempScreenY = screenY;
-        
+
         // Player Label
-        g2.setFont(new Font("Courier New",Font.BOLD,13));
+        g2.setFont(new Font("Courier New", Font.BOLD, 13));
         g2.setColor(Color.green);
         g2.drawString("Lv " + level, screenX - 25, screenY - 20);
-        
+
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 20, screenY - 20);
-        
-        if(gp.skills.skillUsed) {
+
+        if (gp.skills.skillUsed) {
             if (spriteNum == 1)
                 image = attackRight2;
             if (spriteNum == 2) {
                 image = attackUp2;
                 tempScreenY = screenY - gp.tileSize;
-            }if (spriteNum == 3) {
+            }
+            if (spriteNum == 3) {
                 tempScreenX = screenX - gp.tileSize;
                 image = attackLeft2;
-            }if (spriteNum == 4)
+            }
+            if (spriteNum == 4)
                 image = attackDown2;
-        }else {       
+        } else {
             switch (direction) {
                 case "up":
                 case "upleft":
@@ -418,7 +431,7 @@ public class Player extends Entity {
                             image = attackUp1;
                         if (spriteNum == 2)
                             image = attackUp2;
-    
+
                         tempScreenY = screenY - gp.tileSize; // To avoid sliding image when image sizes are different
                     } else {
                         if (spriteNum == 1)
@@ -426,7 +439,7 @@ public class Player extends Entity {
                         if (spriteNum == 2)
                             image = up2;
                     }
-    
+
                     break;
                 case "down":
                 case "downleft":
@@ -449,7 +462,7 @@ public class Player extends Entity {
                             image = attackLeft1;
                         if (spriteNum == 2)
                             image = attackLeft2;
-    
+
                         tempScreenX = screenX - gp.tileSize; // To avoid sliding image when image sizes are different
                     } else {
                         if (spriteNum == 1)
@@ -457,7 +470,7 @@ public class Player extends Entity {
                         if (spriteNum == 2)
                             image = left2;
                     }
-    
+
                     break;
                 case "right":
                     if (attacking) {
@@ -471,12 +484,9 @@ public class Player extends Entity {
                         if (spriteNum == 2)
                             image = right2;
                     }
-                    break;  
-              }
+                    break;
+            }
         }
-
- 
-      
 
         // Set player transparent after damage
         if (invincible) {
@@ -495,7 +505,7 @@ public class Player extends Entity {
             spriteNum = 1;
         } else if (spriteCounter > 5 && spriteCounter <= 20) {
             spriteNum = 2;
-            
+
             speed = attackWalkingSpeed;
 
             // Save the current worldX, worldY, solidArea
@@ -544,7 +554,6 @@ public class Player extends Entity {
             speed = speedDefault;
         }
     }
-   
 
     public void pickUpObject(int index) {
 
@@ -570,19 +579,27 @@ public class Player extends Entity {
         }
     }
 
+    // Interacting with npc
+    public void interactNpc(int i) {
+
+        if (i != -1) {
+            System.out.println("you are hitting an npc!");
+        }
+    }
+
     public void startFight(int index) {
         if (index != -1) {
             String enemyName = gp.enemy[index].name;
 
             switch (enemyName) {
                 case "Wolf":
-                    
+
                     // Wolf Barking
                     enemySoundCounter++;
                     if (enemySoundCounter == 40) {
-                        int soundChoice = rand.nextInt(2)+7;
+                        int soundChoice = rand.nextInt(2) + 7;
                         gp.playSE(soundChoice);
-                        
+
                         enemySoundCounter = 0;
                     }
                     // Wolf Damaging
@@ -590,11 +607,11 @@ public class Player extends Entity {
                     if (enemyIndex != -1) {
                         if (!invincible) {
                             int damage = rand.nextInt(5) + 1;
-                            if(life - damage >= 0) {
-                                int soundChoice = rand.nextInt(5)+14;
+                            if (life - damage >= 0) {
+                                int soundChoice = rand.nextInt(5) + 14;
                                 gp.playSE(soundChoice);
                                 life -= damage;
-                            }else {
+                            } else {
                                 life = 0;
                             }
                             invincible = true;
@@ -617,19 +634,21 @@ public class Player extends Entity {
                 }
 
             }
-            /*if (gp.player.playerSp < 100) {
-                playerTimer++;
-                if (playerTimer == 3600) {
-                    if (maxPlayerSp - playerSp < increaseSp) {
-                        playerSp+= maxPlayerSp - playerSp;
-                        playerTimer = 0;
-                    } else {
-                        playerSp += increaseSp;
-                        playerTimer = 0;
-                    }
-                }
-
-            }*/
+            /*
+             * if (gp.player.playerSp < 100) {
+             * playerTimer++;
+             * if (playerTimer == 3600) {
+             * if (maxPlayerSp - playerSp < increaseSp) {
+             * playerSp+= maxPlayerSp - playerSp;
+             * playerTimer = 0;
+             * } else {
+             * playerSp += increaseSp;
+             * playerTimer = 0;
+             * }
+             * }
+             * 
+             * }
+             */
         }
     }
 
@@ -640,26 +659,26 @@ public class Player extends Entity {
                 gp.enemy[enemyIndex].life -= level * (rand.nextInt(3) + 3);
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
-                
+
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
-                    
+
                     playerXP += rand.nextInt(10) + 100 / level;
                     level = (playerXP / 920) + 1;
-                                        
+
                     int coinNumber = rand.nextInt(3) + 3;
                     for (int i = coinNumber; i > 0; i--) {
-                        
+
                         int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
                         int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-                        
-                        gp.aSetter.createCoin(xPosition , yPosition);
+
+                        gp.aSetter.createCoin(xPosition, yPosition);
                     }
 
                     gp.enemy[enemyIndex].dying = true;
                     gp.enemy[enemyIndex].alive = false;
-                    gp.aSetter.createDeadWolf(worldX,worldY + (gp.tileSize /2));
+                    gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
                 }
             }
         }

@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public Player player = new Player(this,keyH,mouseH);
 	public Entity obj[] = new Entity[99999];
 	public Entity enemy[] = new Entity[99999];
+	public Entity npc[] = new Entity[10];
 	ArrayList<Entity> entityList = new ArrayList<>();
 	public Skills skills = new Skills(this);
 	
@@ -80,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//aSetter.createWolf();
 		
 		//playMusic(0);
-		
+		aSetter.setNpc();
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
 		
@@ -186,6 +187,13 @@ public class GamePanel extends JPanel implements Runnable{
 	    // Player
 		player.update();
 		
+		//NPC
+		for(int i=0; i<npc.length;i++){
+			if(npc[i] != null){
+				npc[i].update();
+			}
+		}
+
 		// Enemy
 		for(int i = 0; i < enemy.length; i++) {
 		    if(enemy[i] != null) {
@@ -221,6 +229,13 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
         
+		// NPC
+		for(int i=0; i< npc.length; i++){
+			if(npc[i] != null){
+				npc[i].draw(g2);
+			}
+		}
+
         // ADD ENTITIES TO THE LIST
         entityList.add(player);
         
