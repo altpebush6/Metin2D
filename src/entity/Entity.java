@@ -26,7 +26,7 @@ public class Entity {
     public int objIndex;
 
     // States
-    public int worldX, worldY, screenX, screenY, speed;
+    public int worldX, worldY, screenX, screenY, speed, defaultSpeed;
     public boolean collision = false;
     public boolean collisionOn = false;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
@@ -38,6 +38,7 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     public boolean hpBarOn = false;
+    public boolean onPath = false;
 
     // Character Attributes
     public int type; // enemy=1, player=2, object=3
@@ -49,8 +50,7 @@ public class Entity {
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, down4, left1, left2, left3, right1, right2, right3;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
-            attackRight2;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage image, deadImage;
     public BufferedImage hpBarImage, emptyBarImage;
 
@@ -86,17 +86,11 @@ public class Entity {
         emptyBarImage = setup("/UI/emptyBar2", gp.tileSize, gp.tileSize / 8);
     }
 
-    public void setAction() {
+    public void setAction() {}
 
-    }
-
-    public void damageReaction() {
-    }
-
-    public void update() {
-
-        setAction();
-
+    public void damageReaction() {}
+    
+    public void checkCollision() {
         // CHECK TILE COLLISION
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
@@ -106,6 +100,12 @@ public class Entity {
 
         // CHECK PLAYER COLLISION
         gp.collisionChecker.checkPlayer(this);
+    }
+
+    public void update() {
+
+        setAction();
+        checkCollision();
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (!collisionOn && !standing) {
@@ -113,34 +113,14 @@ public class Entity {
             int newWorldY = worldY;
 
             switch (direction) {
-                case "upleft":
-                    newWorldY -= speed;
-                    newWorldX -= speed;
-                    break;
-                case "upright":
-                    newWorldY -= speed;
-                    newWorldX += speed;
-                    break;
-                case "downleft":
-                    newWorldY += speed;
-                    newWorldX -= speed;
-                    break;
-                case "downright":
-                    newWorldY += speed;
-                    newWorldX += speed;
-                    break;
-                case "up":
-                    newWorldY -= speed;
-                    break;
-                case "down":
-                    newWorldY += speed;
-                    break;
-                case "left":
-                    newWorldX -= speed;
-                    break;
-                case "right":
-                    newWorldX += speed;
-                    break;
+                case "upleft":      newWorldY -= speed;    newWorldX -= speed;    break;
+                case "upright":     newWorldY -= speed;    newWorldX += speed;    break;
+                case "downleft":    newWorldY += speed;    newWorldX -= speed;    break;
+                case "downright":   newWorldY += speed;    newWorldX += speed;    break;
+                case "up":          newWorldY -= speed;    break;
+                case "down":        newWorldY += speed;    break;
+                case "left":        newWorldX -= speed;    break;
+                case "right":       newWorldX += speed;    break;
             }
 
             if (newWorldX > 0 && newWorldX < (gp.maxWorldCol - 1) * gp.tileSize &&
@@ -190,37 +170,22 @@ public class Entity {
         int missingTop;
         int missingBottom;
 
-        if (gp.isPlayerAtLeftEdge)
-            missingLeft = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
-        else
-            missingLeft = 0;
+        if(gp.isPlayerAtLeftEdge)   missingLeft = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
+        else                        missingLeft = 0;
+        
+        if(gp.isPlayerAtTopEdge)    missingTop = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
+        else                        missingTop = 0;
+        
+        if(gp.isPlayerAtRightEdge)  missingRight = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
+        else                        missingRight = 0;
+        
+        if(gp.isPlayerAtBottomEdge) missingBottom = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
+        else                        missingBottom = 0;
 
-        if (gp.isPlayerAtTopEdge)
-            missingTop = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
-        else
-            missingTop = 0;
-
-        if (gp.isPlayerAtRightEdge)
-            missingRight = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
-        else
-            missingRight = 0;
-
-        if (gp.isPlayerAtBottomEdge)
-            missingBottom = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
-        else
-            missingBottom = 0;
-
-        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - gp.tileSize && // is entity's location
-                                                                                                 // more than screenX
-                worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + gp.tileSize && // is entity's
-                                                                                                    // location less
-                                                                                                    // than screenX
-                worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - gp.tileSize && // is entity's
-                                                                                                      // location more
-                                                                                                      // than screenY
-                worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + gp.tileSize) { // is entity's
-                                                                                                   // location less than
-                                                                                                   // screenY
+        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - gp.tileSize && // is entity's location more than screenX 
+                worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + gp.tileSize && // is entity's location less than screenX 
+                worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - gp.tileSize && // is entity's location more than screenY 
+                worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + gp.tileSize) { // is entity's location less than screenY 
 
             switch (direction) {
                 case "up":
@@ -302,8 +267,7 @@ public class Entity {
                 double maxBar = oneScale * maxLife;
 
                 g2.drawImage(emptyBarImage, screenX, screenY - 10, (int) maxBar, gp.tileSize / 8, null);
-                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8,
-                        null);
+                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8, null);
 
                 hpBarCounter++;
                 if (hpBarCounter > 600) {
@@ -347,59 +311,33 @@ public class Entity {
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
         int increaseAmount = 5;
-        if (dyingCounter < increaseAmount) {
-            changeAlpha(g2, 1f);
-        } else if (dyingCounter < increaseAmount * 2) {
-            changeAlpha(g2, 0.9f);
-        } else if (dyingCounter < increaseAmount * 3) {
-            changeAlpha(g2, 0.8f);
-        } else if (dyingCounter < increaseAmount * 4) {
-            changeAlpha(g2, 0.7f);
-        } else if (dyingCounter < increaseAmount * 5) {
-            changeAlpha(g2, 0.6f);
-        } else if (dyingCounter < increaseAmount * 6) {
-            changeAlpha(g2, 0.5f);
-        } else if (dyingCounter < increaseAmount * 7) {
-            changeAlpha(g2, 0.4f);
-        } else if (dyingCounter < increaseAmount * 8) {
-            changeAlpha(g2, 0.3f);
-        } else if (dyingCounter < increaseAmount * 9) {
-            changeAlpha(g2, 0.2f);
-        } else if (dyingCounter < increaseAmount * 10) {
-            changeAlpha(g2, 0.1f);
-        } else {
-            changeAlpha(g2, 0f);
-            gp.obj[objIndex] = null;
-        }
+        if (dyingCounter < increaseAmount) {            changeAlpha(g2, 1f);
+        } else if (dyingCounter < increaseAmount * 2)   {   changeAlpha(g2, 0.9f);
+        } else if (dyingCounter < increaseAmount * 3)   {   changeAlpha(g2, 0.8f);
+        } else if (dyingCounter < increaseAmount * 4)   {   changeAlpha(g2, 0.7f);
+        } else if (dyingCounter < increaseAmount * 5)  {   changeAlpha(g2, 0.6f);
+        } else if (dyingCounter < increaseAmount * 6)  {   changeAlpha(g2, 0.5f);
+        } else if (dyingCounter < increaseAmount * 7)  {   changeAlpha(g2, 0.4f);
+        } else if (dyingCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.3f);
+        } else if (dyingCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.2f);
+        } else if (dyingCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.1f);
+        } else {changeAlpha(g2, 0f);gp.obj[objIndex] = null;   }
     }
 
     public void bornAnimation(Graphics2D g2) {
         bornCounter++;
         int increaseAmount = 3;
-        if (bornCounter < increaseAmount) {
-            changeAlpha(g2, 0f);
-        } else if (bornCounter < increaseAmount * 2) {
-            changeAlpha(g2, 0.1f);
-        } else if (bornCounter < increaseAmount * 3) {
-            changeAlpha(g2, 0.2f);
-        } else if (bornCounter < increaseAmount * 4) {
-            changeAlpha(g2, 0.3f);
-        } else if (bornCounter < increaseAmount * 5) {
-            changeAlpha(g2, 0.4f);
-        } else if (bornCounter < increaseAmount * 6) {
-            changeAlpha(g2, 0.5f);
-        } else if (bornCounter < increaseAmount * 7) {
-            changeAlpha(g2, 0.6f);
-        } else if (bornCounter < increaseAmount * 8) {
-            changeAlpha(g2, 0.7f);
-        } else if (bornCounter < increaseAmount * 9) {
-            changeAlpha(g2, 0.8f);
-        } else if (bornCounter < increaseAmount * 10) {
-            changeAlpha(g2, 0.9f);
-        } else {
-            changeAlpha(g2, 1f);
-            newBorn = false;
-        }
+        if (bornCounter < increaseAmount) {            changeAlpha(g2, 0f);
+        } else if (bornCounter < increaseAmount * 2)   {   changeAlpha(g2, 0.1f);
+        } else if (bornCounter < increaseAmount * 3)   {   changeAlpha(g2, 0.2f);
+        } else if (bornCounter < increaseAmount * 4)   {   changeAlpha(g2, 0.3f);
+        } else if (bornCounter < increaseAmount * 5)  {   changeAlpha(g2, 0.4f);
+        } else if (bornCounter < increaseAmount * 6)  {   changeAlpha(g2, 0.5f);
+        } else if (bornCounter < increaseAmount * 7)  {   changeAlpha(g2, 0.6f);
+        } else if (bornCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.7f);
+        } else if (bornCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.8f);
+        } else if (bornCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.9f);
+        } else {   changeAlpha(g2, 1f);    newBorn = false;   }
     }
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
@@ -420,5 +358,82 @@ public class Entity {
         }
 
         return image;
+    }
+    
+    public void searchPath(int goalCol, int goalRow) {
+        
+        int startCol = (worldX + solidArea.x) / gp.tileSize;
+        int startRow = (worldY + solidArea.y) / gp.tileSize;
+        
+        gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
+        
+        if(gp.pathFinder.search()) { // it returns true when found a way to go
+            
+            //  Next worldX & worldY
+            int nextX = gp.pathFinder.pathList.get(0).col * gp.tileSize;
+            int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
+            
+            // Entity's solidArea Position
+            int entityLeftX = worldX + solidArea.x;
+            int entityRightX = worldX + solidArea.x + solidArea.width;
+            int entityTopY = worldY + solidArea.y;
+            int entityBottomY = worldY + solidArea.y + solidArea.height;
+            
+            if(entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
+                direction = "up";
+            }else if(entityTopY < nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
+                direction = "down";
+            }else if(entityTopY >= nextY && entityBottomY < nextY + gp.tileSize) {
+                // Left or Right
+                if(entityLeftX > nextX) {
+                    direction = "left";
+                }
+                if(entityLeftX < nextX) {
+                    direction = "right";
+                }
+            }else if(entityTopY > nextY && entityLeftX > nextX) {
+                // up or left
+                direction = "up";
+                
+                checkCollision();
+                if(collisionOn) {
+                    direction = "left";
+                }
+            }else if(entityTopY > nextY && entityLeftX < nextX) {
+                // up or right
+                direction = "up";
+                
+                checkCollision();
+                if(collisionOn) {
+                    direction = "right";
+                }
+            }else if(entityTopY < nextY && entityLeftX > nextX) {
+                // down or left
+                direction = "down";
+                
+                checkCollision();
+                if(collisionOn) {
+                    direction = "left";
+                }
+            }else if(entityTopY < nextY && entityLeftX < nextX) {
+                // down or right
+                direction = "down";
+                
+                checkCollision();
+                if(collisionOn) {
+                    direction = "right";
+                }
+            }
+            
+            // If reaches the goal, stop searching
+            /*
+            int nextCol = gp.pathFinder.pathList.get(0).col;
+            int nextRow = gp.pathFinder.pathList.get(0).row;
+            
+            if(nextCol == goalCol && nextRow == goalRow) {
+                onPath = false;
+            }
+            */
+        }
     }
 }
