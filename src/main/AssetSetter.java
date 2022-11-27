@@ -43,17 +43,18 @@ public class AssetSetter {
         index++;
     }
     
+    /*
     public void createWolf() {
         gp.enemy[0] = new ENEMY_Wolf(gp,index);
         gp.enemy[0].worldX = 20 * gp.tileSize;
         gp.enemy[0].worldY = 25 * gp.tileSize;
         index++;
     }
-
+    */
+    
     public void setEnemy() {
         wolfCreateCounter++;
 
-        // wolfCreateCounter >= 300 && aliveWolfNum < 5
         if(wolfCreateCounter >= 180 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
              
             playerWorldX = gp.player.worldX - gp.tileSize * 5;
