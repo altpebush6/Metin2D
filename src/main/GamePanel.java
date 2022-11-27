@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JPanel;
+
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import entity.Skills;
@@ -49,11 +51,12 @@ public class GamePanel extends JPanel implements Runnable{
 	MouseHandler mouseH = new MouseHandler(this);
 	Sound soundtrack = new Sound();
 	Sound se = new Sound(); // sound effects
-	TileManager tileM = new TileManager(this);
+	public TileManager tileM = new TileManager(this);
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UtilityTool uTool = new UtilityTool();
 	public UI ui = new UI(this);
+	public PathFinder pathFinder = new PathFinder(this);
 	Thread gameThread;
 	
 	// ENTITY AND OBJECT
@@ -65,7 +68,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public Skills skills = new Skills(this);
 	
 	public GamePanel() {
-		
 		this.setPreferredSize(new Dimension(screenWidth,screenHeight)); // Set the size of this class (JPanel)
 		//this.setBackground(Color.black); 
 		this.setDoubleBuffered(true);// If set true, all the drawing from this component will be done in an offscreen pointing buffer. IMPROVE GAME RENDERING PERFORMANS

@@ -65,12 +65,12 @@ public class Player extends Entity {
 
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 30;
+        solidArea.x = 9;
+        solidArea.y = 21;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 32;
-        solidArea.height = 18;
+        solidArea.width = 33;
+        solidArea.height = 27;
 
         // CHANGE THIS ACCORDING TO ATTACKING CHARACTER PIXEL ART
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
