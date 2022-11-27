@@ -19,6 +19,7 @@ public class ENEMY_Wolf extends Entity {
         name = "Wolf";
         wolfID = id;
         speed = 1;
+        defaultSpeed = speed;
         maxLife = 30;
         life = maxLife;
         type = 1;
@@ -65,34 +66,59 @@ public class ENEMY_Wolf extends Entity {
         right3 = setup("/wolf/right3", gp.tileSize, gp.tileSize);
     }
     
+    public void update() {
+        
+        super.update();
+        
+        int xDistance = Math.abs(worldX - gp.player.worldX);
+        int yDistance = Math.abs(worldY - gp.player.worldY);
+        int tileDistance = (xDistance + yDistance) / gp.tileSize;
+        
+        if(onPath && tileDistance > 10) {
+            onPath = false;
+        }
+    }
+    
     public void setAction() {
         
-        actionLockCounter++;
-        
-        int firstChange = 60;
-        int increaseAmount = 180;
-        
-        // 1 seconds after born, change direction
-        if(actionLockCounter == firstChange) {
+        if(onPath) {
             standing = false;
-            changeDirection();
-        }
-        
-        // 3 seconds after first change direction, stop
-        if(actionLockCounter == (firstChange + increaseAmount)) {
-            standing = true;
-        }       
-        
-        // 3 seconds after, change direction again
-        if(actionLockCounter == (firstChange + increaseAmount * 2)) {
-            standing = false;
-            changeDirection();
-        }
-        
-        // stop for 3 seconds and enter to the second if
-        if(actionLockCounter == (firstChange + increaseAmount * 3)) {
-            standing = true;
-            actionLockCounter = firstChange;
+            
+            speed = 2;
+            
+            int goalCol = (gp.player.worldX) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
+            int goalRow = (gp.player.worldY) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+            
+            searchPath(goalCol, goalRow);
+        }else {
+            speed = defaultSpeed;
+            actionLockCounter++;
+            
+            int firstChange = 60;
+            int increaseAmount = 180;
+            
+            // 1 seconds after born, change direction
+            if(actionLockCounter == firstChange) {
+                standing = false;
+                changeDirection();
+            }
+            
+            // 3 seconds after first change direction, stop
+            if(actionLockCounter == (firstChange + increaseAmount)) {
+                standing = true;
+            }       
+            
+            // 3 seconds after, change direction again
+            if(actionLockCounter == (firstChange + increaseAmount * 2)) {
+                standing = false;
+                changeDirection();
+            }
+            
+            // stop for 3 seconds and enter to the second if
+            if(actionLockCounter == (firstChange + increaseAmount * 3)) {
+                standing = true;
+                actionLockCounter = firstChange;
+            }
         }
     }
     
@@ -113,18 +139,6 @@ public class ENEMY_Wolf extends Entity {
     
     public void damageReaction() {
         actionLockCounter = 0;
-        
-        if(gp.player.direction == "left") {
-            direction = "right" ;
-        }
-        else if(gp.player.direction == "right") {
-            direction = "left" ;
-        }
-        else if(gp.player.direction == "up"){
-            direction = "down" ;
-        }
-        else if(gp.player.direction == "down") {
-            direction = "up" ;
-        }
+        onPath = true;
     }
 }
