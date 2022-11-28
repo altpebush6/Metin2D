@@ -67,6 +67,11 @@ public class GamePanel extends JPanel implements Runnable{
 	ArrayList<Entity> entityList = new ArrayList<>();
 	public Skills skills = new Skills(this);
 	
+	// GAME STATE
+	public int gameState;
+	public final int playState = 1;
+	public final int deadState = 6;
+	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth,screenHeight)); // Set the size of this class (JPanel)
 		//this.setBackground(Color.black); 
@@ -88,7 +93,18 @@ public class GamePanel extends JPanel implements Runnable{
 		g2 = (Graphics2D) tempScreen.getGraphics();
 		
 		setFullScreen();
+		
+		gameState = playState;
 	}
+	
+	public void reborn(boolean rebornInCenter) {
+	    player.reborn = true;
+	    player.rebornCounter = 0;
+	    if(rebornInCenter) {
+	        player.setDefaultPositions();
+	    }
+	}
+	
 	public void setFullScreen() {
         //GET LOCAL SCREEN DEVICE
 	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -181,32 +197,52 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 	    
-	    // Increase enemy counter to spawn
-	    aSetter.setEnemy();
-	    
-	    
-		
-	    // Player
-		player.update();
-		
-		//NPC
-		for(int i=0; i<npc.length;i++){
-			if(npc[i] != null){
-				npc[i].update();
-			}
-		}
+	    if(gameState == playState) {
+	        
+	        aSetter.setEnemy();
+	        
+	        player.update();
+	        
+	        // NPC
+	        for(int i=0; i < npc.length; i++){
+	            if(npc[i] != null){
+	                npc[i].update();
+	            }
+	        }
 
-		// Enemy
-		for(int i = 0; i < enemy.length; i++) {
-		    if(enemy[i] != null) {
-		        if(enemy[i].alive) {
-		            enemy[i].update();
-		        }else {
-		            enemy[i] = null;
-		        }
-		    }
-		}
-		
+	        // Enemy
+	        for(int i = 0; i < enemy.length; i++) {
+	            if(enemy[i] != null) {
+	                if(enemy[i].alive) {
+	                    enemy[i].update();
+	                }else {
+	                    enemy[i] = null;
+	                }
+	            }
+	        }
+	    }
+	    if(gameState == deadState) {
+	        
+                aSetter.setEnemy();
+	            
+	            // NPC
+	            for(int i=0; i < npc.length; i++){
+	                if(npc[i] != null){
+	                    npc[i].update();
+	                }
+	            }
+
+	            // Enemy
+	            for(int i = 0; i < enemy.length; i++) {
+	                if(enemy[i] != null) {
+	                    if(enemy[i].alive) {
+	                        enemy[i].update();
+	                    }else {
+	                        enemy[i] = null;
+	                    }
+	                }
+	            }
+	    }
 	}
 	
 	

@@ -135,30 +135,14 @@ public class ENEMY_Wolf extends Entity {
         int nextMove = rand.nextInt(8) + 1;
 
         switch (nextMove) {
-            case 1:
-                direction = "up";
-                break;
-            case 2:
-                direction = "upleft";
-                break;
-            case 3:
-                direction = "upright";
-                break;
-            case 4:
-                direction = "down";
-                break;
-            case 5:
-                direction = "downleft";
-                break;
-            case 6:
-                direction = "downright";
-                break;
-            case 7:
-                direction = "left";
-                break;
-            case 8:
-                direction = "right";
-                break;
+            case 1:direction = "up";        break;
+            case 2:direction = "upleft";    break;
+            case 3:direction = "upright";   break;
+            case 4:direction = "down";      break;
+            case 5:direction = "downleft";  break;
+            case 6:direction = "downright"; break;
+            case 7:direction = "left";      break;
+            case 8:direction = "right";     break;
         }
     }
 

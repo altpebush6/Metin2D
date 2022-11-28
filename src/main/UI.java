@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class UI {
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, itemSkillBar;
     BufferedImage[] xpTupe = new BufferedImage[23];
+    
+    public Rectangle respawnHereRec, respawnCityRec;
     
     public int healthBar;
     public int spBar;
@@ -80,14 +83,81 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
-        double oneScale = (2.5 * gp.tileSize) / gp.player.maxLife;
-        double healthBar = oneScale * gp.player.life;
-        double barWidth = oneScale * gp.player.maxLife;
-        int barHeight = 15;
+               
+        if(gp.gameState == gp.playState) { // 
+
+            // Skills        
+            skills(g2);
+            
+            // Bottom Bar
+            drawBottomBar(g2);
+            
+            // Change Cursor
+            changeCursor();
+            
+            // MESSAGE
+            messages(g2);
+            
+            // DAMAGE 
+            for(int i=0; i < damages.size(); i++) {
+                if(damages.get(i) != null) {
+                    damageAnimation(g2, i);
+                }
+            }
+            
+            changeAlpha(g2, 1f);
+            
+            g2.setFont(arial_30);
+            g2.setColor(Color.white);
+
+            // COIN
+            g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+            g2.drawString(" " + gp.player.playerCoin, 60, 60);
+        }
         
-        // spBar = gp.player.playerSp * 2;
-        
-        // Skills        
+        if(gp.gameState == gp.deadState) {//
+            
+            // Dark Frame
+            g2.setColor(new Color(0, 0, 0, 70));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+          
+            // Bottom Bar
+            drawBottomBar(g2);
+            
+            // Change Cursor
+            changeCursor();
+            
+            // Respawn Button
+            String respawnHere = "Restart Here";
+            String respawnCity = "Restart in the City";
+            
+            g2.setFont(g2.getFont().deriveFont(20F));
+            g2.setColor(Color.white);
+            g2.drawString(respawnHere, gp.tileSize, gp.tileSize);
+            g2.drawString(respawnCity, gp.tileSize, gp.tileSize * 2);
+            
+            int respawnHereWidth = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getWidth();
+            int respawnHereHeight = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getHeight();
+            respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnHereWidth + 30, respawnHereHeight + 10);
+            
+            int respawnCityWidth = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getWidth();
+            int respawnCityHeight = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getHeight();
+            respawnCityRec = new Rectangle(gp.tileSize - 20, gp.tileSize * 2 - 20, respawnCityWidth + 30, respawnCityHeight + 10);
+            
+            g2.drawRect(respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height);
+            g2.drawRect(respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height);
+
+        }
+    }
+    
+    // CENTERED TEXT
+    public int getXForCenteredText(Graphics2D g2, String text) {
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        return gp.screenWidth / 2 - length / 2;
+    }
+    
+    // SKILLS
+    public void skills(Graphics2D g2) {
         g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
         
         int i = gp.skills.skillStandbyTime / 20; // 15 (per 15 seconds)
@@ -96,8 +166,26 @@ public class UI {
                 g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / i], gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);   
 
         }
+    }
+    
+    // CURSOR
+    public void changeCursor() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Point point = new Point(0,0);
+        Cursor cursor = toolkit.createCustomCursor(cursorImage, point, "Cursor");
+        gp.setCursor(cursor);
+    }
+    
+    // BOTTOM BAR
+    public void drawBottomBar(Graphics2D g2) {
+        double oneScale = (2.5 * gp.tileSize) / gp.player.maxLife;
+        double healthBar = oneScale * gp.player.life;
+        double barWidth = oneScale * gp.player.maxLife;
+        int barHeight = 15;
         
-        // Dragon Coin
+        // spBar = gp.player.playerSp * 2;
+        
+     // Dragon Coin
         g2.drawImage(dragonCoin, 0, gp.tileSize * (gp.maxScreenRow) - gp.tileSize / 2 - 10, gp.tileSize - 7, gp.tileSize / 2 + 10, null);
 
         // Bottom Bar
@@ -156,15 +244,8 @@ public class UI {
         
         // Item-Skill Bar
         g2.drawImage(itemSkillBar, bottomBarX + gp.tileSize * 6, gp.tileSize * (gp.maxScreenRow) - gp.tileSize / 2 - 5, 30, 30, null);
-
-   
-        // Change Cursor
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Point point = new Point(0,0);
-        Cursor cursor = toolkit.createCustomCursor(cursorImage, point, "Cursor");
-        gp.setCursor(cursor);
         
-        // Empty Health Bar
+     // Empty Health Bar
         g2.setColor(Color.black);
         g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) barWidth + 2, barHeight, null);
         
@@ -172,24 +253,14 @@ public class UI {
         g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) barWidth + 2, barHeight, null);
 
         hpBarCounter++;
-        if(hpBarCounter < 15) {
-            hpBarImage = hpBarImage1;
-        }else if(hpBarCounter < 30) {
-            hpBarImage = hpBarImage2;
-        }else if(hpBarCounter < 45) {
-            hpBarImage = hpBarImage3;
-        }else if(hpBarCounter < 60) {
-            hpBarImage = hpBarImage4;
-        }else if(hpBarCounter < 75) {
-            hpBarImage = hpBarImage5;
-        }else if(hpBarCounter < 90) {
-            hpBarImage = hpBarImage6;
-        }else if(hpBarCounter < 105) {
-            hpBarImage = hpBarImage7;
-        }else if(hpBarCounter < 120) {
-            hpBarImage = hpBarImage8;  
-            hpBarCounter = 0;
-        }
+        if(hpBarCounter < 15) {hpBarImage = hpBarImage1;
+        }else if(hpBarCounter < 30) {hpBarImage = hpBarImage2;
+        }else if(hpBarCounter < 45) {hpBarImage = hpBarImage3;
+        }else if(hpBarCounter < 60) {hpBarImage = hpBarImage4;
+        }else if(hpBarCounter < 75) {hpBarImage = hpBarImage5;
+        }else if(hpBarCounter < 90) {hpBarImage = hpBarImage6;
+        }else if(hpBarCounter < 105) {hpBarImage = hpBarImage7;
+        }else if(hpBarCounter < 120) {hpBarImage = hpBarImage8;hpBarCounter = 0;}
         
         // Health Bar
         g2.drawImage(hpBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBar, barHeight, null);
@@ -207,23 +278,10 @@ public class UI {
          * g2.fillRoundRect(gp.tileSize / 3, gp.tileSize * (gp.maxScreenRow - 1) +
          * (gp.tileSize / 2), spBar, 15, 20, 20);
          */
+    }
 
-        // Game State yapan kişi buradaki kodları alıp gp.playState if inin içine atsın
-
-        g2.setFont(arial_30);
-        g2.setColor(Color.white);
-
-        // COIN
-        g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString(" " + gp.player.playerCoin, 60, 60);
-
-        switch (itemIndex) {
-            case 1:
-                g2.drawImage(dolunayImage, 335, 550, gp.tileSize / 2, gp.tileSize / 2, null);
-                break;
-        }
-
-        // MESSAGE
+    // MESSAGES
+    public void messages(Graphics2D g2) {
         if (messageOn) {
             g2.setFont(g2.getFont().deriveFont(20F));
             g2.drawString(message, gp.tileSize, gp.tileSize * 11);
@@ -235,17 +293,8 @@ public class UI {
                 messageOn = false;
             }
         }    
-        
-        
-        for(i=0; i < damages.size(); i++) {
-            if(damages.get(i) != null) {
-                damageAnimation(g2, i);
-            }
-        }
-        
-        changeAlpha(g2, 1f);
     }
-
+    
     // DAMAGE
     public void damageAnimation(Graphics2D g2, int damageIndex) {
         
@@ -278,6 +327,7 @@ public class UI {
                           
     }
 
+    // TRANSPARENCY 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }

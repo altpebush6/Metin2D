@@ -20,6 +20,21 @@ public class MouseHandler implements MouseListener {
 	    screenX = e.getPoint().x;
 	    screenY = e.getPoint().y;
 	    
+	    if(gp.ui.respawnHereRec.x < screenX && gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width > screenX &&
+	       gp.ui.respawnHereRec.y < screenY && gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height > screenY) {
+	        
+	        gp.gameState = gp.playState;
+	        gp.player.life = gp.player.increaseLife;
+	        gp.reborn(false);        
+	        
+	    }else if(gp.ui.respawnCityRec.x < screenX && gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width > screenX &&
+	             gp.ui.respawnCityRec.y < screenY && gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height > screenY) {
+	        
+            gp.gameState = gp.playState;
+            gp.player.life = gp.player.increaseLife;
+            gp.reborn(true);        
+        }
+	    
 	    gp.player.beforeClickX = gp.player.worldX;
 	    gp.player.beforeClickY = gp.player.worldY;
 	    

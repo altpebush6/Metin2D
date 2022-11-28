@@ -52,6 +52,9 @@ public class Player extends Entity {
     public boolean spacePressed = false;
     public boolean doubleClicked = false;
     int attackWalkingSpeed = 1;
+    
+    public boolean reborn = false;
+    public int rebornCounter;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -95,7 +98,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 100;
+        maxLife = 10;
         life = maxLife;
         increaseLife = 1;
         playerTimer = 0;
@@ -104,6 +107,12 @@ public class Player extends Entity {
 
         playerXP = 0;
 
+    }
+    
+    public void setDefaultPositions() {
+        worldX = 25 * gp.tileSize;
+        worldY = 25 * gp.tileSize;
+        direction = "down";
     }
 
     public void getPlayerImage() {
@@ -203,7 +212,7 @@ public class Player extends Entity {
         // get damage.
         if (invincible) {
             invincibleCounter++;
-            if (invincibleCounter == 60) {
+            if (invincibleCounter == 30) {
                 invincible = false;
                 invincibleCounter = 0;
             }
@@ -395,6 +404,24 @@ public class Player extends Entity {
                 goalY = 0;
             }
         }
+        
+        if(life > maxLife) {
+            life = maxLife;
+        }else if(life <= 0) {
+            gp.gameState = gp.deadState;
+        }
+        
+        if(reborn) {
+            getHeal(20);
+            System.out.println("true reborn");
+            rebornCounter++;
+            if(rebornCounter == 120) {
+                reborn = false;
+                rebornCounter = 0;
+                bornCounter = 0;
+            }
+        }
+        
     }
 
     public void draw(Graphics2D g2) {
@@ -496,6 +523,10 @@ public class Player extends Entity {
         // Set player transparent after damage
         if (invincible) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+        }
+        
+        if(reborn) {
+            bornAnimation(g2);
         }
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);
@@ -620,7 +651,16 @@ public class Player extends Entity {
                             
                             gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
                         } else {
+                            // If player is dead
                             life = 0;
+                            gp.playSE(21);
+                            for (int i=0; i < gp.enemy.length; i++) {
+                                if(gp.enemy[i] != null) {
+                                    gp.enemy[i].inFight = false;
+                                    gp.enemy[i].onPath = false;
+                                }
+                            }
+                            System.out.println("Bunu yazdırmazsam ses çıkmıyor neden anlamadım");
                         }
                         invincible = true;
                     }
@@ -629,17 +669,7 @@ public class Player extends Entity {
             }
         } else {
             if (life < maxLife) {
-                playerTimer++;
-                if (playerTimer == 120) {
-                    if (maxLife - life < increaseLife) {
-                        life += maxLife - life;
-                        playerTimer = 0;
-                    } else {
-                        life += increaseLife;
-                        playerTimer = 0;
-                    }
-                }
-
+                getHeal(120);
             }
             /*
              * if (gp.player.playerSp < 100) {
@@ -670,8 +700,8 @@ public class Player extends Entity {
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
                 
-                int damagePosX = screenX + gp.enemy[enemyIndex].worldX - worldX;
-                int damagePosY = screenY + gp.enemy[enemyIndex].worldY - worldY;
+                int damagePosX = gp.enemy[enemyIndex].worldX - worldX + screenX;
+                int damagePosY = gp.enemy[enemyIndex].worldY - worldY + screenY;
                 
                 gp.ui.damages.add(new Damages(damageSize, damagePosX, damagePosY, 60, Color.green));
                                 
@@ -695,6 +725,19 @@ public class Player extends Entity {
                     gp.enemy[enemyIndex].alive = false;
                     gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
                 }
+            }
+        }
+    }
+    
+    public void getHeal(int healCounter) {
+        playerTimer++;
+        if (playerTimer >= healCounter) {
+            if (maxLife < life + increaseLife) {
+                life += maxLife - life;
+                playerTimer = 0;
+            } else {
+                life += increaseLife;
+                playerTimer = 0;
             }
         }
     }

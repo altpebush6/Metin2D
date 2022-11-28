@@ -347,7 +347,7 @@ public class Entity {
         } else if (bornCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.7f);
         } else if (bornCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.8f);
         } else if (bornCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.9f);
-        } else {   changeAlpha(g2, 1f);    newBorn = false;   }
+        } else {   changeAlpha(g2, 1f);    newBorn = false;  }
     }
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
