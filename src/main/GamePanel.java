@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
 	int screenWidth2 = screenWidth;
 	int screenHeight2 = screenHeight;
 	BufferedImage tempScreen;
-	Graphics2D g2;
+	public Graphics2D g2;
 
 	// FPS
 	final int FPS = 60;

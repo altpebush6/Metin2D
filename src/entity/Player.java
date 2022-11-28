@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import main.Damages;
 import main.GamePanel;
 
 public class Player extends Entity {
@@ -612,6 +614,11 @@ public class Player extends Entity {
                             int soundChoice = rand.nextInt(5) + 14;
                             gp.playSE(soundChoice);
                             life -= damage;
+                            
+                            int damagePosX = screenX;
+                            int damagePosY = screenY;
+                            
+                            gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
                         } else {
                             life = 0;
                         }
@@ -655,11 +662,19 @@ public class Player extends Entity {
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
+                
+                int damageSize = level * (rand.nextInt(3) + 3);
+                
                 gp.enemy[enemyIndex].damageCounter = 0;
-                gp.enemy[enemyIndex].life -= level * (rand.nextInt(3) + 3);
+                gp.enemy[enemyIndex].life -= damageSize;
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
-
+                
+                int damagePosX = screenX + gp.enemy[enemyIndex].worldX - worldX;
+                int damagePosY = screenY + gp.enemy[enemyIndex].worldY - worldY;
+                
+                gp.ui.damages.add(new Damages(damageSize, damagePosX, damagePosY, 60, Color.green));
+                                
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);

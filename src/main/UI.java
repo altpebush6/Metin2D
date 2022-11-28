@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Cursor;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -8,13 +9,14 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 public class UI {
 
     GamePanel gp;
-    Font arial_30;
+    Font arial_30, damageFont;
     BufferedImage coinImage, dolunayImage, spBarImage, hpBarImage, hpBarImage1,hpBarImage2,hpBarImage3,hpBarImage4,hpBarImage5,hpBarImage6,hpBarImage7,hpBarImage8, emptyBarImage, cursorImage;
     BufferedImage auroOfSwordImage, swordSpinImage;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
@@ -25,6 +27,8 @@ public class UI {
     public int spBar;
     
     public int hpBarCounter = 0;
+    
+    public ArrayList <Damages> damages = new ArrayList<>();
 
     public boolean messageOn = false;
     public String message = "";
@@ -33,7 +37,7 @@ public class UI {
     
     public int fillTupeNum = 0;
     public int tupeImg;
-    
+        
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -230,8 +234,54 @@ public class UI {
                 messageCounter = 0;
                 messageOn = false;
             }
-
+        }    
+        
+        
+        for(i=0; i < damages.size(); i++) {
+            if(damages.get(i) != null) {
+                damageAnimation(g2, i);
+            }
         }
+        
+        changeAlpha(g2, 1f);
     }
+
+    // DAMAGE
+    public void damageAnimation(Graphics2D g2, int damageIndex) {
+        
+        damages.get(damageIndex).damagePosX += 10;
+        damages.get(damageIndex).damagePosY -= 10;
+        
+        if(damages.get(damageIndex).damageFontSize > 5) {
+            damages.get(damageIndex).damageFontSize -= 2;
+        }
+        
+        damageFont = new Font("Arial", Font.PLAIN, damages.get(damageIndex).damageFontSize);
+        
+        g2.setFont(damageFont);
+        g2.setColor(damages.get(damageIndex).color);
+        g2.drawString(""+damages.get(damageIndex).damageSize, damages.get(damageIndex).damagePosX, damages.get(damageIndex).damagePosY);
+ 
+        damages.get(damageIndex).damageCounter++;
+        int increaseAmount = 2;
+        if (damages.get(damageIndex).damageCounter < increaseAmount) {               changeAlpha(g2, 1f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 2)   {  changeAlpha(g2, 0.9f);  
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 3)   {  changeAlpha(g2, 0.8f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 4)   {  changeAlpha(g2, 0.7f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 5)   {  changeAlpha(g2, 0.6f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 6)   {  changeAlpha(g2, 0.5f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 7)   {  changeAlpha(g2, 0.4f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 8)   {  changeAlpha(g2, 0.3f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 9)   {  changeAlpha(g2, 0.2f);
+        } else if (damages.get(damageIndex).damageCounter < increaseAmount * 10)  {  changeAlpha(g2, 0.1f);
+        } else {   changeAlpha(g2, 0f); damages.remove(damageIndex);}
+                          
+    }
+
+    public void changeAlpha(Graphics2D g2, float alphaValue) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
+    
+    
 
 }
