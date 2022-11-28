@@ -98,7 +98,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 10;
+        maxLife = 100;
         life = maxLife;
         increaseLife = 1;
         playerTimer = 0;
