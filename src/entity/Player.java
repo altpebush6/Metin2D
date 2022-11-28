@@ -222,7 +222,7 @@ public class Player extends Entity {
 
         // CHECK ENEMY COLLISION
         int enemyIndex = gp.collisionChecker.checkFightArea(this, gp.enemy);
-        startFight(enemyIndex);
+        getDamage(enemyIndex);
 
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             // Finish mouse event
@@ -592,7 +592,7 @@ public class Player extends Entity {
         }
     }
 
-    public void startFight(int index) {
+    public void getDamage(int index) {
         if (index != -1 && gp.enemy[index].inFight) {
             String enemyName = gp.enemy[index].name;
             
