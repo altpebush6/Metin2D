@@ -86,14 +86,13 @@ public class ENEMY_Wolf extends Entity {
 
         if (onPath && tileDistance > 10) {
             onPath = false;
+            inFight = false;
         }
     }
 
     public void setAction() {
 
         if (onPath) {
-            standing = false;
-
             speed = 2;
 
             int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
@@ -166,5 +165,6 @@ public class ENEMY_Wolf extends Entity {
     public void damageReaction() {
         actionLockCounter = 0;
         onPath = true;
+        inFight = true;
     }
 }

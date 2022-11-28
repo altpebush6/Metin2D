@@ -326,6 +326,29 @@ public class CollisionChecker {
         return index;
 	}
 	
+	// To check is enemy around player for standing
+	public boolean checkFightAreaForEnemy(Entity entity, Entity enemy) {
+        
+        int enemyX = enemy.worldX;
+        int enemyY = enemy.worldY;
+        
+        int playerX = entity.worldX + entity.solidArea.x / 2;
+        int playerY = entity.worldY + entity.solidArea.y / 2;
+        
+        int diffX = Math.abs(playerX - enemyX);
+        int diffY = Math.abs(playerY - enemyY);
+        
+        double hipotenus = Math.sqrt(diffX * diffX + diffY * diffY);
+        
+        double distance = Math.sqrt(gp.tileSize * gp.tileSize + gp.tileSize * gp.tileSize);
+        
+        if(hipotenus <= 50) {
+            return true;
+        }
+        return false;
+        
+    }
+	
 	// New Entity Collisions
 	public void checkTileForNewEntity(int entityWorldX, int entityWorldY) {
         int tileNum = gp.tileM.mapTileNum[entityWorldX / gp.tileSize][entityWorldY / gp.tileSize];

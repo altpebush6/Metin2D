@@ -45,7 +45,8 @@ public class Npc_Blacksmith extends Entity {
 
             searchPath(goalCol, goalRow);
         } else {
-            npcActionCounter++;
+            /*
+                         npcActionCounter++;
     
             if (npcActionCounter == 120) {
                 Random random = new Random();
@@ -67,6 +68,7 @@ public class Npc_Blacksmith extends Entity {
                 npcActionCounter = 0;
     
             }
+             */
         }
 
     }

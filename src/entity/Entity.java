@@ -39,6 +39,7 @@ public class Entity {
     public boolean dying = false;
     public boolean hpBarOn = false;
     public boolean onPath = false;
+    public boolean inFight = false;
 
     // Character Attributes
     public int type; // enemy=1, player=2, object=3
@@ -151,6 +152,12 @@ public class Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }       
+        
+        if(inFight && gp.collisionChecker.checkFightAreaForEnemy(gp.player, this)) {
+            standing = true;
+        }else {
+            standing = false;
         }
     }
 
@@ -365,22 +372,23 @@ public class Entity {
     
     public void searchPath(int goalCol, int goalRow) {
         
-        int startCol = (worldX + solidArea.x) / gp.tileSize;
-        int startRow = (worldY + solidArea.y) / gp.tileSize;
-        
+        int startCol = (worldX) / gp.tileSize;
+        int startRow = (worldY) / gp.tileSize;
+           
         gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
         
-        if(gp.pathFinder.search()) { // it returns true when found a way to go
-            
+        if(gp.pathFinder.search() && !standing) { // it returns true when found a way to go
             //  Next worldX & worldY
             int nextX = gp.pathFinder.pathList.get(0).col * gp.tileSize;
             int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
             
             // Entity's solidArea Position
-            int entityLeftX = worldX + solidArea.x;
-            int entityRightX = worldX + solidArea.x + solidArea.width;
-            int entityTopY = worldY + solidArea.y;
-            int entityBottomY = worldY + solidArea.y + solidArea.height;
+            int entityLeftX = (int)(worldX / gp.tileSize) * gp.tileSize;
+            int entityRightX = entityLeftX;
+            int entityTopY = (int)(worldY / gp.tileSize) * gp.tileSize;
+            int entityBottomY = entityTopY;
+            
+
            
             
             if(entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
@@ -398,7 +406,6 @@ public class Entity {
             }else if(entityTopY > nextY && entityLeftX > nextX) {
                 // up or left
                 direction = "up";
-                
                 checkCollision();
                 if(collisionOn) {
                     direction = "left";
@@ -406,7 +413,6 @@ public class Entity {
             }else if(entityTopY > nextY && entityLeftX < nextX) {
                 // up or right
                 direction = "up";
-                
                 checkCollision();
                 if(collisionOn) {
                     direction = "right";
