@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable{
 		aSetter.setObjectManually();
 		//aSetter.createWolf();
 		
-		playMusic(0);
+		//playMusic(0);
 		aSetter.setNpc();
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();

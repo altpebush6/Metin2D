@@ -22,32 +22,34 @@ public class MouseHandler implements MouseListener {
 	    
 	    int respawnTime = 180;
 	    
-	    if(gp.ui.respawnHereRec.x < screenX && gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width > screenX &&
-	       gp.ui.respawnHereRec.y < screenY && gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height > screenY) {
-	        
-	        System.out.println(gp.player.deadCounter);
-	        if(gp.player.deadCounter >= respawnTime) {
-	            gp.gameState = gp.playState;
-	            gp.player.life = gp.player.increaseLife;
-	            gp.reborn(false);         
-	        }else {
-	               int timeRemaining = (respawnTime - gp.player.deadCounter) / 60 + 1;
-	               gp.ui.showMessage("Wait " + timeRemaining + "s to respawn");
-	        }
-  
-	        
-	    }else if(gp.ui.respawnCityRec.x < screenX && gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width > screenX &&
-	             gp.ui.respawnCityRec.y < screenY && gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height > screenY) {
-	        
-	        if(gp.player.deadCounter >= respawnTime) {
-                gp.gameState = gp.playState;
-                gp.player.life = gp.player.increaseLife;
-                gp.reborn(true);  
-	        }else {
-	            int timeRemaining = (respawnTime - gp.player.deadCounter) / 60 + 1;
-	            gp.ui.showMessage("Wait " + timeRemaining + "s to respawn");
-	        }
-        }
+	    if(gp.gameState == gp.deadState) {
+    	    if(gp.ui.respawnHereRec.x < screenX && gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width > screenX &&
+    	       gp.ui.respawnHereRec.y < screenY && gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height > screenY) {
+    	        
+    	        System.out.println(gp.player.deadCounter);
+    	        if(gp.player.deadCounter >= respawnTime) {
+    	            gp.gameState = gp.playState;
+    	            gp.player.life = gp.player.increaseLife;
+    	            gp.reborn(false);         
+    	        }else {
+    	               int timeRemaining = (respawnTime - gp.player.deadCounter) / 60 + 1;
+    	               gp.ui.showMessage("Wait " + timeRemaining + "s to respawn");
+    	        }
+      
+    	        
+    	    }else if(gp.ui.respawnCityRec.x < screenX && gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width > screenX &&
+    	             gp.ui.respawnCityRec.y < screenY && gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height > screenY) {
+    	        
+    	        if(gp.player.deadCounter >= respawnTime) {
+                    gp.gameState = gp.playState;
+                    gp.player.life = gp.player.increaseLife;
+                    gp.reborn(true);  
+    	        }else {
+    	            int timeRemaining = (respawnTime - gp.player.deadCounter) / 60 + 1;
+    	            gp.ui.showMessage("Wait " + timeRemaining + "s to respawn");
+    	        }
+            }
+	    }
 	    
 	    gp.player.beforeClickX = gp.player.worldX;
 	    gp.player.beforeClickY = gp.player.worldY;

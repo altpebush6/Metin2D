@@ -73,11 +73,11 @@ public class Player extends Entity {
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
         solidArea.x = 9;
-        solidArea.y = 21;
+        solidArea.y = 20;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 33;
-        solidArea.height = 27;
+        solidArea.width = 30;
+        solidArea.height = 28;
 
         // CHANGE THIS ACCORDING TO ATTACKING CHARACTER PIXEL ART
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -100,7 +100,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 20;
+        maxLife = 100;
         life = maxLife;
         increaseLife = 1;
         playerTimer = 0;
@@ -282,7 +282,7 @@ public class Player extends Entity {
 
             // Step Sound
             stepCounter++;
-            if (stepCounter == 20) {
+            if (stepCounter == 10) {
                 if (stepType == 0) {
                     gp.playSE(4);
                     stepType = 1;
@@ -295,8 +295,8 @@ public class Player extends Entity {
 
             if (!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
-                if (spriteCounter > 12) {
-                    if (spriteNum == 2) {
+                if (spriteCounter > 5) {
+                    if (spriteNum == 4) {
                         spriteNum = 1;
                     } else {
                         spriteNum++;
@@ -440,12 +440,12 @@ public class Player extends Entity {
         int tempScreenY = screenY;
 
         // Player Label
-        g2.setFont(new Font("Courier New", Font.BOLD, 13));
+        g2.setFont(new Font("Courier New", Font.PLAIN, 11));
         g2.setColor(Color.green);
-        g2.drawString("Lv " + level, screenX - 25, screenY - 20);
+        g2.drawString("Lv " + level, screenX - 25, screenY - 10);
 
         g2.setColor(Color.yellow);
-        g2.drawString(name, screenX + 20, screenY - 20);
+        g2.drawString(name, screenX + 20, screenY - 10);
 
         if (gp.skills.skillUsed) {
             if (spriteNum == 1)
@@ -493,6 +493,10 @@ public class Player extends Entity {
                             image = down1;
                         if (spriteNum == 2)
                             image = down2;
+                        if (spriteNum == 3)
+                            image = down3;
+                        if (spriteNum == 4)
+                            image = down4;
                     }
                     break;
                 case "left":
