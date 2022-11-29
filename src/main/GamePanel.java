@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable{
 		aSetter.setObjectManually();
 		//aSetter.createWolf();
 		
-		//playMusic(0);
+		playMusic(0);
 		aSetter.setNpc();
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
@@ -100,6 +100,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public void reborn(boolean rebornInCenter) {
 	    player.reborn = true;
 	    player.rebornCounter = 0;
+	    player.attacking = false;
+	    player.direction = "down";
+	    player.dying = false;
+
+	    
 	    if(rebornInCenter) {
 	        player.setDefaultPositions();
 	    }
@@ -223,6 +228,10 @@ public class GamePanel extends JPanel implements Runnable{
 	    }
 	    if(gameState == deadState) {
 	        
+                player.draw(g2);
+	        
+	            player.deadCounter++;
+	            	        
                 aSetter.setEnemy();
 	            
 	            // NPC

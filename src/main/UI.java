@@ -95,9 +95,6 @@ public class UI {
             // Change Cursor
             changeCursor();
             
-            // MESSAGE
-            messages(g2);
-            
             // DAMAGE 
             for(int i=0; i < damages.size(); i++) {
                 if(damages.get(i) != null) {
@@ -109,8 +106,11 @@ public class UI {
             
             g2.setFont(arial_30);
             g2.setColor(Color.white);
+            
+            // Message
+            messages(g2);
 
-            // COIN
+            // Coin
             g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
             g2.drawString(" " + gp.player.playerCoin, 60, 60);
         }
@@ -127,27 +127,38 @@ public class UI {
             // Change Cursor
             changeCursor();
             
-            // Respawn Button
-            String respawnHere = "Restart Here";
-            String respawnCity = "Restart in the City";
-            
-            g2.setFont(g2.getFont().deriveFont(20F));
+            g2.setFont(arial_30);
             g2.setColor(Color.white);
-            g2.drawString(respawnHere, gp.tileSize, gp.tileSize);
-            g2.drawString(respawnCity, gp.tileSize, gp.tileSize * 2);
             
-            int respawnHereWidth = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getWidth();
-            int respawnHereHeight = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getHeight();
-            respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnHereWidth + 30, respawnHereHeight + 10);
+            // Message
+            messages(g2);
             
-            int respawnCityWidth = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getWidth();
-            int respawnCityHeight = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getHeight();
-            respawnCityRec = new Rectangle(gp.tileSize - 20, gp.tileSize * 2 - 20, respawnCityWidth + 30, respawnCityHeight + 10);
-            
-            g2.drawRect(respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height);
-            g2.drawRect(respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height);
+            // Re-spawn Button
+            respawnButtons(g2);
 
         }
+    }
+    
+    // DEAD MENU
+    public void respawnButtons(Graphics2D g2) {
+        String respawnHere = "Restart Here";
+        String respawnCity = "Restart in the City";
+        
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.setColor(Color.white);
+        g2.drawString(respawnHere, gp.tileSize, gp.tileSize);
+        g2.drawString(respawnCity, gp.tileSize, gp.tileSize * 2);
+        
+        int respawnHereWidth = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getWidth();
+        int respawnHereHeight = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getHeight();
+        respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnHereWidth + 30, respawnHereHeight + 10);
+        
+        int respawnCityWidth = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getWidth();
+        int respawnCityHeight = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getHeight();
+        respawnCityRec = new Rectangle(gp.tileSize - 20, gp.tileSize * 2 - 20, respawnCityWidth + 30, respawnCityHeight + 10);
+        
+        g2.drawRect(respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height);
+        g2.drawRect(respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height);
     }
     
     // CENTERED TEXT

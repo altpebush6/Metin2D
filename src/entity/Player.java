@@ -55,6 +55,8 @@ public class Player extends Entity {
     
     public boolean reborn = false;
     public int rebornCounter;
+    
+    public int deadCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -98,7 +100,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 100;
+        maxLife = 20;
         life = maxLife;
         increaseLife = 1;
         playerTimer = 0;
@@ -112,6 +114,8 @@ public class Player extends Entity {
     public void setDefaultPositions() {
         worldX = 25 * gp.tileSize;
         worldY = 25 * gp.tileSize;
+        screenX = defaultScreenX;
+        screenY = defaultScreenY;
         direction = "down";
     }
 
@@ -405,17 +409,20 @@ public class Player extends Entity {
             }
         }
         
+        /*
         if(life > maxLife) {
             life = maxLife;
         }else if(life <= 0) {
             gp.gameState = gp.deadState;
         }
+        */      
         
         if(reborn) {
-            getHeal(20);
-            System.out.println("true reborn");
+            int rebornProccess = 300;
+            int getHealRate = rebornProccess / (maxLife / increaseLife);
+            getHeal(getHealRate);
             rebornCounter++;
-            if(rebornCounter == 120) {
+            if(rebornCounter == rebornProccess) {
                 reborn = false;
                 rebornCounter = 0;
                 bornCounter = 0;
@@ -528,6 +535,10 @@ public class Player extends Entity {
         if(reborn) {
             bornAnimation(g2);
         }
+        
+        if(dying) {
+            dyingAnimation(g2);
+        }
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);
 
@@ -626,10 +637,9 @@ public class Player extends Entity {
     public void getDamage(int index) {
         if (index != -1 && gp.enemy[index].inFight) {
             String enemyName = gp.enemy[index].name;
-            
+            reborn = false;
             switch (enemyName) {
                 case "Wolf":
-
                     // Wolf Barking
                     enemySoundCounter++;
                     if (enemySoundCounter == 40) {
@@ -651,25 +661,16 @@ public class Player extends Entity {
                             
                             gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
                         } else {
-                            // If player is dead
-                            life = 0;
-                            gp.playSE(21);
-                            for (int i=0; i < gp.enemy.length; i++) {
-                                if(gp.enemy[i] != null) {
-                                    gp.enemy[i].inFight = false;
-                                    gp.enemy[i].onPath = false;
-                                }
-                            }
-                            System.out.println("Bunu yazdırmazsam ses çıkmıyor neden anlamadım");
+                            dying = true;
+                            setDead();
                         }
                         invincible = true;
                     }
-
                     break;
             }
         } else {
             if (life < maxLife) {
-                getHeal(120);
+                getHeal(60);
             }
             /*
              * if (gp.player.playerSp < 100) {
@@ -689,6 +690,27 @@ public class Player extends Entity {
         }
     }
 
+    public void setDead() {
+        life = 0;
+        gp.playSE(21);
+        gp.gameState = gp.deadState;
+        
+        dyingCounter = 0;
+        
+        gp.skills.swordSpinUsed = false;
+        gp.skills.skillUsed = false;
+        gp.skills.skillSpriteCounter = gp.skills.increaseAmount * 10; // Skill içindeki son if'e girerek doğduktan sonra skill kullanmaması için
+
+        for (int i=0; i < gp.enemy.length; i++) {
+            if(gp.enemy[i] != null) {
+                gp.enemy[i].inFight = false;
+                gp.enemy[i].onPath = false;
+            }
+        }
+        
+        deadCounter = 0;
+    }
+    
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
@@ -734,11 +756,10 @@ public class Player extends Entity {
         if (playerTimer >= healCounter) {
             if (maxLife < life + increaseLife) {
                 life += maxLife - life;
-                playerTimer = 0;
             } else {
                 life += increaseLife;
-                playerTimer = 0;
             }
+            playerTimer = 0;
         }
     }
 }

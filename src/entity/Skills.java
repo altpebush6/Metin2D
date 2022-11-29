@@ -17,6 +17,8 @@ public class Skills {
     public boolean swordSpinUsed = false;
     public int skillTimeOut = 75;
     
+    public int increaseAmount;
+    
     public Skills(GamePanel gp) {
         this.gp = gp;
     }
@@ -30,7 +32,7 @@ public class Skills {
         int solidAreaHeight = gp.player.solidArea.height;
         
         
-        int increaseAmount = 3;
+        increaseAmount = 3;
         if(skillSpriteCounter < increaseAmount) {
             gp.player.spriteNum = 1;
             gp.player.worldX += gp.player.attackArea.width;

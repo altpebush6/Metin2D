@@ -331,7 +331,12 @@ public class Entity {
         } else if (dyingCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.3f);
         } else if (dyingCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.2f);
         } else if (dyingCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.1f);
-        } else {changeAlpha(g2, 0f);gp.obj[objIndex] = null;   }
+        } else {
+            changeAlpha(g2, 0f);
+            if(type == 3) {
+                gp.obj[objIndex] = null;  
+            }
+        }
     }
 
     public void bornAnimation(Graphics2D g2) {
