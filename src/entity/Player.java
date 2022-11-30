@@ -641,7 +641,6 @@ public class Player extends Entity {
     public void getDamage(int index) {
         if (index != -1 && gp.enemy[index].inFight) {
             String enemyName = gp.enemy[index].name;
-            reborn = false;
             switch (enemyName) {
                 case "Wolf":
                     // Wolf Barking
@@ -654,6 +653,7 @@ public class Player extends Entity {
                     }
                     // Wolf Damaging
                     if (!invincible) {
+                        reborn = false;
                         int damage = rand.nextInt(5) + 1;
                         if (life - damage >= 0) {
                             int soundChoice = rand.nextInt(5) + 14;
@@ -719,6 +719,11 @@ public class Player extends Entity {
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
                 
+                // Don't get damage in the first giving damage
+                if(!gp.enemy[enemyIndex].inFight) {
+                    invincible = true;
+                }
+                
                 int damageSize = level * (rand.nextInt(3) + 3);
                 
                 gp.enemy[enemyIndex].damageCounter = 0;
@@ -736,6 +741,12 @@ public class Player extends Entity {
                     gp.playSE(6);
 
                     playerXP += rand.nextInt(10) + 100 / level;
+                    
+                    // If level up
+                    if(playerXP / 920 + 1 > level) {
+                        life = maxLife;
+                    }
+                    
                     level = (playerXP / 920) + 1;
 
                     int coinNumber = rand.nextInt(3) + 3;
