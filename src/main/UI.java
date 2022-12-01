@@ -21,7 +21,7 @@ public class UI {
     Font arial_30, damageFont;
     BufferedImage coinImage, dolunayImage, spBarImage, hpBarImage, hpBarImage1, hpBarImage2, hpBarImage3, hpBarImage4,
             hpBarImage5, hpBarImage6, hpBarImage7, hpBarImage8, emptyBarImage, cursorImage;
-    BufferedImage auroOfSwordImage, swordSpinImage;
+    BufferedImage auroOfSwordImage, swordSpinImage, dialogueUI;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, itemSkillBar;
     BufferedImage[] xpTupe = new BufferedImage[23];
@@ -39,6 +39,7 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public int itemIndex;
+    public String currentDialogue = " ";
 
     public int fillTupeNum = 0;
     public int tupeImg;
@@ -66,6 +67,8 @@ public class UI {
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", gp.tileSize, gp.tileSize);
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
         auroOfSwordImage = gp.uTool.setup("/skills/AuroOfSword", gp.tileSize, gp.tileSize);
+        // dialogueUI = gp.uTool.setup("/resources/UI/dialogueUI", gp.tileSize,
+        // gp.tileSize);
 
         swordSpinImage = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
@@ -89,7 +92,8 @@ public class UI {
 
         this.g2 = g2;
 
-        if (gp.gameState == gp.playState) { //
+        // PLAY STATE
+        if (gp.gameState == gp.playState) {
 
             // Skills
             skills(g2);
@@ -120,7 +124,8 @@ public class UI {
             g2.drawString(" " + gp.player.playerCoin, 60, 60);
         }
 
-        if (gp.gameState == gp.deadState) {//
+        // DEAD STATE
+        if (gp.gameState == gp.deadState) {
 
             // Dark Frame
             g2.setColor(new Color(0, 0, 0, 70));
@@ -142,13 +147,20 @@ public class UI {
             respawnButtons(g2);
 
         }
+
+        // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
+
+        // DIALOGUE STATE
+        if (gp.gameState == gp.dialogueState) {
+            drawDialogueScreen();
+        }
+
     }
 
-    // pause screen method
-
+    // PAUSE SCREEN METHOD
     public void drawPauseScreen() {
 
         String text = "PAUSED";
@@ -159,6 +171,31 @@ public class UI {
         g2.setColor(Color.white);
 
         g2.drawString(text, x, y);
+    }
+
+    // DIALOGUE SCREEN METHOD
+    public void drawDialogueScreen() {
+
+        // WINDOW
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize / 2;
+        int width = gp.screenHeight - (gp.tileSize * 4);
+        int height = gp.tileSize * 5;
+        drawSubWindow(x, y, width, height);
+
+        Color c2 = new Color(255, 255, 255);
+        g2.setColor(c2);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.drawString("Press Enter to Exit", x, y);
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(0, 0, 0, 100);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+        g2.drawImage(dialogueUI, null, x, y);
     }
 
     // DEAD MENU

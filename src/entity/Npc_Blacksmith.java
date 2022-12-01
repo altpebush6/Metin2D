@@ -4,8 +4,9 @@ import java.util.Random;
 
 import main.GamePanel;
 
-public class Npc_Blacksmith extends Entity {
+public class Npc_Blacksmith extends Entity{
 
+    
     public Npc_Blacksmith(GamePanel gp) {
         super(gp);
 
@@ -71,6 +72,18 @@ public class Npc_Blacksmith extends Entity {
              */
         }
 
+    }
+
+    public void setDialogue(){
+
+        dialogues[0] = "Hello";
+        dialogues[1] = "welcome";
+        dialogues[2] = "wizard";
+        dialogues[3] = "sword";
+    }
+
+    public void speak(){
+        gp.ui.currentDialogue = dialogues[0];
     }
 
 }

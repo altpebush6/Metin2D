@@ -24,46 +24,50 @@ public class KeyHandler implements KeyListener {
 		// TODO Auto-generated method stub
 		int code = e.getKeyCode();
 
-		if (code == KeyEvent.VK_W) {
-			upPressed = true;
-		}
-		if (code == KeyEvent.VK_D) {
-			rightPressed = true;
-		}
-		if (code == KeyEvent.VK_A) {
-			leftPressed = true;
-		}
-		if (code == KeyEvent.VK_S) {
-			downPressed = true;
-		}
-		if (code == KeyEvent.VK_QUOTEDBL) {
-			quotePressed = true;
-		}
-		if (code == KeyEvent.VK_T) {
-			if (openDebug) {
-				openDebug = false;
-			} else {
-				openDebug = true;
+		// PLAY STATE
+		if(gp.gameState == gp.playState){
+			if (code == KeyEvent.VK_W) {
+				upPressed = true;
 			}
-		}
-		if (code == KeyEvent.VK_SPACE) {
-			spacePressed = true;
-			gp.player.attacking = true;
-		}
-		if (code == KeyEvent.VK_1) {
-
-		}
-		if (code == KeyEvent.VK_2) {
-			if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed) {
-				gp.skills.swordSpinUsed = true;
-				gp.skills.swordSpinCounter++;
-				gp.skills.skillType = 2;
-				gp.playSE(19);
+			if (code == KeyEvent.VK_D) {
+				rightPressed = true;
 			}
-		}
-		if (code == KeyEvent.VK_3) {
-		}
-		if (code == KeyEvent.VK_4) {
+			if (code == KeyEvent.VK_A) {
+				leftPressed = true;
+			}
+			if (code == KeyEvent.VK_S) {
+				downPressed = true;
+			}
+			if (code == KeyEvent.VK_QUOTEDBL) {
+				quotePressed = true;
+			}
+			if (code == KeyEvent.VK_T) {
+				if (openDebug) {
+					openDebug = false;
+				} else {
+					openDebug = true;
+				}
+			}
+			if (code == KeyEvent.VK_SPACE) {
+				spacePressed = true;
+				gp.player.attacking = true;
+			}
+			if (code == KeyEvent.VK_1) {
+	
+			}
+			if (code == KeyEvent.VK_2) {
+				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed) {
+					gp.skills.swordSpinUsed = true;
+					gp.skills.swordSpinCounter++;
+					gp.skills.skillType = 2;
+					gp.playSE(19);
+				}
+			}
+			if (code == KeyEvent.VK_3) {
+			}
+			if (code == KeyEvent.VK_4) {
+			}
+			
 		}
 		if (code == KeyEvent.VK_P) {
 			if (gp.gameState == gp.playState) {
@@ -73,13 +77,35 @@ public class KeyHandler implements KeyListener {
 			}
 		}
 
+		// DIALOGUE STATE 
+		else if(gp.gameState == gp.dialogueState){
+			if(code == KeyEvent.VK_ENTER){
+				gp.gameState = gp.playState;
+			}
+		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+
 		int code = e.getKeyCode();
+
+		if(gp.gameState == gp.playState){
+
+
+
+
+			
+		}
+
+
+
+
+
 		if (code == KeyEvent.VK_W) {
+
 			upPressed = false;
 		}
 		if (code == KeyEvent.VK_D) {
