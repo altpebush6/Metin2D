@@ -1,4 +1,15 @@
-/main/
+/background/
+/maps/
+/npc/
+/objects/
 /player/
+/skills/
 /sounds/
+/tile/
+/wolf/
+/ai/
+/enemy/
 /entity/
+/main/
+/object/
+/xpTupe/

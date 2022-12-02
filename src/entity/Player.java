@@ -127,7 +127,8 @@ public class Player extends Entity {
     }
 
     public void setItems() {
-        /* 
+        
+        
         for(int i = 0; i<5;i++){
             
             System.out.println(gp.obj);
@@ -137,9 +138,8 @@ public class Player extends Entity {
                 inventory.add(gp.obj[i]);
             }
             
-           
         }
-        */
+        
     }
 
     public void getPlayerImage() {
