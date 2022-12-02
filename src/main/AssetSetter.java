@@ -36,6 +36,12 @@ public class AssetSetter {
     }
 
     
+    public void defaultDolunay(){
+        gp.obj[0] = new OBJ_Dolunay(gp);
+        gp.obj[0].worldX = gp.tileSize*30;
+        gp.obj[0].worldY = gp.tileSize*30;
+        index++;
+    }
     
 
     public void createDeadWolf(int worldX, int worldY) {

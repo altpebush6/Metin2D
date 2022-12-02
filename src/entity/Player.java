@@ -127,19 +127,19 @@ public class Player extends Entity {
     }
 
     public void setItems() {
-        
+        /* 
         for(int i = 0; i<5;i++){
             
             System.out.println(gp.obj);
-            /* 
+            
             if(gp.obj[i] != null){
                
-                inventory.add(gp.collect[i]);
+                inventory.add(gp.obj[i]);
             }
-            */
+            
            
         }
-        
+        */
     }
 
     public void getPlayerImage() {

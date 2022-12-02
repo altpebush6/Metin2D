@@ -92,6 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		aSetter.setObjectManually();
 		// aSetter.createWolf();
+		aSetter.defaultDolunay();
 
 		// playMusic(0);
 		aSetter.setNpc();
@@ -286,6 +287,8 @@ public class GamePanel extends JPanel implements Runnable {
 				obj[i].draw(g2);
 			}
 		}
+		
+
 
 		// NPC
 		for (int i = 0; i < npc.length; i++) {

@@ -244,13 +244,15 @@ public class Entity {
             }
 
             // if object not collected remove it
+            /* 
             if (type == 3) {
                 objectCounter++;
                 if (objectCounter == 300) {
                     deadObj = true;
                 }
             }
-
+            */
+            
             // Enemy fill Hp
             damageCounter++;
             if (type == 1 && damageCounter == 360) {
