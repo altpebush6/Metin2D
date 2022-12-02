@@ -39,7 +39,11 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public int itemIndex;
+
     public String currentDialogue = " ";
+    
+    public int slotCol = 0;
+    public int slotRow = 0;
 
     public int fillTupeNum = 0;
     public int tupeImg;
@@ -158,6 +162,11 @@ public class UI {
             drawDialogueScreen();
         }
 
+        // INVENTORY STATE 
+        if (gp.gameState == gp.inventoryState) {
+            drawInventory();
+        }
+
     }
 
     // PAUSE SCREEN METHOD
@@ -196,6 +205,47 @@ public class UI {
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
         g2.drawImage(dialogueUI, null, x, y);
+    }
+
+    // INVENTORY METHOD
+    public void drawInventory() {
+        
+        // FRAME
+        int inventoryX = gp.tileSize*9;
+        int inventoryY = gp.tileSize;
+        int inventoryWidth = gp.tileSize*6;
+        int inventoryHeight = gp.tileSize*5;
+        drawSubWindow(inventoryX, inventoryY, inventoryWidth, inventoryHeight);
+    
+        // SLOT
+        final int slotXstart = inventoryX + 20;
+        final int slotYstart = inventoryY + 20;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+
+        // DRAW PLAYER'S ITEM
+       
+        for(int i = 0; i< gp.player.inventory.size(); i++){
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+            slotX += gp.tileSize;
+            if(i==4 || i == 9 || i == 14){
+                slotX = slotXstart;
+                slotY += gp.tileSize;
+            }
+        }
+       
+
+
+        // CURSOR
+        int cursorX = slotXstart + (gp.tileSize * slotCol);
+        int cursorY = slotYstart + (gp.tileSize * slotRow);
+        int cursorWidth = gp.tileSize;
+        int cursorHeight = gp.tileSize;
+        // DRAW CURSOR
+        g2.setColor(Color.white);
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 35, 35);
+    
+    
     }
 
     // DEAD MENU

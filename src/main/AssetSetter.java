@@ -35,6 +35,9 @@ public class AssetSetter {
         index++;
     }
 
+    
+    
+
     public void createDeadWolf(int worldX, int worldY) {
         gp.obj[index] = new OBJ_DeadWolf(gp);
         gp.obj[index].worldX = worldX;

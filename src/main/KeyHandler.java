@@ -25,7 +25,7 @@ public class KeyHandler implements KeyListener {
 		int code = e.getKeyCode();
 
 		// PLAY STATE
-		if(gp.gameState == gp.playState){
+		if (gp.gameState == gp.playState) {
 			if (code == KeyEvent.VK_W) {
 				upPressed = true;
 			}
@@ -53,7 +53,7 @@ public class KeyHandler implements KeyListener {
 				gp.player.attacking = true;
 			}
 			if (code == KeyEvent.VK_1) {
-	
+
 			}
 			if (code == KeyEvent.VK_2) {
 				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed) {
@@ -67,8 +67,13 @@ public class KeyHandler implements KeyListener {
 			}
 			if (code == KeyEvent.VK_4) {
 			}
-			
+
+		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
+			if (code == KeyEvent.VK_ENTER) {
+				gp.gameState = gp.playState;
+			}
 		}
+
 		if (code == KeyEvent.VK_P) {
 			if (gp.gameState == gp.playState) {
 				gp.gameState = gp.pauseState;
@@ -77,10 +82,46 @@ public class KeyHandler implements KeyListener {
 			}
 		}
 
-		// DIALOGUE STATE 
-		else if(gp.gameState == gp.dialogueState){
-			if(code == KeyEvent.VK_ENTER){
+		if (code == KeyEvent.VK_I) {
+			if (gp.gameState == gp.playState) {
+				gp.gameState = gp.inventoryState;
+
+			
+			} else if (gp.gameState == gp.inventoryState) {
 				gp.gameState = gp.playState;
+			}
+		}
+		if(gp.gameState == gp.inventoryState){
+			if (code == KeyEvent.VK_W) {
+				if(gp.ui.slotRow == 0){
+					gp.ui.slotRow = 3;
+				}else{
+					gp.ui.slotRow--;
+				}
+				
+			}
+			if (code == KeyEvent.VK_A) {
+				if(gp.ui.slotCol == 0){
+					gp.ui.slotCol = 4;
+				}else{
+					gp.ui.slotCol--;
+				}
+				
+			}
+			if (code == KeyEvent.VK_S) {
+				if(gp.ui.slotRow == 3){
+					gp.ui.slotRow =0;
+				}else{
+					gp.ui.slotRow++;
+				}
+
+			}
+			if (code == KeyEvent.VK_D) {
+				if(gp.ui.slotCol == 4){
+					gp.ui.slotCol =0;
+				}else{
+					gp.ui.slotCol++;
+				}
 			}
 		}
 
@@ -92,17 +133,9 @@ public class KeyHandler implements KeyListener {
 
 		int code = e.getKeyCode();
 
-		if(gp.gameState == gp.playState){
+		if (gp.gameState == gp.playState) {
 
-
-
-
-			
 		}
-
-
-
-
 
 		if (code == KeyEvent.VK_W) {
 

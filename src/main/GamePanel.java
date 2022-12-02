@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// ENTITY AND OBJECT
 	public Player player = new Player(this, keyH, mouseH);
 	public Entity obj[] = new Entity[99999];
+	public Entity collect[] = new Entity[99999];
 	public Entity enemy[] = new Entity[99999];
 	public Entity npc[] = new Entity[10];
 	ArrayList<Entity> entityList = new ArrayList<>();
@@ -72,8 +73,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public int gameState;
 	public final int playState = 1;
 	public final int pauseState = 2;
-	public final int deadState = 6;
 	public final int dialogueState = 3;
+	public final int inventoryState = 4;
+	public final int deadState = 6;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // Set the size of this class (JPanel)

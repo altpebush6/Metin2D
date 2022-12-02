@@ -3,6 +3,7 @@ package entity;
 import main.KeyHandler;
 import main.MouseHandler;
 import main.MovePlayer;
+import object.OBJ_Dolunay;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -10,6 +11,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 import main.Damages;
@@ -52,11 +54,15 @@ public class Player extends Entity {
     public boolean spacePressed = false;
     public boolean doubleClicked = false;
     int attackWalkingSpeed = 1;
-    
+
     public boolean reborn = false;
     public int rebornCounter;
-    
+
     public int deadCounter = 0;
+
+    // INVENTORY
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -87,6 +93,7 @@ public class Player extends Entity {
         setPlayer();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
 
     }
 
@@ -110,13 +117,29 @@ public class Player extends Entity {
         playerXP = 0;
 
     }
-    
+
     public void setDefaultPositions() {
         worldX = 25 * gp.tileSize;
         worldY = 25 * gp.tileSize;
         screenX = defaultScreenX;
         screenY = defaultScreenY;
         direction = "down";
+    }
+
+    public void setItems() {
+        
+        for(int i = 0; i<5;i++){
+            
+            System.out.println(gp.obj);
+            /* 
+            if(gp.obj[i] != null){
+               
+                inventory.add(gp.collect[i]);
+            }
+            */
+           
+        }
+        
     }
 
     public void getPlayerImage() {
@@ -270,7 +293,7 @@ public class Player extends Entity {
 
             // CHECK NPC COLLISION
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
-            if(npcIndex != -1) {
+            if (npcIndex != -1) {
                 gp.npc[npcIndex].onPath = true;
             }
             interactNpc(npcIndex);
@@ -408,27 +431,27 @@ public class Player extends Entity {
                 goalY = 0;
             }
         }
-        
+
         /*
-        if(life > maxLife) {
-            life = maxLife;
-        }else if(life <= 0) {
-            gp.gameState = gp.deadState;
-        }
-        */      
-        
-        if(reborn) {
+         * if(life > maxLife) {
+         * life = maxLife;
+         * }else if(life <= 0) {
+         * gp.gameState = gp.deadState;
+         * }
+         */
+
+        if (reborn) {
             int rebornProccess = 300;
             int getHealRate = rebornProccess / (maxLife / increaseLife);
             getHeal(getHealRate);
             rebornCounter++;
-            if(rebornCounter == rebornProccess) {
+            if (rebornCounter == rebornProccess) {
                 reborn = false;
                 rebornCounter = 0;
                 bornCounter = 0;
             }
         }
-        
+
     }
 
     public void draw(Graphics2D g2) {
@@ -535,12 +558,12 @@ public class Player extends Entity {
         if (invincible) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
         }
-        
-        if(reborn) {
+
+        if (reborn) {
             bornAnimation(g2);
         }
-        
-        if(dying) {
+
+        if (dying) {
             dyingAnimation(g2);
         }
 
@@ -605,7 +628,7 @@ public class Player extends Entity {
             speed = speedDefault;
         }
     }
-
+    
     public void pickUpObject(int index) {
 
         if (index != -1) {
@@ -617,6 +640,7 @@ public class Player extends Entity {
                     gp.playSE(2);
                     playerCoin += gp.obj[index].coinValue;
                     gp.ui.showMessage(gp.obj[index].coinValue + " yang collected.");
+                    gp.collect[index] = gp.obj[index];
                     gp.obj[index] = null;
                     break;
                 case "Dolunay":
@@ -624,12 +648,14 @@ public class Player extends Entity {
                     playerWeapon = gp.obj[index].name;
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
                     gp.ui.itemIndex = 1;
+                    gp.collect[index] = gp.obj[index];
                     gp.obj[index] = null;
                     break;
             }
         }
     }
-
+    
+  
     // Interacting with npc
     public void interactNpc(int i) {
 
@@ -660,10 +686,10 @@ public class Player extends Entity {
                             int soundChoice = rand.nextInt(5) + 14;
                             gp.playSE(soundChoice);
                             life -= damage;
-                            
+
                             int damagePosX = screenX;
                             int damagePosY = screenY;
-                            
+
                             gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
                         } else {
                             dying = true;
@@ -699,55 +725,56 @@ public class Player extends Entity {
         life = 0;
         gp.playSE(21);
         gp.gameState = gp.deadState;
-        
+
         dyingCounter = 0;
-        
+
         gp.skills.swordSpinUsed = false;
         gp.skills.skillUsed = false;
-        gp.skills.skillSpriteCounter = gp.skills.increaseAmount * 10; // Skill içindeki son if'e girerek doğduktan sonra skill kullanmaması için
+        gp.skills.skillSpriteCounter = gp.skills.increaseAmount * 10; // Skill içindeki son if'e girerek doğduktan sonra
+                                                                      // skill kullanmaması için
 
-        for (int i=0; i < gp.enemy.length; i++) {
-            if(gp.enemy[i] != null) {
+        for (int i = 0; i < gp.enemy.length; i++) {
+            if (gp.enemy[i] != null) {
                 gp.enemy[i].inFight = false;
                 gp.enemy[i].onPath = false;
             }
         }
-        
+
         deadCounter = 0;
     }
-    
+
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
             if (!gp.enemy[enemyIndex].invincible) {
-                
+
                 // Don't get damage in the first giving damage
-                if(!gp.enemy[enemyIndex].inFight) {
+                if (!gp.enemy[enemyIndex].inFight) {
                     invincible = true;
                 }
-                
+
                 int damageSize = level * (rand.nextInt(3) + 3);
-                
+
                 gp.enemy[enemyIndex].damageCounter = 0;
                 gp.enemy[enemyIndex].life -= damageSize;
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
-                
+
                 int damagePosX = gp.enemy[enemyIndex].worldX - worldX + screenX;
                 int damagePosY = gp.enemy[enemyIndex].worldY - worldY + screenY;
-                
+
                 gp.ui.damages.add(new Damages(damageSize, damagePosX, damagePosY, 60, Color.green));
-                                
+
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
 
                     playerXP += rand.nextInt(10) + 100 / level;
-                    
+
                     // If level up
-                    if(playerXP / 920 + 1 > level) {
+                    if (playerXP / 920 + 1 > level) {
                         life = maxLife;
                     }
-                    
+
                     level = (playerXP / 920) + 1;
 
                     int coinNumber = rand.nextInt(3) + 3;
@@ -766,7 +793,7 @@ public class Player extends Entity {
             }
         }
     }
-    
+
     public void getHeal(int healCounter) {
         playerTimer++;
         if (playerTimer >= healCounter) {
