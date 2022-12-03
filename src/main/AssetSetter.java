@@ -49,6 +49,20 @@ public class AssetSetter {
         gp.obj[1].worldY = gp.tileSize*35;
         index++;
     }
+
+    public void defaultEcelGetiren(){
+        gp.obj[2] = new OBJ_EcelGetiren(gp);
+        gp.obj[2].worldX = gp.tileSize*25;
+        gp.obj[2].worldY = gp.tileSize*35;
+        index++;
+    }
+
+    public void defaultStaff(){
+        gp.obj[3] = new OBJ_Staff(gp);
+        gp.obj[3].worldX = gp.tileSize*12;
+        gp.obj[3].worldY = gp.tileSize*14;
+        index++;
+    }
     
 
     public void createDeadWolf(int worldX, int worldY) {

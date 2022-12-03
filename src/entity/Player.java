@@ -682,7 +682,27 @@ public class Player extends Entity {
                     // playerWeapon = gp.obj[index].name;
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
                     System.out.println("taskanat index : " + index);
-                    gp.ui.itemIndex = 0;
+                    gp.ui.itemIndex = 1;
+                    gp.collect[collectIndex] = gp.obj[index];
+                    collectIndex++;
+                    setItems();
+                    break;
+                case "EcelGetiren":
+                    gp.playSE(3);
+                    // playerWeapon = gp.obj[index].name;
+                    gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
+                    System.out.println("ecelg index : " + index);
+                    gp.ui.itemIndex = 1;
+                    gp.collect[collectIndex] = gp.obj[index];
+                    collectIndex++;
+                    setItems();
+                    break;
+                case "Staff":
+                    gp.playSE(3);
+                    // playerWeapon = gp.obj[index].name;
+                    gp.ui.showMessage(gp.obj[index].name + " asa kazanıldı.");
+                    System.out.println("staff index : " + index);
+                    gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();

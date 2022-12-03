@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;
 
 	// ENTITY AND OBJECT
-	
+
 	public Entity obj[] = new Entity[99999];
 	public Entity collect[] = new Entity[99999];
 	public Player player = new Player(this, keyH, mouseH);
@@ -96,6 +96,8 @@ public class GamePanel extends JPanel implements Runnable {
 		// aSetter.createWolf();
 		aSetter.defaultDolunay();
 		aSetter.defaultTasKanat();
+		aSetter.defaultEcelGetiren();
+		aSetter.defaultStaff();
 
 		// playMusic(0);
 		aSetter.setNpc();
@@ -285,14 +287,12 @@ public class GamePanel extends JPanel implements Runnable {
 		tileM.draw(g2);
 
 		// OBJECTS
-		
+
 		for (int i = 0; i < obj.length; i++) {
 			if (obj[i] != null) {
 				obj[i].draw(g2);
 			}
 		}
-		
-
 
 		// NPC
 		for (int i = 0; i < npc.length; i++) {
