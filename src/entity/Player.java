@@ -128,17 +128,17 @@ public class Player extends Entity {
     }
 
     public void setItems() {
-        int itemIndex = 0;
+        int itemIndex2 = 0;
         System.out.println(gp.obj[0]);
 
-        if (itemIndex != -1) {
-            if (gp.collect[itemIndex] != null) {
-                inventory.add(gp.collect[itemIndex]);
-                itemIndex++;
+        if (itemIndex2 != -1) {
+            if (gp.collect[itemIndex2] != null) {
+                inventory.add(gp.collect[itemIndex2]);
+                itemIndex2++;
             }
         }
-        if (itemIndex >= maxInventorySize) {
-            itemIndex = -1;
+        if (itemIndex2 >= maxInventorySize) {
+            itemIndex2 = -1;
             System.out.println("too much Items. ");
         }
         /*
@@ -265,14 +265,17 @@ public class Player extends Entity {
         // Check Object Collision
         int objIndex = gp.collisionChecker.checkObject(this, true);
         if (objIndex != -1) {
-
-            if (keyH.quotePressed) {
-                pickUpObject(objIndex);
-                keyH.quotePressed = false;
+            if (inventory.size() < maxInventorySize || gp.obj[objIndex].name == "Coin") {
+                if (keyH.quotePressed) {
+                    pickUpObject(objIndex);
+                    keyH.quotePressed = false;
+                } else {
+                    gp.ui.showMessage("Press \" to pick up item.");
+                }
             } else {
-                gp.ui.showMessage("Press \" to pick up item.");
+                gp.ui.showMessage("Daha fazla nesne taşıyamam.");
             }
-            System.out.println("collision works");
+
         }
 
         // CHECK ENEMY COLLISION
@@ -665,6 +668,7 @@ public class Player extends Entity {
                 case "Dolunay":
                     gp.playSE(3);
                     playerWeapon = gp.obj[index].name;
+                    System.out.println("dolunay index : " + index);
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
                     gp.ui.itemIndex = 1;
                     gp.collect[index] = gp.obj[index];
@@ -675,8 +679,9 @@ public class Player extends Entity {
                     break;
                 case "TasKanat":
                     gp.playSE(3);
-                    playerWeapon = gp.obj[index].name;
+                    // playerWeapon = gp.obj[index].name;
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
+                    System.out.println("taskanat index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[index] = gp.obj[index];
                     setItems();

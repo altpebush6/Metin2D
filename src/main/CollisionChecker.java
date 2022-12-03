@@ -194,7 +194,7 @@ public class CollisionChecker {
 			
 			}
 		}
-		System.out.println("crashed index: " + index);
+		
 		return index;
 	}
 	
