@@ -16,6 +16,7 @@ import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import entity.Skills;
+import object.OBJ_Dolunay;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -63,8 +64,8 @@ public class GamePanel extends JPanel implements Runnable {
 	// ENTITY AND OBJECT
 	
 	public Entity obj[] = new Entity[99999];
-	public Player player = new Player(this, keyH, mouseH);
 	public Entity collect[] = new Entity[99999];
+	public Player player = new Player(this, keyH, mouseH);
 	public Entity enemy[] = new Entity[99999];
 	public Entity npc[] = new Entity[10];
 	ArrayList<Entity> entityList = new ArrayList<>();
@@ -94,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setObjectManually();
 		// aSetter.createWolf();
 		aSetter.defaultDolunay();
+		aSetter.defaultTasKanat();
 
 		// playMusic(0);
 		aSetter.setNpc();
@@ -283,6 +285,7 @@ public class GamePanel extends JPanel implements Runnable {
 		tileM.draw(g2);
 
 		// OBJECTS
+		
 		for (int i = 0; i < obj.length; i++) {
 			if (obj[i] != null) {
 				obj[i].draw(g2);

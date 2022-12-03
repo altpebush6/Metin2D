@@ -63,6 +63,9 @@ public class Player extends Entity {
     // INVENTORY
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
+    public Entity currentWeapon;
+
+
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -127,18 +130,34 @@ public class Player extends Entity {
     }
 
     public void setItems() {
+        int itemIndex = 0;
+        System.out.println(gp.obj[0]);
         
-        
-        for(int i = 0; i<5;i++){
-            
-            System.out.println(gp.obj);
-            
-            if(gp.obj[i] != null){
-               
-                inventory.add(gp.obj[i]);
-            }
-            
+        if(itemIndex != -1){
+            if(gp.collect[itemIndex] != null){
+                inventory.add(gp.collect[itemIndex]);
+                itemIndex++;
+            } 
         }
+        if(itemIndex >= maxInventorySize){
+            itemIndex = -1;
+            System.out.println("too much Items. ");
+        }
+        /*
+        if(currentWeapon != null){
+            inventory.add(currentWeapon);
+        }
+        if(gp.collect != null){
+            for(int i = 0; i<maxInventorySize;i++){
+                if(gp.collect[i] != null){
+                    
+                    inventory.add(gp.collect[i]);
+                }
+                
+            }
+        }
+        */
+        System.out.println(gp.obj[0]);
         
     }
 
@@ -248,12 +267,18 @@ public class Player extends Entity {
         // Check Object Collision
         int objIndex = gp.collisionChecker.checkObject(this, true);
         if (objIndex != -1) {
-            if (keyH.quotePressed) {
-                pickUpObject(objIndex);
-                keyH.quotePressed = false;
-            } else {
-                gp.ui.showMessage("Press \" to pick up item.");
+            if(gp.collect.length >= maxInventorySize){
+                System.out.println("daha fazla item alamazsın");
+            }else{
+                if (keyH.quotePressed) {
+                    pickUpObject(objIndex);
+                    keyH.quotePressed = false;
+                } else {
+                    gp.ui.showMessage("Press \" to pick up item.");
+                }
+
             }
+            
         }
 
         // CHECK ENEMY COLLISION
@@ -649,7 +674,18 @@ public class Player extends Entity {
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
                     gp.ui.itemIndex = 1;
                     gp.collect[index] = gp.obj[index];
-                    gp.obj[index] = null;
+                    setItems();
+                    System.out.println("1.: "+ gp.collect[index]);
+                    //gp.obj[index] = null;
+                    System.out.println("2. : "+gp.collect[index]);
+                    break;
+                case "TasKanat":
+                    gp.playSE(3);
+                    playerWeapon = gp.obj[index].name;
+                    gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
+                    gp.ui.itemIndex = 1;
+                    gp.collect[index] = gp.obj[index];
+                    setItems();
                     break;
             }
         }

@@ -42,6 +42,13 @@ public class AssetSetter {
         gp.obj[0].worldY = gp.tileSize*30;
         index++;
     }
+
+    public void defaultTasKanat(){
+        gp.obj[1] = new OBJ_TasKanat(gp);
+        gp.obj[1].worldX = gp.tileSize*35;
+        gp.obj[1].worldY = gp.tileSize*35;
+        index++;
+    }
     
 
     public void createDeadWolf(int worldX, int worldY) {
@@ -115,5 +122,7 @@ public class AssetSetter {
         gp.npc[0].worldY = gp.tileSize * 17;
 
     }
+
+
 
 }

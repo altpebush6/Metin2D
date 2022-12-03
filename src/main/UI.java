@@ -224,7 +224,7 @@ public class UI {
         int slotY = slotYstart;
 
         // DRAW PLAYER'S ITEM
-       
+       System.out.println(gp.player.inventory.size());
         for(int i = 0; i< gp.player.inventory.size(); i++){
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
             slotX += gp.tileSize;
