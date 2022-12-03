@@ -320,6 +320,16 @@ public class Entity {
                 g2.drawString(name, screenX + 40, screenY - 20);
             }
 
+            if (type == objectType) {
+                g2.setFont(new Font("Courier New", Font.BOLD, 10));
+                int objIndex = gp.collisionChecker.checkObject(this, true);
+
+                g2.setColor(Color.red);
+                g2.drawString(gp.obj[objIndex].name, screenX + 7, screenY - 10);
+            }
+
+
+
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
             changeAlpha(g2, 1F);
