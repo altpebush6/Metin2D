@@ -65,8 +65,6 @@ public class Player extends Entity {
     public final int maxInventorySize = 20;
     public Entity currentWeapon;
 
-
-
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
         this.gp = gp;
@@ -132,33 +130,33 @@ public class Player extends Entity {
     public void setItems() {
         int itemIndex = 0;
         System.out.println(gp.obj[0]);
-        
-        if(itemIndex != -1){
-            if(gp.collect[itemIndex] != null){
+
+        if (itemIndex != -1) {
+            if (gp.collect[itemIndex] != null) {
                 inventory.add(gp.collect[itemIndex]);
                 itemIndex++;
-            } 
+            }
         }
-        if(itemIndex >= maxInventorySize){
+        if (itemIndex >= maxInventorySize) {
             itemIndex = -1;
             System.out.println("too much Items. ");
         }
         /*
-        if(currentWeapon != null){
-            inventory.add(currentWeapon);
-        }
-        if(gp.collect != null){
-            for(int i = 0; i<maxInventorySize;i++){
-                if(gp.collect[i] != null){
-                    
-                    inventory.add(gp.collect[i]);
-                }
-                
-            }
-        }
-        */
+         * if(currentWeapon != null){
+         * inventory.add(currentWeapon);
+         * }
+         * if(gp.collect != null){
+         * for(int i = 0; i<maxInventorySize;i++){
+         * if(gp.collect[i] != null){
+         * 
+         * inventory.add(gp.collect[i]);
+         * }
+         * 
+         * }
+         * }
+         */
         System.out.println(gp.obj[0]);
-        
+
     }
 
     public void getPlayerImage() {
@@ -267,18 +265,14 @@ public class Player extends Entity {
         // Check Object Collision
         int objIndex = gp.collisionChecker.checkObject(this, true);
         if (objIndex != -1) {
-            if(gp.collect.length >= maxInventorySize){
-                System.out.println("daha fazla item alamazsın");
-            }else{
-                if (keyH.quotePressed) {
-                    pickUpObject(objIndex);
-                    keyH.quotePressed = false;
-                } else {
-                    gp.ui.showMessage("Press \" to pick up item.");
-                }
 
+            if (keyH.quotePressed) {
+                pickUpObject(objIndex);
+                keyH.quotePressed = false;
+            } else {
+                gp.ui.showMessage("Press \" to pick up item.");
             }
-            
+            System.out.println("collision works");
         }
 
         // CHECK ENEMY COLLISION
@@ -653,7 +647,7 @@ public class Player extends Entity {
             speed = speedDefault;
         }
     }
-    
+
     public void pickUpObject(int index) {
 
         if (index != -1) {
@@ -675,9 +669,9 @@ public class Player extends Entity {
                     gp.ui.itemIndex = 1;
                     gp.collect[index] = gp.obj[index];
                     setItems();
-                    System.out.println("1.: "+ gp.collect[index]);
-                    //gp.obj[index] = null;
-                    System.out.println("2. : "+gp.collect[index]);
+                    System.out.println("1.: " + gp.collect[index]);
+                    // gp.obj[index] = null;
+                    System.out.println("2. : " + gp.collect[index]);
                     break;
                 case "TasKanat":
                     gp.playSE(3);
@@ -690,8 +684,7 @@ public class Player extends Entity {
             }
         }
     }
-    
-  
+
     // Interacting with npc
     public void interactNpc(int i) {
 
