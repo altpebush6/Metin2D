@@ -54,7 +54,8 @@ public class Entity {
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, down4, left1, left2, left3, right1, right2, right3;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
+            attackRight2;
     public BufferedImage image, deadImage;
     public BufferedImage hpBarImage, emptyBarImage;
 
@@ -77,7 +78,6 @@ public class Entity {
     public int npcActionCounter = 0;
     String dialogues[] = new String[20];
 
-
     // Enemy
     public int wolfID;
 
@@ -92,10 +92,15 @@ public class Entity {
         emptyBarImage = setup("/UI/emptyBar2", gp.tileSize, gp.tileSize / 8);
     }
 
-    public void setAction() {}
-    public void speak() {}
-    public void damageReaction() {}
-    
+    public void setAction() {
+    }
+
+    public void speak() {
+    }
+
+    public void damageReaction() {
+    }
+
     public void checkCollision() {
         // CHECK TILE COLLISION
         collisionOn = false;
@@ -103,12 +108,12 @@ public class Entity {
 
         // CHECK ENEMY COLLISION
         gp.collisionChecker.checkEntity(this, gp.enemy);
-        
+
         // CHECK NPC COLLISION
         gp.collisionChecker.checkEntity(this, gp.npc);
-        
+
         // CHECK PLAYER COLLISION
-        if(type != playerType) {
+        if (type != playerType) {
             gp.collisionChecker.checkPlayer(this);
         }
     }
@@ -124,14 +129,34 @@ public class Entity {
             int newWorldY = worldY;
 
             switch (direction) {
-                case "upleft":      newWorldY -= speed;    newWorldX -= speed;    break;
-                case "upright":     newWorldY -= speed;    newWorldX += speed;    break;
-                case "downleft":    newWorldY += speed;    newWorldX -= speed;    break;
-                case "downright":   newWorldY += speed;    newWorldX += speed;    break;
-                case "up":          newWorldY -= speed;    break;
-                case "down":        newWorldY += speed;    break;
-                case "left":        newWorldX -= speed;    break;
-                case "right":       newWorldX += speed;    break;
+                case "upleft":
+                    newWorldY -= speed;
+                    newWorldX -= speed;
+                    break;
+                case "upright":
+                    newWorldY -= speed;
+                    newWorldX += speed;
+                    break;
+                case "downleft":
+                    newWorldY += speed;
+                    newWorldX -= speed;
+                    break;
+                case "downright":
+                    newWorldY += speed;
+                    newWorldX += speed;
+                    break;
+                case "up":
+                    newWorldY -= speed;
+                    break;
+                case "down":
+                    newWorldY += speed;
+                    break;
+                case "left":
+                    newWorldX -= speed;
+                    break;
+                case "right":
+                    newWorldX += speed;
+                    break;
             }
 
             if (newWorldX > 0 && newWorldX < (gp.maxWorldCol - 1) * gp.tileSize &&
@@ -152,19 +177,19 @@ public class Entity {
                 spriteCounter = 0;
             }
         }
-        
+
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter == damageTimeOut) {
                 invincible = false;
                 invincibleCounter = 0;
             }
-        }       
-        
-        if(type == enemyType) {
-            if(inFight && gp.collisionChecker.checkFightAreaForEnemy(gp.player, this)) {
+        }
+
+        if (type == enemyType) {
+            if (inFight && gp.collisionChecker.checkFightAreaForEnemy(gp.player, this)) {
                 standing = true;
-            }else {
+            } else {
                 standing = false;
             }
         }
@@ -189,22 +214,37 @@ public class Entity {
         int missingTop;
         int missingBottom;
 
-        if(gp.isPlayerAtLeftEdge)   missingLeft = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
-        else                        missingLeft = 0;
-        
-        if(gp.isPlayerAtTopEdge)    missingTop = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
-        else                        missingTop = 0;
-        
-        if(gp.isPlayerAtRightEdge)  missingRight = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
-        else                        missingRight = 0;
-        
-        if(gp.isPlayerAtBottomEdge) missingBottom = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
-        else                        missingBottom = 0;
+        if (gp.isPlayerAtLeftEdge)
+            missingLeft = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
+        else
+            missingLeft = 0;
 
-        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - gp.tileSize && // is entity's location more than screenX 
-                worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + gp.tileSize && // is entity's location less than screenX 
-                worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - gp.tileSize && // is entity's location more than screenY 
-                worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + gp.tileSize) { // is entity's location less than screenY 
+        if (gp.isPlayerAtTopEdge)
+            missingTop = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
+        else
+            missingTop = 0;
+
+        if (gp.isPlayerAtRightEdge)
+            missingRight = Math.abs(gp.player.defaultScreenX - gp.player.worldX);
+        else
+            missingRight = 0;
+
+        if (gp.isPlayerAtBottomEdge)
+            missingBottom = Math.abs(gp.player.defaultScreenY - gp.player.worldY);
+        else
+            missingBottom = 0;
+
+        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - gp.tileSize && // is entity's location
+                                                                                                 // more than screenX
+                worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + gp.tileSize && // is entity's
+                                                                                                    // location less
+                                                                                                    // than screenX
+                worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - gp.tileSize && // is entity's
+                                                                                                      // location more
+                                                                                                      // than screenY
+                worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + gp.tileSize) { // is entity's
+                                                                                                   // location less than
+                                                                                                   // screenY
 
             switch (direction) {
                 case "up":
@@ -251,15 +291,15 @@ public class Entity {
             }
 
             // if object not collected remove it
-            /* 
-            if (type == objectType) {
-                objectCounter++;
-                if (objectCounter == 300) {
-                    deadObj = true;
-                }
-            }
-            */
-            
+            /*
+             * if (type == objectType) {
+             * objectCounter++;
+             * if (objectCounter == 300) {
+             * deadObj = true;
+             * }
+             * }
+             */
+
             // Enemy fill Hp
             damageCounter++;
             if (type == enemyType && damageCounter == 360) {
@@ -288,7 +328,8 @@ public class Entity {
                 double maxBar = oneScale * maxLife;
 
                 g2.drawImage(emptyBarImage, screenX, screenY - 10, (int) maxBar, gp.tileSize / 8, null);
-                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8, null);
+                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8,
+                        null);
 
                 hpBarCounter++;
                 if (hpBarCounter > 600) {
@@ -321,14 +362,27 @@ public class Entity {
             }
 
             if (type == objectType) {
-                g2.setFont(new Font("Courier New", Font.BOLD, 10));
+                g2.setFont(new Font("Courier New", Font.BOLD, 12));
                 int objIndex = gp.collisionChecker.checkObject(this, true);
 
-                g2.setColor(Color.red);
-                g2.drawString(gp.obj[objIndex].name, screenX + 7, screenY - 10);
+                switch (gp.obj[objIndex].name) {
+                    case "Coin":
+                        break;
+                    case "Dolunay":
+                        g2.setFont(new Font("Gill Sans Extrabold", Font.BOLD, 12));
+                        g2.setColor(Color.cyan);
+                        g2.drawString("Dolunay  Kılıcı", screenX - 8, screenY);
+                        break;
+                    case "TasKanat":
+                        g2.setColor(Color.YELLOW);
+                        g2.drawString("Tas Kanat Balta", screenX - 10, screenY - 10);
+                        break;
+                    case "EcelGetiren":
+                        g2.setColor(Color.cyan);
+                        g2.drawString("Ecel Getiren Kılıç", screenX - 25, screenY - 10);
+                }
+
             }
-
-
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
@@ -342,20 +396,30 @@ public class Entity {
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
         int increaseAmount = 5;
-        if (dyingCounter < increaseAmount) {            changeAlpha(g2, 1f);
-        } else if (dyingCounter < increaseAmount * 2)   {   changeAlpha(g2, 0.9f);
-        } else if (dyingCounter < increaseAmount * 3)   {   changeAlpha(g2, 0.8f);
-        } else if (dyingCounter < increaseAmount * 4)   {   changeAlpha(g2, 0.7f);
-        } else if (dyingCounter < increaseAmount * 5)  {   changeAlpha(g2, 0.6f);
-        } else if (dyingCounter < increaseAmount * 6)  {   changeAlpha(g2, 0.5f);
-        } else if (dyingCounter < increaseAmount * 7)  {   changeAlpha(g2, 0.4f);
-        } else if (dyingCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.3f);
-        } else if (dyingCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.2f);
-        } else if (dyingCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.1f);
+        if (dyingCounter < increaseAmount) {
+            changeAlpha(g2, 1f);
+        } else if (dyingCounter < increaseAmount * 2) {
+            changeAlpha(g2, 0.9f);
+        } else if (dyingCounter < increaseAmount * 3) {
+            changeAlpha(g2, 0.8f);
+        } else if (dyingCounter < increaseAmount * 4) {
+            changeAlpha(g2, 0.7f);
+        } else if (dyingCounter < increaseAmount * 5) {
+            changeAlpha(g2, 0.6f);
+        } else if (dyingCounter < increaseAmount * 6) {
+            changeAlpha(g2, 0.5f);
+        } else if (dyingCounter < increaseAmount * 7) {
+            changeAlpha(g2, 0.4f);
+        } else if (dyingCounter < increaseAmount * 8) {
+            changeAlpha(g2, 0.3f);
+        } else if (dyingCounter < increaseAmount * 9) {
+            changeAlpha(g2, 0.2f);
+        } else if (dyingCounter < increaseAmount * 10) {
+            changeAlpha(g2, 0.1f);
         } else {
             changeAlpha(g2, 0f);
-            if(type == objectType) {
-                gp.obj[objIndex] = null;  
+            if (type == objectType) {
+                gp.obj[objIndex] = null;
             }
         }
     }
@@ -363,17 +427,30 @@ public class Entity {
     public void bornAnimation(Graphics2D g2) {
         bornCounter++;
         int increaseAmount = 3;
-        if (bornCounter < increaseAmount) {            changeAlpha(g2, 0f);
-        } else if (bornCounter < increaseAmount * 2)   {   changeAlpha(g2, 0.1f);
-        } else if (bornCounter < increaseAmount * 3)   {   changeAlpha(g2, 0.2f);
-        } else if (bornCounter < increaseAmount * 4)   {   changeAlpha(g2, 0.3f);
-        } else if (bornCounter < increaseAmount * 5)  {   changeAlpha(g2, 0.4f);
-        } else if (bornCounter < increaseAmount * 6)  {   changeAlpha(g2, 0.5f);
-        } else if (bornCounter < increaseAmount * 7)  {   changeAlpha(g2, 0.6f);
-        } else if (bornCounter < increaseAmount * 8)  {   changeAlpha(g2, 0.7f);
-        } else if (bornCounter < increaseAmount * 9)  {   changeAlpha(g2, 0.8f);
-        } else if (bornCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.9f);
-        } else {   changeAlpha(g2, 1f);    newBorn = false;  }
+        if (bornCounter < increaseAmount) {
+            changeAlpha(g2, 0f);
+        } else if (bornCounter < increaseAmount * 2) {
+            changeAlpha(g2, 0.1f);
+        } else if (bornCounter < increaseAmount * 3) {
+            changeAlpha(g2, 0.2f);
+        } else if (bornCounter < increaseAmount * 4) {
+            changeAlpha(g2, 0.3f);
+        } else if (bornCounter < increaseAmount * 5) {
+            changeAlpha(g2, 0.4f);
+        } else if (bornCounter < increaseAmount * 6) {
+            changeAlpha(g2, 0.5f);
+        } else if (bornCounter < increaseAmount * 7) {
+            changeAlpha(g2, 0.6f);
+        } else if (bornCounter < increaseAmount * 8) {
+            changeAlpha(g2, 0.7f);
+        } else if (bornCounter < increaseAmount * 9) {
+            changeAlpha(g2, 0.8f);
+        } else if (bornCounter < increaseAmount * 10) {
+            changeAlpha(g2, 0.9f);
+        } else {
+            changeAlpha(g2, 1f);
+            newBorn = false;
+        }
     }
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
@@ -395,97 +472,97 @@ public class Entity {
 
         return image;
     }
-    
+
     public void searchPath(int goalCol, int goalRow) {
-        
+
         int startCol = (worldX + solidArea.x) / gp.tileSize;
         int startRow = (worldY + solidArea.y) / gp.tileSize;
-           
+
         gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
-        
-        if(gp.pathFinder.search() && !standing) { // it returns true when found a way to go
-            //  Next worldX & worldY
+
+        if (gp.pathFinder.search() && !standing) { // it returns true when found a way to go
+            // Next worldX & worldY
             int nextX = gp.pathFinder.pathList.get(0).col * gp.tileSize;
             int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
-            
+
             // Entity's solidArea Position
             /*
-            int entityLeftX = (int)(worldX / gp.tileSize) * gp.tileSize;
-            int entityRightX = entityLeftX;
-            int entityTopY = (int)(worldY / gp.tileSize) * gp.tileSize;
-            int entityBottomY = entityTopY;
-           */
-            
+             * int entityLeftX = (int)(worldX / gp.tileSize) * gp.tileSize;
+             * int entityRightX = entityLeftX;
+             * int entityTopY = (int)(worldY / gp.tileSize) * gp.tileSize;
+             * int entityBottomY = entityTopY;
+             */
+
             int entityLeftX = worldX + solidArea.x;
             int entityRightX = worldX + solidArea.x + solidArea.width;
             int entityTopY = worldY + solidArea.y;
-            int entityBottomY = worldY + solidArea.y + solidArea.height;       
-            
-            //System.out.println("nextX:" + nextX + " nextY:" + nextY + " entityLeftX: " + entityLeftX + " entityRightX: " + entityRightX+ " entityTopY:" + entityTopY  + " entityBottomY:" + entityBottomY);
-            
-           
-            
-            if(entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
+            int entityBottomY = worldY + solidArea.y + solidArea.height;
+
+            // System.out.println("nextX:" + nextX + " nextY:" + nextY + " entityLeftX: " +
+            // entityLeftX + " entityRightX: " + entityRightX+ " entityTopY:" + entityTopY +
+            // " entityBottomY:" + entityBottomY);
+
+            if (entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
                 direction = "up";
-            }else if(entityTopY < nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
+            } else if (entityTopY < nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
                 direction = "down";
-            }else if(entityTopY >= nextY && entityBottomY < nextY + gp.tileSize) {
+            } else if (entityTopY >= nextY && entityBottomY < nextY + gp.tileSize) {
                 // Left or Right
-                if(entityLeftX > nextX) {
+                if (entityLeftX > nextX) {
                     direction = "left";
                 }
-                if(entityLeftX < nextX) {
+                if (entityLeftX < nextX) {
                     direction = "right";
                 }
-            }else if(entityTopY > nextY && entityLeftX > nextX) {
+            } else if (entityTopY > nextY && entityLeftX > nextX) {
                 // up or left
                 direction = "up";
                 checkCollision();
-                if(collisionOn) {
-                    
+                if (collisionOn) {
+
                     direction = "left";
                 }
-            }else if(entityTopY > nextY && entityLeftX < nextX) {
+            } else if (entityTopY > nextY && entityLeftX < nextX) {
                 // up or right
                 direction = "up";
                 checkCollision();
-                if(collisionOn) {
+                if (collisionOn) {
                     direction = "right";
                 }
-            }else if(entityTopY < nextY && entityLeftX > nextX) {
+            } else if (entityTopY < nextY && entityLeftX > nextX) {
                 // down or left
                 direction = "down";
-                
+
                 checkCollision();
-                if(collisionOn) {
+                if (collisionOn) {
                     direction = "left";
                 }
-            }else if(entityTopY < nextY && entityLeftX < nextX) {
+            } else if (entityTopY < nextY && entityLeftX < nextX) {
                 // down or right
                 direction = "down";
-                
+
                 checkCollision();
-                if(collisionOn) {
+                if (collisionOn) {
                     direction = "right";
                 }
             }
-                
+
             /*
-            // If reaches the goal, stop searching
-            int nextCol = gp.pathFinder.pathList.get(0).col;
-            int nextRow = gp.pathFinder.pathList.get(0).row;
-            
-            if(nextCol == goalCol && nextRow == goalRow) {
-                onPath = false;
-                if(gp.player.mouseH.pressed && type == playerType) {
-                    gp.player.mouseH.pressed = false;
-                }
-                if(type == npcType) {
-                    //standing = true;  // stop NPC when it reaches to goal
-                }
-            }
-            */
-            
+             * // If reaches the goal, stop searching
+             * int nextCol = gp.pathFinder.pathList.get(0).col;
+             * int nextRow = gp.pathFinder.pathList.get(0).row;
+             * 
+             * if(nextCol == goalCol && nextRow == goalRow) {
+             * onPath = false;
+             * if(gp.player.mouseH.pressed && type == playerType) {
+             * gp.player.mouseH.pressed = false;
+             * }
+             * if(type == npcType) {
+             * //standing = true; // stop NPC when it reaches to goal
+             * }
+             * }
+             */
+
         }
     }
 }
