@@ -656,13 +656,12 @@ public class Player extends Entity {
         if (index != -1) {
 
             String objName = gp.obj[index].name;
-
+            int collectIndex = 0;
             switch (objName) {
                 case "Coin":
                     gp.playSE(2);
                     playerCoin += gp.obj[index].coinValue;
                     gp.ui.showMessage(gp.obj[index].coinValue + " yang collected.");
-                    gp.collect[index] = gp.obj[index];
                     gp.obj[index] = null;
                     break;
                 case "Dolunay":
@@ -671,7 +670,8 @@ public class Player extends Entity {
                     System.out.println("dolunay index : " + index);
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
                     gp.ui.itemIndex = 1;
-                    gp.collect[index] = gp.obj[index];
+                    gp.collect[collectIndex] = gp.obj[index];
+                    collectIndex++;
                     setItems();
                     System.out.println("1.: " + gp.collect[index]);
                     // gp.obj[index] = null;
@@ -682,8 +682,9 @@ public class Player extends Entity {
                     // playerWeapon = gp.obj[index].name;
                     gp.ui.showMessage(gp.obj[index].name + " kılıcı kazanıldı.");
                     System.out.println("taskanat index : " + index);
-                    gp.ui.itemIndex = 1;
-                    gp.collect[index] = gp.obj[index];
+                    gp.ui.itemIndex = 0;
+                    gp.collect[collectIndex] = gp.obj[index];
+                    collectIndex++;
                     setItems();
                     break;
             }
