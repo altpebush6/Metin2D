@@ -13,145 +13,149 @@ public class CollisionChecker {
 	}
 	
 	public void checkTile(Entity entity) {
-		
-		int entityLeftWorldX = entity.worldX + entity.solidArea.x; // Defines how far character collision is from left side of map.
-		int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width; // Defines how far character collision is from right side of map.
-		int entityTopWorldY = entity.worldY + entity.solidArea.y; // Defines how far character collision is from top side of map.
-		int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height; // Defines how far character collision is from bottom side of map.
-	
-		int entityLeftCol = entityLeftWorldX / gp.tileSize;
-		int entityRightCol = entityRightWorldX / gp.tileSize;
-		int entityTopRow = entityTopWorldY / gp.tileSize;
-		int entityBottomRow = entityBottomWorldY / gp.tileSize;
-		
-		int tileNum1, tileNum2;
-		
-		switch(entity.direction) {
-			case "up":
-				entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-				
-				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-				/*
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.worldX += entity.speed;
-					entity.collisionOn = true;
-				}else if(gp.tileM.tile[tileNum2].collision){
-					entity.worldX -= entity.speed;
-					entity.collisionOn = true;
-				}
-				*/
-				
-				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x; // Defines how far character collision is from left side of map.
+        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width; // Defines how far character collision is from right side of map.
+        int entityTopWorldY = entity.worldY + entity.solidArea.y; // Defines how far character collision is from top side of map.
+        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height; // Defines how far character collision is from bottom side of map.
+    
+        int entityLeftCol = entityLeftWorldX / gp.tileSize;
+        int entityRightCol = entityRightWorldX / gp.tileSize;
+        int entityTopRow = entityTopWorldY / gp.tileSize;
+        int entityBottomRow = entityBottomWorldY / gp.tileSize;
+	    try{
+	        int tileNum1, tileNum2;
+	        
+	        switch(entity.direction) {
+	            case "up":
+	                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+	                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+	                
+	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+	                /*
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.worldX += entity.speed;
+	                    entity.collisionOn = true;
+	                }else if(gp.tileM.tile[tileNum2].collision){
+	                    entity.worldX -= entity.speed;
+	                    entity.collisionOn = true;
+	                }
+	                */
+	                
+	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+	                    entity.collisionOn = true;
+	                }
 
-				break;
-				
-			case "upleft":
-				entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-				
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-				
-			case "upright":
-				entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-				
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-				
-			case "down":
-				entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-				
-				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-				/*
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.worldX += entity.speed;
-					entity.collisionOn = true;
-				}else if(gp.tileM.tile[tileNum2].collision) {
-					entity.worldX -= entity.speed;
-					entity.collisionOn = true;
-				}
-				*/
-				
-				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				
-				break;
-				
-			case "downleft":
-				entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-				
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-				
-			case "downright":
-				entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-				
-			case "left":
-				entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+	                break;
+	                
+	            case "upleft":
+	                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+	                
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                break;
+	                
+	            case "upright":
+	                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+	                
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                break;
+	                
+	            case "down":
+	                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+	                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+	                
+	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+	                /*
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.worldX += entity.speed;
+	                    entity.collisionOn = true;
+	                }else if(gp.tileM.tile[tileNum2].collision) {
+	                    entity.worldX -= entity.speed;
+	                    entity.collisionOn = true;
+	                }
+	                */
+	                
+	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                
+	                break;
+	                
+	            case "downleft":
+	                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+	                
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                break;
+	                
+	            case "downright":
+	                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                break;
+	                
+	            case "left":
+	                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
 
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-				tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-				
-				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-				/*
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.worldY += entity.speed;
-					entity.collisionOn = true;
-				}else if(gp.tileM.tile[tileNum2].collision) {
-					entity.worldY -= entity.speed;
-					entity.collisionOn = true;
-				}
-				*/
-				
-				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				
-				break;
-				
-			case "right":
-				entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
+	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+	                tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+	                
+	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+	                /*
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.worldY += entity.speed;
+	                    entity.collisionOn = true;
+	                }else if(gp.tileM.tile[tileNum2].collision) {
+	                    entity.worldY -= entity.speed;
+	                    entity.collisionOn = true;
+	                }
+	                */
+	                
+	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                
+	                break;
+	                
+	            case "right":
+	                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 
-				tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-				
-				// If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-				/*
-				if(gp.tileM.tile[tileNum1].collision) {
-					entity.worldY += entity.speed;
-					entity.collisionOn = true;
-				}else if(gp.tileM.tile[tileNum2].collision) {
-					entity.worldY -= entity.speed;
-					entity.collisionOn = true;
-				}
-				*/
-				
-				if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				
-				break;
-		}
+	                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+	                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+	                
+	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
+	                /*
+	                if(gp.tileM.tile[tileNum1].collision) {
+	                    entity.worldY += entity.speed;
+	                    entity.collisionOn = true;
+	                }else if(gp.tileM.tile[tileNum2].collision) {
+	                    entity.worldY -= entity.speed;
+	                    entity.collisionOn = true;
+	                }
+	                */
+	                
+	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+	                    entity.collisionOn = true;
+	                }
+	                
+	                break;
+	        }
+	    }catch (ArrayIndexOutOfBoundsException e) {
+	        System.out.println("entityLeftCol: "+ entityLeftCol + " entityRightCol: " + entityRightCol + " entityTopRow:" + entityTopRow + " entityTopRow:" + entityBottomRow);
+        }
+		
+		
 	}
 	
 	public int checkObject(Entity entity, boolean player) {

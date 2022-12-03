@@ -24,7 +24,7 @@ public class ENEMY_Wolf extends Entity {
         defaultSpeed = speed;
         maxLife = 30;
         life = maxLife;
-        type = 1;
+        type = enemyType;
         standing = true;
 
         int bornDirection = rand.nextInt(4) + 1;
@@ -54,6 +54,13 @@ public class ENEMY_Wolf extends Entity {
             solidArea.width = 48;
             solidArea.height = 32;
         }
+        
+        /*
+        solidArea.x = 0;
+        solidArea.y = 0;
+        solidArea.width = 30;
+        solidArea.height = 30; 
+         */
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
@@ -93,6 +100,12 @@ public class ENEMY_Wolf extends Entity {
     public void setAction() {
 
         if (onPath) {
+            
+            solidArea.x = 0;
+            solidArea.y = 0;
+            solidArea.width = 30;
+            solidArea.height = 30; 
+            
             speed = 2;
 
             int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
@@ -100,6 +113,19 @@ public class ENEMY_Wolf extends Entity {
 
             searchPath(goalCol, goalRow);
         } else {
+            
+            if (direction == "up" || direction == "down") {
+                solidArea.x = 10;
+                solidArea.y = 0;
+                solidArea.width = 25;
+                solidArea.height = 48;
+            } else {
+                solidArea.x = 0;
+                solidArea.y = 8;
+                solidArea.width = 48;
+                solidArea.height = 32;
+            }
+            
             speed = defaultSpeed;
             actionLockCounter++;
 

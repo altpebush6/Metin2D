@@ -39,10 +39,6 @@ public class Player extends Entity {
     // Mouse Click Movement
     public int goalX;
     public int goalY;
-    public int beforeClickX;
-    public int beforeClickY;
-    boolean goalReachedX = false;
-    boolean goalReachedY = false;
 
     public Random rand = new Random();
 
@@ -71,7 +67,7 @@ public class Player extends Entity {
         this.keyH = keyH;
         this.mouseH = mouseH;
 
-        type = 2;
+        type = playerType;
         name = "xKralTr";
 
         defaultScreenX = screenX = gp.screenWidth / 2 - gp.tileSize / 2;
@@ -248,6 +244,7 @@ public class Player extends Entity {
             }
         } else if (attacking) {
             attack();
+            mouseH.pressed = false;
         } else {
             speed = speedDefault;
         }
@@ -285,8 +282,6 @@ public class Player extends Entity {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             // Finish mouse event
             mouseH.pressed = false;
-            goalReachedX = true;
-            goalReachedY = true;
 
             if (keyH.upPressed && keyH.leftPressed) {
                 direction = "upleft";
@@ -318,7 +313,8 @@ public class Player extends Entity {
             if (npcIndex != -1) {
                 gp.npc[npcIndex].onPath = true;
             }
-            interactNpc(npcIndex);
+            
+            //interactNpc(npcIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
@@ -341,7 +337,7 @@ public class Player extends Entity {
             if (!gp.skills.skillUsed && !attacking) {
                 spriteCounter++;
                 if (spriteCounter > 5) {
-                    if (spriteNum == 4) {
+                    if (spriteNum == 2) {
                         spriteNum = 1;
                     } else {
                         spriteNum++;
@@ -349,71 +345,28 @@ public class Player extends Entity {
                     spriteCounter = 0;
                 }
             }
-        } else if (goalX != 0 || goalY != 0) { // if there is a point to go
+        } else if ((goalX != 0 || goalY != 0) && (mouseH.pressed)) { // if there is a point to go
 
-            // Check Tile Collision
+            // CHECK TILE COLLISION
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
 
             // CHECK ENEMY COLLISION
             gp.collisionChecker.checkEntity(this, gp.enemy);
 
-            if (goalX > 0) { // If X goal is on the left side of char
-                if (worldX > beforeClickX - goalX) { // If goal point is still on the left of character
-                    if (!collisionOn) {
-                        if (goalY != 0) { // If player moves on x and y axis divide speed by 2
-                            worldX -= speed / 2;
-                        } else {
-                            worldX -= speed;
-                        }
-                    }
-                    direction = "left";
-                } else { // If character reaches the point
-                    goalReachedX = true;
-                }
-            } else if (goalX < 0) { // If X goal is on the right side of char
-
-                if (worldX < beforeClickX - goalX) { // If goal point is still on the right of character
-                    if (!collisionOn) {
-                        if (goalY != 0) { // If player moves on x and y axis divide speed by 2
-                            worldX += speed / 2;
-                        } else {
-                            worldX += speed;
-                        }
-                    }
-                    direction = "right";
-                } else { // If character reaches the point
-                    goalReachedX = true;
-                }
+            // CHECK NPC COLLISION
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
+            if (npcIndex != -1) {
+                gp.npc[npcIndex].onPath = true;
             }
-            if (goalY > 0) { // If Y goal is on the top side of char
+            
+            interactNpc(npcIndex);
 
-                if (worldY > beforeClickY - goalY) { // If goal point is still on the top of character
-                    if (!collisionOn) {
-                        if (goalX != 0) { // If player moves on x and y axis divide speed by 2
-                            worldY -= speed / 2;
-                        } else {
-                            worldY -= speed;
-                        }
-                    }
-                    direction = "up";
-                } else { // If character reaches the point
-                    goalReachedY = true;
-                }
-            } else if (goalY < 0) { // If Y goal is on the bottom side of char
-
-                if (worldY < beforeClickY - goalY) { // If goal point is still on the bottom of character
-                    if (!collisionOn) {
-                        if (goalX != 0) { // If player moves on x and y axis divide speed by 2
-                            worldY += speed / 2;
-                        } else {
-                            worldY += speed;
-                        }
-                    }
-                    direction = "down";
-                } else { // If character reaches the point
-                    goalReachedY = true;
-                }
+            searchPath(goalX, goalY);
+            
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if (!collisionOn) {
+                MovePlayer.move(gp);
             }
 
             // Step Sound
@@ -440,17 +393,6 @@ public class Player extends Entity {
                     }
                     spriteCounter = 0;
                 }
-            }
-
-            if (goalReachedX) {
-                mouseH.screenX = 0;
-                goalReachedX = false;
-                goalX = 0;
-            }
-            if (goalReachedY) {
-                mouseH.screenY = 0;
-                goalReachedY = false;
-                goalY = 0;
             }
         }
 

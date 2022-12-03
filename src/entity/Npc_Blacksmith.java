@@ -12,7 +12,7 @@ public class Npc_Blacksmith extends Entity{
 
         direction = "down";
         speed = 1;
-        type = 5;
+        type = npcType;
         level = 100;
         name = "Guard";
 
@@ -41,6 +41,12 @@ public class Npc_Blacksmith extends Entity{
     public void setAction() {
         
         if (onPath) {
+            
+            solidArea.x = 0;
+            solidArea.y = 0;
+            solidArea.width = 48;
+            solidArea.height = 47; 
+            
             int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
             int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
 

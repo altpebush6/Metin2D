@@ -10,7 +10,7 @@ public class OBJ_Staff extends Entity {
         super(gp);
 
         name = "Staff";
-        type = 3;
+        type = objectType;
         down1 = setup("/objects/staff", gp.tileSize, gp.tileSize);
     }
 

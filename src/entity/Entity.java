@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import main.MouseHandler;
 import main.UtilityTool;
 
 public class Entity {
@@ -42,7 +44,8 @@ public class Entity {
     public boolean inFight = false;
 
     // Character Attributes
-    public int type; // enemy=1, player=2, object=3
+    public int type;
+    public int playerType = 1, enemyType = 2, npcType = 3, objectType = 4;
     public String name;
     public int maxLife;
     public int life;
@@ -105,7 +108,9 @@ public class Entity {
         gp.collisionChecker.checkEntity(this, gp.npc);
         
         // CHECK PLAYER COLLISION
-        gp.collisionChecker.checkPlayer(this);
+        if(type != playerType) {
+            gp.collisionChecker.checkPlayer(this);
+        }
     }
 
     public void update() {
@@ -147,7 +152,7 @@ public class Entity {
                 spriteCounter = 0;
             }
         }
-
+        
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter == damageTimeOut) {
@@ -156,10 +161,12 @@ public class Entity {
             }
         }       
         
-        if(inFight && gp.collisionChecker.checkFightAreaForEnemy(gp.player, this)) {
-            standing = true;
-        }else {
-            standing = false;
+        if(type == enemyType) {
+            if(inFight && gp.collisionChecker.checkFightAreaForEnemy(gp.player, this)) {
+                standing = true;
+            }else {
+                standing = false;
+            }
         }
     }
 
@@ -245,7 +252,7 @@ public class Entity {
 
             // if object not collected remove it
             /* 
-            if (type == 3) {
+            if (type == objectType) {
                 objectCounter++;
                 if (objectCounter == 300) {
                     deadObj = true;
@@ -255,7 +262,7 @@ public class Entity {
             
             // Enemy fill Hp
             damageCounter++;
-            if (type == 1 && damageCounter == 360) {
+            if (type == enemyType && damageCounter == 360) {
                 if (life != maxLife) {
                     life++;
                     damageCounter = 0;
@@ -263,7 +270,7 @@ public class Entity {
             }
 
             // Enemy Label
-            if (type == 1) {
+            if (type == enemyType) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
 
                 g2.setColor(Color.green);
@@ -274,7 +281,7 @@ public class Entity {
             }
 
             // Enemy Hp bar
-            if (type == 1 && hpBarOn == true) {
+            if (type == enemyType && hpBarOn == true) {
 
                 double oneScale = (double) gp.tileSize / maxLife;
                 double hpBarValue = oneScale * life;
@@ -303,7 +310,7 @@ public class Entity {
             }
 
             // NPC LABEL
-            if (type == 5) {
+            if (type == npcType) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
 
                 g2.setColor(Color.pink);
@@ -337,7 +344,7 @@ public class Entity {
         } else if (dyingCounter < increaseAmount * 10)  {   changeAlpha(g2, 0.1f);
         } else {
             changeAlpha(g2, 0f);
-            if(type == 3) {
+            if(type == objectType) {
                 gp.obj[objIndex] = null;  
             }
         }
@@ -381,8 +388,8 @@ public class Entity {
     
     public void searchPath(int goalCol, int goalRow) {
         
-        int startCol = (worldX) / gp.tileSize;
-        int startRow = (worldY) / gp.tileSize;
+        int startCol = (worldX + solidArea.x) / gp.tileSize;
+        int startRow = (worldY + solidArea.y) / gp.tileSize;
            
         gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
         
@@ -392,12 +399,20 @@ public class Entity {
             int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
             
             // Entity's solidArea Position
+            /*
             int entityLeftX = (int)(worldX / gp.tileSize) * gp.tileSize;
             int entityRightX = entityLeftX;
             int entityTopY = (int)(worldY / gp.tileSize) * gp.tileSize;
             int entityBottomY = entityTopY;
+           */
             
-
+            int entityLeftX = worldX + solidArea.x;
+            int entityRightX = worldX + solidArea.x + solidArea.width;
+            int entityTopY = worldY + solidArea.y;
+            int entityBottomY = worldY + solidArea.y + solidArea.height;       
+            
+            //System.out.println("nextX:" + nextX + " nextY:" + nextY + " entityLeftX: " + entityLeftX + " entityRightX: " + entityRightX+ " entityTopY:" + entityTopY  + " entityBottomY:" + entityBottomY);
+            
            
             
             if(entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
@@ -417,6 +432,7 @@ public class Entity {
                 direction = "up";
                 checkCollision();
                 if(collisionOn) {
+                    
                     direction = "left";
                 }
             }else if(entityTopY > nextY && entityLeftX < nextX) {
@@ -443,17 +459,23 @@ public class Entity {
                     direction = "right";
                 }
             }
-            
-            
-            // If reaches the goal, stop searching
+                
             /*
+            // If reaches the goal, stop searching
             int nextCol = gp.pathFinder.pathList.get(0).col;
             int nextRow = gp.pathFinder.pathList.get(0).row;
             
             if(nextCol == goalCol && nextRow == goalRow) {
                 onPath = false;
+                if(gp.player.mouseH.pressed && type == playerType) {
+                    gp.player.mouseH.pressed = false;
+                }
+                if(type == npcType) {
+                    //standing = true;  // stop NPC when it reaches to goal
+                }
             }
             */
+            
         }
     }
 }

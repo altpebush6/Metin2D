@@ -10,7 +10,7 @@ public class OBJ_TasKanat extends Entity {
         super(gp);
 
         name = "TasKanat";
-        type = 3;
+        type = objectType;
         down1 = setup("/objects/tasKanat", gp.tileSize, gp.tileSize);
     }
 

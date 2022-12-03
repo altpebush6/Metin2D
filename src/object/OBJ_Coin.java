@@ -10,7 +10,7 @@ public class OBJ_Coin extends Entity{
 		super(gp);
 		
 		name = "Coin";
-		type = 3;
+		type = objectType;
 		down1 = setup("/objects/coin", gp.tileSize, gp.tileSize);
 		coinValue = newValue;
 		

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// SYSTEM
 	KeyHandler keyH = new KeyHandler(this);
 	MouseHandler mouseH = new MouseHandler(this);
+	MouseMotionHandler mouseM = new MouseMotionHandler(this);
 	Sound soundtrack = new Sound();
 	Sound se = new Sound(); // sound effects
 	public TileManager tileM = new TileManager(this);

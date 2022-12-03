@@ -10,7 +10,7 @@ public class OBJ_EcelGetiren extends Entity {
 		super(gp);
 		
 		name = "EcelGetiren";
-		type = 3;
+		type = objectType;
 		down1 = setup("/objects/ecelGetiren", gp.tileSize, gp.tileSize);
 	}
     
