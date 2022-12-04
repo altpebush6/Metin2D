@@ -7,12 +7,14 @@ import java.awt.event.MouseMotionListener;
 public class MouseHandler implements MouseListener, MouseMotionListener {
 	
 	public int screenX, screenY;
+	public int mouseOverX, mouseOverY;
 	public boolean pressed = false;
 	
 	GamePanel gp;
 	
 	public MouseHandler(GamePanel gp){
 	    this.gp = gp;
+	    gp.addMouseMotionListener(this);
 	}
 	
 	@Override
@@ -70,13 +72,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 	public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-        System.out.println("sa1");
-    }
+    public void mouseDragged(MouseEvent e) {}
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("s2");
+        mouseOverX = e.getX();
+        mouseOverY = e.getY();
     }
 
 }

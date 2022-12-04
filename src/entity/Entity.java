@@ -42,6 +42,7 @@ public class Entity {
     public boolean hpBarOn = false;
     public boolean onPath = false;
     public boolean inFight = false;
+    public boolean showNames = false;
 
     // Character Attributes
     public int type;
@@ -119,6 +120,32 @@ public class Entity {
     }
 
     public void update() {
+        
+        // Active showNames when mouse over entity or entity is near player
+        int mouseOverX = gp.player.worldX - gp.player.screenX + gp.mouseH.mouseOverX;
+        int mouseOverY = gp.player.worldY - gp.player.screenY + gp.mouseH.mouseOverY;
+        
+        int enemyLeft = worldX + solidArea.x;
+        int enemyRight = worldX + solidArea.x + solidArea.width;
+        int enemyTop = worldY + solidArea.y;
+        int enemyBottom = worldY + solidArea.y + solidArea.height;
+        
+        int xDiff = Math.abs(gp.player.worldX - worldX) / gp.tileSize;
+        int yDiff = Math.abs(gp.player.worldY - worldY) / gp.tileSize;
+        
+        if(mouseOverX >= enemyLeft && mouseOverY >= enemyTop &&
+           mouseOverX <= enemyRight && mouseOverY <= enemyBottom) {
+            showNames = true;
+        }else if(xDiff + yDiff <= 5) {
+            showNames = true;
+        }else {
+            showNames = false;
+        }
+        
+
+        
+        
+        
 
         setAction();
         checkCollision();
@@ -310,7 +337,7 @@ public class Entity {
             }
 
             // Enemy Label
-            if (type == enemyType) {
+            if (type == enemyType && showNames) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
 
                 g2.setColor(Color.green);
@@ -351,7 +378,7 @@ public class Entity {
             }
 
             // NPC LABEL
-            if (type == npcType) {
+            if (type == npcType && showNames) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
 
                 g2.setColor(Color.pink);
@@ -361,6 +388,7 @@ public class Entity {
                 g2.drawString(name, screenX + 40, screenY - 20);
             }
 
+            // OBJECT LABEL
             if (type == objectType) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
                 int objIndex = gp.collisionChecker.checkObject(this, true);

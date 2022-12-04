@@ -51,8 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// SYSTEM
 	KeyHandler keyH = new KeyHandler(this);
-	MouseHandler mouseH = new MouseHandler(this);
-	MouseMotionHandler mouseM = new MouseMotionHandler(this);
+	public MouseHandler mouseH = new MouseHandler(this);
 	Sound soundtrack = new Sound();
 	Sound se = new Sound(); // sound effects
 	public TileManager tileM = new TileManager(this);
@@ -220,7 +219,6 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 
 		if (gameState == playState) {
-
 			aSetter.setEnemy();
 
 			player.update();
@@ -242,6 +240,7 @@ public class GamePanel extends JPanel implements Runnable {
 					}
 				}
 			}
+			
 		}
 		if (gameState == deadState) {
 
