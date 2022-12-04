@@ -152,7 +152,7 @@ public class CollisionChecker {
 	                break;
 	        }
 	    }catch (ArrayIndexOutOfBoundsException e) {
-	        System.out.println("entityLeftCol: "+ entityLeftCol + " entityRightCol: " + entityRightCol + " entityTopRow:" + entityTopRow + " entityTopRow:" + entityBottomRow);
+	        System.out.println(e+" entityLeftCol: "+ entityLeftCol + " entityRightCol: " + entityRightCol + " entityTopRow:" + entityTopRow + " entityTopRow:" + entityBottomRow);
         }
 		
 		

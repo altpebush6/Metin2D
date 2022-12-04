@@ -47,7 +47,7 @@ public class Player extends Entity {
     public int holdingCounter = 0;
     public int noPunchCounter = 0;
     public int clickCounter = 0;
-    public boolean spacePressed = false;
+    public boolean autoHit = false;
     public boolean doubleClicked = false;
     int attackWalkingSpeed = 1;
 
@@ -203,7 +203,7 @@ public class Player extends Entity {
 
         // When pressed space
         punchTimeOut++;
-        if (keyH.spacePressed && !gp.skills.skillUsed) {
+        if ((keyH.spacePressed || autoHit) && !gp.skills.skillUsed) {
             // System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut:
             // "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
@@ -282,6 +282,7 @@ public class Player extends Entity {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             // Finish mouse event
             mouseH.pressed = false;
+            autoHit = false;
 
             if (keyH.upPressed && keyH.leftPressed) {
                 direction = "upleft";
@@ -322,29 +323,11 @@ public class Player extends Entity {
             }
 
             // Step Sound
-            stepCounter++;
-            if (stepCounter == 10) {
-                if (stepType == 0) {
-                    gp.playSE(4);
-                    stepType = 1;
-                } else if (stepType == 1) {
-                    gp.playSE(5);
-                    stepType = 0;
-                }
-                stepCounter = 0;
-            }
+            stepSound();
 
-            if (!gp.skills.skillUsed && !attacking) {
-                spriteCounter++;
-                if (spriteCounter > 5) {
-                    if (spriteNum == 2) {
-                        spriteNum = 1;
-                    } else {
-                        spriteNum++;
-                    }
-                    spriteCounter = 0;
-                }
-            }
+            // Animate Character
+            animationCharacter();
+            
         } else if ((goalX != 0 || goalY != 0) && (mouseH.pressed)) { // if there is a point to go
 
             // CHECK TILE COLLISION
@@ -352,7 +335,7 @@ public class Player extends Entity {
             gp.collisionChecker.checkTile(this);
 
             // CHECK ENEMY COLLISION
-            gp.collisionChecker.checkEntity(this, gp.enemy);
+            int enemyCollisionIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
 
             // CHECK NPC COLLISION
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
@@ -362,48 +345,30 @@ public class Player extends Entity {
             
             interactNpc(npcIndex);
             
-            searchPath(goalX, goalY);
-            
+            if(mouseH.pressedOnEnemy) {
+                int enemyCol = (gp.enemy[mouseH.enemyIndex].worldX + gp.enemy[mouseH.enemyIndex].solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
+                int enemyRow = (gp.enemy[mouseH.enemyIndex].worldY + gp.enemy[mouseH.enemyIndex].solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+                searchPath(enemyCol, enemyRow);
+                
+                if(enemyCollisionIndex == mouseH.enemyIndex) {
+                    autoHit = true;
+                }
+            }else {
+                searchPath(goalX, goalY);
+            }
+
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
                 MovePlayer.move(gp);
             }
 
             // Step Sound
-            stepCounter++;
-            if (stepCounter == 20) {
-                if (stepType == 0) {
-                    gp.playSE(4);
-                    stepType = 1;
-                } else if (stepType == 1) {
-                    gp.playSE(5);
-                    stepType = 0;
-                }
-                stepCounter = 0;
-            }
+            stepSound();
 
             // to animate character movement
-            if (!gp.skills.skillUsed && !attacking) {
-                spriteCounter++;
-                if (spriteCounter > 10) {
-                    if (spriteNum == 1) {
-                        spriteNum = 2;
-                    } else if (spriteNum == 2) {
-                        spriteNum = 1;
-                    }
-                    spriteCounter = 0;
-                }
-            }
+            animationCharacter();
         }
-
-        /*
-         * if(life > maxLife) {
-         * life = maxLife;
-         * }else if(life <= 0) {
-         * gp.gameState = gp.deadState;
-         * }
-         */
-
+         
         if (reborn) {
             int rebornProccess = 300;
             int getHealRate = rebornProccess / (maxLife / increaseLife);
@@ -764,7 +729,9 @@ public class Player extends Entity {
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
-
+                    
+                    autoHit = false;
+                    
                     playerXP += rand.nextInt(10) + 100 / level;
 
                     // If level up
@@ -800,6 +767,34 @@ public class Player extends Entity {
                 life += increaseLife;
             }
             playerTimer = 0;
+        }
+    }
+    
+    public void stepSound() {
+        stepCounter++;
+        if (stepCounter == 10) {
+            if (stepType == 0) {
+                gp.playSE(4);
+                stepType = 1;
+            } else if (stepType == 1) {
+                gp.playSE(5);
+                stepType = 0;
+            }
+            stepCounter = 0;
+        }
+    }
+    
+    public void animationCharacter() {
+        if (!gp.skills.skillUsed && !attacking) {
+            spriteCounter++;
+            if (spriteCounter > 5) {
+                if (spriteNum == 2) {
+                    spriteNum = 1;
+                } else {
+                    spriteNum++;
+                }
+                spriteCounter = 0;
+            }
         }
     }
 }

@@ -116,6 +116,10 @@ public class GamePanel extends JPanel implements Runnable {
 		player.attacking = false;
 		player.direction = "down";
 		player.dying = false;
+		player.onPath = false;
+		mouseH.pressed = false;
+		mouseH.pressedOnEnemy = false;
+		player.autoHit = false;
 
 		if (rebornInCenter) {
 			player.setDefaultPositions();

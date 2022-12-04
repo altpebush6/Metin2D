@@ -57,7 +57,25 @@ public class PathFinder {
         goalNode = node[goalCol][goalRow];
         openList.add(currentNode);
         
-
+        
+        // CHECK NPC ON THE WAY
+        for(int i=0; i < gp.npc.length; i++) {
+            if(gp.npc[i] != null) { //  && gp.npc[i] != entity
+                int npcCol = gp.npc[i].worldX / gp.tileSize;
+                int npcRow = gp.npc[i].worldY / gp.tileSize;
+                node[npcCol][npcRow].solid = true;
+            }
+        }
+        
+        // CHECK ENEMIES ON THE WAY
+        for(int i=0; i < gp.enemy.length; i++) {
+            if(gp.enemy[i] != null) { // && gp.enemy[i] != entity
+                int enemyCol = gp.enemy[i].worldX / gp.tileSize;
+                int enemyRow = gp.enemy[i].worldY / gp.tileSize;
+                node[enemyCol][enemyRow].solid = true;
+            }
+        }
+        
         for(int row = 0; row < gp.maxWorldRow; row++) {           
             for(int col = 0; col < gp.maxWorldCol; col++) {     
                 // Set Solid Node
@@ -102,16 +120,16 @@ public class PathFinder {
     }
     
     public boolean search(int goalCol, int goalRow, Entity entity) {
-        while(!goalReached && step < 500) {
+        while(!goalReached && step < 500 && !entity.reachedGoal) {
             
             int col = currentNode.col;
             int row = currentNode.row;
             
             //System.out.println(goalCol+" "+goalRow+" : "+col+" "+row);
-            if(goalCol == col && goalRow == row) {
+            if(goalCol == col && goalRow == row && entity.type == entity.playerType) {
                 entity.reachedGoal = true;
+                return true;
             }
-            
             // Check the Current Node
             currentNode.checked = true;
             openList.remove(currentNode);
@@ -168,7 +186,6 @@ public class PathFinder {
             
             step++;
         }
-        
         return goalReached;
     }
     

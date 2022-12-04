@@ -51,6 +51,7 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_SPACE) {
 				spacePressed = true;
 				gp.player.attacking = true;
+				gp.player.autoHit = false;
 			}
 			if (code == KeyEvent.VK_1) {
 
