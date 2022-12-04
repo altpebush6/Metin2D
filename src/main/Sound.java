@@ -35,6 +35,9 @@ public class Sound {
         soundURL[19] = getClass().getResource("/sounds/swordSpin.wav");
         soundURL[20] = getClass().getResource("/sounds/dungeon.wav");
         soundURL[21] = getClass().getResource("/sounds/deadSound.wav");
+        soundURL[22] = getClass().getResource("/sounds/auraOfTheSword.wav");
+        soundURL[23] = getClass().getResource("/sounds/threeWayCut.wav");
+        
 	}
 	
 	public void setFile(int index) {

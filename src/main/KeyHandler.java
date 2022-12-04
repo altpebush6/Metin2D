@@ -60,13 +60,21 @@ public class KeyHandler implements KeyListener {
 				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed) {
 					gp.skills.swordSpinUsed = true;
 					gp.skills.swordSpinCounter++;
-					gp.skills.skillType = 2;
+					gp.skills.skillType = gp.skills.swordSpinType;
 					gp.playSE(19);
 				}
 			}
 			if (code == KeyEvent.VK_3) {
 			}
 			if (code == KeyEvent.VK_4) {
+			}
+			if (code == KeyEvent.VK_F1) {
+			    if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordUsed) {
+                    gp.skills.auraSwordUsed = true;
+                    gp.skills.auraSwordCounter++;
+                    gp.skills.skillType = gp.skills.auraSwordType;
+                    gp.playSE(22);
+                }
 			}
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE

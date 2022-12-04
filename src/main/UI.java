@@ -21,8 +21,9 @@ public class UI {
     Font arial_30, damageFont;
     BufferedImage coinImage, dolunayImage, spBarImage, hpBarImage, hpBarImage1, hpBarImage2, hpBarImage3, hpBarImage4,
             hpBarImage5, hpBarImage6, hpBarImage7, hpBarImage8, emptyBarImage, cursorImage;
-    BufferedImage auroOfSwordImage, swordSpinImage, dialogueUI;
+    BufferedImage auraOfSwordImage, swordSpinImage, dialogueUI;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
+    BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, itemSkillBar;
     BufferedImage[] xpTupe = new BufferedImage[23];
 
@@ -70,14 +71,17 @@ public class UI {
         bottomBar = gp.uTool.setup("/UI/bottomBar", gp.tileSize, gp.tileSize);
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", gp.tileSize, gp.tileSize);
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
-        auroOfSwordImage = gp.uTool.setup("/skills/AuroOfSword", gp.tileSize, gp.tileSize);
         // dialogueUI = gp.uTool.setup("/resources/UI/dialogueUI", gp.tileSize,
         // gp.tileSize);
 
         swordSpinImage = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),
-                    gp.tileSize, gp.tileSize);
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),gp.tileSize, gp.tileSize);
+        }
+        
+        auraOfSwordImage = gp.uTool.setup("/skills/AuraOfSword", gp.tileSize, gp.tileSize);
+        for (int i = 0; i < auraSwordImageUsed.length; i++) {
+            auraSwordImageUsed[i] = gp.uTool.setup("/skills/auraSword" + (i+1), gp.tileSize, gp.tileSize);
         }
 
         for (int i = 0; i < xpTupe.length; i++) {
@@ -280,8 +284,8 @@ public class UI {
 
     // SKILLS
     public void skills(Graphics2D g2) {
-        g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2,
-                gp.tileSize / 2, null);
+        g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        g2.drawImage(auraOfSwordImage, gp.tileSize * (gp.maxScreenCol - 1) - 30 , gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
 
         int i = gp.skills.skillStandbyTime / 20; // 15 (per 15 seconds)
 

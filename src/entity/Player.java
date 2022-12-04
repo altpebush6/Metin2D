@@ -60,6 +60,12 @@ public class Player extends Entity {
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
     public Entity currentWeapon;
+    
+    public BufferedImage image;
+    
+    // To avoid sliding image when sizes are different
+    public int tempScreenX;
+    public int tempScreenY;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -220,14 +226,11 @@ public class Player extends Entity {
             }
         }
 
-        if (gp.skills.swordSpinTimeOut != 0) {
-            gp.skills.swordSpinTimeOut++;
-        }
+        gp.skills.increaseTimeouts();
+        
+        gp.skills.resetSkills();
 
-        if (gp.skills.swordSpinTimeOut == gp.skills.skillStandbyTime) {
-            gp.skills.swordSpinTimeOut = 0;
-        }
-
+        /*
         if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
             if (gp.skills.swordSpinCounter > 20) {
                 gp.skills.useSkill(gp.skills.swordSpinType);
@@ -242,13 +245,21 @@ public class Player extends Entity {
                 spriteNum = 1;
                 gp.skills.swordSpinTimeOut++;
             }
-        } else if (attacking) {
+        }
+        */
+        
+        gp.skills.swordSpin();
+        gp.skills.auraOfTheSword();
+        
+        if(gp.skills.skillUsed) {
+            gp.player.speed = gp.player.attackWalkingSpeed;
+        }else if(attacking) {
             attack();
             mouseH.pressed = false;
         } else {
             speed = speedDefault;
         }
-
+        
         // To avoid player to get damage every frame. Instead waits for 1 seconds and
         // get damage.
         if (invincible) {
@@ -385,11 +396,10 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
 
-        BufferedImage image = null;
+        image = null;
 
-        // To avoid sliding image when sizes are different
-        int tempScreenX = screenX;
-        int tempScreenY = screenY;
+        tempScreenX = screenX;
+        tempScreenY = screenY;
 
         // Player Label
         g2.setFont(new Font("Courier New", Font.PLAIN, 11));
@@ -400,24 +410,14 @@ public class Player extends Entity {
         g2.drawString(name, screenX + 20, screenY - 10);
 
         if (gp.skills.skillUsed) {
-            if (spriteNum == 1)
-                image = attackRight2;
-            if (spriteNum == 2) {
-                image = attackUp2;
-                tempScreenY = screenY - gp.tileSize;
-            }
-            if (spriteNum == 3) {
-                tempScreenX = screenX - gp.tileSize;
-                image = attackLeft2;
-            }
-            if (spriteNum == 4)
-                image = attackDown2;
+                if (gp.skills.skillType == gp.skills.swordSpinType) gp.skills.drawSwordSpin();
+                if (gp.skills.skillType == gp.skills.auraSwordType) gp.skills.drawAuraSword();          
         } else {
             switch (direction) {
                 case "up":
                 case "upleft":
                 case "upright":
-                    if (attacking) {
+                    if (attacking || gp.skills.auraSwordUsed) {
                         if (spriteNum == 1)
                             image = attackUp1;
                         if (spriteNum == 2)
