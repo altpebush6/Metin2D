@@ -104,7 +104,7 @@ public class UI {
         if (gp.gameState == gp.playState) {
 
             // Skills
-            skills(g2);
+            drawSkills(g2);
 
             // Bottom Bar
             drawBottomBar(g2);
@@ -283,17 +283,24 @@ public class UI {
     }
 
     // SKILLS
-    public void skills(Graphics2D g2) {
-        g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
-        g2.drawImage(auraOfSwordImage, gp.tileSize * (gp.maxScreenCol - 1) - 30 , gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+    public void drawSkills(Graphics2D g2) {
 
-        int i = gp.skills.skillStandbyTime / 20; // 15 (per 15 seconds)
-
+        // SWORD SPIN
+        int swordSpinImg = gp.skills.skillStandbyTime / 20; // 15 (per 15 seconds)
         if (gp.skills.swordSpinTimeOut != 0) {
-            g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / i], gp.tileSize * (gp.maxScreenCol - 1),
-                    gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
-
+            g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / swordSpinImg], gp.tileSize * (gp.maxScreenCol - 1),gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        }else {
+            g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
         }
+        
+        // AURA SWORD
+        int auroSwordImg = gp.skills.skillStandbyTime / 20;
+        if(gp.skills.auraSwordActive) {
+            g2.drawImage(auraOfSwordImage, gp.tileSize * (gp.maxScreenCol - 1) - 30 , gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        }
+        /*if (gp.skills.auraSwordTimeOut != 0) {
+            g2.drawImage(auraSwordImageUsed[gp.skills.auraSwordTimeOut / auroSwordImg], gp.tileSize * (gp.maxScreenCol - 1) - 30,gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        }*/
     }
 
     // CURSOR

@@ -35,6 +35,7 @@ public class Player extends Entity {
     public int increaseLife;
     public int speedDefault;
     public int playerXP;
+    public int attackPower;
 
     // Mouse Click Movement
     public int goalX;
@@ -96,6 +97,7 @@ public class Player extends Entity {
         setPlayer();
         getPlayerImage();
         getPlayerAttackImage();
+        getPlayerAuraSwordImage();
         setItems();
 
     }
@@ -116,6 +118,7 @@ public class Player extends Entity {
         playerTimer = 0;
         playerCoin = 0;
         playerWeapon = "";
+        attackPower = 5;
 
         playerXP = 0;
 
@@ -159,6 +162,21 @@ public class Player extends Entity {
          */
         System.out.println(gp.obj[0]);
 
+    }
+    
+    public void getPlayerAuraSwordImage() {
+    
+        auraSwordUp1 = setup("/player/playerAuraSwordUp1", gp.tileSize, gp.tileSize * 2);
+        auraSwordUp2 = setup("/player/playerAuraSwordUp2", gp.tileSize, gp.tileSize * 2);
+        
+        auraSwordDown1 = setup("/player/playerAuraSwordDown1", gp.tileSize, gp.tileSize * 2);
+        auraSwordDown2 = setup("/player/playerAuraSwordDown2", gp.tileSize, gp.tileSize * 2);
+        
+        auraSwordLeft1 = setup("/player/playerAuraSwordLeft1", gp.tileSize * 2, gp.tileSize);
+        auraSwordLeft2 = setup("/player/playerAuraSwordLeft2", gp.tileSize * 2, gp.tileSize);
+        
+        auraSwordRight1 = setup("/player/playerAuraSwordRight1", gp.tileSize * 2, gp.tileSize);
+        auraSwordRight2 = setup("/player/playerAuraSwordRight2", gp.tileSize * 2, gp.tileSize);
     }
 
     public void getPlayerImage() {
@@ -409,19 +427,25 @@ public class Player extends Entity {
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 20, screenY - 10);
 
-        if (gp.skills.skillUsed) {
-                if (gp.skills.skillType == gp.skills.swordSpinType) gp.skills.drawSwordSpin();
-                if (gp.skills.skillType == gp.skills.auraSwordType) gp.skills.drawAuraSword();          
-        } else {
+        if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.swordSpinType)      {   gp.skills.drawSwordSpin();  }
+        else if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.auraSwordType) {   gp.skills.drawAuraSword();  } 
+        else {
             switch (direction) {
                 case "up":
                 case "upleft":
                 case "upright":
-                    if (attacking || gp.skills.auraSwordUsed) {
-                        if (spriteNum == 1)
-                            image = attackUp1;
-                        if (spriteNum == 2)
-                            image = attackUp2;
+                    if (attacking) {
+                        if(gp.skills.auraSwordActive) {
+                            if (spriteNum == 1)
+                                image = auraSwordUp1;
+                            if (spriteNum == 2)
+                                image = auraSwordUp2;
+                        }else {
+                            if (spriteNum == 1)
+                                image = attackUp1;
+                            if (spriteNum == 2)
+                                image = attackUp2;
+                        }
 
                         tempScreenY = screenY - gp.tileSize; // To avoid sliding image when image sizes are different
                     } else {
@@ -436,10 +460,18 @@ public class Player extends Entity {
                 case "downleft":
                 case "downright":
                     if (attacking) {
-                        if (spriteNum == 1)
-                            image = attackDown1;
-                        if (spriteNum == 2)
-                            image = attackDown2;
+                        if(gp.skills.auraSwordActive) {
+                            if (spriteNum == 1)
+                                image = auraSwordDown1;
+                            if (spriteNum == 2)
+                                image = auraSwordDown2;
+                        }else {
+                            if (spriteNum == 1)
+                                image = attackDown1;
+                            if (spriteNum == 2)
+                                image = attackDown2;
+                        }
+
                     } else {
                         if (spriteNum == 1)
                             image = down1;
@@ -453,10 +485,17 @@ public class Player extends Entity {
                     break;
                 case "left":
                     if (attacking) {
-                        if (spriteNum == 1)
-                            image = attackLeft1;
-                        if (spriteNum == 2)
-                            image = attackLeft2;
+                        if(gp.skills.auraSwordActive) {
+                            if (spriteNum == 1)
+                                image = auraSwordLeft1;
+                            if (spriteNum == 2)
+                                image = auraSwordLeft2;
+                        }else {
+                            if (spriteNum == 1)
+                                image = attackLeft1;
+                            if (spriteNum == 2)
+                                image = attackLeft2;
+                        }
 
                         tempScreenX = screenX - gp.tileSize; // To avoid sliding image when image sizes are different
                     } else {
@@ -469,10 +508,17 @@ public class Player extends Entity {
                     break;
                 case "right":
                     if (attacking) {
-                        if (spriteNum == 1)
-                            image = attackRight1;
-                        if (spriteNum == 2)
-                            image = attackRight2;
+                        if(gp.skills.auraSwordActive) {
+                            if (spriteNum == 1)
+                                image = auraSwordRight1;
+                            if (spriteNum == 2)
+                                image = auraSwordRight2;
+                        }else {
+                            if (spriteNum == 1)
+                                image = attackRight1;
+                            if (spriteNum == 2)
+                                image = attackRight2;
+                        }
                     } else {
                         if (spriteNum == 1)
                             image = right1;
@@ -714,7 +760,7 @@ public class Player extends Entity {
                     invincible = true;
                 }
 
-                int damageSize = level * (rand.nextInt(3) + 3);
+                int damageSize = attackPower + level * (rand.nextInt(3) + 3);
 
                 gp.enemy[enemyIndex].damageCounter = 0;
                 gp.enemy[enemyIndex].life -= damageSize;

@@ -10,19 +10,21 @@ public class Skills {
     public boolean skillUsed = false;
     public int skillSpriteCounter = 0;
     public int skillStandbyTime = 120; // 10s
-    public int skillTimeOut = 75;
 
     // Sword Spin
     public int swordSpinType = 1;
     public int swordSpinCounter = 0;
     public int swordSpinTimeOut = 0;
+    public int swordSpinDuration = 75;
     public boolean swordSpinUsed = false;
     
     // Aura of the Sword
     public int auraSwordType = 2;
     public int auraSwordCounter = 0;
     public int auraSwordTimeOut = 0;
-    public boolean auraSwordUsed = false;
+    public int auraSwordDuration = 600;
+    public int auraSwordDrawDuration = 60;
+    public boolean auraSwordActive = false;
     
     public int increaseAmount;
     
@@ -80,7 +82,7 @@ public class Skills {
                 skillUsed = true;
             }
 
-            if (swordSpinCounter == skillTimeOut) {
+            if (swordSpinCounter == swordSpinDuration) {
                 swordSpinCounter = 0;
                 swordSpinUsed = false;
                 skillUsed = false;
@@ -91,20 +93,18 @@ public class Skills {
     }
     
     public void auraOfTheSword() {
-        if (auraSwordUsed && auraSwordTimeOut == 0) {
-            
+        if (auraSwordActive && auraSwordTimeOut == 0) {         // if pressed F1 enter
             auraSwordCounter++;
             
-            if (auraSwordCounter > 20) {
-                skillUsed = true;
+            if(auraSwordCounter == auraSwordDrawDuration) {     // draw aura sword animation for auraSwordDrawDuration milliseconds
+                skillUsed = false;
             }
 
-            if (auraSwordCounter == skillTimeOut) {
+            if (auraSwordCounter == auraSwordDuration) {        // deactivate aura sword after auraSwordDuration milliseconds
                 auraSwordCounter = 0;
-                auraSwordUsed = false;
-                skillUsed = false;
-                gp.player.spriteNum = 2;
+                auraSwordActive = false;
                 auraSwordTimeOut++;
+                gp.player.attackPower -= 10;
             }
         }
     }
@@ -120,10 +120,10 @@ public class Skills {
     
     public void drawAuraSword() {
         switch(gp.player.direction) {
-            case "up":  case "upleft":  case "upright":     gp.player.image = gp.player.attackUp2;  gp.player.tempScreenY = gp.player.screenY - gp.tileSize; break;
-            case "down":case "downleft":case "downright":   gp.player.image = gp.player.attackDown2;    break;
-            case "left":    gp.player.image = gp.player.attackLeft2; gp.player.tempScreenX = gp.player.screenX - gp.tileSize;   break;
-            case "right":   gp.player.image = gp.player.attackRight2;   break;
+            case "up":  case "upleft":  case "upright":     gp.player.image = gp.player.auraSwordUp2;  gp.player.tempScreenY = gp.player.screenY - gp.tileSize; break;
+            case "down":case "downleft":case "downright":   gp.player.image = gp.player.auraSwordDown2;    break;
+            case "left":    gp.player.image = gp.player.auraSwordLeft2; gp.player.tempScreenX = gp.player.screenX - gp.tileSize;   break;
+            case "right":   gp.player.image = gp.player.auraSwordRight2;   break;
         }
     }
     

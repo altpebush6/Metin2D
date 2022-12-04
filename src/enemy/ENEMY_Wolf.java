@@ -22,7 +22,7 @@ public class ENEMY_Wolf extends Entity {
         wolfID = id;
         speed = 1;
         defaultSpeed = speed;
-        maxLife = 30;
+        maxLife = 100;
         life = maxLife;
         type = enemyType;
         standing = true;

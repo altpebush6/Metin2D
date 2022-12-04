@@ -69,11 +69,13 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_4) {
 			}
 			if (code == KeyEvent.VK_F1) {
-			    if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordUsed) {
-                    gp.skills.auraSwordUsed = true;
+			    if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive) {
+                    gp.skills.auraSwordActive = true;
+                    gp.skills.skillUsed = true;
                     gp.skills.auraSwordCounter++;
                     gp.skills.skillType = gp.skills.auraSwordType;
                     gp.playSE(22);
+                    gp.player.attackPower += 10;
                 }
 			}
 

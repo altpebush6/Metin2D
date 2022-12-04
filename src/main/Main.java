@@ -14,7 +14,7 @@ public class Main {
 		
 		//f.setUndecorated(true); // To close top bar
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-		window.setUndecorated(true);
+		window.setUndecorated(false);
 		
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
