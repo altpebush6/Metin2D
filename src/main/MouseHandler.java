@@ -18,7 +18,9 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+        System.out.println("clicked");
+    }
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -60,6 +62,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 }
             }
         }
+        
 	}
 
 	@Override
