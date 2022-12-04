@@ -101,16 +101,21 @@ public class PathFinder {
         node.fCost = node.gCost + node.hCost;
     }
     
-    public boolean search() {
+    public boolean search(int goalCol, int goalRow, Entity entity) {
         while(!goalReached && step < 500) {
             
             int col = currentNode.col;
             int row = currentNode.row;
             
+            //System.out.println(goalCol+" "+goalRow+" : "+col+" "+row);
+            if(goalCol == col && goalRow == row) {
+                entity.reachedGoal = true;
+            }
+            
             // Check the Current Node
             currentNode.checked = true;
             openList.remove(currentNode);
-            
+                        
             // Open the up node
             if(row - 1 >= 0) {
                 openNode(node[col][row - 1]);

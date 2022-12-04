@@ -361,7 +361,7 @@ public class Player extends Entity {
             }
             
             interactNpc(npcIndex);
-
+            
             searchPath(goalX, goalY);
             
             // IF COLLISION IS FALSE, PLAYER CAN MOVE

@@ -6,9 +6,12 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseHandler implements MouseListener, MouseMotionListener {
 	
-	public int screenX, screenY;
+	public int screenX, screenY, clickedWorldX, clickedWorldY, clickedCol, clickedRow;
 	public int mouseOverX, mouseOverY;
 	public boolean pressed = false;
+	
+	public boolean pressedOnEnemy = false;
+	public int enemyIndex;
 	
 	GamePanel gp;
 	
@@ -27,10 +30,46 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 	    
         screenX = e.getPoint().x;
         screenY = e.getPoint().y;
+        
+        clickedWorldX = screenX + gp.player.worldX - gp.player.screenX;
+        clickedWorldY = screenY + gp.player.worldY - gp.player.screenY;
+        
+        clickedCol = clickedWorldX / gp.tileSize;
+        clickedRow = clickedWorldY / gp.tileSize;
 	    
         pressed = true;
-        gp.player.goalX = (screenX + gp.player.worldX - gp.player.screenX) / gp.tileSize;
-        gp.player.goalY = (screenY + gp.player.worldY - gp.player.screenY) / gp.tileSize;
+        
+        int tileNum = gp.tileM.mapTileNum[clickedCol][clickedRow];
+        if(gp.tileM.tile[tileNum].collision) {
+            pressed = false;
+        }
+        
+        
+        for(int i = 0; i < gp.enemy.length; i++) {
+            if(gp.enemy[i] != null) {
+
+                
+                int enemyLeft = gp.enemy[i].worldX + gp.enemy[i].solidArea.x;
+                int enemyRight = gp.enemy[i].worldX + gp.enemy[i].solidArea.x + gp.enemy[i].solidArea.width;
+                int enemyTop = gp.enemy[i].worldY + gp.enemy[i].solidArea.y;
+                int enemyBottom = gp.enemy[i].worldY + gp.enemy[i].solidArea.y + gp.enemy[i].solidArea.height;
+                
+                if(clickedWorldX >= enemyLeft && clickedWorldY >= enemyTop &&
+                   clickedWorldX <= enemyRight && clickedWorldY <= enemyBottom) {
+                    pressedOnEnemy = true;
+                    enemyIndex = i;
+                }
+            }
+        }
+            
+        if(pressedOnEnemy) {
+            gp.player.goalX = (gp.enemy[enemyIndex].worldX + gp.enemy[enemyIndex].solidArea.x) / gp.tileSize;
+            gp.player.goalY = (gp.enemy[enemyIndex].worldX + gp.enemy[enemyIndex].solidArea.x) / gp.tileSize;
+        }else {
+            gp.player.goalX = clickedCol;
+            gp.player.goalY = clickedRow;
+        }
+
         
         // RE-SPAWN
         int respawnTime = 180;

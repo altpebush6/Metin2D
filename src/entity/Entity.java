@@ -43,6 +43,7 @@ public class Entity {
     public boolean onPath = false;
     public boolean inFight = false;
     public boolean showNames = false;
+    public boolean reachedGoal = false;
 
     // Character Attributes
     public int type;
@@ -508,7 +509,7 @@ public class Entity {
 
         gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
 
-        if (gp.pathFinder.search() && !standing) { // it returns true when found a way to go
+        if (gp.pathFinder.search(goalCol, goalRow, this) && !standing) { // it returns true when found a way to go
             // Next worldX & worldY
             int nextX = gp.pathFinder.pathList.get(0).col * gp.tileSize;
             int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
@@ -573,6 +574,12 @@ public class Entity {
                 if (collisionOn) {
                     direction = "right";
                 }
+            }
+            
+            if(reachedGoal && type == playerType) {
+                onPath = false;
+                gp.player.mouseH.pressed = false;
+                reachedGoal = false;
             }
 
             /*
