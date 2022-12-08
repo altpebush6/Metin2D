@@ -19,8 +19,9 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_30, damageFont;
-    BufferedImage coinImage, dolunayImage, spBarImage, hpBarImage, hpBarImage1, hpBarImage2, hpBarImage3, hpBarImage4,
-            hpBarImage5, hpBarImage6, hpBarImage7, hpBarImage8, emptyBarImage, cursorImage;
+    BufferedImage coinImage, dolunayImage, emptyBarImage, cursorImage;
+    BufferedImage[] hpBarImages = new BufferedImage[8];
+    BufferedImage[] spBarImages = new BufferedImage[8];
     BufferedImage auraOfSwordImage, swordSpinImage, dialogueUI;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
@@ -57,16 +58,7 @@ public class UI {
 
         coinImage = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
-        hpBarImage1 = gp.uTool.setup("/UI/HpBar", gp.tileSize, gp.tileSize);
-        hpBarImage2 = gp.uTool.setup("/UI/HpBar2", gp.tileSize, gp.tileSize);
-        hpBarImage3 = gp.uTool.setup("/UI/HpBar3", gp.tileSize, gp.tileSize);
-        hpBarImage4 = gp.uTool.setup("/UI/HpBar4", gp.tileSize, gp.tileSize);
-        hpBarImage5 = gp.uTool.setup("/UI/HpBar5", gp.tileSize, gp.tileSize);
-        hpBarImage6 = gp.uTool.setup("/UI/HpBar6", gp.tileSize, gp.tileSize);
-        hpBarImage7 = gp.uTool.setup("/UI/HpBar7", gp.tileSize, gp.tileSize);
-        hpBarImage8 = gp.uTool.setup("/UI/HpBar8", gp.tileSize, gp.tileSize);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
-        spBarImage = gp.uTool.setup("/UI/SpBar", gp.tileSize, gp.tileSize);
         cursorImage = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
         xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", gp.tileSize, gp.tileSize);
         bottomBar = gp.uTool.setup("/UI/bottomBar", gp.tileSize, gp.tileSize);
@@ -75,6 +67,14 @@ public class UI {
         // dialogueUI = gp.uTool.setup("/resources/UI/dialogueUI", gp.tileSize,
         // gp.tileSize);
 
+        for (int i = 0; i < hpBarImages.length; i++) {
+            hpBarImages[i] = gp.uTool.setup("/UI/HpBar" + (i + 1), gp.tileSize, gp.tileSize);
+        }
+        
+        for (int i = 0; i < spBarImages.length; i++) {
+            spBarImages[i] = gp.uTool.setup("/UI/SpBar" + (i + 1), gp.tileSize, gp.tileSize);
+        }
+        
         swordSpinImage = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
             swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),gp.tileSize, gp.tileSize);
@@ -393,61 +393,38 @@ public class UI {
         }
 
         // Item-Skill Bar
-        g2.drawImage(itemSkillBar, bottomBarX + gp.tileSize * 6, gp.tileSize * (gp.maxScreenRow) - gp.tileSize / 2 - 5,
-                30, 30, null);
-
-        // Empty Health Bar
-        g2.setColor(Color.black);
-        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) barWidth + 2, barHeight, null);
-
-        // Empty Sp Bar
-        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) barWidth + 2, barHeight, null);
-
-        hpBarCounter++;
-        if (hpBarCounter < 15) {
-            hpBarImage = hpBarImage1;
-        } else if (hpBarCounter < 30) {
-            hpBarImage = hpBarImage2;
-        } else if (hpBarCounter < 45) {
-            hpBarImage = hpBarImage3;
-        } else if (hpBarCounter < 60) {
-            hpBarImage = hpBarImage4;
-        } else if (hpBarCounter < 75) {
-            hpBarImage = hpBarImage5;
-        } else if (hpBarCounter < 90) {
-            hpBarImage = hpBarImage6;
-        } else if (hpBarCounter < 105) {
-            hpBarImage = hpBarImage7;
-        } else if (hpBarCounter < 120) {
-            hpBarImage = hpBarImage8;
-            hpBarCounter = 0;
-        }
+        g2.drawImage(itemSkillBar, bottomBarX + gp.tileSize * 6, gp.tileSize * (gp.maxScreenRow) - gp.tileSize / 2 - 5, 30, 30, null);
 
         // Health Bar
-        g2.drawImage(hpBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBar, barHeight, null);
+        g2.setColor(Color.black);
+        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) barWidth + 2, barHeight, null);
+        
+        hpBarCounter++;
+        
+        if (hpBarCounter == 120) {
+            hpBarCounter = 0;
+        }
+        
+        int hpBarIndex = hpBarCounter / 15;
 
+        g2.drawImage(hpBarImages[hpBarIndex], gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBar, barHeight, null);
+        
+        // Sp Bar
+        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) barWidth + 2, barHeight, null);
+        
         spBarCounter++;
-        if (spBarCounter < 15) {
-            spBarImage = hpBarImage1;
-        } else if (spBarCounter < 30) {
-            spBarImage = hpBarImage2;
-        } else if (spBarCounter < 45) {
-            spBarImage = hpBarImage3;
-        } else if (spBarCounter < 60) {
-            spBarImage = hpBarImage4;
-        } else if (spBarCounter < 75) {
-            spBarImage = hpBarImage5;
-        } else if (spBarCounter < 90) {
-            spBarImage = hpBarImage6;
-        } else if (spBarCounter < 105) {
-            spBarImage = hpBarImage7;
-        } else if (spBarCounter < 120) {
-            spBarImage = hpBarImage8;
+        
+        if (spBarCounter == 120) {
             spBarCounter = 0;
         }
+        
+        int spBarIndex = spBarCounter / 15;
+        
+        g2.drawImage(spBarImages[spBarIndex], gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBar, barHeight, null);
+        
 
-        // Sp Bar
-        g2.drawImage(spBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBar, barHeight, null);
+
+        
 
         // Sp Bar
         /*

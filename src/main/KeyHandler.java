@@ -57,10 +57,11 @@ public class KeyHandler implements KeyListener {
 
 			}
 			if (code == KeyEvent.VK_2) {
-				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed) {
+				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed && gp.player.sp >= 10) {
 					gp.skills.swordSpinUsed = true;
 					gp.skills.swordSpinCounter++;
 					gp.skills.skillType = gp.skills.swordSpinType;
+					gp.player.sp -= 10;
 					gp.playSE(19);
 				}
 			}
@@ -69,11 +70,12 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_4) {
 			}
 			if (code == KeyEvent.VK_F1) {
-			    if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive) {
+			    if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive && gp.player.sp >= 10) {
                     gp.skills.auraSwordActive = true;
                     gp.skills.skillUsed = true;
                     gp.skills.auraSwordCounter++;
                     gp.skills.skillType = gp.skills.auraSwordType;
+                    gp.player.sp -= 10;
                     gp.playSE(22);
                     gp.player.attackPower += 10;
                 }
