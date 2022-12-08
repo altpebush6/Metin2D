@@ -33,81 +33,90 @@ public class Skills {
     }
     
     public void swordSpin() {
-        if (swordSpinUsed && swordSpinTimeOut == 0) {
-            
-            swordSpinCounter++;
-            
-            if (swordSpinCounter > 20) {
+            if (swordSpinUsed && swordSpinTimeOut == 0) {
                 
-                // Save the current worldX, worldY, solidArea
-                int currentWorldX = gp.player.worldX;
-                int currentWorldY = gp.player.worldY;
-                int solidAreaWidth = gp.player.solidArea.width;
-                int solidAreaHeight = gp.player.solidArea.height;
+                swordSpinCounter++;
                 
-                
-                increaseAmount = 3;
-                if(skillSpriteCounter < increaseAmount) {
-                    gp.player.spriteNum = 1;
-                    gp.player.worldX += gp.player.attackArea.width;
-                }else if(skillSpriteCounter < increaseAmount * 2) {
-                    gp.player.spriteNum = 2;
-                    gp.player.worldY -= gp.player.attackArea.height;
-                }else if(skillSpriteCounter < increaseAmount * 3) {
-                    gp.player.spriteNum = 3;
-                    gp.player.worldX -= gp.player.attackArea.width;
-                }else if(skillSpriteCounter < increaseAmount * 4) {
-                    gp.player.spriteNum = 4;
-                    gp.player.worldY += gp.player.attackArea.height;
-                }else {
-                    gp.player.spriteNum = 1;
-                    skillSpriteCounter = 0;
+                if (swordSpinCounter > 20 && gp.player.sp >= 12) {
+                    
+                    // Save the current worldX, worldY, solidArea
+                    int currentWorldX = gp.player.worldX;
+                    int currentWorldY = gp.player.worldY;
+                    int solidAreaWidth = gp.player.solidArea.width;
+                    int solidAreaHeight = gp.player.solidArea.height;
+                    
+                   
+                    
+                    increaseAmount = 3;
+                    if(skillSpriteCounter < increaseAmount) {
+                        gp.player.spriteNum = 1;
+                        gp.player.worldX += gp.player.attackArea.width;
+                    }else if(skillSpriteCounter < increaseAmount * 2) {
+                        gp.player.spriteNum = 2;
+                        gp.player.worldY -= gp.player.attackArea.height;
+                    }else if(skillSpriteCounter < increaseAmount * 3) {
+                        gp.player.spriteNum = 3;
+                        gp.player.worldX -= gp.player.attackArea.width;
+                    }else if(skillSpriteCounter < increaseAmount * 4) {
+                        gp.player.spriteNum = 4;
+                        gp.player.worldY += gp.player.attackArea.height;
+                    }else {
+                        gp.player.spriteNum = 1;
+                        skillSpriteCounter = 0;
+                    }
+                    skillSpriteCounter++;
+                    
+
+                    // Attack area becomes solidArea
+                    gp.player.solidArea.width = gp.player.attackArea.width;
+                    gp.player.solidArea.height = gp.player.attackArea.height;
+
+                    int enemyIndex = gp.collisionChecker.checkEntity(gp.player, gp.enemy);    // check enemy collision with the updated
+                                                                                              // worldX, worldY and solidArea
+                    gp.player.damageEnemy(enemyIndex);
+
+                    gp.player.worldX = currentWorldX;
+                    gp.player.worldY = currentWorldY;
+                    gp.player.solidArea.width = solidAreaWidth;
+                    gp.player.solidArea.height = solidAreaHeight;
+                    
+                    skillUsed = true;
+                    gp.player.sp -= 0.35;
                 }
-                skillSpriteCounter++;
                 
-
-                // Attack area becomes solidArea
-                gp.player.solidArea.width = gp.player.attackArea.width;
-                gp.player.solidArea.height = gp.player.attackArea.height;
-
-                int enemyIndex = gp.collisionChecker.checkEntity(gp.player, gp.enemy);    // check enemy collision with the updated
-                                                                                          // worldX, worldY and solidArea
-                gp.player.damageEnemy(enemyIndex);
-
-                gp.player.worldX = currentWorldX;
-                gp.player.worldY = currentWorldY;
-                gp.player.solidArea.width = solidAreaWidth;
-                gp.player.solidArea.height = solidAreaHeight;
-                
-                skillUsed = true;
-            }
-
-            if (swordSpinCounter == swordSpinDuration) {
-                swordSpinCounter = 0;
-                swordSpinUsed = false;
-                skillUsed = false;
-                gp.player.spriteNum = 1;
-                swordSpinTimeOut++;
+                    if (swordSpinCounter == swordSpinDuration) {
+                        swordSpinCounter = 0;
+                        swordSpinUsed = false;
+                        skillUsed = false;
+                        gp.player.spriteNum = 1;
+                        swordSpinTimeOut++; 
+                        
+                    }    
             }
         }
-    }
+  
     
     public void auraOfTheSword() {
-        if (auraSwordActive && auraSwordTimeOut == 0) {         // if pressed F1 enter
-            auraSwordCounter++;
-            
-            if(auraSwordCounter == auraSwordDrawDuration) {     // draw aura sword animation for auraSwordDrawDuration milliseconds
-                skillUsed = false;
-            }
+            if (auraSwordActive && auraSwordTimeOut == 0) {         // if pressed F1 enter
+                auraSwordCounter++;
+                
+                if(auraSwordCounter == auraSwordDrawDuration && gp.player.sp >= 10) {     // draw aura sword animation for auraSwordDrawDuration milliseconds
+                    skillUsed = false;
+                    gp.player.sp -= 10;
+                    
+                }
 
-            if (auraSwordCounter == auraSwordDuration) {        // deactivate aura sword after auraSwordDuration milliseconds
-                auraSwordCounter = 0;
-                auraSwordActive = false;
-                auraSwordTimeOut++;
-                gp.player.attackPower -= 10;
+                if (auraSwordCounter == auraSwordDuration) {        // deactivate aura sword after auraSwordDuration milliseconds
+                    auraSwordCounter = 0;
+                    auraSwordActive = false;
+                    auraSwordTimeOut++;
+                    gp.player.attackPower -= 10;
+                    
+                }
             }
+            
         }
-    }
+        
     
     public void drawSwordSpin() {
         switch(gp.player.spriteNum) {

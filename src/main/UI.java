@@ -33,6 +33,7 @@ public class UI {
     public int spBar;
 
     public int hpBarCounter = 0;
+    public int spBarCounter = 0;
 
     public ArrayList<Damages> damages = new ArrayList<>();
 
@@ -315,6 +316,7 @@ public class UI {
     public void drawBottomBar(Graphics2D g2) {
         double oneScale = (2.5 * gp.tileSize) / gp.player.maxLife;
         double healthBar = oneScale * gp.player.life;
+        double spBar = oneScale * gp.player.sp;
         double barWidth = oneScale * gp.player.maxLife;
         int barHeight = 15;
 
@@ -424,8 +426,28 @@ public class UI {
         // Health Bar
         g2.drawImage(hpBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBar, barHeight, null);
 
+        spBarCounter++;
+        if (spBarCounter < 15) {
+            spBarImage = hpBarImage1;
+        } else if (spBarCounter < 30) {
+            spBarImage = hpBarImage2;
+        } else if (spBarCounter < 45) {
+            spBarImage = hpBarImage3;
+        } else if (spBarCounter < 60) {
+            spBarImage = hpBarImage4;
+        } else if (spBarCounter < 75) {
+            spBarImage = hpBarImage5;
+        } else if (spBarCounter < 90) {
+            spBarImage = hpBarImage6;
+        } else if (spBarCounter < 105) {
+            spBarImage = hpBarImage7;
+        } else if (spBarCounter < 120) {
+            spBarImage = hpBarImage8;
+            spBarCounter = 0;
+        }
+
         // Sp Bar
-        g2.drawImage(spBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) healthBar, barHeight, null);
+        g2.drawImage(spBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBar, barHeight, null);
 
         // Sp Bar
         /*

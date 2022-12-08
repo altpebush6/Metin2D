@@ -33,6 +33,7 @@ public class Player extends Entity {
     public String playerWeapon;
     public int playerTimer;
     public int increaseLife;
+    public double increaseSp;
     public int speedDefault;
     public int playerXP;
     public int attackPower;
@@ -114,7 +115,10 @@ public class Player extends Entity {
         // Player Specifications
         maxLife = 100;
         life = maxLife;
+        maxSp = 100;
+        sp = maxSp;
         increaseLife = 1;
+        increaseSp = 1.0;
         playerTimer = 0;
         playerCoin = 0;
         playerWeapon = "";
@@ -711,6 +715,12 @@ public class Player extends Entity {
             if (life < maxLife) {
                 getHeal(60);
             }
+            if(sp < maxSp){
+                getSp(60);
+            }
+            /*if(sp < maxSp) {
+                getSp(90);
+            }*/
             /*
              * if (gp.player.playerSp < 100) {
              * playerTimer++;
@@ -811,6 +821,17 @@ public class Player extends Entity {
                 life += maxLife - life;
             } else {
                 life += increaseLife;
+            }
+            playerTimer = 0;
+        }
+    }
+    public void getSp(int spCounter) {
+        playerTimer++;
+        if (playerTimer >= spCounter) {
+            if (maxSp < sp + increaseSp) {
+                sp += maxSp - sp;
+            } else {
+                sp += increaseSp;
             }
             playerTimer = 0;
         }

@@ -51,6 +51,8 @@ public class Entity {
     public String name;
     public int maxLife;
     public int life;
+    public double maxSp;
+    public double sp;
     public int actionLockCounter = 0;
     public int level = 1;
 
