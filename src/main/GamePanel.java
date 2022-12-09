@@ -98,7 +98,8 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.defaultDolunay();
 		aSetter.defaultTasKanat();
 		aSetter.defaultEcelGetiren();
-		aSetter.defaultStaff();
+		//aSetter.defaultStaff();
+		aSetter.defaultHeykel();
 
 		// playMusic(0);
 		aSetter.setNpc();
