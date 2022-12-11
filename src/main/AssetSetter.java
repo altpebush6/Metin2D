@@ -56,18 +56,18 @@ public class AssetSetter {
         gp.obj[2].worldY = gp.tileSize*35;
         index++;
     }
-/* 
+
     public void defaultStaff(){
         gp.obj[3] = new OBJ_Staff(gp);
         gp.obj[3].worldX = gp.tileSize*12;
         gp.obj[3].worldY = gp.tileSize*14;
         index++;
     }
-*/
+
     public void defaultHeykel(){
-        gp.obj[3] = new OBJ_Heykel(gp);
-        gp.obj[3].worldX = gp.tileSize*21;
-        gp.obj[3].worldY = gp.tileSize*21;
+        gp.obj[4] = new OBJ_Heykel(gp);
+        gp.obj[4].worldX = gp.tileSize*21;
+        gp.obj[4].worldY = gp.tileSize*21;
         index++;
     }
     
