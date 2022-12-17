@@ -144,11 +144,6 @@ public class Entity {
         }else {
             showNames = false;
         }
-        
-
-        
-        
-        
 
         setAction();
         checkCollision();

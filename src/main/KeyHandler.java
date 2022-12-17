@@ -7,7 +7,7 @@ public class KeyHandler implements KeyListener {
 
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean quotePressed, openDebug;
-	public boolean spacePressed;
+	public boolean spacePressed, enterPressed;
 
 	GamePanel gp;
 
@@ -26,6 +26,7 @@ public class KeyHandler implements KeyListener {
 
 		// PLAY STATE
 		if (gp.gameState == gp.playState) {
+		    
 			if (code == KeyEvent.VK_W) {
 				upPressed = true;
 			}
@@ -80,12 +81,27 @@ public class KeyHandler implements KeyListener {
                     gp.player.attackPower += 10;
                 }
 			}
+			if (code == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.optionsState;
+            }
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
 			if (code == KeyEvent.VK_ENTER) {
 				gp.gameState = gp.playState;
 			}
-		}
+		} else if (gp.gameState == gp.optionsState) { // OPTIONS STATE
+
+            /*
+             * if (code == KeyEvent.VK_ESCAPE) {
+             * gp.gameState = gp.playState;
+             * }
+             * if (code == KeyEvent.VK_ENTER) {
+             * // YAPILACAK
+             * }
+             */
+
+            optionsState(code);
+        }
 
 		if (code == KeyEvent.VK_P) {
 			if (gp.gameState == gp.playState) {
@@ -184,5 +200,67 @@ public class KeyHandler implements KeyListener {
 			 */
 		}
 	}
+	
+	public void optionsState(int code) {
+
+        if (code == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
+
+        int maxCommandNum = 0;
+        switch (gp.ui.subState) {
+            case 0:
+                maxCommandNum = 5;
+                break;
+            case 3:
+                maxCommandNum = 1;
+                break;
+
+        }
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            gp.playSE(9);
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = maxCommandNum;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            gp.playSE(9);
+            if (gp.ui.commandNum > maxCommandNum) {
+                gp.ui.commandNum = 0;
+            }
+        }
+        if (code == KeyEvent.VK_A) {
+            if (gp.ui.subState == 0) {
+                if (gp.ui.commandNum == 1 && gp.soundtrack.volumeScale > 0) {
+                    gp.soundtrack.volumeScale--;
+                    gp.soundtrack.checkVolume();
+                    gp.playSE(9);
+                }
+                if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
+                    gp.se.volumeScale--;
+                    gp.playSE(9);
+                }
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if (gp.ui.subState == 0) {
+                if (gp.ui.commandNum == 1 && gp.soundtrack.volumeScale < 5) {
+                    gp.soundtrack.volumeScale++;
+                    gp.soundtrack.checkVolume();
+                    gp.playSE(9);
+                }
+                if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
+                    gp.se.volumeScale++;
+                    gp.playSE(9);
+                }
+            }
+        }
+
+    }
 
 }

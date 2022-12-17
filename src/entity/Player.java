@@ -671,6 +671,8 @@ public class Player extends Entity {
     // Interacting with npc
     public void interactNpc(int i) {
 
+        onPath = false;
+        
         if (i != -1) {
             gp.gameState = gp.dialogueState;
             gp.npc[0].speak();
