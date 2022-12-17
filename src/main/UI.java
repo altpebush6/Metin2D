@@ -397,6 +397,11 @@ public class UI {
 
     // DRAW TRADE SCREEN
     public void drawTradeScreen() {
+        switch(subState) {
+            case 0: trade_select(); break;
+            case 1: trade_buy(); break;
+            case 2: trade_sell(); break;
+        }
     }
 
     public void trade_select() {
