@@ -347,6 +347,15 @@ public class UI {
         g2.drawString("Press Enter to Exit", x, y);
     }
 
+<<<<<<< Updated upstream
+=======
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(0, 0, 0, 200); 
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+        g2.drawImage(dialogueUI, null, x, y);
+    }
+>>>>>>> Stashed changes
 
     // INVENTORY METHOD
     public void drawInventory() {

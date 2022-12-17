@@ -11,7 +11,7 @@ public class OBJ_Heykel extends Entity{
 		
 		name = "Heykel";
 		type = objectType;
-		down1 = setup("/objects/heykel", 400, 400);
+		down1 = setup("/objects/heykel", gp.tileSize*2, gp.tileSize*2);
 		
 	}
     
