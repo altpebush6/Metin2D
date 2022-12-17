@@ -17,7 +17,6 @@ public class ENEMY_Wolf extends Entity {
         super(gp);
 
         this.gp = gp;
-
         name = "Wolf";
         wolfID = id;
         speed = 1;
@@ -54,12 +53,12 @@ public class ENEMY_Wolf extends Entity {
             solidArea.width = 48;
             solidArea.height = 32;
         }
-        
+
         /*
-        solidArea.x = 0;
-        solidArea.y = 0;
-        solidArea.width = 30;
-        solidArea.height = 30; 
+         * solidArea.x = 0;
+         * solidArea.y = 0;
+         * solidArea.width = 30;
+         * solidArea.height = 30;
          */
 
         solidAreaDefaultX = solidArea.x;
@@ -100,20 +99,22 @@ public class ENEMY_Wolf extends Entity {
     public void setAction() {
 
         if (onPath) {
-            
+
             solidArea.x = 0;
             solidArea.y = 0;
             solidArea.width = 30;
-            solidArea.height = 30; 
-            
+            solidArea.height = 30;
+
             speed = 2;
 
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX +
+                                                                                    // gp.player.solidArea.x
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY +
+                                                                                    // gp.player.solidArea.y
 
             searchPath(goalCol, goalRow);
         } else {
-            
+
             if (direction == "up" || direction == "down") {
                 solidArea.x = 10;
                 solidArea.y = 0;
@@ -125,7 +126,7 @@ public class ENEMY_Wolf extends Entity {
                 solidArea.width = 48;
                 solidArea.height = 32;
             }
-            
+
             speed = defaultSpeed;
             actionLockCounter++;
 
@@ -161,14 +162,30 @@ public class ENEMY_Wolf extends Entity {
         int nextMove = rand.nextInt(8) + 1;
 
         switch (nextMove) {
-            case 1:direction = "up";        break;
-            case 2:direction = "upleft";    break;
-            case 3:direction = "upright";   break;
-            case 4:direction = "down";      break;
-            case 5:direction = "downleft";  break;
-            case 6:direction = "downright"; break;
-            case 7:direction = "left";      break;
-            case 8:direction = "right";     break;
+            case 1:
+                direction = "up";
+                break;
+            case 2:
+                direction = "upleft";
+                break;
+            case 3:
+                direction = "upright";
+                break;
+            case 4:
+                direction = "down";
+                break;
+            case 5:
+                direction = "downleft";
+                break;
+            case 6:
+                direction = "downright";
+                break;
+            case 7:
+                direction = "left";
+                break;
+            case 8:
+                direction = "right";
+                break;
         }
     }
 
