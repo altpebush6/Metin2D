@@ -29,14 +29,14 @@ public class Npc_Merchant extends Entity {
 
         inventory.add(new OBJ_EcelGetiren(gp));
         inventory.add(new OBJ_Staff(gp));
-        
+
     }
 
     public void speak() {
 
         super.speak();
         gp.gameState = gp.tradeState;
-        
+
     }
 
 }

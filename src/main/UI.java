@@ -226,7 +226,7 @@ public class UI {
         Color c = new Color(0, 0, 0, 200);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
-        g2.drawImage(dialogueUI, null, x, y);
+        // g2.drawImage(dialogueUI, null, x, y);
     }
 
     public void options_top(int frameX, int frameY) {
