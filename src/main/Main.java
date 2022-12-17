@@ -1,8 +1,9 @@
 package main;
+import java.awt.Color;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JWindow;
 
 public class Main {
     
@@ -21,7 +22,7 @@ public class Main {
 		window.pack(); // window will be sized to fit the preferred size and layouts of its subcomponents (GamePanel) 
 		
 		window.setLocationRelativeTo(null);
-		window.setVisible(true);
+		
 		
 		gamePanel.setupGame();
 		
@@ -29,5 +30,6 @@ public class Main {
 		
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
 		window.setIconImage(favicon.getImage());
+		window.setVisible(true);
 	}
 }

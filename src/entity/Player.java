@@ -3,8 +3,6 @@ package entity;
 import main.KeyHandler;
 import main.MouseHandler;
 import main.MovePlayer;
-import object.OBJ_Dolunay;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -113,7 +111,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 100;
+        maxLife = 10;
         life = maxLife;
         maxSp = 100;
         sp = maxSp;

@@ -9,10 +9,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
+import javax.swing.JButton;
 
 public class UI {
 
@@ -213,6 +211,14 @@ public class UI {
         gp.keyH.enterPressed = false;
     }
     
+
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(0, 0, 0, 200);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+        g2.drawImage(dialogueUI, null, x, y);
+    }
+    
     public void options_top(int frameX, int frameY) {
 
         int textX;
@@ -239,7 +245,6 @@ public class UI {
                 }
                 subState = 1;
             }
-
         }
 
         // MUSIC
@@ -342,12 +347,6 @@ public class UI {
         g2.drawString("Press Enter to Exit", x, y);
     }
 
-    public void drawSubWindow(int x, int y, int width, int height) {
-        Color c = new Color(0, 0, 0, 200);
-        g2.setColor(c);
-        g2.fillRoundRect(x, y, width, height, 35, 35);
-        g2.drawImage(dialogueUI, null, x, y);
-    }
 
     // INVENTORY METHOD
     public void drawInventory() {
@@ -451,10 +450,12 @@ public class UI {
 
     // BOTTOM BAR
     public void drawBottomBar(Graphics2D g2) {
-        double oneScale = (2.5 * gp.tileSize) / gp.player.maxLife;
-        double healthBar = oneScale * gp.player.life;
-        double spBar = oneScale * gp.player.sp;
-        double barWidth = oneScale * gp.player.maxLife;
+        double oneScaleHealthBar = (2.5 * gp.tileSize) / gp.player.maxLife;
+        double oneScaleSpBar = (2.5 * gp.tileSize) / gp.player.maxSp;
+        double healthBar = oneScaleHealthBar * gp.player.life;
+        double spBar = oneScaleSpBar * gp.player.sp;
+        double healthBarWidth = oneScaleHealthBar * gp.player.maxLife;
+        double spBarWidth = oneScaleSpBar * gp.player.maxSp;
         int barHeight = 15;
 
         // spBar = gp.player.playerSp * 2;
@@ -534,7 +535,7 @@ public class UI {
 
         // Health Bar
         g2.setColor(Color.black);
-        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) barWidth + 2, barHeight, null);
+        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBarWidth + 2, barHeight, null);
         
         hpBarCounter++;
         
@@ -547,7 +548,7 @@ public class UI {
         g2.drawImage(hpBarImages[hpBarIndex], gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBar, barHeight, null);
         
         // Sp Bar
-        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) barWidth + 2, barHeight, null);
+        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBarWidth + 2, barHeight, null);
         
         spBarCounter++;
         
@@ -556,7 +557,7 @@ public class UI {
         }
         
         int spBarIndex = spBarCounter / 15;
-        
+                
         g2.drawImage(spBarImages[spBarIndex], gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBar, barHeight, null);
         
 

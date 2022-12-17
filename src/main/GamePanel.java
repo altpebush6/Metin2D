@@ -1,23 +1,24 @@
 package main;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import entity.Skills;
-import object.OBJ_Dolunay;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -59,9 +60,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UtilityTool uTool = new UtilityTool();
-	public UI ui = new UI(this);
 	public PathFinder pathFinder = new PathFinder(this);
 	Thread gameThread;
+	public UI ui = new UI(this);
 
 	// ENTITY AND OBJECT
 
@@ -81,8 +82,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int inventoryState = 4;
 	public final int optionsState = 5;
 	public final int deadState = 6;
+	
 
 	public GamePanel() {
+	    
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // Set the size of this class (JPanel)
 		// this.setBackground(Color.black);
 		this.setDoubleBuffered(true);// If set true, all the drawing from this component will be done in an offscreen
@@ -278,6 +281,8 @@ public class GamePanel extends JPanel implements Runnable {
 		if (gameState == pauseState) {
 			// Nothing
 		}
+
+
 	}
 
 	public void changeAlpha(Graphics2D g2, float alphaValue) {
