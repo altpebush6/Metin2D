@@ -8,6 +8,7 @@ import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -55,6 +56,9 @@ public class Entity {
     public double sp;
     public int actionLockCounter = 0;
     public int level = 1;
+    // Item
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
 
     // Images
     public BufferedImage up1, up2, up3, down1, down2, down3, down4, left1, left2, left3, right1, right2, right3;

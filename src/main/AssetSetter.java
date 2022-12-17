@@ -5,6 +5,7 @@ import java.util.Random;
 
 import enemy.ENEMY_Wolf;
 import entity.Npc_Blacksmith;
+import entity.Npc_Merchant;
 import object.*;
 
 public class AssetSetter {
@@ -35,42 +36,40 @@ public class AssetSetter {
         index++;
     }
 
-    
-    public void defaultDolunay(){
+    public void defaultDolunay() {
         gp.obj[0] = new OBJ_Dolunay(gp);
-        gp.obj[0].worldX = gp.tileSize*30;
-        gp.obj[0].worldY = gp.tileSize*30;
+        gp.obj[0].worldX = gp.tileSize * 30;
+        gp.obj[0].worldY = gp.tileSize * 30;
         index++;
     }
 
-    public void defaultTasKanat(){
+    public void defaultTasKanat() {
         gp.obj[1] = new OBJ_TasKanat(gp);
-        gp.obj[1].worldX = gp.tileSize*35;
-        gp.obj[1].worldY = gp.tileSize*35;
+        gp.obj[1].worldX = gp.tileSize * 35;
+        gp.obj[1].worldY = gp.tileSize * 35;
         index++;
     }
 
-    public void defaultEcelGetiren(){
+    public void defaultEcelGetiren() {
         gp.obj[2] = new OBJ_EcelGetiren(gp);
-        gp.obj[2].worldX = gp.tileSize*25;
-        gp.obj[2].worldY = gp.tileSize*35;
+        gp.obj[2].worldX = gp.tileSize * 25;
+        gp.obj[2].worldY = gp.tileSize * 35;
         index++;
     }
 
-    public void defaultStaff(){
+    public void defaultStaff() {
         gp.obj[3] = new OBJ_Staff(gp);
-        gp.obj[3].worldX = gp.tileSize*12;
-        gp.obj[3].worldY = gp.tileSize*14;
+        gp.obj[3].worldX = gp.tileSize * 12;
+        gp.obj[3].worldY = gp.tileSize * 14;
         index++;
     }
 
-    public void defaultHeykel(){
+    public void defaultHeykel() {
         gp.obj[4] = new OBJ_Heykel(gp);
-        gp.obj[4].worldX = gp.tileSize*21;
-        gp.obj[4].worldY = gp.tileSize*21;
+        gp.obj[4].worldX = gp.tileSize * 21;
+        gp.obj[4].worldY = gp.tileSize * 21;
         index++;
     }
-    
 
     public void createDeadWolf(int worldX, int worldY) {
         gp.obj[index] = new OBJ_DeadWolf(gp);
@@ -117,10 +116,14 @@ public class AssetSetter {
                 int yPosition = rand.nextInt(3);
 
                 collisionOn = false;
-                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
-                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.enemy);
-                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.npc);
-                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize,
+                        spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize,
+                        spawnWorldY + yPosition * gp.tileSize, gp.enemy);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize,
+                        spawnWorldY + yPosition * gp.tileSize, gp.npc);
+                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize,
+                        spawnWorldY + yPosition * gp.tileSize);
                 if (!collisionOn) {
                     gp.enemy[index] = new ENEMY_Wolf(gp, index);
                     gp.enemy[index].worldX = spawnWorldX + xPosition * gp.tileSize;
@@ -142,8 +145,9 @@ public class AssetSetter {
         gp.npc[0].worldX = gp.tileSize * 21;
         gp.npc[0].worldY = gp.tileSize * 17;
 
+        gp.npc[1] = new Npc_Merchant(gp);
+        gp.npc[1].worldX = gp.tileSize * 30;
+        gp.npc[1].worldY = gp.tileSize * 15;
     }
-
-
 
 }

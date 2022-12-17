@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JButton;
 
+import entity.Entity;
+
 public class UI {
 
     GamePanel gp;
@@ -42,12 +44,14 @@ public class UI {
     public int itemIndex;
 
     public String currentDialogue = " ";
-    
+
     public int slotCol = 0;
     public int slotRow = 0;
     public int commandNum = 0;
-    
+
     public int subState = 0;
+
+    public Entity npc;
 
     public int fillTupeNum = 0;
     public int tupeImg;
@@ -59,6 +63,7 @@ public class UI {
 
         coinImage = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
+        dialogueUI = gp.uTool.setup("/UI/dialogueUI", gp.tileSize * 6, gp.tileSize * 10);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
         cursorImage = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
         xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", gp.tileSize, gp.tileSize);
@@ -71,19 +76,20 @@ public class UI {
         for (int i = 0; i < hpBarImages.length; i++) {
             hpBarImages[i] = gp.uTool.setup("/UI/HpBar" + (i + 1), gp.tileSize, gp.tileSize);
         }
-        
+
         for (int i = 0; i < spBarImages.length; i++) {
             spBarImages[i] = gp.uTool.setup("/UI/SpBar" + (i + 1), gp.tileSize, gp.tileSize);
         }
-        
+
         swordSpinImage = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),gp.tileSize, gp.tileSize);
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),
+                    gp.tileSize, gp.tileSize);
         }
-        
+
         auraOfSwordImage = gp.uTool.setup("/skills/AuraOfSword", gp.tileSize, gp.tileSize);
         for (int i = 0; i < auraSwordImageUsed.length; i++) {
-            auraSwordImageUsed[i] = gp.uTool.setup("/skills/auraSword" + (i+1), gp.tileSize, gp.tileSize);
+            auraSwordImageUsed[i] = gp.uTool.setup("/skills/auraSword" + (i + 1), gp.tileSize, gp.tileSize);
         }
 
         for (int i = 0; i < xpTupe.length; i++) {
@@ -168,18 +174,23 @@ public class UI {
             drawDialogueScreen();
         }
 
-        // INVENTORY STATE 
+        // INVENTORY STATE
         if (gp.gameState == gp.inventoryState) {
             drawInventory();
         }
-        
+
+        // TRADE STATE
+        if (gp.gameState == gp.tradeState) {
+            drawTradeScreen();
+        }
+
         // OPTIONS STATE
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
         }
 
     }
-    
+
     // OPTIONS SCREEN METHOD
     public void drawOptionsScreen() {
 
@@ -210,15 +221,14 @@ public class UI {
         }
         gp.keyH.enterPressed = false;
     }
-    
-    
+
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 200);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
         g2.drawImage(dialogueUI, null, x, y);
     }
-  
+
     public void options_top(int frameX, int frameY) {
 
         int textX;
@@ -349,14 +359,14 @@ public class UI {
 
     // INVENTORY METHOD
     public void drawInventory() {
-        
+
         // FRAME
-        int inventoryX = gp.tileSize*9;
+        int inventoryX = gp.tileSize * 9;
         int inventoryY = gp.tileSize;
-        int inventoryWidth = gp.tileSize*6;
-        int inventoryHeight = gp.tileSize*5;
+        int inventoryWidth = gp.tileSize * 6;
+        int inventoryHeight = gp.tileSize * 5;
         drawSubWindow(inventoryX, inventoryY, inventoryWidth, inventoryHeight);
-    
+
         // SLOT
         final int slotXstart = inventoryX + 20;
         final int slotYstart = inventoryY + 20;
@@ -364,17 +374,15 @@ public class UI {
         int slotY = slotYstart;
 
         // DRAW PLAYER'S ITEM
-       System.out.println(gp.player.inventory.size());
-        for(int i = 0; i< gp.player.inventory.size(); i++){
+        System.out.println(gp.player.inventory.size());
+        for (int i = 0; i < gp.player.inventory.size(); i++) {
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
             slotX += gp.tileSize;
-            if(i==4 || i == 9 || i == 14){
+            if (i == 4 || i == 9 || i == 14) {
                 slotX = slotXstart;
                 slotY += gp.tileSize;
             }
         }
-       
-
 
         // CURSOR
         int cursorX = slotXstart + (gp.tileSize * slotCol);
@@ -384,8 +392,20 @@ public class UI {
         // DRAW CURSOR
         g2.setColor(Color.white);
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 35, 35);
-    
-    
+
+    }
+
+    // DRAW TRADE SCREEN
+    public void drawTradeScreen() {
+    }
+
+    public void trade_select() {
+    }
+
+    public void trade_buy() {
+    }
+
+    public void trade_sell() {
     }
 
     // DEAD MENU
@@ -424,19 +444,26 @@ public class UI {
         // SWORD SPIN
         int swordSpinImg = gp.skills.skillStandbyTime / 20; // 15 (per 15 seconds)
         if (gp.skills.swordSpinTimeOut != 0) {
-            g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / swordSpinImg], gp.tileSize * (gp.maxScreenCol - 1),gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
-        }else {
-            g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+            g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / swordSpinImg],
+                    gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        } else {
+            g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2,
+                    gp.tileSize / 2, null);
         }
-        
+
         // AURA SWORD
         int auroSwordImg = gp.skills.skillStandbyTime / 20;
-        if(gp.skills.auraSwordActive) {
-            g2.drawImage(auraOfSwordImage, gp.tileSize * (gp.maxScreenCol - 1) - 30 , gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+        if (gp.skills.auraSwordActive) {
+            g2.drawImage(auraOfSwordImage, gp.tileSize * (gp.maxScreenCol - 1) - 30, gp.tileSize / 3, gp.tileSize / 2,
+                    gp.tileSize / 2, null);
         }
-        /*if (gp.skills.auraSwordTimeOut != 0) {
-            g2.drawImage(auraSwordImageUsed[gp.skills.auraSwordTimeOut / auroSwordImg], gp.tileSize * (gp.maxScreenCol - 1) - 30,gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
-        }*/
+        /*
+         * if (gp.skills.auraSwordTimeOut != 0) {
+         * g2.drawImage(auraSwordImageUsed[gp.skills.auraSwordTimeOut / auroSwordImg],
+         * gp.tileSize * (gp.maxScreenCol - 1) - 30,gp.tileSize / 3, gp.tileSize / 2,
+         * gp.tileSize / 2, null);
+         * }
+         */
     }
 
     // CURSOR
@@ -530,38 +557,37 @@ public class UI {
         }
 
         // Item-Skill Bar
-        g2.drawImage(itemSkillBar, bottomBarX + gp.tileSize * 6, gp.tileSize * (gp.maxScreenRow) - gp.tileSize / 2 - 5, 30, 30, null);
+        g2.drawImage(itemSkillBar, bottomBarX + gp.tileSize * 6, gp.tileSize * (gp.maxScreenRow) - gp.tileSize / 2 - 5,
+                30, 30, null);
 
         // Health Bar
         g2.setColor(Color.black);
         g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBarWidth + 2, barHeight, null);
-        
+
         hpBarCounter++;
-        
+
         if (hpBarCounter == 120) {
             hpBarCounter = 0;
         }
-        
+
         int hpBarIndex = hpBarCounter / 15;
 
         g2.drawImage(hpBarImages[hpBarIndex], gp.tileSize / 3 + 25, xpTupeY - 4, (int) healthBar, barHeight, null);
-        
+
         // Sp Bar
-        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBarWidth + 2, barHeight, null);
-        
+        g2.drawImage(emptyBarImage, gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBarWidth + 2, barHeight,
+                null);
+
         spBarCounter++;
-        
+
         if (spBarCounter == 120) {
             spBarCounter = 0;
         }
-        
+
         int spBarIndex = spBarCounter / 15;
-                
-        g2.drawImage(spBarImages[spBarIndex], gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBar, barHeight, null);
-        
 
-
-        
+        g2.drawImage(spBarImages[spBarIndex], gp.tileSize / 3 + 25, xpTupeY + barHeight - 4, (int) spBar, barHeight,
+                null);
 
         // Sp Bar
         /*
@@ -635,7 +661,7 @@ public class UI {
         }
 
     }
-    
+
     public void options_fullScreenNotification(int frameX, int frameY) {
         int textX = frameX + gp.tileSize;
         int textY = frameY + gp.tileSize * 3;

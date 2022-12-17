@@ -57,8 +57,6 @@ public class Player extends Entity {
     public int deadCounter = 0;
 
     // INVENTORY
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
     public Entity currentWeapon;
     
     public BufferedImage image;
