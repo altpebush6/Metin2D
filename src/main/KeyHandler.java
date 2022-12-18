@@ -123,7 +123,7 @@ public class KeyHandler implements KeyListener {
 		if(gp.gameState == gp.inventoryState){
 			if (code == KeyEvent.VK_W) {
 				if(gp.ui.slotRow == 0){
-					gp.ui.slotRow = 3;
+					gp.ui.slotRow = 8;
 				}else{
 					gp.ui.slotRow--;
 				}
@@ -138,7 +138,7 @@ public class KeyHandler implements KeyListener {
 				
 			}
 			if (code == KeyEvent.VK_S) {
-				if(gp.ui.slotRow == 3){
+				if(gp.ui.slotRow == 8){
 					gp.ui.slotRow =0;
 				}else{
 					gp.ui.slotRow++;
