@@ -389,7 +389,8 @@ public class UI {
         for (int i = 0; i < gp.player.inventory.size(); i++) {
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, 32, 32, null);
             slotX += 32;
-            if (i == 4 || i == 9 || i == 14) {
+            if (i % 5 == 4) {
+                //  i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i == 39
                 slotX = slotXstart;
                 slotY += 32;
             }
