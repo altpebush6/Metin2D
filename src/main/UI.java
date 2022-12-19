@@ -387,6 +387,12 @@ public class UI {
         // DRAW PLAYER'S ITEM
         System.out.println(gp.player.inventory.size());
         for (int i = 0; i < gp.player.inventory.size(); i++) {
+
+            if(gp.player.inventory.get(i) == gp.player.currentWeapon){
+                g2.setColor(new Color(240,190,90));
+                g2.fillRoundRect(slotX, slotY, 32, 32, 10, 10);
+            }
+
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, 32, 32, null);
             slotX += 32;
             if (i % 5 == 4) {

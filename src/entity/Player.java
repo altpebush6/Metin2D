@@ -3,6 +3,8 @@ package entity;
 import main.KeyHandler;
 import main.MouseHandler;
 import main.MovePlayer;
+import object.OBJ_Dolunay;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -73,6 +75,8 @@ public class Player extends Entity {
 
         type = playerType;
         name = "xKralTr";
+
+        currentWeapon  = new OBJ_Dolunay(gp);
 
         defaultScreenX = screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         defaultScreenY = screenY = gp.screenHeight / 2 - gp.tileSize / 2;
