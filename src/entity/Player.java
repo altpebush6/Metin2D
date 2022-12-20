@@ -83,12 +83,12 @@ public class Player extends Entity {
 
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
-        solidArea.x = 9;
-        solidArea.y = 20;
+        solidArea.x = 15;
+        solidArea.y = 12;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 30;
-        solidArea.height = 28;
+        solidArea.width = 36;
+        solidArea.height = 40;
 
         // CHANGE THIS ACCORDING TO ATTACKING CHARACTER PIXEL ART
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -108,7 +108,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 5;
+        speed = 8;
         speedDefault = speed;
         direction = "down";
 
@@ -193,13 +193,17 @@ public class Player extends Entity {
         down3 = setup("/player/down3", gp.tileSize, gp.tileSize);
         down4 = setup("/player/down4", gp.tileSize, gp.tileSize);
 
-        left1 = setup("/player/left1", gp.tileSize, gp.tileSize);
-        left2 = setup("/player/left2", gp.tileSize, gp.tileSize);
-        left3 = setup("/player/left2", gp.tileSize, gp.tileSize);
+        left1 = setup("/player/left1", 64, 64);
+        left2 = setup("/player/left2", 64, 64);
+        left3 = setup("/player/left3", 64, 64);
+        left4 = setup("/player/left4", 64, 64);
+        left5 = setup("/player/left5", 64, 64);
 
-        right1 = setup("/player/right1", gp.tileSize, gp.tileSize);
-        right2 = setup("/player/right2", gp.tileSize, gp.tileSize);
-        right3 = setup("/player/right2", gp.tileSize, gp.tileSize);
+        right1 = setup("/player/right1", 64, 64);
+        right2 = setup("/player/right2", 64, 64);
+        right3 = setup("/player/right3", 64, 64);
+        right4 = setup("/player/right4", 64, 64);
+        right5 = setup("/player/right5", 64, 64);
     }
 
     public void getPlayerAttackImage() {
@@ -507,6 +511,12 @@ public class Player extends Entity {
                             image = left1;
                         if (spriteNum == 2)
                             image = left2;
+                        if (spriteNum == 3)
+                            image = left3;
+                        if (spriteNum == 4)
+                            image = left4;
+                        if (spriteNum == 5)
+                            image = left5;
                     }
 
                     break;
@@ -528,6 +538,12 @@ public class Player extends Entity {
                             image = right1;
                         if (spriteNum == 2)
                             image = right2;
+                        if (spriteNum == 3)
+                            image = right3;
+                        if (spriteNum == 4)
+                            image = right4;
+                        if (spriteNum == 5)
+                            image = right5;
                     }
                     break;
             }
@@ -856,8 +872,8 @@ public class Player extends Entity {
     public void animationCharacter() {
         if (!gp.skills.skillUsed && !attacking) {
             spriteCounter++;
-            if (spriteCounter > 5) {
-                if (spriteNum == 2) {
+            if (spriteCounter > 2) {
+                if (spriteNum == 5) {
                     spriteNum = 1;
                 } else {
                     spriteNum++;

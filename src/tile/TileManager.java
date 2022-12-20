@@ -27,24 +27,18 @@ public class TileManager {
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
-		loadMap("/maps/map.txt");
+		loadMap("/maps/maptry.txt");
 		
 	}
 	
 	public void getTileImage() {
-			
-			setup(0, "grass", false);
-			setup(1, "square1", false);
-			setup(2, "sand1", false);
-			setup(3, "sand2", false);
-			setup(4, "square2", false);
-			setup(5, "tree", true);
-			setup(6, "squaresand1", false);
-			setup(7, "sand1sand2grass", false);
-			setup(8, "sand1sand2", false);
-			setup(9, "squaresand2", false);
-			setup(10, "squaresand3", false);
-			setup(11, "sand2grass", false);
+        setup(3, "grass", false);
+        setup(6, "grassPath1", false);
+		setup(0, "grassPath2", false);
+		setup(1, "grassPath3", false);
+		setup(5, "grassPath4", false);
+		setup(2, "path1", false);
+		setup(4, "path2", false);
 	}
 	
 	public void setup(int index, String imageName, boolean collision) {
