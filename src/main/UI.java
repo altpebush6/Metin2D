@@ -48,6 +48,7 @@ public class UI {
 
     public int slotCol = 0;
     public int slotRow = 0;
+    public int cursorIndex = 0;
     public int commandNum = 0;
 
     public int subState = 0;
@@ -56,6 +57,8 @@ public class UI {
 
     public int fillTupeNum = 0;
     public int tupeImg;
+
+   
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -75,6 +78,8 @@ public class UI {
         inventory = gp.uTool.setup("/UI/inventory", 172, 492);
         // dialogueUI = gp.uTool.setup("/resources/UI/dialogueUI", gp.tileSize,
         // gp.tileSize);
+
+         
 
         for (int i = 0; i < hpBarImages.length; i++) {
             hpBarImages[i] = gp.uTool.setup("/UI/HpBar" + (i + 1), gp.tileSize, gp.tileSize);
@@ -385,12 +390,16 @@ public class UI {
         int slotY = slotYstart;
 
         // DRAW PLAYER'S ITEM
-        System.out.println(gp.player.inventory.size());
+        //System.out.println(gp.player.inventory.size());
         for (int i = 0; i < gp.player.inventory.size(); i++) {
 
             if(gp.player.inventory.get(i) == gp.player.currentWeapon){
+               // System.out.println("equal");
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX, slotY, 32, 32, 10, 10);
+                g2.drawImage(gp.player.inventory.get(i).down1,  gp.screenWidth - 60, 110,32, 32, null );
+                g2.setColor(new Color(240,190,90));
+                g2.drawRect(gp.screenWidth - 60, 110,32, 32);
             }
 
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, 32, 32, null);
@@ -407,11 +416,27 @@ public class UI {
         int cursorY = slotYstart + (32 * slotRow);
         int cursorWidth = 32;
         int cursorHeight = 32;
+        cursorIndex = (slotRow * 5) + slotCol;
+        //System.out.println("cursor2: "+ cursorIndex2);
+
+        
         // DRAW CURSOR
         g2.setColor(Color.white);
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
     }
+
+   public boolean controlCursor() {
+    if(gp.player.inventory.size() > cursorIndex){
+        if(gp.player.inventory.get(cursorIndex) != null){
+            return true;
+         }else{
+            return false;
+         }
+    }else{
+        return false;
+    }
+   }
 
     // DRAW TRADE SCREEN
     public void drawTradeScreen() {

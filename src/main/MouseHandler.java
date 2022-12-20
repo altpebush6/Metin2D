@@ -122,6 +122,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         mouseOverX = e.getX();
         mouseOverY = e.getY();
+        
+        System.out.println("mouse : "+ mouseOverX);
     }
 
 }

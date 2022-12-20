@@ -152,6 +152,20 @@ public class KeyHandler implements KeyListener {
 					gp.ui.slotCol++;
 				}
 			}
+			if (code == KeyEvent.VK_E) {
+				
+				if(gp.ui.controlCursor() == true){
+					gp.player.currentWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
+					if(gp.player.inventory.get(gp.ui.cursorIndex) == gp.player.currentWeapon) {
+						System.out.println("same weapon");
+					}
+					System.out.println("filled the slot");
+				}else{
+					System.out.println("not filled");
+				}
+				
+				
+			}
 		}
 
 	}
