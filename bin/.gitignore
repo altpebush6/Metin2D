@@ -1,7 +1,12 @@
-/main/
-/entity/
-/UI/
-/ai/
+/player/
+/skills/
+/sounds/
 /tile/
+/wolf/
+/xpTupe/
+/ai/
 /enemy/
+/entity/
+/main/
 /object/
+/npc/

@@ -4,8 +4,8 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import enemy.ENEMY_Wolf;
-import entity.Npc_Blacksmith;
-import entity.Npc_Merchant;
+import npc.Npc_Blacksmith;
+import npc.Npc_Merchant;
 import object.*;
 
 public class AssetSetter {

@@ -84,7 +84,7 @@ public class Entity {
 
     // NPC
     public int npcActionCounter = 0;
-    String dialogues[] = new String[20];
+    public String dialogues[] = new String[20];
 
     // Enemy
     public int wolfID;

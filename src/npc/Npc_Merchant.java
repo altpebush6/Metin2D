@@ -1,13 +1,17 @@
-package entity;
+package npc;
 
+import entity.Entity;
 import main.GamePanel;
 import object.OBJ_EcelGetiren;
 import object.OBJ_Staff;
 
 public class Npc_Merchant extends Entity {
+    
+    GamePanel gp;
 
     public Npc_Merchant(GamePanel gp) {
         super(gp);
+        this.gp = gp;
 
         direction = "down";
         speed = 0;

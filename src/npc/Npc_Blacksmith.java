@@ -1,14 +1,17 @@
-package entity;
+package npc;
 
 import java.util.Random;
 
+import entity.Entity;
 import main.GamePanel;
 
 public class Npc_Blacksmith extends Entity{
 
+    GamePanel gp;
     
     public Npc_Blacksmith(GamePanel gp) {
         super(gp);
+        this.gp = gp;
 
         direction = "down";
         speed = 1;
