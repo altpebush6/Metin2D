@@ -25,7 +25,7 @@ public class UI {
     BufferedImage auraOfSwordImage, swordSpinImage, dialogueUI;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
-    BufferedImage xpTupeBg, dragonCoin, bottomBar, itemSkillBar, inventoryBar;
+    BufferedImage xpTupeBg, dragonCoin, bottomBar,bottomBar2, itemSkillBar, inventoryBar;
     BufferedImage inventory;
     BufferedImage[] xpTupe = new BufferedImage[23];
 
@@ -70,11 +70,12 @@ public class UI {
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", gp.tileSize * 6, gp.tileSize * 10);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
         cursorImage = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
-        xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", gp.tileSize, gp.tileSize);
+        xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", 130, gp.tileSize);
         bottomBar = gp.uTool.setup("/UI/bottomBar", 280, 24);
+        bottomBar2 = gp.uTool.setup("/UI/bottomBar", 375, 24);
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
-        itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 320, 30);
-        inventoryBar = gp.uTool.setup("/UI/inventoryBar", 346, 30);
+        itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
+        inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
         inventory = gp.uTool.setup("/UI/inventory", 172, 492);
         // dialogueUI = gp.uTool.setup("/resources/UI/dialogueUI", gp.tileSize,
         // gp.tileSize);
@@ -375,17 +376,17 @@ public class UI {
 
         
         // FRAME
-        int inventoryX = gp.screenWidth - 172;
-        int inventoryY = 60;
-        int inventoryWidth = 172;
-        int inventoryHeight = 492;
+        int inventoryX = gp.screenWidth - 258;
+        int inventoryY = 95;
+        int inventoryWidth = 258;
+        int inventoryHeight = 738;
         
         // Inventory
         g2.drawImage(inventory, inventoryX, inventoryY, inventoryWidth, inventoryHeight, null);
 
         // SLOT
-        final int slotXstart = inventoryX + 5;
-        final int slotYstart = inventoryY + 200;
+        final int slotXstart = inventoryX + 8;
+        final int slotYstart = inventoryY + 300;
         int slotX = slotXstart;
         int slotY = slotYstart;
 
@@ -396,33 +397,35 @@ public class UI {
             if(gp.player.inventory.get(i) == gp.player.currentWeapon){
                // System.out.println("equal");
                 g2.setColor(new Color(240,190,90));
-                g2.fillRoundRect(slotX, slotY, 32, 32, 10, 10);
-                g2.drawImage(gp.player.inventory.get(i).down1,  gp.screenWidth - 60, 110,32, 32, null );
+                g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+                g2.drawImage(gp.player.inventory.get(i).down1,  gp.screenWidth - 60, 110,gp.tileSize, gp.tileSize, null );
                 g2.setColor(new Color(240,190,90));
-                g2.drawRect(gp.screenWidth - 60, 110,32, 32);
+                g2.drawRect(gp.screenWidth - 60, 110,gp.tileSize, gp.tileSize);
             }
 
-            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, 32, 32, null);
-            slotX += 32;
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
+            slotX += gp.tileSize;
             if (i % 5 == 4) {
                 //  i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i == 39
                 slotX = slotXstart;
-                slotY += 32;
+                slotY += gp.tileSize;
             }
         }
 
         // CURSOR
-        int cursorX = slotXstart + (32 * slotCol);
-        int cursorY = slotYstart + (32 * slotRow);
-        int cursorWidth = 32;
-        int cursorHeight = 32;
+        int cursorX = slotXstart + (gp.tileSize * slotCol);
+        int cursorY = slotYstart + (gp.tileSize * slotRow);
+        int cursorWidth = gp.tileSize;
+        int cursorHeight = gp.tileSize;
         cursorIndex = (slotRow * 5) + slotCol;
         //System.out.println("cursor2: "+ cursorIndex2);
 
         
         // DRAW CURSOR
+        g2.setStroke(new java.awt.BasicStroke(2));
         g2.setColor(Color.white);
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        g2.setStroke(new java.awt.BasicStroke(1));
 
     }
 
@@ -525,21 +528,22 @@ public class UI {
     // BOTTOM BAR
     public void drawBottomBar(Graphics2D g2) {
         
-        int bottomBarHeight = 24;
+        int bottomBarHeight = 32;
         
         // Dragon Coin
-        g2.drawImage(dragonCoin, 0, gp.screenHeight - bottomBarHeight - 6, 40, bottomBarHeight + 6, null);
+        Rectangle dragonCoinRec = new Rectangle(0, gp.screenHeight - 40, 50, 40);
+        g2.drawImage(dragonCoin, dragonCoinRec.x, dragonCoinRec.y, dragonCoinRec.width, dragonCoinRec.height, null);
         
-        double oneScaleHealthBar = (2.2 * gp.tileSize) / gp.player.maxLife;
-        double oneScaleSpBar = (2.2 * gp.tileSize) / gp.player.maxSp;
+        double oneScaleHealthBar = (2.7 * gp.tileSize) / gp.player.maxLife;
+        double oneScaleSpBar = (2.7 * gp.tileSize) / gp.player.maxSp;
         double healthBar = oneScaleHealthBar * gp.player.life;
         double spBar = oneScaleSpBar * gp.player.sp;
         double healthBarWidth = oneScaleHealthBar * gp.player.maxLife;
         double spBarWidth = oneScaleSpBar * gp.player.maxSp;
-        int barHeight = 12;
+        int barHeight = 16;
         
         // Health Bar
-        g2.drawImage(emptyBarImage, 40, gp.screenHeight - 2 * barHeight, (int) healthBarWidth + 6, barHeight, null);
+        g2.drawImage(emptyBarImage, 50, gp.screenHeight - 2 * barHeight, (int) healthBarWidth + 9, barHeight, null);
 
         hpBarCounter++;
 
@@ -549,10 +553,10 @@ public class UI {
 
         int hpBarIndex = hpBarCounter / 15;
 
-        g2.drawImage(hpBarImages[hpBarIndex], 44, gp.screenHeight - 2 * barHeight, (int) healthBar, barHeight, null);
+        g2.drawImage(hpBarImages[hpBarIndex], 56, gp.screenHeight - 2 * barHeight, (int) healthBar, barHeight, null);
 
         // Sp Bar
-        g2.drawImage(emptyBarImage, 40, gp.screenHeight - barHeight, (int) spBarWidth + 6, barHeight, null);
+        g2.drawImage(emptyBarImage, 50, gp.screenHeight - barHeight, (int) spBarWidth + 9, barHeight, null);
 
         spBarCounter++;
 
@@ -562,12 +566,12 @@ public class UI {
 
         int spBarIndex = spBarCounter / 15;
 
-        g2.drawImage(spBarImages[spBarIndex], 44, gp.screenHeight - barHeight, (int) spBar, barHeight, null);
+        g2.drawImage(spBarImages[spBarIndex], 56, gp.screenHeight - barHeight, (int) spBar, barHeight, null);
 
         // XP Tupes
         int xpTupeY = gp.screenHeight - bottomBarHeight;
 
-        g2.drawImage(xpTupeBg, 151, xpTupeY, 90, bottomBarHeight, null);
+        g2.drawImage(xpTupeBg, 188, xpTupeY, 130, bottomBarHeight, null);
 
         fillTupeNum = (gp.player.playerXP % 920) / 230;
 
@@ -575,55 +579,58 @@ public class UI {
             case 0:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[tupeImg], 155, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[0], 175, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[0], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[0], 215, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[tupeImg], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[0], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[0], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 1:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[xpTupe.length - 1], 155, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[tupeImg], 175, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[0], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[0], 215, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[tupeImg], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[0], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 2:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[xpTupe.length - 1], 155, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 175, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[tupeImg], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[0], 215, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[tupeImg], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 3:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[xpTupe.length - 1], 155, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 175, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[tupeImg], 215, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[tupeImg], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
 
             default:
-                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 7 / 2, xpTupeY, gp.tileSize / 2, gp.tileSize / 2, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 8 / 2, xpTupeY, gp.tileSize / 2, gp.tileSize / 2, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 9 / 2, xpTupeY, gp.tileSize / 2, gp.tileSize / 2, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], gp.tileSize * 10 / 2, xpTupeY, gp.tileSize / 2, gp.tileSize / 2, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
         }
         
 
 
         // Bottom Bar
-        int bottomBarX = gp.tileSize * 5;
+        int bottomBarX = 318;
         g2.drawImage(bottomBar, bottomBarX, gp.screenHeight - bottomBarHeight, 280, bottomBarHeight, null);
 
         // Item-Skill Bar
-        g2.drawImage(itemSkillBar, bottomBarX + 150, gp.screenHeight - bottomBarHeight, 320, bottomBarHeight, null);
+        g2.drawImage(itemSkillBar, bottomBarX + 280, gp.screenHeight - bottomBarHeight, 400, bottomBarHeight, null);
+        
+        // Bottom Bar
+        g2.drawImage(bottomBar2, bottomBarX + 680, gp.screenHeight - bottomBarHeight, 375, bottomBarHeight, null);
         
         // Inventory Bar
-        g2.drawImage(inventoryBar, bottomBarX + 470, gp.screenHeight - bottomBarHeight, 346, bottomBarHeight, null);
+        g2.drawImage(inventoryBar, bottomBarX + 1055, gp.screenHeight - bottomBarHeight, 163, bottomBarHeight, null);
         
     }
 
