@@ -60,9 +60,9 @@ public class Player extends Entity {
 
     // INVENTORY
     public Entity currentWeapon;
-    
+
     public BufferedImage image;
-    
+
     // To avoid sliding image when sizes are different
     public int tempScreenX;
     public int tempScreenY;
@@ -76,7 +76,7 @@ public class Player extends Entity {
         type = playerType;
         name = "xKralTr";
 
-        currentWeapon  = new OBJ_Dolunay(gp);
+        currentWeapon = new OBJ_Dolunay(gp);
 
         defaultScreenX = screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         defaultScreenY = screenY = gp.screenHeight / 2 - gp.tileSize / 2;
@@ -108,7 +108,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 8;
+        speed = 5;
         speedDefault = speed;
         direction = "down";
 
@@ -167,18 +167,18 @@ public class Player extends Entity {
         System.out.println(gp.obj[0]);
 
     }
-    
+
     public void getPlayerAuraSwordImage() {
-    
+
         auraSwordUp1 = setup("/player/playerAuraSwordUp1", gp.tileSize, gp.tileSize * 2);
         auraSwordUp2 = setup("/player/playerAuraSwordUp2", gp.tileSize, gp.tileSize * 2);
-        
+
         auraSwordDown1 = setup("/player/playerAuraSwordDown1", gp.tileSize, gp.tileSize * 2);
         auraSwordDown2 = setup("/player/playerAuraSwordDown2", gp.tileSize, gp.tileSize * 2);
-        
+
         auraSwordLeft1 = setup("/player/playerAuraSwordLeft1", gp.tileSize * 2, gp.tileSize);
         auraSwordLeft2 = setup("/player/playerAuraSwordLeft2", gp.tileSize * 2, gp.tileSize);
-        
+
         auraSwordRight1 = setup("/player/playerAuraSwordRight1", gp.tileSize * 2, gp.tileSize);
         auraSwordRight2 = setup("/player/playerAuraSwordRight2", gp.tileSize * 2, gp.tileSize);
     }
@@ -253,39 +253,39 @@ public class Player extends Entity {
         }
 
         gp.skills.increaseTimeouts();
-        
+
         gp.skills.resetSkills();
 
         /*
-        if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
-            if (gp.skills.swordSpinCounter > 20) {
-                gp.skills.useSkill(gp.skills.swordSpinType);
-                gp.skills.skillUsed = true;
-            }
-            speed = attackWalkingSpeed;
-            gp.skills.swordSpinCounter++;
-            if (gp.skills.swordSpinCounter == gp.skills.skillTimeOut) {
-                gp.skills.swordSpinCounter = 0;
-                gp.skills.swordSpinUsed = false;
-                gp.skills.skillUsed = false;
-                spriteNum = 1;
-                gp.skills.swordSpinTimeOut++;
-            }
-        }
-        */
-        
+         * if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
+         * if (gp.skills.swordSpinCounter > 20) {
+         * gp.skills.useSkill(gp.skills.swordSpinType);
+         * gp.skills.skillUsed = true;
+         * }
+         * speed = attackWalkingSpeed;
+         * gp.skills.swordSpinCounter++;
+         * if (gp.skills.swordSpinCounter == gp.skills.skillTimeOut) {
+         * gp.skills.swordSpinCounter = 0;
+         * gp.skills.swordSpinUsed = false;
+         * gp.skills.skillUsed = false;
+         * spriteNum = 1;
+         * gp.skills.swordSpinTimeOut++;
+         * }
+         * }
+         */
+
         gp.skills.swordSpin();
         gp.skills.auraOfTheSword();
-        
-        if(gp.skills.skillUsed) {
+
+        if (gp.skills.skillUsed) {
             gp.player.speed = gp.player.attackWalkingSpeed;
-        }else if(attacking) {
+        } else if (attacking) {
             attack();
             mouseH.pressed = false;
         } else {
             speed = speedDefault;
         }
-        
+
         // To avoid player to get damage every frame. Instead waits for 1 seconds and
         // get damage.
         if (invincible) {
@@ -351,8 +351,8 @@ public class Player extends Entity {
             if (npcIndex != -1) {
                 gp.npc[npcIndex].onPath = true;
             }
-            
-            //interactNpc(npcIndex);
+
+            // interactNpc(npcIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
@@ -364,7 +364,7 @@ public class Player extends Entity {
 
             // Animate Character
             animationCharacter();
-            
+
         } else if ((goalX != 0 || goalY != 0) && (mouseH.pressed)) { // if there is a point to go
 
             // CHECK TILE COLLISION
@@ -379,18 +379,20 @@ public class Player extends Entity {
             if (npcIndex != -1) {
                 gp.npc[npcIndex].onPath = true;
             }
-            
+
             interactNpc(npcIndex);
-            
-            if(mouseH.pressedOnEnemy) {
-                int enemyCol = (gp.enemy[mouseH.enemyIndex].worldX + gp.enemy[mouseH.enemyIndex].solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
-                int enemyRow = (gp.enemy[mouseH.enemyIndex].worldY + gp.enemy[mouseH.enemyIndex].solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+
+            if (mouseH.pressedOnEnemy) {
+                int enemyCol = (gp.enemy[mouseH.enemyIndex].worldX + gp.enemy[mouseH.enemyIndex].solidArea.x)
+                        / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
+                int enemyRow = (gp.enemy[mouseH.enemyIndex].worldY + gp.enemy[mouseH.enemyIndex].solidArea.y)
+                        / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
                 searchPath(enemyCol, enemyRow);
-                
-                if(enemyCollisionIndex == mouseH.enemyIndex) {
+
+                if (enemyCollisionIndex == mouseH.enemyIndex) {
                     autoHit = true;
                 }
-            }else {
+            } else {
                 searchPath(goalX, goalY);
             }
 
@@ -405,7 +407,7 @@ public class Player extends Entity {
             // to animate character movement
             animationCharacter();
         }
-         
+
         if (reborn) {
             int rebornProccess = 300;
             int getHealRate = rebornProccess / (maxLife / increaseLife);
@@ -435,20 +437,22 @@ public class Player extends Entity {
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 20, screenY - 10);
 
-        if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.swordSpinType)      {   gp.skills.drawSwordSpin();  }
-        else if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.auraSwordType) {   gp.skills.drawAuraSword();  } 
-        else {
+        if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.swordSpinType) {
+            gp.skills.drawSwordSpin();
+        } else if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.auraSwordType) {
+            gp.skills.drawAuraSword();
+        } else {
             switch (direction) {
                 case "up":
                 case "upleft":
                 case "upright":
                     if (attacking) {
-                        if(gp.skills.auraSwordActive) {
+                        if (gp.skills.auraSwordActive) {
                             if (spriteNum == 1)
                                 image = auraSwordUp1;
                             if (spriteNum == 2)
                                 image = auraSwordUp2;
-                        }else {
+                        } else {
                             if (spriteNum == 1)
                                 image = attackUp1;
                             if (spriteNum == 2)
@@ -468,12 +472,12 @@ public class Player extends Entity {
                 case "downleft":
                 case "downright":
                     if (attacking) {
-                        if(gp.skills.auraSwordActive) {
+                        if (gp.skills.auraSwordActive) {
                             if (spriteNum == 1)
                                 image = auraSwordDown1;
                             if (spriteNum == 2)
                                 image = auraSwordDown2;
-                        }else {
+                        } else {
                             if (spriteNum == 1)
                                 image = attackDown1;
                             if (spriteNum == 2)
@@ -493,12 +497,12 @@ public class Player extends Entity {
                     break;
                 case "left":
                     if (attacking) {
-                        if(gp.skills.auraSwordActive) {
+                        if (gp.skills.auraSwordActive) {
                             if (spriteNum == 1)
                                 image = auraSwordLeft1;
                             if (spriteNum == 2)
                                 image = auraSwordLeft2;
-                        }else {
+                        } else {
                             if (spriteNum == 1)
                                 image = attackLeft1;
                             if (spriteNum == 2)
@@ -522,12 +526,12 @@ public class Player extends Entity {
                     break;
                 case "right":
                     if (attacking) {
-                        if(gp.skills.auraSwordActive) {
+                        if (gp.skills.auraSwordActive) {
                             if (spriteNum == 1)
                                 image = auraSwordRight1;
                             if (spriteNum == 2)
                                 image = auraSwordRight2;
-                        }else {
+                        } else {
                             if (spriteNum == 1)
                                 image = attackRight1;
                             if (spriteNum == 2)
@@ -688,7 +692,7 @@ public class Player extends Entity {
     public void interactNpc(int i) {
 
         onPath = false;
-        
+
         if (i != -1) {
             gp.gameState = gp.dialogueState;
             gp.npc[0].speak();
@@ -733,12 +737,14 @@ public class Player extends Entity {
             if (life < maxLife) {
                 getHeal(60);
             }
-            if(sp < maxSp){
+            if (sp < maxSp) {
                 getSp(60);
             }
-            /*if(sp < maxSp) {
-                getSp(90);
-            }*/
+            /*
+             * if(sp < maxSp) {
+             * getSp(90);
+             * }
+             */
             /*
              * if (gp.player.playerSp < 100) {
              * playerTimer++;
@@ -803,9 +809,9 @@ public class Player extends Entity {
                 if (gp.enemy[enemyIndex].life <= 0) {
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
-                    
+
                     autoHit = false;
-                    
+
                     playerXP += rand.nextInt(10) + 100 / level;
 
                     // If level up
@@ -843,6 +849,7 @@ public class Player extends Entity {
             playerTimer = 0;
         }
     }
+
     public void getSp(int spCounter) {
         playerTimer++;
         if (playerTimer >= spCounter) {
@@ -854,7 +861,7 @@ public class Player extends Entity {
             playerTimer = 0;
         }
     }
-    
+
     public void stepSound() {
         stepCounter++;
         if (stepCounter == 10) {
@@ -868,7 +875,7 @@ public class Player extends Entity {
             stepCounter = 0;
         }
     }
-    
+
     public void animationCharacter() {
         if (!gp.skills.skillUsed && !attacking) {
             spriteCounter++;
