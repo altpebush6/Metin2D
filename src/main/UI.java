@@ -398,9 +398,9 @@ public class UI {
                // System.out.println("equal");
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-                g2.drawImage(gp.player.inventory.get(i).down1,  gp.screenWidth - 60, 110,gp.tileSize, gp.tileSize, null );
+                g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null );
                 g2.setColor(new Color(240,190,90));
-                g2.drawRect(gp.screenWidth - 60, 110,gp.tileSize, gp.tileSize);
+                g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
             }
 
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
