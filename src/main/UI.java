@@ -74,7 +74,7 @@ public class UI {
         cursorImage = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
         xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", 130, gp.tileSize);
         bottomBar = gp.uTool.setup("/UI/bottomBar", 280, 24);
-        btnBg = gp.uTool.setup("/UI/bottomBar", 280, 24);
+        btnBg = gp.uTool.setup("/UI/respawnBtn", 181, 29);
         bottomBar2 = gp.uTool.setup("/UI/bottomBar", 375, 24);
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
@@ -401,7 +401,7 @@ public class UI {
                // System.out.println("equal");
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-                g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null );
+                g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null);
                 g2.setColor(new Color(240,190,90));
                 g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
             }
@@ -473,9 +473,7 @@ public class UI {
         int respawnCityWidth = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getWidth();
         int respawnCityHeight = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getHeight();
         
-        respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnCityWidth + 23,
-                respawnHereHeight + 7);
-        
+        respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnCityWidth + 23, respawnHereHeight + 7);
         
         g2.drawImage(btnBg,respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height,null);
         g2.drawImage(btnBg,respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height,null);
@@ -492,14 +490,16 @@ public class UI {
         }
         
         
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 17F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
         g2.setColor(Color.white);
-        g2.drawString(respawnHere, gp.tileSize, gp.tileSize);
-        g2.drawString(respawnCity, gp.tileSize, 85);
+        g2.drawString(respawnHere, 65, 48);
+        g2.drawString(respawnCity, 65, 85);
 
 
+        g2.setColor(new Color(0,0,0,0));
         g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
         g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
+        g2.setColor(Color.white);
         
 
     }

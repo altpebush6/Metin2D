@@ -260,7 +260,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 			player.draw(g2);
 			
-			mouseH.drawRespawnBtn(g2);
+			mouseH.hoverRespawnBtn(g2);
 
 			player.deadCounter++;
 

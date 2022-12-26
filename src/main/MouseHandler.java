@@ -78,8 +78,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         if(gp.gameState == gp.deadState) {
             int respawnTime = 180;
             
-            if(gp.ui.respawnHereRec.x < screenX && gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width > screenX &&
-               gp.ui.respawnHereRec.y < screenY && gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height > screenY) {
+            if(30 < mouseOverX && 260 > mouseOverX && 30 < mouseOverY && 65 > mouseOverY) {
                 
                 System.out.println(gp.player.deadCounter);
                 if(gp.player.deadCounter >= respawnTime) {
@@ -92,8 +91,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 }
       
                 
-            }else if(gp.ui.respawnCityRec.x < screenX && gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width > screenX &&
-                     gp.ui.respawnCityRec.y < screenY && gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height > screenY) {
+            }else if(30 < mouseOverX && 260 > mouseOverX && 78 < mouseOverY && 115 > mouseOverY) {
                 
                 if(gp.player.deadCounter >= respawnTime) {
                     gp.gameState = gp.playState;
@@ -125,24 +123,13 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         mouseOverX = e.getX();
         mouseOverY = e.getY();
         
-
+        System.out.println(mouseOverX +  " " + mouseOverY);
     }
     
-    public void drawRespawnBtn(Graphics2D g2) {
-        if(gp.ui.respawnHereRec.x < mouseOverX && gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width > mouseOverX &&
-                gp.ui.respawnHereRec.y < mouseOverY && gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height > mouseOverY) {
-                 
-                    gp.ui.btnHover = 1;
-                
-        }else if(gp.ui.respawnCityRec.x < mouseOverX && gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width > mouseOverX &&
-                gp.ui.respawnCityRec.y < mouseOverY && gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height > mouseOverY) {
-               
-            System.out.println("sa");
-            gp.ui.btnHover = 2;
-            
-        }else {
-            gp.ui.btnHover = 0;
-        }
+    public void hoverRespawnBtn(Graphics2D g2) {
+        if(30 < mouseOverX && 260 > mouseOverX && 30 < mouseOverY && 65 > mouseOverY)           gp.ui.btnHover = 1;
+        else if(30 < mouseOverX && 260 > mouseOverX && 78 < mouseOverY && 115 > mouseOverY)    gp.ui.btnHover = 2;
+        else                                                                                    gp.ui.btnHover = 0;
     }
 
 }
