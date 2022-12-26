@@ -115,7 +115,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		setFullScreen();
 
-		gameState = deadState;
+		gameState = playState;
 
 		
 	}

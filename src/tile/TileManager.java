@@ -32,16 +32,26 @@ public class TileManager {
 	}
 	
 	public void getTileImage() {
-        setup(0, "path4", false);
-        setup(1, "path7", false);
-		setup(2, "path", false);
-		setup(3, "grass", false);
-		setup(4, "path0", false);
-        setup(5, "path5", false);
-        setup(6, "path6", false);
-        setup(7, "path1", false);
+        setup(00, "path4", false);
+        setup(01, "path7", false);
+        setup(02, "path", false);
+        setup(03, "grass", false);
+        setup(04, "path0", false);
+        setup(05, "path5", false);
+        setup(06, "path6", false);
+        setup(07, "path1", false);
         setup(8, "path3", false);
         setup(9, "path8", false);
+        setup(10, "path9", false);
+        setup(11, "home1", true);
+        setup(12, "home2", true);
+        setup(13, "home3", true);
+        setup(14, "home4", true);
+        setup(15, "home5", true);
+        setup(16, "home6", true);
+        setup(17, "home7", true);
+        setup(18, "home8", true);
+        setup(19, "home9", true);
 	}
 	
 	public void setup(int index, String imageName, boolean collision) {
