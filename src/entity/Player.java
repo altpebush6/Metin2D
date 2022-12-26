@@ -113,7 +113,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 10;
+        maxLife = 100;
         life = maxLife;
         maxSp = 100;
         sp = maxSp;
