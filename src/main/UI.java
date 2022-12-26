@@ -59,9 +59,8 @@ public class UI {
     public int tupeImg;
     
     public int btnHover = 0;
-
-   
-
+    public int respawnBtnWidth, respawnBtnHeight;
+    
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -467,18 +466,16 @@ public class UI {
         String respawnHere = "    Restart Here";
         String respawnCity = "Restart in the City";
 
-        int respawnHereWidth = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getWidth();
-        int respawnHereHeight = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getHeight();
+        respawnBtnWidth = gp.tileSize * 4;
+        respawnBtnHeight = (int)(gp.tileSize * 0.65);
 
-        int respawnCityWidth = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getWidth();
-        int respawnCityHeight = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getHeight();
-        
-        respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnCityWidth + 23, respawnHereHeight + 7);
+        respawnHereRec = new Rectangle(gp.tileSize / 2, gp.tileSize / 2, respawnBtnWidth, respawnBtnHeight);
+        respawnCityRec = new Rectangle(gp.tileSize / 2, (int)(gp.tileSize * 1.2), respawnBtnWidth, respawnBtnHeight);
         
         g2.drawImage(btnBg,respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height,null);
         g2.drawImage(btnBg,respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height,null);
 
-        respawnCityRec = new Rectangle(gp.tileSize - 20, 65, respawnCityWidth + 23, respawnCityHeight + 7);
+       
         
 
         if(btnHover == 1) {
@@ -492,8 +489,8 @@ public class UI {
         
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
         g2.setColor(Color.white);
-        g2.drawString(respawnHere, 65, 48);
-        g2.drawString(respawnCity, 65, 85);
+        g2.drawString(respawnHere, 65, 44);
+        g2.drawString(respawnCity, 65, 76);
 
 
         g2.setColor(new Color(0,0,0,0));

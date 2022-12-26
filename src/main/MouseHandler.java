@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -78,7 +79,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         if(gp.gameState == gp.deadState) {
             int respawnTime = 180;
             
-            if(30 < mouseOverX && 260 > mouseOverX && 30 < mouseOverY && 65 > mouseOverY) {
+            if(gp.ui.respawnHereRec.x < mouseOverX && (gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width) > mouseOverX && gp.ui.respawnHereRec.y < mouseOverY && (gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height) > mouseOverY) {
                 
                 System.out.println(gp.player.deadCounter);
                 if(gp.player.deadCounter >= respawnTime) {
@@ -91,7 +92,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 }
       
                 
-            }else if(30 < mouseOverX && 260 > mouseOverX && 78 < mouseOverY && 115 > mouseOverY) {
+            }else if(gp.ui.respawnHereRec.x < mouseOverX && gp.ui.respawnHereRec.width > mouseOverX && gp.ui.respawnHereRec.y < mouseOverY && gp.ui.respawnHereRec.height > mouseOverY) {
                 
                 if(gp.player.deadCounter >= respawnTime) {
                     gp.gameState = gp.playState;
@@ -122,14 +123,13 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         mouseOverX = e.getX();
         mouseOverY = e.getY();
-        
-        System.out.println(mouseOverX +  " " + mouseOverY);
+        //System.out.println(gp.ui.respawnHereRec.x+" "+gp.ui.respawnHereRec.y+" "+(gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width)+" "+(gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height)+ " ::: "+ mouseOverX+" "+mouseOverY);
     }
     
     public void hoverRespawnBtn(Graphics2D g2) {
-        if(30 < mouseOverX && 260 > mouseOverX && 30 < mouseOverY && 65 > mouseOverY)           gp.ui.btnHover = 1;
-        else if(30 < mouseOverX && 260 > mouseOverX && 78 < mouseOverY && 115 > mouseOverY)    gp.ui.btnHover = 2;
-        else                                                                                    gp.ui.btnHover = 0;
+        if(gp.ui.respawnHereRec.x < mouseOverX && (gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width) > mouseOverX && gp.ui.respawnHereRec.y < mouseOverY && (gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height) > mouseOverY)       gp.ui.btnHover = 1;
+        else if(gp.ui.respawnCityRec.x < mouseOverX && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX && gp.ui.respawnCityRec.y < mouseOverY && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY)  gp.ui.btnHover = 2;
+        else  gp.ui.btnHover = 0;
     }
 
 }
