@@ -28,6 +28,8 @@ public class Main {
 		gamePanel.setupGame();
 
 		gamePanel.startGameThread();
+		
+	
 
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
 		window.setIconImage(favicon.getImage());

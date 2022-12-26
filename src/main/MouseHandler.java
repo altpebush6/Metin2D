@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -123,7 +125,24 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         mouseOverX = e.getX();
         mouseOverY = e.getY();
         
-        System.out.println("mouse : "+ mouseOverX);
+
+    }
+    
+    public void drawRespawnBtn(Graphics2D g2) {
+        if(gp.ui.respawnHereRec.x < mouseOverX && gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width > mouseOverX &&
+                gp.ui.respawnHereRec.y < mouseOverY && gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height > mouseOverY) {
+                 
+                    gp.ui.btnHover = 1;
+                
+        }else if(gp.ui.respawnCityRec.x < mouseOverX && gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width > mouseOverX &&
+                gp.ui.respawnCityRec.y < mouseOverY && gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height > mouseOverY) {
+               
+            System.out.println("sa");
+            gp.ui.btnHover = 2;
+            
+        }else {
+            gp.ui.btnHover = 0;
+        }
     }
 
 }

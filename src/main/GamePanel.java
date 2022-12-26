@@ -2,6 +2,7 @@ package main;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -115,6 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
 		setFullScreen();
 
 		gameState = playState;
+
+		
 	}
 
 	public void reborn(boolean rebornInCenter) {
@@ -147,8 +150,8 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void startGameThread() {
-		gameThread = new Thread(this);
-		gameThread.start();
+        gameThread = new Thread(this);
+	    gameThread.start();
 	}
 
 	@Override
@@ -256,6 +259,8 @@ public class GamePanel extends JPanel implements Runnable {
 		if (gameState == deadState) {
 
 			player.draw(g2);
+			
+			mouseH.drawRespawnBtn(g2);
 
 			player.deadCounter++;
 

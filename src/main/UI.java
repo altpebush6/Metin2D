@@ -25,11 +25,11 @@ public class UI {
     BufferedImage auraOfSwordImage, swordSpinImage, dialogueUI;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
-    BufferedImage xpTupeBg, dragonCoin, bottomBar,bottomBar2, itemSkillBar, inventoryBar;
+    BufferedImage xpTupeBg, dragonCoin, bottomBar,bottomBar2, itemSkillBar, inventoryBar,btnBg;
     BufferedImage inventory;
     BufferedImage[] xpTupe = new BufferedImage[23];
 
-    public Rectangle respawnHereRec, respawnCityRec;
+    public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
 
     public int healthBar;
     public int spBar;
@@ -57,6 +57,8 @@ public class UI {
 
     public int fillTupeNum = 0;
     public int tupeImg;
+    
+    public int btnHover = 0;
 
    
 
@@ -72,6 +74,7 @@ public class UI {
         cursorImage = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
         xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", 130, gp.tileSize);
         bottomBar = gp.uTool.setup("/UI/bottomBar", 280, 24);
+        btnBg = gp.uTool.setup("/UI/bottomBar", 280, 24);
         bottomBar2 = gp.uTool.setup("/UI/bottomBar", 375, 24);
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
@@ -461,26 +464,44 @@ public class UI {
 
     // DEAD MENU
     public void respawnButtons(Graphics2D g2) {
-        String respawnHere = "Restart Here";
+        String respawnHere = "    Restart Here";
         String respawnCity = "Restart in the City";
-
-        g2.setFont(g2.getFont().deriveFont(20F));
-        g2.setColor(Color.white);
-        g2.drawString(respawnHere, gp.tileSize, gp.tileSize);
-        g2.drawString(respawnCity, gp.tileSize, gp.tileSize * 2);
 
         int respawnHereWidth = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getWidth();
         int respawnHereHeight = (int) g2.getFontMetrics().getStringBounds(respawnHere, g2).getHeight();
-        respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnHereWidth + 30,
-                respawnHereHeight + 10);
 
         int respawnCityWidth = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getWidth();
         int respawnCityHeight = (int) g2.getFontMetrics().getStringBounds(respawnCity, g2).getHeight();
-        respawnCityRec = new Rectangle(gp.tileSize - 20, gp.tileSize * 2 - 20, respawnCityWidth + 30,
-                respawnCityHeight + 10);
+        
+        respawnHereRec = new Rectangle(gp.tileSize - 20, gp.tileSize - 20, respawnCityWidth + 23,
+                respawnHereHeight + 7);
+        
+        
+        g2.drawImage(btnBg,respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height,null);
+        g2.drawImage(btnBg,respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height,null);
+
+        respawnCityRec = new Rectangle(gp.tileSize - 20, 65, respawnCityWidth + 23, respawnCityHeight + 7);
+        
+
+        if(btnHover == 1) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
+        }else if(btnHover == 2) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
+        }
+        
+        
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 17F));
+        g2.setColor(Color.white);
+        g2.drawString(respawnHere, gp.tileSize, gp.tileSize);
+        g2.drawString(respawnCity, gp.tileSize, 85);
+
 
         g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
         g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
+        
+
     }
 
     // CENTERED TEXT
