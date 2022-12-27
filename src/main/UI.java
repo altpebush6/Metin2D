@@ -1,7 +1,10 @@
 package main;
 
 import java.awt.Cursor;
+import java.awt.event.*;
+import javax.swing.*;
 import java.awt.AlphaComposite;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -11,6 +14,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import entity.Entity;
 
@@ -22,11 +28,13 @@ public class UI {
     BufferedImage coinImage, dolunayImage, emptyBarImage, cursorImage;
     BufferedImage[] hpBarImages = new BufferedImage[8];
     BufferedImage[] spBarImages = new BufferedImage[8];
-    BufferedImage auraOfSwordImage, swordSpinImage, dialogueUI;
+    BufferedImage auraOfSwordImage, swordSpinImage;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
-    BufferedImage xpTupeBg, dragonCoin, bottomBar,bottomBar2, itemSkillBar, inventoryBar,btnBg;
+    BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg;
     BufferedImage inventory;
+    BufferedImage dialogueUI;
+    BufferedImage newspaper;
     BufferedImage[] xpTupe = new BufferedImage[23];
 
     public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
@@ -57,10 +65,10 @@ public class UI {
 
     public int fillTupeNum = 0;
     public int tupeImg;
-    
+
     public int btnHover = 0;
     public int respawnBtnWidth, respawnBtnHeight;
-    
+
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -79,10 +87,8 @@ public class UI {
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
         inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
         inventory = gp.uTool.setup("/UI/inventory", 172, 492);
-        // dialogueUI = gp.uTool.setup("/resources/UI/dialogueUI", gp.tileSize,
-        // gp.tileSize);
-
-         
+        dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 600);
+        newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
 
         for (int i = 0; i < hpBarImages.length; i++) {
             hpBarImages[i] = gp.uTool.setup("/UI/HpBar" + (i + 1), gp.tileSize, gp.tileSize);
@@ -130,8 +136,6 @@ public class UI {
 
             // Change Cursor
             changeCursor();
-            
-            
 
             // DAMAGE
             for (int i = 0; i < damages.size(); i++) {
@@ -190,7 +194,7 @@ public class UI {
         // INVENTORY STATE
         if (gp.gameState == gp.inventoryState) {
             drawBottomBar(g2);
-            
+
             drawInventory();
         }
 
@@ -360,29 +364,38 @@ public class UI {
         // WINDOW
         int x = gp.tileSize * 2;
         int y = gp.tileSize / 2;
-        int width = gp.screenHeight - (gp.tileSize * 4);
-        int height = gp.tileSize * 5;
-        drawSubWindow(x, y, width, height);
 
+        /*
+         * int width = gp.screenHeight - (gp.tileSize * 4);
+         * int height = gp.tileSize * 5;
+         * drawSubWindow(x, y, width, height);
+         */
+
+        g2.drawImage(dialogueUI, null, x, y);
+        //g2.drawImage(newspaper,null,0,0);
+        JTextField tf = new JTextField("Merhaba Koyumuze hosgeldin",4);
+        gp.add(tf);
+
+        
+        /* 
         Color c2 = new Color(255, 255, 255);
         g2.setColor(c2);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
         x += gp.tileSize;
         y += gp.tileSize;
-        g2.drawString("Press Enter to Exit", x, y);
+        g2.drawString("currentDialogue", x, y);
+        */
     }
 
     // INVENTORY METHOD
     public void drawInventory() {
 
-
-        
         // FRAME
         int inventoryX = gp.screenWidth - 258;
         int inventoryY = 95;
         int inventoryWidth = 258;
         int inventoryHeight = 738;
-        
+
         // Inventory
         g2.drawImage(inventory, inventoryX, inventoryY, inventoryWidth, inventoryHeight, null);
 
@@ -393,22 +406,24 @@ public class UI {
         int slotY = slotYstart;
 
         // DRAW PLAYER'S ITEM
-        //System.out.println(gp.player.inventory.size());
+        // System.out.println(gp.player.inventory.size());
         for (int i = 0; i < gp.player.inventory.size(); i++) {
 
-            if(gp.player.inventory.get(i) == gp.player.currentWeapon){
-               // System.out.println("equal");
-                g2.setColor(new Color(240,190,90));
+            if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
+                // System.out.println("equal");
+                g2.setColor(new Color(240, 190, 90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-                g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null);
-                g2.setColor(new Color(240,190,90));
+                g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize,
+                        gp.tileSize, null);
+                g2.setColor(new Color(240, 190, 90));
                 g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
             }
 
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
             slotX += gp.tileSize;
             if (i % 5 == 4) {
-                //  i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i == 39
+                // i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i
+                // == 39
                 slotX = slotXstart;
                 slotY += gp.tileSize;
             }
@@ -420,9 +435,8 @@ public class UI {
         int cursorWidth = gp.tileSize;
         int cursorHeight = gp.tileSize;
         cursorIndex = (slotRow * 5) + slotCol;
-        //System.out.println("cursor2: "+ cursorIndex2);
+        // System.out.println("cursor2: "+ cursorIndex2);
 
-        
         // DRAW CURSOR
         g2.setStroke(new java.awt.BasicStroke(2));
         g2.setColor(Color.white);
@@ -431,24 +445,30 @@ public class UI {
 
     }
 
-   public boolean controlCursor() {
-    if(gp.player.inventory.size() > cursorIndex){
-        if(gp.player.inventory.get(cursorIndex) != null){
-            return true;
-         }else{
+    public boolean controlCursor() {
+        if (gp.player.inventory.size() > cursorIndex) {
+            if (gp.player.inventory.get(cursorIndex) != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
             return false;
-         }
-    }else{
-        return false;
+        }
     }
-   }
 
     // DRAW TRADE SCREEN
     public void drawTradeScreen() {
-        switch(subState) {
-            case 0: trade_select(); break;
-            case 1: trade_buy(); break;
-            case 2: trade_sell(); break;
+        switch (subState) {
+            case 0:
+                trade_select();
+                break;
+            case 1:
+                trade_buy();
+                break;
+            case 2:
+                trade_sell();
+                break;
         }
     }
 
@@ -467,37 +487,31 @@ public class UI {
         String respawnCity = "Restart in the City";
 
         respawnBtnWidth = gp.tileSize * 4;
-        respawnBtnHeight = (int)(gp.tileSize * 0.65);
+        respawnBtnHeight = (int) (gp.tileSize * 0.65);
 
         respawnHereRec = new Rectangle(gp.tileSize / 2, gp.tileSize / 2, respawnBtnWidth, respawnBtnHeight);
-        respawnCityRec = new Rectangle(gp.tileSize / 2, (int)(gp.tileSize * 1.2), respawnBtnWidth, respawnBtnHeight);
-        
-        g2.drawImage(btnBg,respawnHereRec.x,respawnHereRec.y,respawnHereRec.width,respawnHereRec.height,null);
-        g2.drawImage(btnBg,respawnCityRec.x,respawnCityRec.y,respawnCityRec.width,respawnCityRec.height,null);
+        respawnCityRec = new Rectangle(gp.tileSize / 2, (int) (gp.tileSize * 1.2), respawnBtnWidth, respawnBtnHeight);
 
-       
-        
+        g2.drawImage(btnBg, respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height, null);
+        g2.drawImage(btnBg, respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height, null);
 
-        if(btnHover == 1) {
+        if (btnHover == 1) {
             g2.setColor(new Color(238, 238, 238, 40));
             g2.fillRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
-        }else if(btnHover == 2) {
+        } else if (btnHover == 2) {
             g2.setColor(new Color(238, 238, 238, 40));
             g2.fillRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
         }
-        
-        
+
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
         g2.setColor(Color.white);
         g2.drawString(respawnHere, 65, 44);
         g2.drawString(respawnCity, 65, 76);
 
-
-        g2.setColor(new Color(0,0,0,0));
+        g2.setColor(new Color(0, 0, 0, 0));
         g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
         g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
         g2.setColor(Color.white);
-        
 
     }
 
@@ -545,13 +559,13 @@ public class UI {
 
     // BOTTOM BAR
     public void drawBottomBar(Graphics2D g2) {
-        
+
         int bottomBarHeight = 32;
-        
+
         // Dragon Coin
         Rectangle dragonCoinRec = new Rectangle(0, gp.screenHeight - 40, 50, 40);
         g2.drawImage(dragonCoin, dragonCoinRec.x, dragonCoinRec.y, dragonCoinRec.width, dragonCoinRec.height, null);
-        
+
         double oneScaleHealthBar = (2.7 * gp.tileSize) / gp.player.maxLife;
         double oneScaleSpBar = (2.7 * gp.tileSize) / gp.player.maxSp;
         double healthBar = oneScaleHealthBar * gp.player.life;
@@ -559,7 +573,7 @@ public class UI {
         double healthBarWidth = oneScaleHealthBar * gp.player.maxLife;
         double spBarWidth = oneScaleSpBar * gp.player.maxSp;
         int barHeight = 16;
-        
+
         // Health Bar
         g2.drawImage(emptyBarImage, 50, gp.screenHeight - 2 * barHeight, (int) healthBarWidth + 9, barHeight, null);
 
@@ -605,7 +619,8 @@ public class UI {
             case 1:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
                 g2.drawImage(xpTupe[tupeImg], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 g2.drawImage(xpTupe[0], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
@@ -613,29 +628,36 @@ public class UI {
             case 2:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
                 g2.drawImage(xpTupe[tupeImg], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 3:
                 tupeImg = (gp.player.playerXP % 230) / 10;
 
-                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
                 g2.drawImage(xpTupe[tupeImg], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
 
             default:
-                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
-                g2.drawImage(xpTupe[xpTupe.length - 1], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 255, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
+                g2.drawImage(xpTupe[xpTupe.length - 1], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
+                        null);
                 break;
         }
-        
-
 
         // Bottom Bar
         int bottomBarX = 318;
@@ -643,13 +665,13 @@ public class UI {
 
         // Item-Skill Bar
         g2.drawImage(itemSkillBar, bottomBarX + 280, gp.screenHeight - bottomBarHeight, 400, bottomBarHeight, null);
-        
+
         // Bottom Bar
         g2.drawImage(bottomBar2, bottomBarX + 680, gp.screenHeight - bottomBarHeight, 375, bottomBarHeight, null);
-        
+
         // Inventory Bar
         g2.drawImage(inventoryBar, bottomBarX + 1055, gp.screenHeight - bottomBarHeight, 163, bottomBarHeight, null);
-        
+
     }
 
     // MESSAGES

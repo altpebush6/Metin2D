@@ -14,13 +14,16 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import entity.Skills;
 import tile.TileManager;
+import main.Main;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -156,6 +159,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
+
+		
+
+
 
 		// when press a key button computer catches it too many times. to avoid this, we
 		// use 2 different methods.
@@ -296,6 +303,8 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void drawToTempScreen() {
+
+		
 		// DEBUG
 		long startTime = 0;
 		if (keyH.openDebug) {
@@ -363,7 +372,7 @@ public class GamePanel extends JPanel implements Runnable {
 			long diff = endTime - startTime;
 			g2.drawString("Drawing Time: " + (diff * 1.0 / 1000000000), 10, 300);
 		}
-
+		
 	}
 
 	public void drawToScreen() {

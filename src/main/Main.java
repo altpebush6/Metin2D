@@ -5,6 +5,8 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class Main {
 
@@ -19,10 +21,14 @@ public class Main {
 		window.setUndecorated(true);
 
 		GamePanel gamePanel = new GamePanel();
+		
+		
 		window.add(gamePanel);
 		window.pack(); // window will be sized to fit the preferred size and layouts of its
 						// subcomponents (GamePanel)
-
+		//createText(gamePanel);
+		//window.pack();			
+		
 		window.setLocationRelativeTo(null);
 
 		gamePanel.setupGame();
@@ -34,5 +40,14 @@ public class Main {
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
 		window.setIconImage(favicon.getImage());
 		window.setVisible(true);
+	}
+
+
+	public static void createText(GamePanel gamePanel) {
+		JTextField t = new JTextField();
+		window.add(t);
+		JLabel t2= new JLabel("Metin2");
+		t2.setBounds(10, 0, 100, 30);;
+		//window.add(t2);
 	}
 }

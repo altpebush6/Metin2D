@@ -3,6 +3,8 @@ package main;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import javax.swing.JTextField;
+
 import enemy.ENEMY_Wolf;
 import npc.Npc_Blacksmith;
 import npc.Npc_Merchant;
@@ -22,6 +24,7 @@ public class AssetSetter {
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
+       
     }
 
     public void setObjectManually() {
