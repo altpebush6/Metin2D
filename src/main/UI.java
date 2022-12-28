@@ -87,7 +87,7 @@ public class UI {
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
         inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
         inventory = gp.uTool.setup("/UI/inventory", 172, 492);
-        dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 600);
+        dialogueUI = gp.uTool.setup("/UI/dialogueUI", 700, 600);
         newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
 
         for (int i = 0; i < hpBarImages.length; i++) {
@@ -362,9 +362,12 @@ public class UI {
     public void drawDialogueScreen() {
 
         // WINDOW
+        /* 
         int x = gp.tileSize * 2;
         int y = gp.tileSize / 2;
-
+        */
+        int x = gp.screenWidth/2 - dialogueUI.getWidth()/2;
+        int y = gp.screenHeight/2 - dialogueUI.getHeight()/2;
         /*
          * int width = gp.screenHeight - (gp.tileSize * 4);
          * int height = gp.tileSize * 5;
@@ -374,7 +377,7 @@ public class UI {
         g2.drawImage(dialogueUI, null, x, y);
         //g2.drawImage(newspaper,null,0,0);
         JTextField tf = new JTextField("Merhaba Koyumuze hosgeldin",4);
-        gp.add(tf);
+        
 
         
         /* 
