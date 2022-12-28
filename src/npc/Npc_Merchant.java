@@ -15,6 +15,7 @@ public class Npc_Merchant extends Entity {
 
         direction = "down";
         speed = 0;
+        defaultSpeed = speed;
         type = npcType;
         level = 100;
         name = "Merchant";

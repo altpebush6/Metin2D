@@ -15,6 +15,7 @@ public class Npc_Blacksmith extends Entity{
 
         direction = "down";
         speed = 1;
+        defaultSpeed = speed;
         type = npcType;
         level = 100;
         name = "Guard";

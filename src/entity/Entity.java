@@ -45,6 +45,7 @@ public class Entity {
     public boolean inFight = false;
     public boolean showNames = false;
     public boolean reachedGoal = false;
+    public boolean knockBack = false;
 
     // Character Attributes
     public int type;
@@ -81,6 +82,7 @@ public class Entity {
     public boolean newBorn = false;
     public int bornCounter = 0;
     public int objectCounter = 0;
+    public int knockBackCounter = 0;
 
     // NPC
     public int npcActionCounter = 0;
@@ -128,6 +130,107 @@ public class Entity {
 
     public void update() {
         
+        if(knockBack == true) {
+            
+            checkCollision();
+            
+            if(!collisionOn) {
+                int newWorldX = worldX;
+                int newWorldY = worldY;
+
+                switch (gp.player.direction) {
+                    case "upleft":
+                        newWorldY -= speed;
+                        newWorldX -= speed;
+                        break;
+                    case "upright":
+                        newWorldY -= speed;
+                        newWorldX += speed;
+                        break;
+                    case "downleft":
+                        newWorldY += speed;
+                        newWorldX -= speed;
+                        break;
+                    case "downright":
+                        newWorldY += speed;
+                        newWorldX += speed;
+                        break;
+                    case "up":
+                        newWorldY -= speed;
+                        break;
+                    case "down":
+                        newWorldY += speed;
+                        break;
+                    case "left":
+                        newWorldX -= speed;
+                        break;
+                    case "right":
+                        newWorldX += speed;
+                        break;
+                }
+
+                if (newWorldX > 0 && newWorldX < (gp.maxWorldCol - 1) * gp.tileSize &&
+                        newWorldY > 0 && newWorldY < (gp.maxWorldRow - 2) * gp.tileSize) {
+                    worldX = newWorldX;
+                    worldY = newWorldY;
+                }
+            }
+            
+            knockBackCounter++;
+            if(knockBackCounter == 8) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+            
+        }else {
+            setAction();
+            checkCollision();
+
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if (!collisionOn && !standing) {
+                int newWorldX = worldX;
+                int newWorldY = worldY;
+
+                switch (direction) {
+                    case "upleft":
+                        newWorldY -= speed;
+                        newWorldX -= speed;
+                        break;
+                    case "upright":
+                        newWorldY -= speed;
+                        newWorldX += speed;
+                        break;
+                    case "downleft":
+                        newWorldY += speed;
+                        newWorldX -= speed;
+                        break;
+                    case "downright":
+                        newWorldY += speed;
+                        newWorldX += speed;
+                        break;
+                    case "up":
+                        newWorldY -= speed;
+                        break;
+                    case "down":
+                        newWorldY += speed;
+                        break;
+                    case "left":
+                        newWorldX -= speed;
+                        break;
+                    case "right":
+                        newWorldX += speed;
+                        break;
+                }
+
+                if (newWorldX > 0 && newWorldX < (gp.maxWorldCol - 1) * gp.tileSize &&
+                        newWorldY > 0 && newWorldY < (gp.maxWorldRow - 2) * gp.tileSize) {
+                    worldX = newWorldX;
+                    worldY = newWorldY;
+                }
+            }
+        }
+        
         // Active showNames when mouse over entity or entity is near player
         int mouseOverX = gp.player.worldX - gp.player.screenX + gp.mouseH.mouseOverX;
         int mouseOverY = gp.player.worldY - gp.player.screenY + gp.mouseH.mouseOverY;
@@ -147,52 +250,6 @@ public class Entity {
             showNames = true;
         }else {
             showNames = false;
-        }
-
-        setAction();
-        checkCollision();
-
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if (!collisionOn && !standing) {
-            int newWorldX = worldX;
-            int newWorldY = worldY;
-
-            switch (direction) {
-                case "upleft":
-                    newWorldY -= speed;
-                    newWorldX -= speed;
-                    break;
-                case "upright":
-                    newWorldY -= speed;
-                    newWorldX += speed;
-                    break;
-                case "downleft":
-                    newWorldY += speed;
-                    newWorldX -= speed;
-                    break;
-                case "downright":
-                    newWorldY += speed;
-                    newWorldX += speed;
-                    break;
-                case "up":
-                    newWorldY -= speed;
-                    break;
-                case "down":
-                    newWorldY += speed;
-                    break;
-                case "left":
-                    newWorldX -= speed;
-                    break;
-                case "right":
-                    newWorldX += speed;
-                    break;
-            }
-
-            if (newWorldX > 0 && newWorldX < (gp.maxWorldCol - 1) * gp.tileSize &&
-                    newWorldY > 0 && newWorldY < (gp.maxWorldRow - 2) * gp.tileSize) {
-                worldX = newWorldX;
-                worldY = newWorldY;
-            }
         }
 
         if (!standing) {

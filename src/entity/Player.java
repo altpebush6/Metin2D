@@ -793,6 +793,9 @@ public class Player extends Entity {
                 if (!gp.enemy[enemyIndex].inFight) {
                     invincible = true;
                 }
+                if (holdingNum == 0 && !gp.skills.skillUsed) {
+                    knockBack(gp.enemy[enemyIndex]);
+                }
 
                 int damageSize = attackPower + level * (rand.nextInt(3) + 3);
 
@@ -836,6 +839,12 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+    
+    public void knockBack(Entity entity) {
+        entity.direction = direction;
+        entity.speed += 5;
+        entity.knockBack = true;
     }
 
     public void getHeal(int healCounter) {
