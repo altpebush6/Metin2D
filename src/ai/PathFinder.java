@@ -81,7 +81,7 @@ public class PathFinder {
                 // Set Solid Node
                 // Check Tiles
                 int tileNum = gp.tileM.mapTileNum[col][row]; // Change here After change MapTileNum
-                if(gp.tileM.tile[tileNum].collision == true) {
+                if(gp.tileM.tile[tileNum-1].collision == true) {
                     node[col][row].solid = true;
                 }
                 

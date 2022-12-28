@@ -46,7 +46,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
             gp.player.autoHit = false;
             gp.player.reachedGoal = false;
             
-            int tileNum = gp.tileM.mapTileNum[clickedCol][clickedRow];
+            int tileNum = gp.tileM.mapTileNum[clickedCol][clickedRow] - 1;
             if(gp.tileM.tile[tileNum].collision) {
                 pressed = false;
             }else {
