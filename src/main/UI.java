@@ -36,7 +36,7 @@ public class UI {
     BufferedImage dialogueUI;
     BufferedImage newspaper;
     BufferedImage[] xpTupe = new BufferedImage[23];
-
+    Entity en;
     public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
 
     public int healthBar;
@@ -71,7 +71,7 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-
+        en = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
 
         coinImage = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
@@ -87,7 +87,7 @@ public class UI {
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
         inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
         inventory = gp.uTool.setup("/UI/inventory", 172, 492);
-        dialogueUI = gp.uTool.setup("/UI/dialogueUI", 700, 600);
+        dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 500);
         newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
 
         for (int i = 0; i < hpBarImages.length; i++) {
@@ -362,12 +362,12 @@ public class UI {
     public void drawDialogueScreen() {
 
         // WINDOW
-        /* 
-        int x = gp.tileSize * 2;
-        int y = gp.tileSize / 2;
-        */
-        int x = gp.screenWidth/2 - dialogueUI.getWidth()/2;
-        int y = gp.screenHeight/2 - dialogueUI.getHeight()/2;
+        /*
+         * int x = gp.tileSize * 2;
+         * int y = gp.tileSize / 2;
+         */
+        int x = gp.screenWidth / 2 - dialogueUI.getWidth() / 2;
+        int y = gp.screenHeight / 2 - dialogueUI.getHeight() / 2;
         /*
          * int width = gp.screenHeight - (gp.tileSize * 4);
          * int height = gp.tileSize * 5;
@@ -375,19 +375,37 @@ public class UI {
          */
 
         g2.drawImage(dialogueUI, null, x, y);
-        //g2.drawImage(newspaper,null,0,0);
-        JTextField tf = new JTextField("Merhaba Koyumuze hosgeldin",4);
+        // g2.drawImage(newspaper,null,0,0);
         
+        drawStory(x, y);
 
         
-        /* 
+          
+         
+    }
+
+    public void drawStory(int x, int y) {
         Color c2 = new Color(255, 255, 255);
         g2.setColor(c2);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
         x += gp.tileSize;
-        y += gp.tileSize;
-        g2.drawString("currentDialogue", x, y);
-        */
+        y += gp.tileSize*2;
+
+        for(String line : en.dialogues[0].split("\n")) {
+            g2.drawString(line, x, y);
+            y += 40;
+        }
+
+
+
+
+          /*
+          for(int i=0;i<7;i++) {
+            g2.drawString(en.dialogues[i], x, y);
+            y += gp.tileSize;
+          }
+          */
+
     }
 
     // INVENTORY METHOD

@@ -5,10 +5,10 @@ import java.util.Random;
 import entity.Entity;
 import main.GamePanel;
 
-public class Npc_Blacksmith extends Entity{
+public class Npc_Blacksmith extends Entity {
 
     GamePanel gp;
-    
+
     public Npc_Blacksmith(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -21,7 +21,7 @@ public class Npc_Blacksmith extends Entity{
         name = "Guard";
 
         getNpcImage();
-
+        setDialogue();
     }
 
     public void getNpcImage() {
@@ -43,56 +43,66 @@ public class Npc_Blacksmith extends Entity{
     }
 
     public void setAction() {
-        
+
         if (onPath) {
-            
+
             solidArea.x = 0;
             solidArea.y = 0;
             solidArea.width = 48;
-            solidArea.height = 47; 
-            
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+            solidArea.height = 47;
+
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX +
+                                                                                    // gp.player.solidArea.x
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY +
+                                                                                    // gp.player.solidArea.y
 
             searchPath(goalCol, goalRow);
         } else {
             /*
-                         npcActionCounter++;
-    
-            if (npcActionCounter == 120) {
-                Random random = new Random();
-                int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
-    
-                if (i <= 25) {
-                    direction = "up";
-                }
-                if (i > 25 && i <= 50) {
-                    direction = "down";
-                }
-                if (i > 50 & i <= 75) {
-                    direction = "left";
-                }
-                if (i > 75 && i <= 100) {
-                    direction = "right";
-                }
-    
-                npcActionCounter = 0;
-    
-            }
+             * npcActionCounter++;
+             * 
+             * if (npcActionCounter == 120) {
+             * Random random = new Random();
+             * int i = random.nextInt(100) + 1; // pick up a number from 1 to 100
+             * 
+             * if (i <= 25) {
+             * direction = "up";
+             * }
+             * if (i > 25 && i <= 50) {
+             * direction = "down";
+             * }
+             * if (i > 50 & i <= 75) {
+             * direction = "left";
+             * }
+             * if (i > 75 && i <= 100) {
+             * direction = "right";
+             * }
+             * 
+             * npcActionCounter = 0;
+             * 
+             * }
              */
         }
 
     }
 
-    public void setDialogue(){
+    public void setDialogue() {
 
-        dialogues[0] = "Hello";
+        dialogues[0] = "Helloorem Ipsum \n is simply \n dummy text of the printing\n and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the";
         dialogues[1] = "welcome";
         dialogues[2] = "wizard";
         dialogues[3] = "sword";
+        dialogues[4] = "Hello";
+        dialogues[5] = "welcome";
+        dialogues[6] = "wizard";
+        dialogues[7] = "sword";
+        dialogues[8] = "Hello";
+        dialogues[9] = "welcome";
+        dialogues[10] = "wizard";
+        dialogues[11] = "sword";
     }
 
-    public void speak(){
+    public void speak() {
         gp.ui.currentDialogue = dialogues[0];
     }
 
