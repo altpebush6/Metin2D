@@ -2,16 +2,25 @@ package npc;
 
 import java.util.Random;
 
+
+
 import entity.Entity;
+import entity.Player;
 import main.GamePanel;
+import main.KeyHandler;
+import main.MouseHandler;
 
 public class Npc_Blacksmith extends Entity {
 
     GamePanel gp;
+    Player p1;
 
     public Npc_Blacksmith(GamePanel gp) {
         super(gp);
         this.gp = gp;
+        KeyHandler keyH = new KeyHandler(gp);
+        MouseHandler mouseH = new MouseHandler(gp);
+        p1 = new Player(gp,keyH,mouseH);
 
         direction = "down";
         speed = 1;
@@ -88,7 +97,7 @@ public class Npc_Blacksmith extends Entity {
 
     public void setDialogue() {
 
-        dialogues[0] = "Helloorem Ipsum \n is simply \n dummy text of the printing\n and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the";
+        dialogues[0] = "Merhaba, "+ p1.name+"\nGeleceğini Fuat Bey'den duyduğumdan beri\ngözüm yollarda. Senin gibi yağız ve gürbüz\nbir delikanlıyı aramızda görmekten\nmemnuniyet duyarım. Köyümüzün senin gibi\nbir nefere ihtiyacı vardı. İlk olarak\nteşkilatımızı tanımanı istiyorum. Şu\nparayı al ve Silah satıcısı Ruhsar Bey\nile alışveriş yaparak tanış.\nSonra bana geri dön.";
         dialogues[1] = "welcome";
         dialogues[2] = "wizard";
         dialogues[3] = "sword";

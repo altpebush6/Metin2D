@@ -57,6 +57,7 @@ public class Entity {
     public double sp;
     public int actionLockCounter = 0;
     public int level = 1;
+    public static int taskLevel;
     // Item
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 45;

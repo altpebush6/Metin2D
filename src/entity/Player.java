@@ -74,7 +74,7 @@ public class Player extends Entity {
         this.mouseH = mouseH;
 
         type = playerType;
-        name = "xKralTr";
+        name = "Damus";
 
         currentWeapon = new OBJ_Dolunay(gp);
 
@@ -123,7 +123,7 @@ public class Player extends Entity {
         playerCoin = 0;
         playerWeapon = "";
         attackPower = 5;
-
+        taskLevel = 0;
         playerXP = 0;
 
     }
@@ -694,8 +694,13 @@ public class Player extends Entity {
         onPath = false;
 
         if (i != -1) {
-            gp.gameState = gp.dialogueState;
-            gp.npc[0].speak();
+            if(i==0){
+                gp.gameState = gp.dialogueState;
+                gp.npc[0].speak();
+            } else if(i == 1) {
+                gp.gameState = gp.tradeState;
+            }
+            
         }
     }
 
@@ -840,7 +845,7 @@ public class Player extends Entity {
             }
         }
     }
-    
+
     public void knockBack(Entity entity) {
         entity.direction = direction;
         entity.speed += 5;

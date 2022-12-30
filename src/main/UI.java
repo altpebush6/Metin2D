@@ -24,6 +24,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
+    Entity e1;
     Font arial_30, damageFont;
     BufferedImage coinImage, dolunayImage, emptyBarImage, cursorImage;
     BufferedImage[] hpBarImages = new BufferedImage[8];
@@ -56,6 +57,8 @@ public class UI {
 
     public int slotCol = 0;
     public int slotRow = 0;
+    public int npcSlotCol = 0;
+    public int npcSlotRow = 0;
     public int cursorIndex = 0;
     public int commandNum = 0;
 
@@ -72,6 +75,7 @@ public class UI {
     public UI(GamePanel gp) {
         this.gp = gp;
         en = new Entity(gp);
+        e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
 
         coinImage = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
@@ -195,12 +199,13 @@ public class UI {
         if (gp.gameState == gp.inventoryState) {
             drawBottomBar(g2);
 
-            drawInventory();
+            drawInventory(true);
         }
 
         // TRADE STATE
         if (gp.gameState == gp.tradeState) {
             drawTradeScreen();
+            drawInventory(false);
         }
 
         // OPTIONS STATE
@@ -387,13 +392,13 @@ public class UI {
     public void drawStory(int x, int y) {
         Color c2 = new Color(255, 255, 255);
         g2.setColor(c2);
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
         x += gp.tileSize;
-        y += gp.tileSize*2;
-
-        for(String line : en.dialogues[0].split("\n")) {
+        y += gp.tileSize+10;
+        int index = e1.taskLevel;
+        for(String line : en.dialogues[index].split("\n")) {
             g2.drawString(line, x, y);
-            y += 40;
+            y += 35;
         }
 
 
@@ -409,7 +414,7 @@ public class UI {
     }
 
     // INVENTORY METHOD
-    public void drawInventory() {
+    public void drawInventory(boolean cursorState) {
 
         // FRAME
         int inventoryX = gp.screenWidth - 258;
@@ -459,10 +464,15 @@ public class UI {
         // System.out.println("cursor2: "+ cursorIndex2);
 
         // DRAW CURSOR
-        g2.setStroke(new java.awt.BasicStroke(2));
-        g2.setColor(Color.white);
-        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
-        g2.setStroke(new java.awt.BasicStroke(1));
+        if(cursorState) {
+            g2.setStroke(new java.awt.BasicStroke(2));
+            g2.setColor(Color.white);
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            g2.setStroke(new java.awt.BasicStroke(1));
+        } else {
+
+        }
+        
 
     }
 
@@ -480,28 +490,29 @@ public class UI {
 
     // DRAW TRADE SCREEN
     public void drawTradeScreen() {
-        switch (subState) {
-            case 0:
-                trade_select();
-                break;
-            case 1:
-                trade_buy();
-                break;
-            case 2:
-                trade_sell();
-                break;
-        }
+        int frameX = 100;
+        int frameY = 100;
+        int frameWidth = gp.tileSize*6;
+        int frameHeight = gp.tileSize*5;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        // SLOT
+        final int npcSlotXstart = frameX + 20;
+        final int npcSlotYstart = frameY + 20;
+        int npcSlotX = npcSlotXstart;
+        int npcSlotY = npcSlotYstart;
+
+        // CURSOR
+        int npcCursorX = npcSlotXstart + (gp.tileSize* npcSlotCol);
+        int npcCursorY = npcSlotYstart + (gp.tileSize * npcSlotRow);
+        int npcCursorWidth = gp.tileSize;
+        int npcCursorHeight = gp.tileSize;
+        // DRAW CURSOR
+        g2.setColor(Color.white);
+        g2.drawRoundRect(npcCursorX, npcCursorY, npcCursorWidth, npcCursorHeight, 10, 10);
     }
 
-    public void trade_select() {
-    }
-
-    public void trade_buy() {
-    }
-
-    public void trade_sell() {
-    }
-
+    
     // DEAD MENU
     public void respawnButtons(Graphics2D g2) {
         String respawnHere = "    Restart Here";
