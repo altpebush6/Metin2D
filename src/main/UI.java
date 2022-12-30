@@ -324,11 +324,21 @@ public class UI {
                 commandNum = 0;
             }
         }
+        //SAVE
+        textY += gp.tileSize;
+        g2.drawString("Save", textX, textY);
+        if (commandNum == 5) {
+            g2.drawString((">"), textX - 25, textY);
+            if (gp.keyH.enterPressed == true) {
+                subState = 4;
+                commandNum = 0;
+            }
+        }
 
         // BACK
         textY += gp.tileSize * 2;
         g2.drawString("Back", textX, textY);
-        if (commandNum == 5) {
+        if (commandNum == 6) {
             g2.drawString((">"), textX - 25, textY);
             if (gp.keyH.enterPressed == true) {
                 gp.gameState = gp.playState;

@@ -280,7 +280,7 @@ public class KeyHandler implements KeyListener {
 		int maxCommandNum = 0;
 		switch (gp.ui.subState) {
 			case 0:
-				maxCommandNum = 5;
+				maxCommandNum = 6;
 				break;
 			case 3:
 				maxCommandNum = 1;
@@ -333,7 +333,12 @@ public class KeyHandler implements KeyListener {
 		    }
 		    
 		}
+		if(gp.ui.commandNum == 5) {
+            if(enterPressed == true) {
+                gp.saveLoad.save();
+                gp.ui.showMessage("Saving...");
+            }
 
 	}
-
+	}
 }
