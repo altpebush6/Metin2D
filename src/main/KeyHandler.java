@@ -10,7 +10,6 @@ public class KeyHandler implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean quotePressed, openDebug;
 	public boolean spacePressed, enterPressed;
-	public boolean isSaveButtonPressod;
 
 	GamePanel gp;
 	Player p11;
@@ -281,7 +280,7 @@ public class KeyHandler implements KeyListener {
 		int maxCommandNum = 0;
 		switch (gp.ui.subState) {
 			case 0:
-				maxCommandNum = 6;
+				maxCommandNum = 5;
 				break;
 			case 3:
 				maxCommandNum = 1;
@@ -327,6 +326,12 @@ public class KeyHandler implements KeyListener {
 					gp.playSE(9);
 				}
 			}
+		}
+		if(gp.ui.commandNum == 4) {
+		    if(enterPressed == true) {
+		        System.exit(0);
+		    }
+		    
 		}
 
 	}

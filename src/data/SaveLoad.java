@@ -25,8 +25,6 @@ public class SaveLoad {
             DataStorage ds = new DataStorage();
             
             ds.level = gp.player.level;
-            ds.maxLife = gp.player.maxLife;
-            ds.life = gp.player.life;
             ds.attackPower = gp.player.attackPower;
             ds.playerCoin = gp.player.playerCoin;
             ds.playerWeapon = gp.player.playerWeapon;
@@ -50,8 +48,6 @@ public class SaveLoad {
             DataStorage ds = (DataStorage)ois.readObject();
             
             gp.player.level = ds.level;
-            gp.player.maxLife = ds.maxLife;
-            gp.player.life = ds.life;
             gp.player.attackPower = ds.attackPower;
             gp.player.playerCoin = ds.playerCoin;
             gp.player.playerWeapon = ds.playerWeapon;
