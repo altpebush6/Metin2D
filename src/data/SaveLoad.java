@@ -30,11 +30,11 @@ public class SaveLoad {
             ds.playerWeapon = gp.player.playerWeapon;
             ds.playerXP = gp.player.playerXP;
             
-            //PLAYER INVENTORY
-            /*for(int i = 0; i < gp.player.inventory.size();i++) {
+           // PLAYER INVENTORY
+            for(int i = 0; i < gp.player.inventory.size();i++) {
                 ds.itemNames.add(gp.player.inventory.get(i).name);
-                ds.itemAmounts.add(gp.player.inventory.get(i).)
-            }*/
+               // ds.itemAmounts.add(gp.player.inventory.get(i).amount);
+            }
             
             
             //Write the DataStorage Object

@@ -330,7 +330,8 @@ public class UI {
         if (commandNum == 5) {
             g2.drawString((">"), textX - 25, textY);
             if (gp.keyH.enterPressed == true) {
-                subState = 4;
+                //g2.drawString(("Saving..."), textX + 25, textY);
+                //subState = 4;
                 commandNum = 0;
             }
         }
@@ -345,20 +346,7 @@ public class UI {
                 commandNum = 0;
             }
         }
-        //SAVE
-       /* textY += gp.tileSize * 0.5;
-        g2.drawString("Save", textX, textY);
-        if (commandNum == 6) {
-            g2.drawString((">"), textX - 25, textY);
-            if (gp.keyH.enterPressed == true) {           
-                subState = 4;                
-                commandNum = 0;
-                text = "SAVED";
-                textX = getXForCenteredText(g2, text);
-                textY += gp.tileSize * 3;
-                g2.drawString(text, textX, textY);               
-            }
-        }*/
+        
 
         // FULL SCREEN CHECK BOX
         textX = frameX + gp.tileSize * 6;
@@ -850,6 +838,7 @@ public class UI {
             g2.drawString(">", textX - 25, textY);
             if (gp.keyH.enterPressed == true) {
                 subState = 0;
+                commandNum = 3;
             }
         }
 
@@ -860,7 +849,7 @@ public class UI {
         int textX = frameX + gp.tileSize - 32;
         int textY = frameY + gp.tileSize * 3;
         g2.setColor(Color.white);
-        currentDialogue = "Quit the game and \nreturn to the title\nscreen?";
+        currentDialogue = "Are you sure\nyou want to\nexit the game?";
 
         for (String line : currentDialogue.split("\n")) {
             g2.drawString(line, textX, textY);
@@ -876,8 +865,7 @@ public class UI {
             g2.drawString(">", textX - 25, textY);
             if (gp.keyH.enterPressed == true) {
                 subState = 0;
-                // ANA EKRAN GEREKİYOR
-                // gp.gameState = gp.titleS
+                System.exit(0);
             }
         }
         // NO
@@ -890,7 +878,6 @@ public class UI {
             if (gp.keyH.enterPressed == true) {
                 subState = 0;
                 commandNum = 4;
-                // ANA EKRAN GEREKİYOR
             }
         }
 

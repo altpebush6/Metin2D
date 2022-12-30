@@ -327,12 +327,9 @@ public class KeyHandler implements KeyListener {
 				}
 			}
 		}
-		if(gp.ui.commandNum == 4) {
-		    if(enterPressed == true) {
-		        System.exit(0);
-		    }
+		
 		    
-		}
+		
 		if(gp.ui.commandNum == 5) {
             if(enterPressed == true) {
                 gp.saveLoad.save();
