@@ -93,7 +93,9 @@ public class KeyHandler implements KeyListener {
 				gp.gameState = gp.optionsState;
 			}
 			if (code == KeyEvent.VK_9) {
-			    gp.gameState = gp.saveState;
+			    gp.saveLoad.save();
+			    gp.ui.showMessage("Saving...");
+			    
 			}
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
@@ -155,9 +157,6 @@ public class KeyHandler implements KeyListener {
 
 		} else if (gp.gameState == gp.optionsState) { // OPTIONS STATE
 			optionsState(code);
-		}
-		else if(gp.gameState == gp.saveState) {
-		    gp.saveLoad.save();
 		}
 
 		if (code == KeyEvent.VK_P) {

@@ -218,9 +218,6 @@ public class UI {
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
         }
-        if(gp.gameState == gp.saveState) {
-            drawSaveScreen();
-        }
 
     }
 

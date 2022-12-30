@@ -91,7 +91,6 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int optionsState = 5;
 	public final int deadState = 6;
 	public final int tradeState = 7;
-	public final int saveState = 8;
 	
 	public boolean gameLoad = false;
 	
@@ -118,7 +117,10 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.defaultStaff();
 		aSetter.defaultHeykel();
 
-		playMusic(0);
+		if(gameLoad) {
+		    playMusic(0);
+		}
+		
 		aSetter.setNpc();
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
