@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public boolean fullScreenOn = false;
 
 	// FPS
-	final int FPS = 60;
+	public int FPS = 500;
 
 	// SYSTEM
 	KeyHandler keyH = new KeyHandler(this);
@@ -80,13 +80,16 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// GAME STATE
 	public int gameState;
+	public final int loadingState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
 	public final int dialogueState = 3;
 	public final int inventoryState = 4;
 	public final int optionsState = 5;
 	public final int deadState = 6;
-	public final int tradeState =7;
+	public final int tradeState = 7;
+	
+	public boolean gameLoad = false;
 	
 
 	public GamePanel() {
@@ -118,9 +121,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 		setFullScreen();
 
-		gameState = playState;
+		gameState = loadingState;
 
-		
+		tileM.loadScreen(g2);
 	}
 
 	public void reborn(boolean rebornInCenter) {
@@ -238,6 +241,12 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
+	    
+	    
+	    
+	    if(gameLoad == false) {
+	        tileM.getTileImage(g2);
+	    }
 
 		if (gameState == playState) {
 			aSetter.setEnemy();
@@ -304,6 +313,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void drawToTempScreen() {
 
+	    if(gameState != loadingState) {
 		
 		// DEBUG
 		long startTime = 0;
@@ -372,6 +382,7 @@ public class GamePanel extends JPanel implements Runnable {
 			long diff = endTime - startTime;
 			g2.drawString("Drawing Time: " + (diff * 1.0 / 1000000000), 10, 300);
 		}
+	    }
 		
 	}
 

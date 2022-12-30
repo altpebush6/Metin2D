@@ -78,7 +78,7 @@ public class UI {
         en = new Entity(gp);
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
-
+        
         coinImage = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", gp.tileSize * 6, gp.tileSize * 10);
@@ -130,6 +130,7 @@ public class UI {
 
         this.g2 = g2;
 
+        
         // PLAY STATE
         if (gp.gameState == gp.playState) {
 

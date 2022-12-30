@@ -4,6 +4,7 @@ import main.UtilityTool;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +16,11 @@ import javax.imageio.ImageIO;
 public class TileManager {
 	
 	GamePanel gp;
+	BufferedImage loadingScreen, loadingScreen2;
 	public Tile tile[];
 	public int mapTileNum[][];
 	boolean drawPath = false;
+	public int i = 0;
 	
 	public TileManager(GamePanel gp) {
 		
@@ -26,26 +29,45 @@ public class TileManager {
 		tile = new Tile[2500];
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
-		getTileImage();
+		
 		loadMap("/maps/newMap.txt");
 		
+		loadingScreen = setup("/loadingScreen/loading1", gp.screenWidth, gp.screenHeight);
+		loadingScreen2 = setup("/loadingScreen/loadingBar", 148, 13);
+        
 	}
 	
-	public void getTileImage() {
+	public void loadScreen(Graphics2D g2) {
+	    g2.drawImage(loadingScreen, null, 0 ,0); 
+	}
+	
+	public void getTileImage(Graphics2D g2) {
 	    String prefix = "";
-	    for(int i = 0; i < 2500; i++) {
 	        
-	        if(i < 9) {
-	            prefix = "00";
-	        }else if(i < 99) {
-	            prefix = "0";
-	        }else {
-	            prefix = "";
-	        }
-	        
-	        System.out.println("tile_"+prefix+ Integer.toString(i+1));
-	        setup(i, "tile_"+prefix+ Integer.toString(i+1), false);
+	    if(i % 17 == 0 && i / 7 < 305) {
+	        g2.drawImage(loadingScreen2, 620, 758, i / 7, 13, null); 
 	    }
+	       
+	    
+        if(i < 9) {
+            prefix = "00";
+        }else if(i < 99) {
+            prefix = "0";
+        }else {
+            prefix = "";
+        }
+        
+        System.out.println("tile_"+prefix+ Integer.toString(i+1));
+        setup(i, "tile_"+prefix+ Integer.toString(i+1), false);
+    
+        i++;
+	        
+        if(i == 2500) {
+            gp.gameLoad = true;
+            gp.gameState = gp.playState;
+            gp.FPS = 60;
+        }
+	    
 	}
 	
 	public void setup(int index, String imageName, boolean collision) {
@@ -162,4 +184,20 @@ public class TileManager {
 		    }
 		}
 	}
+	
+    public BufferedImage setup(String imagePath, int width, int height) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image, width, height);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+    }
 }
