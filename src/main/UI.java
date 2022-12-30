@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import npc.Npc_Merchant;
 import entity.Entity;
 
 public class UI {
@@ -61,6 +61,7 @@ public class UI {
     public int npcSlotRow = 0;
     public int cursorIndex = 0;
     public int commandNum = 0;
+    public static int cursorNpcIndex = 0;
 
     public int subState = 0;
 
@@ -507,11 +508,29 @@ public class UI {
         int npcCursorY = npcSlotYstart + (gp.tileSize * npcSlotRow);
         int npcCursorWidth = gp.tileSize;
         int npcCursorHeight = gp.tileSize;
+        cursorNpcIndex = (npcSlotRow * 5) + npcSlotCol;
         // DRAW CURSOR
         g2.setColor(Color.white);
         g2.drawRoundRect(npcCursorX, npcCursorY, npcCursorWidth, npcCursorHeight, 10, 10);
+
+        for (int i = 0; i < Npc_Merchant.npcInventory.size(); i++) {
+            g2.drawImage(Npc_Merchant.npcInventory.get(i).down1, npcSlotX, npcSlotY, gp.tileSize, gp.tileSize, null);
+            npcSlotX += gp.tileSize;
+
+        }
     }
 
+    public boolean controlNpcCursor() {
+        if (Npc_Merchant.npcInventory.size() > cursorNpcIndex) {
+            if (Npc_Merchant.npcInventory.get(cursorNpcIndex) != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
     
     // DEAD MENU
     public void respawnButtons(Graphics2D g2) {

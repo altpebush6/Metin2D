@@ -2,6 +2,8 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import entity.Player;
+import npc.Npc_Merchant;
 
 public class KeyHandler implements KeyListener {
 
@@ -10,9 +12,14 @@ public class KeyHandler implements KeyListener {
 	public boolean spacePressed, enterPressed;
 
 	GamePanel gp;
+	Player p11;
 
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
+		/*
+		 * MouseHandler mouseH1 = new MouseHandler(gp);
+		 * p11 = new Player(gp,this,mouseH1);
+		 */
 	}
 
 	@Override
@@ -124,6 +131,22 @@ public class KeyHandler implements KeyListener {
 				} else {
 					gp.ui.npcSlotCol++;
 				}
+			}
+
+			// BUY SYSTEM
+			if (code == KeyEvent.VK_B) {
+
+				if (gp.ui.controlNpcCursor() == true) {
+					/*
+					 * if(p11.playerCoin > 100) {
+					 * //p11.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+					 * }
+					 */
+					System.out.println("filled the slot");
+				} else {
+					System.out.println("not filled");
+				}
+
 			}
 
 		} else if (gp.gameState == gp.optionsState) { // OPTIONS STATE

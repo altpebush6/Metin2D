@@ -59,7 +59,7 @@ public class Entity {
     public int level = 1;
     public static int taskLevel;
     // Item
-    public ArrayList<Entity> inventory = new ArrayList<>();
+    public static ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 45;
 
     // Images

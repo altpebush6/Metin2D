@@ -1,13 +1,17 @@
 package npc;
 
+import java.util.ArrayList;
+
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Dolunay;
 import object.OBJ_EcelGetiren;
 import object.OBJ_Staff;
 
 public class Npc_Merchant extends Entity {
     
     GamePanel gp;
+    public static ArrayList<Entity> npcInventory = new ArrayList<>();
 
     public Npc_Merchant(GamePanel gp) {
         super(gp);
@@ -21,7 +25,7 @@ public class Npc_Merchant extends Entity {
         name = "Merchant";
 
         getNpcImage();
-
+        setItems();
     }
 
     public void getNpcImage() {
@@ -32,8 +36,9 @@ public class Npc_Merchant extends Entity {
 
     public void setItems() {
 
-        inventory.add(new OBJ_EcelGetiren(gp));
-        inventory.add(new OBJ_Staff(gp));
+        npcInventory.add(new OBJ_EcelGetiren(gp));
+        npcInventory.add(new OBJ_Staff(gp));
+        npcInventory.add(new OBJ_Dolunay(gp));
 
     }
 
