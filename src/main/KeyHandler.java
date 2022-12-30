@@ -10,6 +10,7 @@ public class KeyHandler implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean quotePressed, openDebug;
 	public boolean spacePressed, enterPressed;
+	public boolean isSaveButtonPressod;
 
 	GamePanel gp;
 	Player p11;
@@ -91,6 +92,9 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_ESCAPE) {
 				gp.gameState = gp.optionsState;
 			}
+			if (code == KeyEvent.VK_9) {
+			    gp.gameState = gp.saveState;
+			}
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
 			if (code == KeyEvent.VK_ENTER) {
@@ -150,17 +154,10 @@ public class KeyHandler implements KeyListener {
 			}
 
 		} else if (gp.gameState == gp.optionsState) { // OPTIONS STATE
-
-			/*
-			 * if (code == KeyEvent.VK_ESCAPE) {
-			 * gp.gameState = gp.playState;
-			 * }
-			 * if (code == KeyEvent.VK_ENTER) {
-			 * // YAPILACAK
-			 * }
-			 */
-
 			optionsState(code);
+		}
+		else if(gp.gameState == gp.saveState) {
+		    gp.saveLoad.save();
 		}
 
 		if (code == KeyEvent.VK_P) {
@@ -285,7 +282,7 @@ public class KeyHandler implements KeyListener {
 		int maxCommandNum = 0;
 		switch (gp.ui.subState) {
 			case 0:
-				maxCommandNum = 5;
+				maxCommandNum = 6;
 				break;
 			case 3:
 				maxCommandNum = 1;

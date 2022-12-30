@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import data.SaveLoad;
 import npc.Npc_Merchant;
 import entity.Entity;
 
@@ -72,6 +74,8 @@ public class UI {
 
     public int btnHover = 0;
     public int respawnBtnWidth, respawnBtnHeight;
+    //save
+    SaveLoad saveLoad = new SaveLoad(gp);
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -214,6 +218,9 @@ public class UI {
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
         }
+        if(gp.gameState == gp.saveState) {
+            drawSaveScreen();
+        }
 
     }
 
@@ -243,7 +250,9 @@ public class UI {
             case 3:
                 options_endGameConfirmation(frameX, frameY);
                 break;
-
+            case 4:
+                gp.saveLoad.save();
+                break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -329,6 +338,20 @@ public class UI {
                 commandNum = 0;
             }
         }
+        //SAVE
+       /* textY += gp.tileSize * 0.5;
+        g2.drawString("Save", textX, textY);
+        if (commandNum == 6) {
+            g2.drawString((">"), textX - 25, textY);
+            if (gp.keyH.enterPressed == true) {           
+                subState = 4;                
+                commandNum = 0;
+                text = "SAVED";
+                textX = getXForCenteredText(g2, text);
+                textY += gp.tileSize * 3;
+                g2.drawString(text, textX, textY);               
+            }
+        }*/
 
         // FULL SCREEN CHECK BOX
         textX = frameX + gp.tileSize * 6;
@@ -362,6 +385,17 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(20F));
         g2.setColor(Color.white);
 
+        g2.drawString(text, x, y);
+    }
+    // SAVE TRY METHOD
+    public void drawSaveScreen() {
+
+        String text = "SAVED";
+        int x = getXForCenteredText(g2, text);
+        int y = gp.screenHeight / 2;
+        // will be changed
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.setColor(Color.white);
         g2.drawString(text, x, y);
     }
 

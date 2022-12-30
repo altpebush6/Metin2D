@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ai.PathFinder;
+import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import entity.Skills;
@@ -65,8 +66,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UtilityTool uTool = new UtilityTool();
 	public PathFinder pathFinder = new PathFinder(this);
+	
 	Thread gameThread;
 	public UI ui = new UI(this);
+	SaveLoad saveLoad = new SaveLoad(this);
 
 	// ENTITY AND OBJECT
 
@@ -88,6 +91,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int optionsState = 5;
 	public final int deadState = 6;
 	public final int tradeState = 7;
+	public final int saveState = 8;
 	
 	public boolean gameLoad = false;
 	
@@ -124,6 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
 		gameState = loadingState;
 
 		tileM.loadScreen(g2);
+		saveLoad.load();
 	}
 
 	public void reborn(boolean rebornInCenter) {
