@@ -83,12 +83,12 @@ public class Player extends Entity {
 
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
-        solidArea.x = 15;
-        solidArea.y = 12;
+        solidArea.x = 25;
+        solidArea.y = 31;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 36;
-        solidArea.height = 40;
+        solidArea.width = 31;
+        solidArea.height = 49;
 
         // CHANGE THIS ACCORDING TO ATTACKING CHARACTER PIXEL ART
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -184,25 +184,25 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setup("/player/up1", 64, 64);
-        up2 = setup("/player/up2", 64, 64);
-        up3 = setup("/player/up3", 64, 64);
-        up4 = setup("/player/up4", 64, 64);
+        up1 = setup("/player/up1", 80, 80);
+        up2 = setup("/player/up2", 80, 80);
+        up3 = setup("/player/up3", 80, 80);
+        up4 = setup("/player/up4", 80, 80);
 
-        down1 = setup("/player/down1", 64, 64);
-        down2 = setup("/player/down2", 64, 64);
-        down3 = setup("/player/down3", 64, 64);
-        down4 = setup("/player/down4", 64, 64);
+        down1 = setup("/player/down1", 80, 80);
+        down2 = setup("/player/down2", 80, 80);
+        down3 = setup("/player/down3", 80, 80);
+        down4 = setup("/player/down4", 80, 80);
 
-        left1 = setup("/player/left1", 64, 64);
-        left2 = setup("/player/left2", 64, 64);
-        left3 = setup("/player/left3", 64, 64);
-        left4 = setup("/player/left4", 64, 64);
+        left1 = setup("/player/left1", 80, 80);
+        left2 = setup("/player/left2", 80, 80);
+        left3 = setup("/player/left3", 80, 80);
+        left4 = setup("/player/left4", 80, 80);
 
-        right1 = setup("/player/right1", 64, 64);
-        right2 = setup("/player/right2", 64, 64);
-        right3 = setup("/player/right3", 64, 64);
-        right4 = setup("/player/right4", 64, 64);
+        right1 = setup("/player/right1", 80, 80);
+        right2 = setup("/player/right2", 80, 80);
+        right3 = setup("/player/right3", 80, 80);
+        right4 = setup("/player/right4", 80, 80);
     }
 
     public void getPlayerAttackImage() {
@@ -436,12 +436,13 @@ public class Player extends Entity {
         tempScreenY = screenY;
 
         // Player Label
-        g2.setFont(new Font("Courier New", Font.PLAIN, 11));
+        g2.setFont(new Font("Courier New", Font.PLAIN, 12));
+        
         g2.setColor(Color.green);
-        g2.drawString("Lv " + level, screenX - 25, screenY - 10);
+        g2.drawString("Lv " + level, screenX, screenY - 10);
 
         g2.setColor(Color.yellow);
-        g2.drawString(name, screenX + 20, screenY - 10);
+        g2.drawString(name, screenX + 40, screenY - 10);
 
         if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.swordSpinType) {
             gp.skills.drawSwordSpin();

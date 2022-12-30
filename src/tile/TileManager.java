@@ -21,6 +21,8 @@ public class TileManager {
 	public int mapTileNum[][];
 	boolean drawPath = false;
 	public int i = 0;
+	public boolean collisionControl = false;
+	public int[] collisionTiles = {325,326,374,377,424,427,472,473,478,479,523,528,573,578,621,622,629,630,672,679,722,729,772,779,809,810,822,823,824,825,826,827,828,829,840,841,842,858,861,890,892,908,911,940,942,958,961,989,993,1008,1011,1039,1042,1058,1059,1060,1061};
 	
 	public TileManager(GamePanel gp) {
 		
@@ -57,8 +59,21 @@ public class TileManager {
             prefix = "";
         }
         
-        System.out.println("tile_"+prefix+ Integer.toString(i+1));
-        setup(i, "tile_"+prefix+ Integer.toString(i+1), false);
+        collisionControl = false;
+        for(int j = 0; j < collisionTiles.length; j++) {
+            if(collisionTiles[j] == i) {
+                collisionControl = true;
+            }
+        }
+        
+        if(collisionControl) {
+            setup(i, "tile_" + prefix + Integer.toString(i + 1), true);
+        }else {
+            setup(i, "tile_" + prefix + Integer.toString(i + 1), false);
+        }
+        
+        System.out.println("tile_" + prefix + Integer.toString(i + 1));
+
     
         i++;
 	        
