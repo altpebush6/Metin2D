@@ -63,7 +63,7 @@ public class Entity {
     public final int maxInventorySize = 45;
 
     // Images
-    public BufferedImage up1, up2, up3, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, right5;
+    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, right5;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage auraSwordUp1, auraSwordUp2, auraSwordDown1, auraSwordDown2, auraSwordLeft1, auraSwordLeft2, auraSwordRight1, auraSwordRight2;
     public BufferedImage image, deadImage;

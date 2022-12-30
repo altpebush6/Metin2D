@@ -184,26 +184,25 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setup("/player/up1", gp.tileSize, gp.tileSize);
-        up2 = setup("/player/up2", gp.tileSize, gp.tileSize);
-        up3 = setup("/player/up2", gp.tileSize, gp.tileSize);
+        up1 = setup("/player/up1", 64, 64);
+        up2 = setup("/player/up2", 64, 64);
+        up3 = setup("/player/up3", 64, 64);
+        up4 = setup("/player/up4", 64, 64);
 
-        down1 = setup("/player/down1", gp.tileSize, gp.tileSize);
-        down2 = setup("/player/down2", gp.tileSize, gp.tileSize);
-        down3 = setup("/player/down3", gp.tileSize, gp.tileSize);
-        down4 = setup("/player/down4", gp.tileSize, gp.tileSize);
+        down1 = setup("/player/down1", 64, 64);
+        down2 = setup("/player/down2", 64, 64);
+        down3 = setup("/player/down3", 64, 64);
+        down4 = setup("/player/down4", 64, 64);
 
         left1 = setup("/player/left1", 64, 64);
         left2 = setup("/player/left2", 64, 64);
         left3 = setup("/player/left3", 64, 64);
         left4 = setup("/player/left4", 64, 64);
-        left5 = setup("/player/left5", 64, 64);
 
         right1 = setup("/player/right1", 64, 64);
         right2 = setup("/player/right2", 64, 64);
         right3 = setup("/player/right3", 64, 64);
         right4 = setup("/player/right4", 64, 64);
-        right5 = setup("/player/right5", 64, 64);
     }
 
     public void getPlayerAttackImage() {
@@ -472,6 +471,10 @@ public class Player extends Entity {
                             image = up1;
                         if (spriteNum == 2)
                             image = up2;
+                        if (spriteNum == 3)
+                            image = up3;
+                        if (spriteNum == 4)
+                            image = up4;
                     }
 
                     break;
@@ -526,8 +529,6 @@ public class Player extends Entity {
                             image = left3;
                         if (spriteNum == 4)
                             image = left4;
-                        if (spriteNum == 5)
-                            image = left5;
                     }
 
                     break;
@@ -553,8 +554,6 @@ public class Player extends Entity {
                             image = right3;
                         if (spriteNum == 4)
                             image = right4;
-                        if (spriteNum == 5)
-                            image = right5;
                     }
                     break;
             }
@@ -901,7 +900,7 @@ public class Player extends Entity {
         if (!gp.skills.skillUsed && !attacking) {
             spriteCounter++;
             if (spriteCounter > 2) {
-                if (spriteNum == 5) {
+                if (spriteNum == 4) {
                     spriteNum = 1;
                 } else {
                     spriteNum++;
