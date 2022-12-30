@@ -94,6 +94,10 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	public boolean gameLoad = false;
 	
+	
+	public boolean endGame = false, exit = false;
+	public int endGameCounter = 0, endGameTime = 180;
+	
 
 	public GamePanel() {
 	    
@@ -249,7 +253,22 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 	    
+	    if(endGame) {
+	            
+	        if(endGameCounter % 60 == 0) {
+	            ui.addMessage("The game closes in " + (Math.abs(endGameTime - endGameCounter) / 60)  + " seconds.");
+	        }
+	        
+	        endGameCounter++;
+	        
+	        if(endGameCounter == endGameTime) {
+	            exit = true;
+	        }
+	    }
 	    
+	    if(exit) {
+	        System.exit(0);
+	    }
 	    
 	    if(gameLoad == false) {
 	        tileM.getTileImage(g2);

@@ -51,8 +51,12 @@ public class UI {
     public ArrayList<Damages> damages = new ArrayList<>();
 
     public boolean messageOn = false;
+    /*
     public String message = "";
     int messageCounter = 0;
+    */
+    public ArrayList<String> message = new ArrayList<>();
+    public ArrayList<Integer> messageCounter = new ArrayList<>();
     public int itemIndex;
 
     public String currentDialogue = " ";
@@ -124,12 +128,6 @@ public class UI {
 
     }
 
-    public void showMessage(String text) {
-
-        message = text;
-        messageOn = true;
-    }
-
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
@@ -160,7 +158,7 @@ public class UI {
             g2.setColor(Color.white);
 
             // Message
-            messages(g2);
+            drawMessage(g2);
 
             // Coin
             g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize / 2, null);
@@ -184,7 +182,7 @@ public class UI {
             g2.setColor(Color.white);
 
             // Message
-            messages(g2);
+            drawMessage(g2);
 
             // Re-spawn Button
             respawnButtons(g2);
@@ -333,6 +331,7 @@ public class UI {
                 //g2.drawString(("Saving..."), textX + 25, textY);
                 //subState = 4;
                 commandNum = 0;
+                gp.gameState = gp.playState;
             }
         }
 
@@ -756,10 +755,67 @@ public class UI {
     }
 
     // MESSAGES
+    
+    
+    public void addMessage(String text) {
+
+        
+        if(message.size() == 5) {
+            message.remove(0);
+        }
+        
+        message.add(text);
+        messageCounter.add(0);
+        
+    }
+    
+    public void drawMessage(Graphics2D g2) {
+        
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize * 12;
+        
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
+        
+        for(int i = 0; i < message.size(); i++) {
+            if(message.get(i) != null) {
+                g2.setColor(Color.black);
+                g2.drawString(message.get(i), messageX + 2, messageY + 2);
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+                
+                int counter = messageCounter.get(i) + 1;
+                messageCounter.set(i, counter);
+                messageY += 30;
+                
+                if(messageCounter.get(i) > 180) {
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
+        
+    }
+     
+    /*
+     public void showMessage(String text) {
+
+        message = text;
+        messageOn = true;
+    }
+    
     public void messages(Graphics2D g2) {
         if (messageOn) {
-            g2.setFont(g2.getFont().deriveFont(20F));
-            g2.drawString(message, gp.tileSize, gp.tileSize * 11);
+            
+            int messageX = gp.tileSize;
+            int messageY = gp.tileSize * 14;
+            
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
+            
+            g2.setColor(Color.black);
+            g2.drawString(message, messageX + 2, messageY + 2);
+            
+            g2.setColor(Color.white);
+            g2.drawString(message, messageX, messageY);
 
             messageCounter++;
 
@@ -769,6 +825,7 @@ public class UI {
             }
         }
     }
+    */
 
     // DAMAGE
     public void damageAnimation(Graphics2D g2, int damageIndex) {
@@ -865,7 +922,8 @@ public class UI {
             g2.drawString(">", textX - 25, textY);
             if (gp.keyH.enterPressed == true) {
                 subState = 0;
-                System.exit(0);
+                gp.endGame = true;
+                gp.gameState = gp.playState;
             }
         }
         // NO

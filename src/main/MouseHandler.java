@@ -88,7 +88,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                     gp.reborn(false);         
                 }else {
                        int timeRemaining = (respawnTime - gp.player.deadCounter) / 60 + 1;
-                       gp.ui.showMessage("Wait " + timeRemaining + "s to respawn");
+                       gp.ui.addMessage("Wait " + timeRemaining + "s to respawn");
                 }
       
                 
@@ -100,7 +100,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                     gp.reborn(true);  
                 }else {
                     int timeRemaining = (respawnTime - gp.player.deadCounter) / 60 + 1;
-                    gp.ui.showMessage("Wait " + timeRemaining + "s to respawn");
+                    gp.ui.addMessage("Wait " + timeRemaining + "s to respawn");
                 }
             }
         }

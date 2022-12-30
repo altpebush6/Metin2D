@@ -93,7 +93,7 @@ public class KeyHandler implements KeyListener {
 			}
 			if (code == KeyEvent.VK_9) {
 			    gp.saveLoad.save();
-			    gp.ui.showMessage("Saving...");
+			    gp.ui.addMessage("Saving...");
 			    
 			}
 
@@ -333,7 +333,7 @@ public class KeyHandler implements KeyListener {
 		if(gp.ui.commandNum == 5) {
             if(enterPressed == true) {
                 gp.saveLoad.save();
-                gp.ui.showMessage("Saving...");
+                gp.ui.addMessage("Saving...");
             }
 
 	}
