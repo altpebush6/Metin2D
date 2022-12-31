@@ -686,8 +686,8 @@ public class UI {
 
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 18F));
         g2.setColor(Color.white);
-        g2.drawString(start, 172, 729);
-        g2.drawString(exit, 172, 772);
+        g2.drawString(start, 174, 729);
+        g2.drawString(exit, 174, 772);
 
         g2.setColor(new Color(0, 0, 0, 0));
         g2.drawRect(startRec.x, startRec.y, startRec.width, startRec.height);
