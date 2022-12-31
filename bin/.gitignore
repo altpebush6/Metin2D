@@ -4,9 +4,8 @@
 /enemy/
 /entity/
 /main/
+/npc/
 /object/
 /wolf/
 /xpTupe/
-/npc/
-/loadingScreen/
-/player/
+/titleScreen/
