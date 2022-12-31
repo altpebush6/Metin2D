@@ -41,7 +41,7 @@ public class UI {
     BufferedImage[] xpTupe = new BufferedImage[23];
     Entity en;
     public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
-
+    public Rectangle nextPageRec = new Rectangle();
     public int healthBar;
     public int spBar;
 
@@ -78,6 +78,7 @@ public class UI {
 
     public int btnHover = 0;
     public int respawnBtnWidth, respawnBtnHeight;
+    public int nextPageBtnWidth, nextPageBtnHeight;
     //save
     SaveLoad saveLoad = new SaveLoad(gp);
 
@@ -425,10 +426,45 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
         x += gp.tileSize;
         y += gp.tileSize+10;
+        int lineCount = 0;
         int index = e1.taskLevel;
         for(String line : en.dialogues[index].split("\n")) {
             g2.drawString(line, x, y);
-            y += 35;
+            y += 30;
+            lineCount++;
+            if(lineCount >= 11){
+                /* 
+                System.out.println("yeni sayfa");
+                String nextPage = "New Page";
+                nextPageBtnWidth = gp.tileSize * 2;
+                nextPageBtnHeight = (int) (gp.tileSize * 0.65);
+
+                nextPageRec = new Rectangle(gp.tileSize / 2, gp.tileSize / 2, nextPageBtnWidth, nextPageBtnHeight);
+                //respawnCityRec = new Rectangle(gp.tileSize / 2, (int) (gp.tileSize * 1.2), respawnBtnWidth, respawnBtnHeight);
+
+                g2.drawImage(btnBg, respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height, null);
+                //g2.drawImage(btnBg, respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height, null);
+
+        if (btnHover == 1) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
+        } else if (btnHover == 2) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
+                g2.setColor(Color.white);
+            g2.drawString(respawnHere, 65, 44);
+            g2.drawString(respawnCity, 65, 76);
+
+            g2.setColor(new Color(0, 0, 0, 0));
+            g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
+            g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
+            g2.setColor(Color.white);
+         */   
+        }
+            
         }
 
 
@@ -547,6 +583,17 @@ public class UI {
             npcSlotX += gp.tileSize;
 
         }
+
+        // DESCRIPTION FRAME
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight +10 ;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gp.tileSize*3;
+        drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+        int textX = dFrameX + 20;
+        int textY = dFrameY + gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(28F));
+
     }
 
     public boolean controlNpcCursor() {

@@ -13,14 +13,11 @@ import main.MouseHandler;
 public class Npc_Blacksmith extends Entity {
 
     GamePanel gp;
-    Player p1;
+    
 
     public Npc_Blacksmith(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        KeyHandler keyH = new KeyHandler(gp);
-        MouseHandler mouseH = new MouseHandler(gp);
-        p1 = new Player(gp,keyH,mouseH);
 
         direction = "down";
         speed = 1;
@@ -97,8 +94,8 @@ public class Npc_Blacksmith extends Entity {
 
     public void setDialogue() {
 
-        dialogues[0] = "Merhaba, "+ p1.name+"\nGeleceğini Fuat Bey'den duyduğumdan beri\ngözüm yollarda. Senin gibi yağız ve gürbüz\nbir delikanlıyı aramızda görmekten\nmemnuniyet duyarım. Köyümüzün senin gibi\nbir nefere ihtiyacı vardı. İlk olarak\nteşkilatımızı tanımanı istiyorum. Şu\nparayı al ve Silah satıcısı Ruhsar Bey\nile alışveriş yaparak tanış.\nSonra bana geri dön.";
-        dialogues[1] = "welcome";
+        dialogues[0] = "Merhaba, "+ gp.player.name+"\nGeleceğini Fuat Bey'den duyduğumdan beri\ngözüm yollarda. Senin gibi yağız ve gürbüz\nbir delikanlıyı aramızda görmekten\nmemnuniyet duyarım. Köyümüzün senin gibi\nbir nefere ihtiyacı vardı. İlk olarak\nteşkilatımızı tanımanı istiyorum. Şu\nparayı al ve Silah satıcısı Ruhsar Bey\nile alışveriş yaparak tanış.\nSonra bana geri dön.";
+        dialogues[1] = "Tebrikler, " + gp.player.name+"\nRuhsar Bey en iyi kılıçları üretir.\nŞimdiki görevinde kılıç çok lazım olacak.\nSana biraz köyümüzden bahsedeyim. Büyük\nbuhran sonrası küçük yerleşim yerleri\nkurulmaya başlandıktan sonra kurulan ilk\nyer bizim köyümüz. Köy kurulduktan sonra\nFethi Bey köyümüzün yöneticisi oldu. Köy\nmeydanında meclis kurdu. Fethi Bey bilime\nçok önem verirdi. Genç Bilginler\nadlı bilim ve mühendislik grubunu kurdu\nher şey güzel ilerlerken Genç Bilginler";
         dialogues[2] = "wizard";
         dialogues[3] = "sword";
         dialogues[4] = "Hello";

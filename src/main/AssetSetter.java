@@ -149,8 +149,8 @@ public class AssetSetter {
         gp.npc[0].worldY = gp.tileSize * 17;
 
         gp.npc[1] = new Npc_Merchant(gp);
-        gp.npc[1].worldX = gp.tileSize * 10;
-        gp.npc[1].worldY = gp.tileSize * 15;
+        gp.npc[1].worldX = gp.tileSize * 24;
+        gp.npc[1].worldY = gp.tileSize * 17;
     }
 
 }

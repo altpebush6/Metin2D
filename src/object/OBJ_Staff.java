@@ -12,6 +12,7 @@ public class OBJ_Staff extends Entity {
         name = "Staff";
         type = objectType;
         down1 = setup("/objects/staff", gp.tileSize, gp.tileSize);
+        price = 500;
     }
 
 }

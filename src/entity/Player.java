@@ -240,13 +240,13 @@ public class Player extends Entity {
             noPunchCounter = 0;
             holdingCounter++;
             if (punchTimeOut >= damageTimeOut) {
-                
-                if(gp.endGame) {
+
+                if (gp.endGame) {
                     gp.endGameCounter = 0;
                     gp.endGame = false;
                     gp.ui.addMessage("Game shutdown has been cancelled.");
                 }
-                
+
                 punchTimeOut = 0;
                 attacking = true;
                 gp.playSE(holdingNum + 10);
@@ -308,13 +308,13 @@ public class Player extends Entity {
             if (keyH.quotePressed) {
                 if (inventory.size() < maxInventorySize || gp.obj[objIndex].name == "Coin") {
                     pickUpObject(objIndex);
-                }else {
+                } else {
                     gp.ui.addMessage("Daha fazla nesne taşıyamam.");
                 }
                 keyH.quotePressed = false;
-                
+
             } else {
-                //gp.ui.showMessage("Press \" to pick up item.");
+                // gp.ui.showMessage("Press \" to pick up item.");
             }
         }
 
@@ -437,7 +437,7 @@ public class Player extends Entity {
 
         // Player Label
         g2.setFont(new Font("Courier New", Font.PLAIN, 12));
-        
+
         g2.setColor(Color.green);
         g2.drawString("Lv " + level, screenX, screenY - 10);
 
@@ -701,13 +701,13 @@ public class Player extends Entity {
         onPath = false;
 
         if (i != -1) {
-            if(i==0){
+            if (i == 0) {
                 gp.gameState = gp.dialogueState;
                 gp.npc[0].speak();
-            } else if(i == 1) {
+            } else if (i == 1) {
                 gp.gameState = gp.tradeState;
             }
-            
+
         }
     }
 

@@ -61,6 +61,8 @@ public class Entity {
     // Item
     public static ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 45;
+    public int price =0;
+    public String description = "" ;
 
     // Images
     public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, right5;

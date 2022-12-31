@@ -12,6 +12,7 @@ public class OBJ_Dolunay extends Entity{
 		name = "Dolunay";
 		type = objectType;
 		down1 = setup("/objects/dolunay", gp.tileSize, gp.tileSize);
+		price = 100;
 		
 	}
 }

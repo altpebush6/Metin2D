@@ -12,6 +12,7 @@ public class OBJ_EcelGetiren extends Entity {
 		name = "EcelGetiren";
 		type = objectType;
 		down1 = setup("/objects/ecelGetiren", gp.tileSize, gp.tileSize);
+		price = 150;
 	}
     
 }

@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import entity.Player;
@@ -12,14 +13,11 @@ public class KeyHandler implements KeyListener {
 	public boolean spacePressed, enterPressed;
 
 	GamePanel gp;
-	Player p11;
+	
 
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
-		/*
-		 * MouseHandler mouseH1 = new MouseHandler(gp);
-		 * p11 = new Player(gp,this,mouseH1);
-		 */
+		
 	}
 
 	@Override
@@ -142,11 +140,23 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_B) {
 
 				if (gp.ui.controlNpcCursor() == true) {
-					/*
-					 * if(p11.playerCoin > 100) {
-					 * //p11.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
-					 * }
-					 */
+					
+					 if(gp.player.playerCoin > Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price) {
+						if(gp.player.inventory.size() < gp.player.maxInventorySize) {
+							gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+							gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+							if(gp.player.taskLevel == 0 ) {
+								gp.player.playerCoin +=100;
+								gp.player.taskLevel ++;
+								gp.player.playerXP += 200;
+							}
+						} else {
+							gp.g2.setFont(gp.g2.getFont().deriveFont(Font.BOLD, 20F));
+							gp.g2.drawString("Envanteriniz Dolu!", gp.tileSize , gp.tileSize*11);
+						}
+					 	
+					  }
+					
 					System.out.println("filled the slot");
 				} else {
 					System.out.println("not filled");
