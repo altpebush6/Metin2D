@@ -708,7 +708,7 @@ public class Player extends Entity {
                 gp.npc[0].speak();
             } else if (i == 1) {
                 gp.gameState = gp.tradeState;
-            }
+            } 
 
         }
     }
