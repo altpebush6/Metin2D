@@ -1,5 +1,6 @@
 package npc;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 
@@ -24,48 +25,30 @@ public class Npc_Abulbul extends Entity {
         defaultSpeed = speed;
         type = npcType;
         level = 100;
-        name = "Guard";
+        name = "Abulbul";
+        
+        solidArea.x = 12;
+        solidArea.y = 38;
+        solidArea.width = 50;
+        solidArea.height = 48;
+        
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         getNpcImage();
         setDialogue();
     }
 
     public void getNpcImage() {
-        up1 = setup("/npc/oldman_up_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/npc/oldman_up_2", gp.tileSize, gp.tileSize);
-        up3 = setup("/npc/oldman_up_1", gp.tileSize, gp.tileSize);
-
-        down1 = setup("/npc/oldman_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/npc/oldman_down_2", gp.tileSize, gp.tileSize);
-        down3 = setup("/npc/oldman_down_1", gp.tileSize, gp.tileSize);
-
-        left1 = setup("/npc/oldman_left_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/npc/oldman_left_2", gp.tileSize, gp.tileSize);
-        left3 = setup("/npc/oldman_left_1", gp.tileSize, gp.tileSize);
-
-        right1 = setup("/npc/oldman_right_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/npc/oldman_right_2", gp.tileSize, gp.tileSize);
-        right3 = setup("/npc/oldman_right_1", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/abulbul1", 96, 96);
+        down2 = setup("/npc/abulbul2", 96, 96);
+        down3 = setup("/npc/abulbul3", 96, 96);
+        down4 = setup("/npc/abulbul4", 96, 96);
     }
 
     public void setAction() {
 
-        if (onPath) {
-
-            solidArea.x = 0;
-            solidArea.y = 0;
-            solidArea.width = 48;
-            solidArea.height = 47;
-
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX +
-                                                                                    // gp.player.solidArea.x
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY +
-                                                                                    // gp.player.solidArea.y
-
-            searchPath(goalCol, goalRow);
-        }else {
-            standing = true;   
-        }
+        standing = true;
     }
 
     public void setDialogue() {

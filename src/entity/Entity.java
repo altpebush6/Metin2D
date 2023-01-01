@@ -257,6 +257,14 @@ public class Entity {
         }else {
             showNames = false;
         }
+        
+        if(type == npcType) {
+            if(name == "Abulbul") {
+                animationCharacter(5);
+            }else {
+                animationCharacter(10);
+            }
+        }
 
         if (!standing) {
             spriteCounter++;
@@ -358,6 +366,8 @@ public class Entity {
                         image = down2;
                     if (spriteNum == 3)
                         image = down3;
+                    if (spriteNum == 4)
+                        image = down4;
                     break;
                 case "left":
                     if (spriteNum == 1)
@@ -443,14 +453,23 @@ public class Entity {
             }
 
             // NPC LABEL
-            if (type == npcType && showNames) {
-                g2.setFont(new Font("Courier New", Font.BOLD, 12));
-
-                g2.setColor(Color.pink);
-                g2.drawString("Lv " + level, screenX - 10, screenY - 20);
-
-                g2.setColor(Color.green);
-                g2.drawString(name, screenX + 40, screenY - 20);
+            if (type == npcType) {
+                g2.setFont(new Font("Courier New", Font.BOLD, 13));
+                
+                switch(name) {
+                    case "Abulbul":
+                        g2.setColor(new Color(0, 0, 189)); 
+                        g2.drawString(name, screenX + 25, screenY);
+                        break;
+                    case "BlackSmith":
+                        g2.setColor(new Color(0, 0, 189)); 
+                        g2.drawString(name, screenX + 10, screenY - 10);
+                        break;
+                    case "Merchant":
+                        g2.setColor(new Color(169, 103, 245)); 
+                        g2.drawString(name, screenX + 15, screenY + 10);
+                        break;
+                }
             }
 
             // Object Label
@@ -477,7 +496,7 @@ public class Entity {
             }
 
 
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, null, screenX, screenY);
 
             changeAlpha(g2, 1F);
 
@@ -564,6 +583,18 @@ public class Entity {
         }
 
         return image;
+    }
+    
+    public void animationCharacter(int spriteTime) {
+        spriteCounter++;
+        if (spriteCounter > spriteTime) {
+            if (spriteNum == 4) {
+                spriteNum = 1;
+            } else {
+                spriteNum++;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void searchPath(int goalCol, int goalRow) {

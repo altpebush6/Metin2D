@@ -117,16 +117,16 @@ public class AssetSetter {
     public void setNpc() {
 
         gp.npc[0] = new Npc_Abulbul(gp);
-        gp.npc[0].worldX = gp.tileSize * 21;
-        gp.npc[0].worldY = gp.tileSize * 17;
+        gp.npc[0].worldX = gp.tileSize * 14;
+        gp.npc[0].worldY = gp.tileSize * 18;
 
         gp.npc[1] = new Npc_Merchant(gp);
         gp.npc[1].worldX = gp.tileSize * 24;
-        gp.npc[1].worldY = gp.tileSize * 17;
+        gp.npc[1].worldY = gp.tileSize * 15;
 
         gp.npc[2] = new Npc_Blacksmith(gp);
-        gp.npc[2].worldX = gp.tileSize * 40;
-        gp.npc[2].worldY = gp.tileSize * 21;
+        gp.npc[2].worldX = gp.tileSize * 34;
+        gp.npc[2].worldY = gp.tileSize * 18;
     }
 
 }

@@ -25,15 +25,24 @@ public class Npc_Merchant extends Entity {
         type = npcType;
         level = 100;
         name = "Merchant";
+        
+        solidArea.x = 34;
+        solidArea.y = 20;
+        solidArea.width = 26;
+        solidArea.height = 70;
+        
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         getNpcImage();
         setItems();
     }
 
     public void getNpcImage() {
-        down1 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
-        down3 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/merchant1", 96, 96);
+        down2 = setup("/npc/merchant2", 96, 96);
+        down3 = setup("/npc/merchant3", 96, 96);
+        down4 = setup("/npc/merchant4", 96, 96);
     }
 
     public void setItems() {

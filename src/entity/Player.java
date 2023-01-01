@@ -357,7 +357,7 @@ public class Player extends Entity {
             // CHECK NPC COLLISION
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
             if (npcIndex != -1) {
-                gp.npc[npcIndex].onPath = true;
+                //gp.npc[npcIndex].onPath = true;
             }
 
             // interactNpc(npcIndex);
@@ -385,7 +385,7 @@ public class Player extends Entity {
             // CHECK NPC COLLISION
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
             if (npcIndex != -1) {
-                gp.npc[npcIndex].onPath = true;
+                //gp.npc[npcIndex].onPath = true;
             }
 
             interactNpc(npcIndex);

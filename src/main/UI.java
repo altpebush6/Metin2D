@@ -36,7 +36,7 @@ public class UI {
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg;
     BufferedImage inventory, merchantInventory;
-    BufferedImage dialogueUI;
+    BufferedImage dialogueUI, abulbulImage;
     BufferedImage rectangle;
     BufferedImage aybu, charStatus;
     BufferedImage[] xpTupe = new BufferedImage[23];
@@ -99,6 +99,7 @@ public class UI {
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
         
+        abulbulImage = gp.uTool.setup("/UI/abulbul", 225, 225);
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
@@ -204,6 +205,7 @@ public class UI {
 
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
+            drawNPC2D();
             drawDialogueScreen();
         }
 
@@ -428,6 +430,10 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
+    public void drawNPC2D() {
+        g2.drawImage(abulbulImage, null, 100, 300);
+    }
+    
     // DIALOGUE SCREEN METHOD
     public void drawDialogueScreen() {
 
@@ -447,11 +453,7 @@ public class UI {
         g2.drawImage(dialogueUI, null, x, y);
         // g2.drawImage(newspaper,null,0,0);
         
-        drawStory(x, y);
-
-        
-          
-         
+        drawStory(x, y);     
     }
 
     public void drawStory(int x, int y) {

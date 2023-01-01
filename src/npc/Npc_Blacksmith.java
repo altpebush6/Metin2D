@@ -25,15 +25,25 @@ public class Npc_Blacksmith extends Entity {
         defaultSpeed = speed;
         type = npcType;
         level = 100;
-        name = "Demirci";
+        name = "BlackSmith";
+        
+        solidArea.x = 10;
+        solidArea.y = 2;
+        solidArea.width = 60;
+        solidArea.height = 90;
+        
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        
         getNpcImage();
         speak();
     }
 
     public void getNpcImage() {
-        down1 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
-        down3 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/blacksmith1", 96, 96);
+        down2 = setup("/npc/blacksmith2", 96, 96);
+        down3 = setup("/npc/blacksmith3", 96, 96);
+        down4 = setup("/npc/blacksmith4", 96, 96);
     }
 
     public void speak() {
