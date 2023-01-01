@@ -60,6 +60,9 @@ public class Player extends Entity {
 
     // INVENTORY
     public Entity currentWeapon;
+    public Entity enchantWeapon;
+    public boolean enchantAccepted = false;
+    public boolean itemEnchSellected = false;
     public int redPotionNumber = 0;
     public int bluePotionNumber = 0;
 
@@ -708,7 +711,9 @@ public class Player extends Entity {
                 gp.npc[0].speak();
             } else if (i == 1) {
                 gp.gameState = gp.tradeState;
-            } 
+            } else if(i == 2) {
+                gp.gameState = gp.enchantState;
+            }
 
         }
     }

@@ -53,7 +53,7 @@ public class Npc_Blacksmith extends Entity {
 
     }
 
-    public void increaseWeapon(Entity obj) {
+    public static boolean increaseWeapon(Entity obj) {
       
         if (obj.objectType == 4) {
             if(obj.objDetailedType == 1) {
@@ -63,16 +63,18 @@ public class Npc_Blacksmith extends Entity {
 	                int range = max - min + 1;
 	                int rand = (int)(Math.random() * range) + min;
                     if(rand == 0) {
-                        System.out.println("Maalesef başarısz oldu");
+                        return false;
+                        //System.out.println("Maalesef başarısz oldu");
                     } else if(rand == 1) {
-                        System.out.println("+ Basma işlemi başarılı. ");
+                        return true;
+                        //System.out.println("+ Basma işlemi başarılı. ");
                     }
                 }
             }
 
         }
 
-
+        return false;
     }
     
 }

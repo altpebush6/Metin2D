@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean quotePressed, openDebug;
 	public boolean spacePressed, enterPressed;
+	
 
 	GamePanel gp;
 	
@@ -224,6 +225,65 @@ public class KeyHandler implements KeyListener {
 
 		} else if (gp.gameState == gp.optionsState) { // OPTIONS STATE
 			optionsState(code);
+		} else if (gp.gameState == gp.enchantState) { // ENCHANT STATE
+			
+			if (code == KeyEvent.VK_W) {
+				if (gp.ui.slotRow == 0) {
+					gp.ui.slotRow = 8;
+				} else {
+					gp.ui.slotRow--;
+				}
+
+			}
+			if (code == KeyEvent.VK_A) {
+				if (gp.ui.slotCol == 0) {
+					gp.ui.slotCol = 4;
+				} else {
+					gp.ui.slotCol--;
+				}
+
+			}
+			if (code == KeyEvent.VK_S) {
+				if (gp.ui.slotRow == 8) {
+					gp.ui.slotRow = 0;
+				} else {
+					gp.ui.slotRow++;
+				}
+
+			}
+			if (code == KeyEvent.VK_D) {
+				if (gp.ui.slotCol == 4) {
+					gp.ui.slotCol = 0;
+				} else {
+					gp.ui.slotCol++;
+				}
+			}
+
+			if (code == KeyEvent.VK_E) {
+
+				if (gp.ui.controlCursor() == true) {
+					gp.player.enchantWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
+					gp.player.itemEnchSellected = true;
+					System.out.println("filled the slot");
+				} else {
+					System.out.println("not filled");
+				}
+
+			}
+			if(gp.player.itemEnchSellected == true) {
+				if(code == KeyEvent.VK_Y) {
+					gp.player.enchantAccepted = true;
+				}
+			}
+			
+			if(code == KeyEvent.VK_ENTER) {
+				gp.player.enchantAccepted = false;
+				gp.player.itemEnchSellected = false;
+				gp.gameState = gp.playState;
+			}
+
+			
+
 		}
 
 		if (code == KeyEvent.VK_P) {
@@ -300,7 +360,16 @@ public class KeyHandler implements KeyListener {
 		if (gp.gameState == gp.playState) {
 
 		}
+		/*
+		if(gp.gameState == gp.enchantState) {
 
+			if(gp.player.itemEnchSellected == true) {
+				if(code == KeyEvent.VK_Y) {
+					gp.player.enchantAccepted = false;
+				}
+			}
+		}
+		*/
 		if (code == KeyEvent.VK_W) {
 
 			upPressed = false;

@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import data.SaveLoad;
+import npc.Npc_Blacksmith;
 import npc.Npc_Merchant;
 import entity.Entity;
 
@@ -76,6 +77,8 @@ public class UI {
 
     public int subState = 0;
 
+    public int counter = 0;
+    public boolean pressed = false;
     public Entity npc;
 
     public int fillTupeNum = 0;
@@ -88,7 +91,7 @@ public class UI {
     
     public String playerName = "";
     public boolean enterName = false;
-    
+    public boolean successEnch;
     public Rectangle btnRec;
     
     //save
@@ -220,10 +223,11 @@ public class UI {
         // ENCHANT STATE 
         if (gp.gameState == gp.enchantState) {
             drawBottomBar(g2);
-
+            drawInventory(true);
             drawEnchantment();
-            
         }
+            
+      
 
         // TRADE STATE
         if (gp.gameState == gp.tradeState) {
@@ -607,6 +611,66 @@ public class UI {
         int textY = dFrameY + gp.tileSize;
         */
 
+        /* 
+        g2.setColor(new Color(240, 190, 90));
+        g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+        g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null);
+        g2.setColor(new Color(240, 190, 90));
+        g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
+        */ 
+
+        for(int i = 0; i< gp.player.inventory.size(); i++){
+            if(gp.player.inventory.get(i) != null) {
+
+                if(gp.player.inventory.get(i) == gp.player.enchantWeapon) {
+                    g2.drawImage(gp.player.inventory.get(i).down1,enchantmentX,enchantmentY,gp.tileSize, gp.tileSize,null);
+                    if(gp.player.itemEnchSellected) {
+                        g2.setColor(Color.white);
+                        g2.drawString("Yükseltmek için Y' ye basın", enchantmentX, enchantmentY+eFrameHeight+20);
+                    }
+
+                    if(gp.player.enchantAccepted == true) {
+                        //System.out.println("yükselt");
+                        g2.setColor(new Color(148 , 0 , 211));
+                        g2.fillRoundRect(enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, 10, 10);
+                        g2.drawImage(gp.player.inventory.get(i).down1,enchantmentX,enchantmentY,gp.tileSize, gp.tileSize,null);
+                        g2.setColor(new Color(148 , 0 , 211));
+                        g2.setFont(g2.getFont().deriveFont(36F));
+                        
+                        g2.drawString("Yükseltme Gerçekleşiyor", gp.tileSize*10, gp.tileSize*4);
+                        counter++;
+                        if(counter >= 180) {
+                            
+                            successEnch = Npc_Blacksmith.increaseWeapon(gp.player.inventory.get(i));
+                            System.out.println(successEnch);
+                            gp.player.enchantAccepted = false;
+                            counter =0;
+                        }
+                        pressed = true;
+                    }
+
+                    if(pressed) {
+                        g2.setColor(new Color(148 , 0 , 211));
+                        g2.setFont(g2.getFont().deriveFont(36F));
+
+                        if(successEnch) {
+                            g2.drawString(" Silahınız yükseltildi.", gp.tileSize*10, gp.tileSize*4);
+                        }else {
+                            g2.drawString("Yükseltme başarısız.", gp.tileSize*10, gp.tileSize*4);
+                        }
+                        
+
+
+                    }
+
+
+                }
+
+
+
+            }
+
+        }
     }
 
     public boolean controlCursor() {
