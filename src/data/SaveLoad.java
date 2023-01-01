@@ -6,7 +6,11 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Dolunay;
+import object.OBJ_EcelGetiren;
+import object.OBJ_TasKanat;
 
 public class SaveLoad {
     
@@ -15,6 +19,18 @@ public class SaveLoad {
     public SaveLoad(GamePanel gp) {
         this.gp = gp;
         
+    }
+    public Entity getObject(String itemName) {
+        
+        Entity obj = null;
+        
+        switch(itemName) {
+            
+            case "EcelGetiren": obj = new OBJ_EcelGetiren(gp); break;
+            case "TasKanat": obj = new OBJ_TasKanat(gp); break;
+            case "Dolunay": obj = new OBJ_Dolunay(gp); break;
+        }
+        return obj;
     }
     
     public void save() {
@@ -53,12 +69,18 @@ public class SaveLoad {
             
             //Read the DataStorage object
             DataStorage ds = (DataStorage)ois.readObject();
-            
+            //PLAYER STATS
             gp.player.level = ds.level;
             gp.player.attackPower = ds.attackPower;
             gp.player.playerCoin = ds.playerCoin;
             gp.player.playerWeapon = ds.playerWeapon;
-            gp.player.playerXP = ds.playerXP;                       
+            gp.player.playerXP = ds.playerXP;
+            
+            // PLAYER INVENTORY
+            gp.player.inventory.clear();
+            for(int i = 0; i < ds.itemNames.size(); i++) {
+                gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+            }
         }
         catch(Exception e){
             System.out.println("Load exception!");
