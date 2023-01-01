@@ -13,6 +13,7 @@ public class OBJ_RedPotion extends Entity{
         type = objectType;
         down1 = setup("/objects/redPotion", gp.tileSize, gp.tileSize);
         price = 20;
+        objDetailedType = 0;
         
     }
 }

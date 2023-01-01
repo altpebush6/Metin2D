@@ -92,6 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int deadState = 6;
     public final int tradeState = 7;
     public final int titleState = 8;
+    public final int enchantState = 9;
 
     public boolean playBtn = false;
     public boolean gameLoad = true;

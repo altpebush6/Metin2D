@@ -13,6 +13,6 @@ public class OBJ_Coin extends Entity{
 		type = objectType;
 		down1 = setup("/objects/coin", gp.tileSize, gp.tileSize);
 		coinValue = newValue;
-		
+		objDetailedType = 0;
 	}
 }

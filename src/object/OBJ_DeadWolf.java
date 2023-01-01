@@ -13,6 +13,6 @@ public class OBJ_DeadWolf extends Entity{
         deadObj = true;
         type = objectType;
         down1 = setup("/wolf/deadWolf", gp.tileSize, gp.tileSize);
-        
+        objDetailedType = 0;
     }
 }

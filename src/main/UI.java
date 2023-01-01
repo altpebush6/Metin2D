@@ -218,6 +218,14 @@ public class UI {
             drawInventory(false);
         }
 
+        // ENCHANT STATE 
+        if (gp.gameState == gp.enchantState) {
+            drawBottomBar(g2);
+
+            drawEnchantment();
+            
+        }
+
         // OPTIONS STATE
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
@@ -603,6 +611,26 @@ public class UI {
         } else {
             return false;
         }
+    }
+
+    // DRAW ENCHANTMENT
+    public void drawEnchantment() {
+
+        int enchantmentX = 100;
+        int enchantmentY = 100;
+
+        
+        int eFrameWidth = gp.tileSize*3;
+        int eFrameHeight = gp.tileSize*3;
+        drawSubWindow(enchantmentX,enchantmentY,eFrameWidth,eFrameHeight);
+        /*
+        int textX = dFrameX + 20;
+        int textY = dFrameY + gp.tileSize;
+        */
+        
+
+
+
     }
 
     // DRAW TRADE SCREEN

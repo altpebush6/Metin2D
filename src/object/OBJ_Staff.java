@@ -13,6 +13,8 @@ public class OBJ_Staff extends Entity {
         type = objectType;
         down1 = setup("/objects/staff", gp.tileSize, gp.tileSize);
         price = 500;
+        enchantLevel =0;
+        objDetailedType = 1;
     }
 
 }

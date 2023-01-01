@@ -27,6 +27,7 @@ public class Entity {
     public int coinValue;
     public boolean deadObj = false;
     public int objIndex;
+    public int enchantLevel = 0;
 
     // States
     public int worldX, worldY, screenX, screenY, speed, defaultSpeed;
@@ -59,6 +60,8 @@ public class Entity {
     public int level = 1;
     public static int taskLevel;
     // Item
+    public int objDetailedType;
+    
     public static ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 45;
     public int price =0;

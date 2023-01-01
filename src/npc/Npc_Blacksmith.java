@@ -1,91 +1,61 @@
 package npc;
 
-import java.util.Random;
-
-
+import java.util.ArrayList;
 
 import entity.Entity;
-import entity.Player;
 import main.GamePanel;
-import main.KeyHandler;
-import main.MouseHandler;
+import object.OBJ_BluePotion;
+import object.OBJ_Dolunay;
+import object.OBJ_EcelGetiren;
+import object.OBJ_RedPotion;
+import object.OBJ_Staff;
+import java.lang.Math;
+
 
 public class Npc_Blacksmith extends Entity {
 
     GamePanel gp;
-    
 
     public Npc_Blacksmith(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         direction = "down";
-        speed = 1;
+        speed = 0;
         defaultSpeed = speed;
         type = npcType;
         level = 100;
-        name = "Guard";
-
+        name = "Demirci";
         getNpcImage();
-        setDialogue();
     }
 
     public void getNpcImage() {
-        up1 = setup("/npc/oldman_up_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/npc/oldman_up_2", gp.tileSize, gp.tileSize);
-        up3 = setup("/npc/oldman_up_1", gp.tileSize, gp.tileSize);
-
-        down1 = setup("/npc/oldman_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/npc/oldman_down_2", gp.tileSize, gp.tileSize);
-        down3 = setup("/npc/oldman_down_1", gp.tileSize, gp.tileSize);
-
-        left1 = setup("/npc/oldman_left_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/npc/oldman_left_2", gp.tileSize, gp.tileSize);
-        left3 = setup("/npc/oldman_left_1", gp.tileSize, gp.tileSize);
-
-        right1 = setup("/npc/oldman_right_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/npc/oldman_right_2", gp.tileSize, gp.tileSize);
-        right3 = setup("/npc/oldman_right_1", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
+        down3 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
     }
 
-    public void setAction() {
 
-        if (onPath) {
+    public void increaseWeapon(Entity obj) {
+      
+        if (obj.objectType == 4) {
+            if(obj.objDetailedType == 1) {
+                if(obj.enchantLevel == 0) {
+                    int max = 1;
+	                int min = 0;
+	                int range = max - min + 1;
+	                int rand = (int)(Math.random() * range) + min;
+                    if(rand == 0) {
+                        System.out.println("Maalesef başarısz oldu");
+                    } else if(rand == 1) {
+                        System.out.println("+ Basma işlemi başarılı. ");
+                    }
+                }
+            }
 
-            solidArea.x = 0;
-            solidArea.y = 0;
-            solidArea.width = 48;
-            solidArea.height = 47;
-
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize; // gp.player.worldX +
-                                                                                    // gp.player.solidArea.x
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize; // gp.player.worldY +
-                                                                                    // gp.player.solidArea.y
-
-            searchPath(goalCol, goalRow);
-        }else {
-            standing = true;   
         }
+
+
     }
-
-    public void setDialogue() {
-
-        dialogues[0] = "Merhaba, "+ gp.player.name+"\nGeleceğini Fuat Bey'den duyduğumdan beri\ngözüm yollarda. Senin gibi yağız ve gürbüz\nbir delikanlıyı aramızda görmekten\nmemnuniyet duyarım. Köyümüzün senin gibi\nbir nefere ihtiyacı vardı. İlk olarak\nteşkilatımızı tanımanı istiyorum. Şu\nparayı al ve Silah satıcısı Ruhsar Bey\nile alışveriş yaparak tanış.\nSonra bana geri dön.";
-        dialogues[1] = "Tebrikler, " + gp.player.name+"\nRuhsar Bey en iyi kılıçları üretir.\nŞimdiki görevinde kılıç çok lazım olacak.\nSana biraz köyümüzden bahsedeyim. Büyük\nbuhran sonrası küçük yerleşim yerleri\nkurulmaya başlandıktan sonra kurulan ilk\nyer bizim köyümüz. Köy kurulduktan sonra\nFethi Bey köyümüzün yöneticisi oldu. Köy\nmeydanında meclis kurdu. Fethi Bey bilime\nçok önem verirdi. Genç Bilginler\nadlı bilim ve mühendislik grubunu kurdu\nher şey güzel ilerlerken Genç Bilginler";
-        dialogues[2] = "wizard";
-        dialogues[3] = "sword";
-        dialogues[4] = "Hello";
-        dialogues[5] = "welcome";
-        dialogues[6] = "wizard";
-        dialogues[7] = "sword";
-        dialogues[8] = "Hello";
-        dialogues[9] = "welcome";
-        dialogues[10] = "wizard";
-        dialogues[11] = "sword";
-    }
-
-    public void speak() {
-        gp.ui.currentDialogue = dialogues[0];
-    }
-
+    
 }
