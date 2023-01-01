@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +23,8 @@ public class TileManager {
 	boolean drawPath = false;
 	public int i = 0;
 	public boolean collisionControl = false;
-	public int[] collisionTiles = {325,326,374,377,424,427,472,473,478,479,523,528,573,578,621,622,629,630,672,679,722,729,772,779,809,810,822,823,824,825,826,827,828,829,840,841,842,858,861,890,892,908,911,940,942,958,961,989,993,1008,1011,1039,1042,1058,1059,1060,1061};
+	public int[] collisionTiles = {374,375,376,377,424,425,426,427,472,473,474,475,476,477,478,479,523,524,525,526,527,528,573,574,575,576,577,578,622,623,624,625,626,627,628,629,672,673,674,675,676,677,678,679,722,723,724,725,726,727,728,729,772,772,773,774,775,776,777,778,779,841,859,860,890,891,892,908,909,910,911,940,941,942,958,959,960,961,989,990,991,992,1008,1009,1010,1011,1039,1040,1041,1042,1058,1059,1060,1061};
+	Random rand = new Random();
 	
 	public TileManager(GamePanel gp) {
 		
@@ -34,8 +36,10 @@ public class TileManager {
 		
 		loadMap("/maps/newMap.txt");
 		
-		loadingScreen = setup("/loadingScreen/loading1", gp.screenWidth, gp.screenHeight);
-		loadingScreen2 = setup("/loadingScreen/loadingBar", 148, 13);
+		int randomImage = rand.nextInt(6) + 1;
+		
+		loadingScreen = setup("/loadingScreen/loadingScreen" + Integer.toString(randomImage), gp.screenWidth, gp.screenHeight);
+		loadingScreen2 = setup("/loadingScreen/loadingBar", 148, 15);
         
 	}
 	
@@ -47,7 +51,7 @@ public class TileManager {
 	    String prefix = "";
 	        
 	    if(i % 17 == 0 && i / 7 < 305) {
-	        g2.drawImage(loadingScreen2, 620, 758, i / 7, 13, null); 
+	        g2.drawImage(loadingScreen2, 583, 780, i / 7, 15, null); 
 	    }
 	       
 	    
