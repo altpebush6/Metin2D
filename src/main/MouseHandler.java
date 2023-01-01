@@ -110,26 +110,34 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         }
 
         if (gp.gameState == gp.titleState) {
-            if (gp.ui.startRec.x < mouseOverX
-                    && (gp.ui.startRec.x + gp.ui.startRec.width) > mouseOverX
-                    && gp.ui.startRec.y < mouseOverY
-                    && (gp.ui.startRec.y + gp.ui.startRec.height) > mouseOverY && !gp.playBtn) {
-                    
-                gp.playSE(26);
-                gp.playSE(25);
-                gp.playBtn = true;
+            if(gp.ui.enterName) {
+                if (gp.ui.saveRec.x < mouseOverX
+                        && (gp.ui.saveRec.x + gp.ui.saveRec.width) > mouseOverX
+                        && gp.ui.saveRec.y < mouseOverY
+                        && (gp.ui.saveRec.y + gp.ui.saveRec.height) > mouseOverY) {
+                    gp.ui.enterName = false;
+                    gp.player.name = gp.ui.playerName;
+                }
+            }else {
+                if (gp.ui.startRec.x < mouseOverX
+                        && (gp.ui.startRec.x + gp.ui.startRec.width) > mouseOverX
+                        && gp.ui.startRec.y < mouseOverY
+                        && (gp.ui.startRec.y + gp.ui.startRec.height) > mouseOverY && !gp.playBtn) {
+                        
+                    gp.playSE(26);
+                    gp.playSE(25);
+                    gp.playBtn = true;
 
-                
-            }
-            if (gp.ui.exitRec.x < mouseOverX
-                    && (gp.ui.exitRec.x + gp.ui.exitRec.width) > mouseOverX
-                    && gp.ui.exitRec.y < mouseOverY
-                    && (gp.ui.exitRec.y + gp.ui.startRec.height) > mouseOverY) {
                     
-                System.exit(0);
-                
+                }
+                if (gp.ui.exitRec.x < mouseOverX
+                        && (gp.ui.exitRec.x + gp.ui.exitRec.width) > mouseOverX
+                        && gp.ui.exitRec.y < mouseOverY
+                        && (gp.ui.exitRec.y + gp.ui.startRec.height) > mouseOverY) {
+                        
+                    System.exit(0);
+                }
             }
-            
         }
 
     }
@@ -186,6 +194,17 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
             gp.ui.btnHover = 2;
         else
             gp.ui.btnHover = 0;
+    }
+    
+    public void hoverNameBtn(Graphics2D g2) {
+        if(gp.ui.enterName) {
+            if (gp.ui.saveRec.x < mouseOverX && (gp.ui.saveRec.x + gp.ui.saveRec.width) > mouseOverX
+                    && gp.ui.saveRec.y < mouseOverY
+                    && (gp.ui.saveRec.y + gp.ui.saveRec.height) > mouseOverY)
+                gp.ui.btnHover = 1;
+            else
+                gp.ui.btnHover = 0;
+        }
     }
 
 }

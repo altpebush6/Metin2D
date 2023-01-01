@@ -7,7 +7,7 @@ public class DataStorage implements Serializable {
     
     // PLAYER STATS
     int level, playerCoin, playerXP, attackPower, redPotionNumber, bluePotionNumber;
-    String playerWeapon;
+    String playerWeapon, playerName;
     
     //PLAYER INVENTORY
     ArrayList<String> itemNames = new ArrayList<>();

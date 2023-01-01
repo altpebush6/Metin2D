@@ -28,6 +28,26 @@ public class KeyHandler implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int code = e.getKeyCode();
+		
+		// TITLE STATE
+		if(gp.gameState == gp.titleState) {
+		    
+		    if(gp.ui.enterName) {
+		        if(code == KeyEvent.VK_ENTER){
+                    gp.ui.enterName = false;
+                    gp.player.name = gp.ui.playerName;
+		        }else if(code == KeyEvent.VK_BACK_SPACE && gp.ui.playerName.length() > 0) {
+		            StringBuffer sb = new StringBuffer(gp.ui.playerName);
+		            sb.deleteCharAt(sb.length() - 1);
+		            gp.ui.playerName = sb.toString();
+		        }else {
+		            if(gp.ui.playerName.length() < 12 && ((e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z') || (e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z') || (e.getKeyChar() >= '0' && e.getKeyChar() <= '9'))) {
+		                gp.ui.playerName += e.getKeyChar();
+		            }
+		        }
+		        
+		    }
+		}
 
 		// PLAY STATE
 		if (gp.gameState == gp.playState) {

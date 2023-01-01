@@ -51,6 +51,7 @@ public class SaveLoad {
             ds.playerXP = gp.player.playerXP;
             ds.redPotionNumber = gp.player.redPotionNumber;
             ds.bluePotionNumber = gp.player.bluePotionNumber;
+            ds.playerName = gp.player.name;
             
            // PLAYER INVENTORY
             for(int i = 0; i < gp.player.inventory.size();i++) {
@@ -83,6 +84,7 @@ public class SaveLoad {
             gp.player.playerXP = ds.playerXP;
             gp.player.redPotionNumber = ds.redPotionNumber;
             gp.player.bluePotionNumber = ds.bluePotionNumber;
+            gp.player.name = ds.playerName;
             
             // PLAYER INVENTORY
             gp.player.inventory.clear();

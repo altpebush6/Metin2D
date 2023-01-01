@@ -35,10 +35,9 @@ public class UI {
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg;
-    BufferedImage redPotion;
     BufferedImage inventory, merchantInventory;
     BufferedImage dialogueUI;
-    BufferedImage newspaper;
+    BufferedImage rectangle;
     BufferedImage aybu, charStatus;
     BufferedImage[] xpTupe = new BufferedImage[23];
     Entity en;
@@ -47,6 +46,7 @@ public class UI {
     public Rectangle startRec = new Rectangle();
     public Rectangle exitRec = new Rectangle();
     public Rectangle charStatusRec = new Rectangle();
+    public Rectangle saveRec = new Rectangle();
     public int healthBar;
     public int spBar;
 
@@ -85,6 +85,11 @@ public class UI {
     public int respawnBtnWidth, respawnBtnHeight;
     public int titleScreenBtnWidth, titleScreenHeight;
     public int nextPageBtnWidth, nextPageBtnHeight;
+    
+    public String playerName = "";
+    public boolean enterName = false;
+    
+    public Rectangle btnRec;
     //save
     SaveLoad saveLoad = new SaveLoad(gp);
 
@@ -95,7 +100,7 @@ public class UI {
         arial_30 = new Font("Arial", Font.PLAIN, 20);
         
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
-        redPotion = gp.uTool.setup("/objects/redPotion", gp.tileSize, gp.tileSize);
+        rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", gp.tileSize * 6, gp.tileSize * 10);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
@@ -109,8 +114,6 @@ public class UI {
         inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
         inventory = gp.uTool.setup("/UI/inventory", 170, 504);
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 500);
-        newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
-        newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
         aybu = gp.uTool.setup("/titleScreen/aybu", gp.screenWidth, gp.screenHeight);
         charStatus = gp.uTool.setup("/titleScreen/char", 370, 450);
 
@@ -136,7 +139,6 @@ public class UI {
         for (int i = 0; i < xpTupe.length; i++) {
             xpTupe[i] = gp.uTool.setup("/xpTupe/xpTupe" + (i + 1), gp.tileSize, gp.tileSize);
         }
-
     }
 
     public void draw(Graphics2D g2) {
@@ -211,19 +213,19 @@ public class UI {
 
             drawInventory(true);
         }
-
-        // TRADE STATE
-        if (gp.gameState == gp.tradeState) {
-            drawTradeScreen();
-            drawInventory(false);
-        }
-
+        
         // ENCHANT STATE 
         if (gp.gameState == gp.enchantState) {
             drawBottomBar(g2);
 
             drawEnchantment();
             
+        }
+
+        // TRADE STATE
+        if (gp.gameState == gp.tradeState) {
+            drawTradeScreen();
+            drawInventory(false);
         }
 
         // OPTIONS STATE
@@ -235,9 +237,21 @@ public class UI {
     
     public void drawTitleScreen() {
         g2.drawImage(aybu, null, 0 , 0);
-        g2.drawImage(charStatus, null, 50 , 350);
-        titleScreenButtons(g2);
-        //titleScreenCharStatus(g2);
+        
+        if(gp.player.name.equals("")) {
+            enterName = true;
+            g2.drawImage(rectangle, null, 510 , 350);
+            g2.setColor(Color.white);
+            g2.fillRect(680, 430, 150, 35);
+            g2.setColor(Color.black);
+            g2.drawString(playerName, 690, 455);
+            enterNameButton(g2);
+        }else {
+            g2.drawImage(charStatus, null, 50 , 350);
+            titleScreenCharStatus(g2);
+            titleScreenButtons(g2);
+        }
+
     }
 
     // OPTIONS SCREEN METHOD
@@ -600,19 +614,7 @@ public class UI {
         
 
     }
-
-    public boolean controlCursor() {
-        if (gp.player.inventory.size() > cursorIndex) {
-            if (gp.player.inventory.get(cursorIndex) != null) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
+    
     // DRAW ENCHANTMENT
     public void drawEnchantment() {
 
@@ -627,10 +629,19 @@ public class UI {
         int textX = dFrameX + 20;
         int textY = dFrameY + gp.tileSize;
         */
-        
 
+    }
 
-
+    public boolean controlCursor() {
+        if (gp.player.inventory.size() > cursorIndex) {
+            if (gp.player.inventory.get(cursorIndex) != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     // DRAW TRADE SCREEN
@@ -722,6 +733,28 @@ public class UI {
 
     }
     
+    public void enterNameButton(Graphics2D g2) {
+        String text = "Save";
+
+        saveRec = new Rectangle(700, 475, 100, 29);
+
+        g2.drawImage(btnBg, saveRec.x, saveRec.y, saveRec.width, saveRec.height, null);
+
+        if (btnHover == 1) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(saveRec.x, saveRec.y, saveRec.width, saveRec.height);
+        }
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 18F));
+        g2.setColor(Color.white);
+        g2.drawString(text, 730, 495);
+
+        g2.setColor(new Color(0, 0, 0, 0));
+        g2.drawRect(saveRec.x, saveRec.y, saveRec.width, saveRec.height);
+        g2.setColor(Color.white);
+
+    }
+    
     public void titleScreenButtons(Graphics2D g2) {
         String start = "         Start";
         String exit = "          Exit";
@@ -756,34 +789,19 @@ public class UI {
     }
     
     public void titleScreenCharStatus(Graphics2D g2) {
-        String userNameField = "xKralTR";
-        String clanNameField = "Aybu";
-        String hpField = "100";
-        String spField = "100";
         
-        String userName = "User Name";
-        String clanName = "Clan";
-        String hp = "HP";
-        String sp = "SP";
-
-        titleScreenBtnWidth = gp.tileSize * 8;
-        titleScreenHeight = (int) (gp.tileSize * 8.65);
-
-        charStatusRec = new Rectangle(gp.tileSize / 2, gp.tileSize *5, titleScreenBtnWidth, titleScreenHeight);
-        
-
-        g2.drawImage(btnBg, charStatusRec.x, charStatusRec.y, charStatusRec.width, charStatusRec.height, null);
-        
-
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
+        String userNameField = gp.player.name;
+        String clanNameField = "AYBU";
+        String hpField = Integer.toString(gp.player.maxLife);
+        String spField = Integer.toString((int)(gp.player.maxSp));
+                
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25F));
         g2.setColor(Color.white);
-       // g2.drawString(start, 65, 44);
-        //g2.drawString(exit, 65, 76);
-
-        g2.setColor(new Color(0, 0, 0, 0));
-        g2.drawRect(startRec.x, startRec.y, startRec.width, startRec.height);
-        g2.drawRect(exitRec.x, exitRec.y, exitRec.width, exitRec.height);
-        g2.setColor(Color.white);
+        
+        g2.drawString(userNameField, 210, 432);
+        g2.drawString(clanNameField, 210, 500);
+        g2.drawString(hpField, 210, 590);
+        g2.drawString(spField, 210, 660);
 
     }
 

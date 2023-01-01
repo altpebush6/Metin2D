@@ -76,7 +76,7 @@ public class Player extends Entity {
         this.mouseH = mouseH;
 
         type = playerType;
-        name = "Damus";
+        name = "";
 
         currentWeapon = new OBJ_Dolunay(gp);
 

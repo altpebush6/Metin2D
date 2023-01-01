@@ -259,6 +259,7 @@ public class GamePanel extends JPanel implements Runnable {
         
         if(gameState == titleState) {
             mouseH.hoverTitleScreenBtn(g2);
+            mouseH.hoverNameBtn(g2);
         }
         
         if(loadScreen && loadScreenControl == 0) {
