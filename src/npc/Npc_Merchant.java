@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_BluePotion;
 import object.OBJ_Dolunay;
 import object.OBJ_EcelGetiren;
+import object.OBJ_RedPotion;
 import object.OBJ_Staff;
 
 public class Npc_Merchant extends Entity {
@@ -39,7 +41,8 @@ public class Npc_Merchant extends Entity {
         npcInventory.add(new OBJ_EcelGetiren(gp));
         npcInventory.add(new OBJ_Staff(gp));
         npcInventory.add(new OBJ_Dolunay(gp));
-
+        npcInventory.add(new OBJ_RedPotion(gp));
+        npcInventory.add(new OBJ_BluePotion(gp));
     }
 
     public void speak() {

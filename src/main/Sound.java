@@ -41,6 +41,9 @@ public class Sound {
         soundURL[21] = getClass().getResource("/sounds/deadSound.wav");
         soundURL[22] = getClass().getResource("/sounds/auraOfTheSword.wav");
         soundURL[23] = getClass().getResource("/sounds/threeWayCut.wav");
+        soundURL[24] = getClass().getResource("/sounds/redPotion.wav");
+        soundURL[25] = getClass().getResource("/sounds/titleScreen.wav");
+        soundURL[26] = getClass().getResource("/sounds/button.wav");
         
 	}
 	

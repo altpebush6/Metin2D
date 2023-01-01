@@ -1,20 +1,12 @@
-/UI/
-/background/
-/loadingScreen/
-/maps/
-/npc/
-/objects/
-/player/
-/skills/
 /sounds/
 /tile/
-/main/
-/object/
-<<<<<<< Updated upstream
+/titleScreen/
+/ai/
 /data/
-=======
+/enemy/
+/entity/
+/main/
+/npc/
+/object/
 /wolf/
 /xpTupe/
-/npc/
-/loadingScreen/
->>>>>>> Stashed changes

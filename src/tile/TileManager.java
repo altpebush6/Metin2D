@@ -83,7 +83,7 @@ public class TileManager {
 	        
         if(i == 2500) {
             gp.gameLoad = true;
-            gp.gameState = gp.titleState;
+            gp.gameState = gp.playState;
             gp.FPS = 60;
         }
 	    

@@ -38,42 +38,13 @@ public class AssetSetter {
         gp.obj[index].objIndex = index;
         index++;
     }
-
-    public void defaultDolunay() {
-        gp.obj[0] = new OBJ_Dolunay(gp);
-        gp.obj[0].worldX = gp.tileSize * 30;
-        gp.obj[0].worldY = gp.tileSize * 30;
+    public void createDolunay(int worldX, int worldY) {
+        gp.obj[index] = new OBJ_Dolunay(gp);
+        gp.obj[index].worldX = worldX;
+        gp.obj[index].worldY = worldY;
+        gp.obj[index].objIndex = index;
         index++;
     }
-
-    public void defaultTasKanat() {
-        gp.obj[1] = new OBJ_TasKanat(gp);
-        gp.obj[1].worldX = gp.tileSize * 35;
-        gp.obj[1].worldY = gp.tileSize * 35;
-        index++;
-    }
-
-    public void defaultEcelGetiren() {
-        gp.obj[2] = new OBJ_EcelGetiren(gp);
-        gp.obj[2].worldX = gp.tileSize * 25;
-        gp.obj[2].worldY = gp.tileSize * 35;
-        index++;
-    }
-
-    public void defaultStaff() {
-        gp.obj[3] = new OBJ_Staff(gp);
-        gp.obj[3].worldX = gp.tileSize * 12;
-        gp.obj[3].worldY = gp.tileSize * 14;
-        index++;
-    }
-
-    public void defaultHeykel() {
-        gp.obj[4] = new OBJ_Heykel(gp);
-        gp.obj[4].worldX = gp.tileSize * 21;
-        gp.obj[4].worldY = gp.tileSize * 21;
-        index++;
-    }
-
     public void createDeadWolf(int worldX, int worldY) {
         gp.obj[index] = new OBJ_DeadWolf(gp);
         gp.obj[index].worldX = worldX;

@@ -8,8 +8,10 @@ import java.io.ObjectOutputStream;
 
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_BluePotion;
 import object.OBJ_Dolunay;
 import object.OBJ_EcelGetiren;
+import object.OBJ_RedPotion;
 import object.OBJ_TasKanat;
 
 public class SaveLoad {
@@ -29,6 +31,8 @@ public class SaveLoad {
             case "EcelGetiren": obj = new OBJ_EcelGetiren(gp); break;
             case "TasKanat": obj = new OBJ_TasKanat(gp); break;
             case "Dolunay": obj = new OBJ_Dolunay(gp); break;
+            case "Red Potion": obj = new OBJ_RedPotion(gp); break;
+            case "Blue Potion": obj = new OBJ_BluePotion(gp); break;
         }
         return obj;
     }
@@ -36,7 +40,7 @@ public class SaveLoad {
     public void save() {
         
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save1.dat")));
             
             DataStorage ds = new DataStorage();
             
@@ -45,6 +49,8 @@ public class SaveLoad {
             ds.playerCoin = gp.player.playerCoin;
             ds.playerWeapon = gp.player.playerWeapon;
             ds.playerXP = gp.player.playerXP;
+            ds.redPotionNumber = gp.player.redPotionNumber;
+            ds.bluePotionNumber = gp.player.bluePotionNumber;
             
            // PLAYER INVENTORY
             for(int i = 0; i < gp.player.inventory.size();i++) {
@@ -65,7 +71,7 @@ public class SaveLoad {
     public void load() {
         
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save1.dat")));
             
             //Read the DataStorage object
             DataStorage ds = (DataStorage)ois.readObject();
@@ -75,6 +81,8 @@ public class SaveLoad {
             gp.player.playerCoin = ds.playerCoin;
             gp.player.playerWeapon = ds.playerWeapon;
             gp.player.playerXP = ds.playerXP;
+            gp.player.redPotionNumber = ds.redPotionNumber;
+            gp.player.bluePotionNumber = ds.bluePotionNumber;
             
             // PLAYER INVENTORY
             gp.player.inventory.clear();

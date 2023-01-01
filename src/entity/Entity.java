@@ -450,31 +450,29 @@ public class Entity {
                 g2.drawString(name, screenX + 40, screenY - 20);
             }
 
-            // OBJECT LABEL
+            // Object Label
             if (type == objectType) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
-                int objIndex = gp.collisionChecker.checkObject(this, true);
 
-                if(objIndex > 0 && gp.obj[objIndex] != null) {
-                    switch (gp.obj[objIndex].name) {
-                        case "Coin":
-                            break;
-                        case "Dolunay":
-                            g2.setFont(new Font("Gill Sans Extrabold", Font.BOLD, 12));
-                            g2.setColor(Color.cyan);
-                            g2.drawString("Dolunay  Kılıcı", screenX - 8, screenY);
-                            break;
-                        case "TasKanat":
-                            g2.setColor(Color.YELLOW);
-                            g2.drawString("Tas Kanat Balta", screenX - 10, screenY - 10);
-                            break;
-                        case "EcelGetiren":
-                            g2.setColor(Color.cyan);
-                            g2.drawString("Ecel Getiren Kılıç", screenX - 25, screenY - 10);
-                    }
+                switch (name) {
+                    case "Dolunay":
+                        g2.setFont(new Font("Gill Sans Extrabold", Font.BOLD, 12));
+                        g2.setColor(Color.cyan);
+                        g2.drawString("Dolunay Sword", screenX - 8, screenY);
+                        break;
+                    case "TasKanat":
+                        g2.setColor(Color.YELLOW);
+                        g2.drawString("Tas Kanat Axe", screenX - 10, screenY - 10);
+                        break;
+                    case "EcelGetiren":
+                        g2.setColor(Color.cyan);
+                        g2.drawString("Ecel Getiren Sword", screenX - 25, screenY - 10);
+                    
+                    default:
+                        break;
                 }
-
             }
+
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 

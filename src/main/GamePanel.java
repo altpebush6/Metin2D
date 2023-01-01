@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     KeyHandler keyH = new KeyHandler(this);
-    public MouseHandler mouseH = new MouseHandler(this);
+    public MouseHandler mouseH = new MouseHandler(this);;
     Sound soundtrack = new Sound();
     Sound se = new Sound(); // sound effects
     public TileManager tileM = new TileManager(this);
@@ -93,10 +93,18 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 7;
     public final int titleState = 8;
 
-    public boolean gameLoad = false;
+    public boolean playBtn = false;
+    public boolean gameLoad = true;
+    public boolean loadScreen = false;
+    public int loadScreenControl = 0;
 
     public boolean endGame = false, exit = false;
     public int endGameCounter = 0, endGameTime = 180;
+    
+    public boolean loadMusic = false;
+    
+    public int btnCounter = 0;
+    public int btnTimeOut = 120;
 
     public GamePanel() {
 
@@ -113,16 +121,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
 
         aSetter.setObjectManually();
-        // aSetter.createWolf();
-        aSetter.defaultDolunay();
-        aSetter.defaultTasKanat();
-        aSetter.defaultEcelGetiren();
-        aSetter.defaultStaff();
-        aSetter.defaultHeykel();
-
-        if (gameLoad) {
-            playMusic(0);
-        }
 
         aSetter.setNpc();
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -130,10 +128,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         setFullScreen();
 
-        gameState = loadingState;
+        gameState = titleState;
 
-        tileM.loadScreen(g2);
         saveLoad.load();
+
     }
 
     public void reborn(boolean rebornInCenter) {
@@ -247,7 +245,35 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        
 
+        if(playBtn) {
+            btnCounter++;
+            if(btnCounter == btnTimeOut) {
+                loadScreen = true;
+                gameLoad = false;
+                gameState = loadingState;
+            }
+        }
+        
+        if(gameState == titleState) {
+            mouseH.hoverTitleScreenBtn(g2);
+        }
+        
+        if(loadScreen && loadScreenControl == 0) {
+            tileM.loadScreen(g2);
+            loadScreenControl = 1;
+        }
+
+        if (!gameLoad) {
+            tileM.getTileImage(g2);
+        }
+        
+        if (gameLoad && loadScreenControl == 1 && !loadMusic) {
+            playMusic(0);
+            loadMusic = true;
+        }
+        
         if (endGame) {
 
             if (endGameCounter % 60 == 0) {
@@ -265,13 +291,6 @@ public class GamePanel extends JPanel implements Runnable {
             System.exit(0);
         }
 
-        if (gameLoad == false) {
-            tileM.getTileImage(g2);
-        }
-        
-        if(gameState == titleState) {
-            mouseH.hoverTitleScreenBtn(g2);
-        }
 
         if (gameState == playState) {
             aSetter.setEnemy();

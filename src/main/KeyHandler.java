@@ -60,31 +60,33 @@ public class KeyHandler implements KeyListener {
 				gp.player.autoHit = false;
 			}
 			if (code == KeyEvent.VK_1) {
-
+			    gp.player.useRedPotion();
 			}
 			if (code == KeyEvent.VK_2) {
-				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed && gp.player.sp >= 10) {
-					gp.skills.swordSpinUsed = true;
-					gp.skills.swordSpinCounter++;
-					gp.skills.skillType = gp.skills.swordSpinType;
-					gp.player.sp -= 10;
-					gp.playSE(19);
-				}
+			    gp.player.useBluePotion();
 			}
 			if (code == KeyEvent.VK_3) {
+	             if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed && gp.player.sp >= 10) {
+                    gp.skills.swordSpinUsed = true;
+                    gp.skills.swordSpinCounter++;
+                    gp.skills.skillType = gp.skills.swordSpinType;
+                    gp.player.sp -= 10;
+                    gp.playSE(19);
+	             }
 			}
 			if (code == KeyEvent.VK_4) {
+	             if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive && gp.player.sp >= 10) {
+	                    gp.skills.auraSwordActive = true;
+	                    gp.skills.skillUsed = true;
+	                    gp.skills.auraSwordCounter++;
+	                    gp.skills.skillType = gp.skills.auraSwordType;
+	                    gp.player.sp -= 10;
+	                    gp.playSE(22);
+	                    gp.player.attackPower += 10;
+	             }
 			}
 			if (code == KeyEvent.VK_F1) {
-				if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive && gp.player.sp >= 10) {
-					gp.skills.auraSwordActive = true;
-					gp.skills.skillUsed = true;
-					gp.skills.auraSwordCounter++;
-					gp.skills.skillType = gp.skills.auraSwordType;
-					gp.player.sp -= 10;
-					gp.playSE(22);
-					gp.player.attackPower += 10;
-				}
+
 			}
 			if (code == KeyEvent.VK_ESCAPE) {
 				gp.gameState = gp.optionsState;
@@ -106,7 +108,7 @@ public class KeyHandler implements KeyListener {
 
 			if (code == KeyEvent.VK_W) {
 				if (gp.ui.npcSlotRow == 0) {
-					gp.ui.npcSlotRow = 3;
+					gp.ui.npcSlotRow = 8;
 				} else {
 					gp.ui.npcSlotRow--;
 				}
@@ -121,7 +123,7 @@ public class KeyHandler implements KeyListener {
 
 			}
 			if (code == KeyEvent.VK_S) {
-				if (gp.ui.npcSlotRow == 3) {
+				if (gp.ui.npcSlotRow == 8) {
 					gp.ui.npcSlotRow = 0;
 				} else {
 					gp.ui.npcSlotRow++;
@@ -142,21 +144,52 @@ public class KeyHandler implements KeyListener {
 				if (gp.ui.controlNpcCursor() == true) {
 					
 					 if(gp.player.playerCoin > Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price) {
-						if(gp.player.inventory.size() < gp.player.maxInventorySize) {
-							gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
-							gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
-							if(gp.player.taskLevel == 0 ) {
-								gp.player.playerCoin +=100;
-								gp.player.taskLevel ++;
-								gp.player.playerXP += 200;
-							}
-						} else {
-							gp.g2.setFont(gp.g2.getFont().deriveFont(Font.BOLD, 20F));
-							gp.g2.drawString("Envanteriniz Dolu!", gp.tileSize , gp.tileSize*11);
-						}
+					     if(gp.player.inventory.size() < gp.player.maxInventorySize) {
+    					     if(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Red Potion") {
+    					         if(gp.player.redPotionNumber < 99) {
+    	                            if(gp.player.redPotionNumber == 0) {
+    	                                gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+    
+    	                                 if(gp.player.taskLevel == 0 ) {
+    	                                     gp.player.playerCoin +=100;
+    	                                     gp.player.taskLevel ++;
+    	                                     gp.player.playerXP += 200;
+    	                                 }
+    	                             }
+    	                             gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+    	                             gp.player.redPotionNumber++; 
+    					         }
+    					     }else if(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Blue Potion"){
+    		                           if(gp.player.bluePotionNumber < 99) {
+    		                                if(gp.player.bluePotionNumber == 0) {
+    		                                    gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+    
+    		                                     if(gp.player.taskLevel == 0 ) {
+    		                                         gp.player.playerCoin +=100;
+    		                                         gp.player.taskLevel ++;
+    		                                         gp.player.playerXP += 200;
+    		                                     }
+    		                                 }
+    		                                 gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+    		                                 gp.player.bluePotionNumber++; 
+    		                             }
+    					     }else {
+    					         gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+    		                     gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+    		                         
+    		                     if(gp.player.taskLevel == 0 ) {
+    		                         gp.player.playerCoin +=100;
+    		                         gp.player.taskLevel ++;
+    		                         gp.player.playerXP += 200;
+    		                     }
+    					     }
+					     }else {
+					         gp.ui.addMessage("Inventory Full");
+					     }
+					 } else {
+							gp.ui.addMessage("Not Enough Money to Buy It");
+					 }
 					 	
-					  }
-					
 					System.out.println("filled the slot");
 				} else {
 					System.out.println("not filled");

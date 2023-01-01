@@ -32,7 +32,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
         screenX = e.getPoint().x;
         screenY = e.getPoint().y;
-
+        
         // Move
         if (gp.gameState == gp.playState) {
 
@@ -113,9 +113,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
             if (gp.ui.startRec.x < mouseOverX
                     && (gp.ui.startRec.x + gp.ui.startRec.width) > mouseOverX
                     && gp.ui.startRec.y < mouseOverY
-                    && (gp.ui.startRec.y + gp.ui.startRec.height) > mouseOverY) {
+                    && (gp.ui.startRec.y + gp.ui.startRec.height) > mouseOverY && !gp.playBtn) {
                     
-                gp.gameState = gp.playState;
+                gp.playSE(26);
+                gp.playSE(25);
+                gp.playBtn = true;
+
                 
             }
             if (gp.ui.exitRec.x < mouseOverX

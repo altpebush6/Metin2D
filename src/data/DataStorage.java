@@ -6,11 +6,8 @@ import java.util.ArrayList;
 public class DataStorage implements Serializable {
     
     // PLAYER STATS
-    int level;
-    int playerCoin;
+    int level, playerCoin, playerXP, attackPower, redPotionNumber, bluePotionNumber;
     String playerWeapon;
-    int playerXP;
-    int attackPower;
     
     //PLAYER INVENTORY
     ArrayList<String> itemNames = new ArrayList<>();

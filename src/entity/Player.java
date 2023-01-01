@@ -60,6 +60,8 @@ public class Player extends Entity {
 
     // INVENTORY
     public Entity currentWeapon;
+    public int redPotionNumber = 0;
+    public int bluePotionNumber = 0;
 
     public BufferedImage image;
 
@@ -651,45 +653,45 @@ public class Player extends Entity {
                 case "Dolunay":
                     gp.playSE(3);
                     playerWeapon = gp.obj[index].name;
-                    System.out.println("dolunay index : " + index);
-                    gp.ui.addMessage(gp.obj[index].name + " kılıcı kazanıldı.");
+                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();
-                    System.out.println("1.: " + gp.collect[index]);
-                    // gp.obj[index] = null;
-                    System.out.println("2. : " + gp.collect[index]);
+                    gp.obj[index] = null;
                     break;
                 case "TasKanat":
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
-                    gp.ui.addMessage(gp.obj[index].name + " kılıcı kazanıldı.");
+                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
                     System.out.println("taskanat index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();
+                    gp.obj[index] = null;
                     break;
                 case "EcelGetiren":
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
-                    gp.ui.addMessage(gp.obj[index].name + " kılıcı kazanıldı.");
+                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
                     System.out.println("ecelg index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();
+                    gp.obj[index] = null;
                     break;
                 case "Staff":
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
-                    gp.ui.addMessage(gp.obj[index].name + " asa kazanıldı.");
+                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
                     System.out.println("staff index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();
+                    gp.obj[index] = null;
                     break;
             }
         }
@@ -844,6 +846,14 @@ public class Player extends Entity {
 
                         gp.aSetter.createCoin(xPosition, yPosition);
                     }
+                    
+                    // Dolunay 28% Luck
+                    int dolunayLuck = rand.nextInt(100);
+                    if(dolunayLuck < 28) {
+                        int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                        int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+                        gp.aSetter.createDolunay(xPosition, yPosition);
+                    }
 
                     gp.enemy[enemyIndex].dying = true;
                     gp.enemy[enemyIndex].alive = false;
@@ -868,6 +878,70 @@ public class Player extends Entity {
                 life += increaseLife;
             }
             playerTimer = 0;
+        }
+    }
+    
+    public void useRedPotion() {
+        if(redPotionNumber > 0) {
+            if(life != maxLife) {
+                increaseLife = 5;
+                if (maxLife < life + increaseLife) {
+                    life += maxLife - life;
+                } else {
+                    life += increaseLife;
+                }
+                redPotionNumber--;
+                gp.playSE(24);
+                
+                if(redPotionNumber == 0) {
+                    int redPotionIndex = 0, i=0;
+                    while(i < inventory.size()) {
+                        if(inventory.get(i) != null && inventory.get(i).name == "Red Potion") {
+                            redPotionIndex = i;
+                            break;
+                        }
+                        i++;
+                    }
+                    
+                    inventory.remove(redPotionIndex);
+                }
+            }else {
+                gp.ui.addMessage("Full Health!");
+            }
+        }else {
+            gp.ui.addMessage("Not Enough Potion to Drink!");
+        }
+    }
+    
+    public void useBluePotion() {
+        if(bluePotionNumber > 0) {
+            if(sp != maxSp) {
+                increaseSp = 5;
+                if (maxSp < sp + increaseSp) {
+                    sp += maxSp - sp;
+                } else {
+                    sp += increaseSp;
+                }
+                bluePotionNumber--;
+                gp.playSE(24);
+                
+                if(bluePotionNumber == 0) {
+                    int bluePotionIndex = 0, i=0;
+                    while(i < inventory.size()) {
+                        if(inventory.get(i) != null && inventory.get(i).name == "Blue Potion") {
+                            bluePotionIndex = i;
+                            break;
+                        }
+                        i++;
+                    }
+                    
+                    inventory.remove(bluePotionIndex);
+                }
+            }else {
+                gp.ui.addMessage("Full Stamina!");
+            }
+        }else {
+            gp.ui.addMessage("Not Enough Potion to Drink!");
         }
     }
 

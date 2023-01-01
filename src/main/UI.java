@@ -28,14 +28,15 @@ public class UI {
     Graphics2D g2;
     Entity e1;
     Font arial_30, damageFont;
-    BufferedImage coinImage, dolunayImage, emptyBarImage, cursorImage;
+    BufferedImage dolunayImage, emptyBarImage, cursorImage;
     BufferedImage[] hpBarImages = new BufferedImage[8];
     BufferedImage[] spBarImages = new BufferedImage[8];
     BufferedImage auraOfSwordImage, swordSpinImage;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg;
-    BufferedImage inventory;
+    BufferedImage redPotion;
+    BufferedImage inventory, merchantInventory;
     BufferedImage dialogueUI;
     BufferedImage newspaper;
     BufferedImage aybu, charStatus;
@@ -93,7 +94,8 @@ public class UI {
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
         
-        coinImage = gp.uTool.setup("/objects/yang", gp.tileSize, gp.tileSize);
+        merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
+        redPotion = gp.uTool.setup("/objects/redPotion", gp.tileSize, gp.tileSize);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", gp.tileSize * 6, gp.tileSize * 10);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
@@ -105,7 +107,7 @@ public class UI {
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
         inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
-        inventory = gp.uTool.setup("/UI/inventory", 172, 492);
+        inventory = gp.uTool.setup("/UI/inventory", 170, 504);
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 500);
         newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
         newspaper = gp.uTool.setup("/UI/newspaper", gp.screenWidth, gp.screenHeight);
@@ -141,13 +143,15 @@ public class UI {
 
         this.g2 = g2;
         
+        // Message
+        drawMessage(g2);
+        
         //TITLE STATE
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
             changeCursor();
         }
 
-        
         // PLAY STATE
         if (gp.gameState == gp.playState) {
 
@@ -168,16 +172,6 @@ public class UI {
             }
 
             changeAlpha(g2, 1f);
-
-            g2.setFont(arial_30);
-            g2.setColor(Color.white);
-
-            // Message
-            drawMessage(g2);
-
-            // Coin
-            g2.drawImage(coinImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize / 2, null);
-            g2.drawString(" " + gp.player.playerCoin, 45, 45);
         }
 
         // DEAD STATE
@@ -195,9 +189,6 @@ public class UI {
 
             g2.setFont(arial_30);
             g2.setColor(Color.white);
-
-            // Message
-            drawMessage(g2);
 
             // Re-spawn Button
             respawnButtons(g2);
@@ -504,13 +495,27 @@ public class UI {
     public void drawInventory(boolean cursorState) {
 
         // FRAME
-        int inventoryX = gp.screenWidth - 258;
-        int inventoryY = 95;
-        int inventoryWidth = 258;
-        int inventoryHeight = 738;
+        int inventoryX = gp.screenWidth - 255;
+        int inventoryY = 77;
+        int inventoryWidth = 255;
+        int inventoryHeight = 756;
 
         // Inventory
         g2.drawImage(inventory, inventoryX, inventoryY, inventoryWidth, inventoryHeight, null);
+        
+        String coin = "";
+        
+        if(gp.player.playerCoin > 999) {
+            coin = Integer.toString(gp.player.playerCoin / 1000) + "." + Integer.toString(gp.player.playerCoin % 1000);
+        }else {
+            coin = Integer.toString(gp.player.playerCoin);
+        }
+            
+        
+        
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14F));
+        g2.drawString(coin, inventoryX + 120, inventoryY + 750);
+        g2.drawString("Yang", inventoryX + 210, inventoryY + 750);
 
         // SLOT
         final int slotXstart = inventoryX + 8;
@@ -520,25 +525,50 @@ public class UI {
 
         // DRAW PLAYER'S ITEM
         // System.out.println(gp.player.inventory.size());
+
         for (int i = 0; i < gp.player.inventory.size(); i++) {
+            if(gp.player.inventory.get(i) != null) {
 
-            if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
-                // System.out.println("equal");
-                g2.setColor(new Color(240, 190, 90));
-                g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-                g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize,
-                        gp.tileSize, null);
-                g2.setColor(new Color(240, 190, 90));
-                g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
-            }
+                if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
+                    // System.out.println("equal");
+                    g2.setColor(new Color(240, 190, 90));
+                    g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+                    g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null);
+                    g2.setColor(new Color(240, 190, 90));
+                    g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
+                }
+                
+                g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
+                
+                if(gp.player.inventory.get(i).name == "Red Potion" || gp.player.inventory.get(i).name == "Blue Potion") {
+                    g2.setColor(Color.white);
+                    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 11F));
+                    //g2.drawRect(slotX + 25, slotY + 25, 20, 20);
+                    
+                    if(gp.player.inventory.get(i).name == "Red Potion") {
+                        if(gp.player.redPotionNumber < 10) {
+                            g2.drawString(Integer.toString(gp.player.redPotionNumber), slotX + 32, slotY + 35);
+                        }else {
+                            g2.drawString(Integer.toString(gp.player.redPotionNumber), slotX + 27, slotY + 35); 
+                        }
+                    }
+                    
+                    if(gp.player.inventory.get(i).name == "Blue Potion") {
+                        if(gp.player.bluePotionNumber < 10) {
+                            g2.drawString(Integer.toString(gp.player.bluePotionNumber), slotX + 32, slotY + 35);
+                        }else {
+                            g2.drawString(Integer.toString(gp.player.bluePotionNumber), slotX + 27, slotY + 35); 
+                        }
+                    }
+                }
 
-            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
-            slotX += gp.tileSize;
-            if (i % 5 == 4) {
-                // i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i
-                // == 39
-                slotX = slotXstart;
-                slotY += gp.tileSize;
+                slotX += gp.tileSize;
+                if (i % 5 == 4) {
+                    // i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i
+                    // == 39
+                    slotX = slotXstart;
+                    slotY += gp.tileSize;
+                }
             }
         }
 
@@ -577,15 +607,16 @@ public class UI {
 
     // DRAW TRADE SCREEN
     public void drawTradeScreen() {
-        int frameX = 100;
-        int frameY = 100;
-        int frameWidth = gp.tileSize*6;
-        int frameHeight = gp.tileSize*5;
-        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        int inventoryX = 100;
+        int inventoryY = 100;
+
+        // Inventory
+        g2.drawImage(merchantInventory, inventoryX, inventoryY, null);
 
         // SLOT
-        final int npcSlotXstart = frameX + 20;
-        final int npcSlotYstart = frameY + 20;
+        final int npcSlotXstart = inventoryX + 8;
+        final int npcSlotYstart = inventoryY + 24;
         int npcSlotX = npcSlotXstart;
         int npcSlotY = npcSlotYstart;
 
@@ -602,9 +633,9 @@ public class UI {
         for (int i = 0; i < Npc_Merchant.npcInventory.size(); i++) {
             g2.drawImage(Npc_Merchant.npcInventory.get(i).down1, npcSlotX, npcSlotY, gp.tileSize, gp.tileSize, null);
             npcSlotX += gp.tileSize;
-
         }
 
+        /*
         // DESCRIPTION FRAME
         int dFrameX = frameX;
         int dFrameY = frameY + frameHeight +10 ;
@@ -614,7 +645,7 @@ public class UI {
         int textX = dFrameX + 20;
         int textY = dFrameY + gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(28F));
-
+        */
     }
 
     public boolean controlNpcCursor() {
@@ -878,7 +909,23 @@ public class UI {
 
         // Item-Skill Bar
         g2.drawImage(itemSkillBar, bottomBarX + 280, gp.screenHeight - bottomBarHeight, 400, bottomBarHeight, null);
-
+        
+        // Draw Red-Potion
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 10F));
+        g2.setColor(Color.white);
+        if(gp.player.redPotionNumber < 10) {
+            g2.drawString(Integer.toString(gp.player.redPotionNumber), bottomBarX + 348, gp.screenHeight - bottomBarHeight + 27);
+        }else {
+            g2.drawString(Integer.toString(gp.player.redPotionNumber), bottomBarX + 344, gp.screenHeight - bottomBarHeight + 27);
+        }
+        
+        // Draw Blue-Potion
+        if(gp.player.bluePotionNumber < 10) {
+            g2.drawString(Integer.toString(gp.player.bluePotionNumber), bottomBarX + 384, gp.screenHeight - bottomBarHeight + 27);
+        }else {
+            g2.drawString(Integer.toString(gp.player.bluePotionNumber), bottomBarX + 380, gp.screenHeight - bottomBarHeight + 27);
+        }
+        
         // Bottom Bar
         g2.drawImage(bottomBar2, bottomBarX + 680, gp.screenHeight - bottomBarHeight, 375, bottomBarHeight, null);
 
