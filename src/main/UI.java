@@ -90,6 +90,7 @@ public class UI {
     public boolean enterName = false;
     
     public Rectangle btnRec;
+    
     //save
     SaveLoad saveLoad = new SaveLoad(gp);
 
@@ -99,7 +100,7 @@ public class UI {
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
         
-        abulbulImage = gp.uTool.setup("/UI/abulbul", 225, 225);
+        abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
@@ -205,8 +206,8 @@ public class UI {
 
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
-            drawNPC2D();
-            drawDialogueScreen();
+            g2.drawImage(abulbulImage, null, 0, 0);
+            drawStory(650, 500);     
         }
 
         // INVENTORY STATE
@@ -428,32 +429,6 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(20F));
         g2.setColor(Color.white);
         g2.drawString(text, x, y);
-    }
-
-    public void drawNPC2D() {
-        g2.drawImage(abulbulImage, null, 100, 300);
-    }
-    
-    // DIALOGUE SCREEN METHOD
-    public void drawDialogueScreen() {
-
-        // WINDOW
-        /*
-         * int x = gp.tileSize * 2;
-         * int y = gp.tileSize / 2;
-         */
-        int x = gp.screenWidth / 2 - dialogueUI.getWidth() / 2;
-        int y = gp.screenHeight / 2 - dialogueUI.getHeight() / 2;
-        /*
-         * int width = gp.screenHeight - (gp.tileSize * 4);
-         * int height = gp.tileSize * 5;
-         * drawSubWindow(x, y, width, height);
-         */
-
-        g2.drawImage(dialogueUI, null, x, y);
-        // g2.drawImage(newspaper,null,0,0);
-        
-        drawStory(x, y);     
     }
 
     public void drawStory(int x, int y) {

@@ -43,8 +43,7 @@ public class Sound {
         soundURL[23] = getClass().getResource("/sounds/threeWayCut.wav");
         soundURL[24] = getClass().getResource("/sounds/redPotion.wav");
         soundURL[25] = getClass().getResource("/sounds/titleScreen.wav");
-        soundURL[26] = getClass().getResource("/sounds/button.wav");
-        
+        soundURL[26] = getClass().getResource("/sounds/button.wav");        
 	}
 	
 	public void setFile(int index) {
