@@ -376,9 +376,10 @@ public class KeyHandler implements KeyListener {
 			}
 		}
 		*/
-        if(code == KeyEvent.VK_ENTER) {
-            enterPressed = true;
-        }
+	        if(code == KeyEvent.VK_ENTER) {
+	            gp.player.interactNPCIndex = -1;
+	        }
+		
         
 		if (code == KeyEvent.VK_W) {
 
