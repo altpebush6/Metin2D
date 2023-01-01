@@ -116,6 +116,9 @@ public class Entity {
 
     public void damageReaction() {
     }
+    
+    public void changeDirection() {
+    }
 
     public void checkCollision() {
         // CHECK TILE COLLISION
@@ -179,6 +182,16 @@ public class Entity {
                         newWorldY > 0 && newWorldY < (gp.maxWorldRow - 2) * gp.tileSize) {
                     worldX = newWorldX;
                     worldY = newWorldY;
+                    if(type == enemyType && name == "Wolf") {
+                        if (newWorldX > gp.aSetter.wolfBoundary.x && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
+                                newWorldY > gp.aSetter.wolfBoundary.y && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
+                            worldX = newWorldX;
+                            worldY = newWorldY;
+                        }
+                    }else {
+                        worldX = newWorldX;
+                        worldY = newWorldY;
+                    }
                 }
             }
             
@@ -229,8 +242,15 @@ public class Entity {
                         break;
                 }
 
-                if (newWorldX > 0 && newWorldX < (gp.maxWorldCol - 1) * gp.tileSize &&
-                        newWorldY > 0 && newWorldY < (gp.maxWorldRow - 2) * gp.tileSize) {
+                if(type == enemyType && name == "Wolf") {
+                    if (newWorldX > gp.aSetter.wolfBoundary.x && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
+                            newWorldY > gp.aSetter.wolfBoundary.y && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
+                        worldX = newWorldX;
+                        worldY = newWorldY;
+                    }else {
+                        changeDirection();
+                    }
+                }else {
                     worldX = newWorldX;
                     worldY = newWorldY;
                 }
@@ -334,15 +354,15 @@ public class Entity {
         else
             missingBottom = 0;
 
-        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - gp.tileSize && // is entity's location
+        if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - 96 && // is entity's location
                                                                                                  // more than screenX
-                worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + gp.tileSize && // is entity's
+                worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + 96 && // is entity's
                                                                                                     // location less
                                                                                                     // than screenX
-                worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - gp.tileSize && // is entity's
+                worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - 96 && // is entity's
                                                                                                       // location more
                                                                                                       // than screenY
-                worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + gp.tileSize) { // is entity's
+                worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + 96) { // is entity's
                                                                                                    // location less than
                                                                                                    // screenY
 

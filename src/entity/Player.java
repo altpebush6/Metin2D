@@ -71,6 +71,8 @@ public class Player extends Entity {
     // To avoid sliding image when sizes are different
     public int tempScreenX;
     public int tempScreenY;
+    
+    public int interactNPCIndex = -1;
 
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
@@ -322,6 +324,12 @@ public class Player extends Entity {
                 // gp.ui.showMessage("Press \" to pick up item.");
             }
         }
+        
+        // CHECK NPC COLLISION
+        if (interactNPCIndex != -1) {
+            interactNpc(interactNPCIndex);
+            keyH.enterPressed = false;
+        }
 
         // CHECK ENEMY COLLISION
         int enemyIndex = gp.collisionChecker.checkFightArea(this, gp.enemy);
@@ -358,10 +366,7 @@ public class Player extends Entity {
             gp.collisionChecker.checkEntity(this, gp.enemy);
 
             // CHECK NPC COLLISION
-            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
-            if (npcIndex != -1) {
-                //gp.npc[npcIndex].onPath = true;
-            }
+            gp.collisionChecker.checkEntity(this, gp.npc);
 
             // interactNpc(npcIndex);
 
@@ -386,12 +391,7 @@ public class Player extends Entity {
             int enemyCollisionIndex = gp.collisionChecker.checkEntity(this, gp.enemy);
 
             // CHECK NPC COLLISION
-            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
-            if (npcIndex != -1) {
-                //gp.npc[npcIndex].onPath = true;
-            }
-
-            interactNpc(npcIndex);
+            gp.collisionChecker.checkEntity(this, gp.npc);
 
             if (mouseH.pressedOnEnemy) {
                 int enemyCol = (gp.enemy[mouseH.enemyIndex].worldX + gp.enemy[mouseH.enemyIndex].solidArea.x)

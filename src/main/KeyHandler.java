@@ -57,6 +57,15 @@ public class KeyHandler implements KeyListener {
 
 		// PLAY STATE
 		if (gp.gameState == gp.playState) {
+		    
+		    if(code == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+                for(int i = 0; i < gp.npc.length; i++) {
+                    if(gp.npc[i] != null && (gp.npc[i].worldX < gp.player.worldX + gp.tileSize * 2 && gp.npc[i].worldX > gp.player.worldX - gp.tileSize * 2) && (gp.npc[i].worldY < gp.player.worldY + gp.tileSize * 2 && gp.npc[i].worldY > gp.player.worldY - gp.tileSize * 2)) {
+                        gp.player.interactNPCIndex = i;
+                    }
+                }
+            }
 
 			if (code == KeyEvent.VK_W) {
 				upPressed = true;
@@ -357,9 +366,6 @@ public class KeyHandler implements KeyListener {
 
 		int code = e.getKeyCode();
 
-		if (gp.gameState == gp.playState) {
-
-		}
 		/*
 		if(gp.gameState == gp.enchantState) {
 
@@ -370,6 +376,10 @@ public class KeyHandler implements KeyListener {
 			}
 		}
 		*/
+        if(code == KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
+        
 		if (code == KeyEvent.VK_W) {
 
 			upPressed = false;

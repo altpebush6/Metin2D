@@ -21,11 +21,13 @@ public class AssetSetter {
 
     public boolean collisionOn;
 
+    public Rectangle wolfBoundary;
+    
     int playerWorldX, playerWorldY, playerWorldWidth, playerWorldHeight, spawnWorldX, spawnWorldY;
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
-       
+        wolfBoundary = new Rectangle(20 * gp.tileSize, 20 * gp.tileSize, 30 * gp.tileSize, 30 * gp.tileSize);
     }
 
     public void setObjectManually() {
@@ -68,11 +70,11 @@ public class AssetSetter {
 
         if (wolfCreateCounter >= 180 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
 
-            playerWorldX = gp.player.worldX - gp.tileSize * 5;
-            playerWorldWidth = gp.player.worldX + gp.tileSize * 5;
+            playerWorldX = wolfBoundary.x;
+            playerWorldWidth = wolfBoundary.x + wolfBoundary.width;
 
-            playerWorldY = gp.player.worldY - gp.tileSize * 5;
-            playerWorldHeight = gp.player.worldY + gp.tileSize * 5;
+            playerWorldY = wolfBoundary.y;
+            playerWorldHeight = wolfBoundary.y + wolfBoundary.height;
 
             do {
                 spawnWorldX = (int) (rand.nextInt(playerWorldX, playerWorldWidth) / gp.tileSize) * gp.tileSize; // new

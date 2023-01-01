@@ -233,6 +233,7 @@ public class UI {
         if (gp.gameState == gp.tradeState) {
             drawTradeScreen();
             drawInventory(false);
+            drawBottomBar(g2);
         }
 
         // OPTIONS STATE
