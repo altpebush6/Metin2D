@@ -27,6 +27,7 @@ public class Npc_Blacksmith extends Entity {
         level = 100;
         name = "Demirci";
         getNpcImage();
+        speak();
     }
 
     public void getNpcImage() {
@@ -35,6 +36,12 @@ public class Npc_Blacksmith extends Entity {
         down3 = setup("/npc/merchant_down_1", gp.tileSize, gp.tileSize);
     }
 
+    public void speak() {
+        System.out.println("npc");
+        super.speak();
+        gp.gameState = gp.enchantState;
+
+    }
 
     public void increaseWeapon(Entity obj) {
       
