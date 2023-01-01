@@ -45,7 +45,12 @@ public class KeyHandler implements KeyListener {
 		                gp.ui.playerName += e.getKeyChar();
 		            }
 		        }
-		        
+		    }else {
+		        if(code == KeyEvent.VK_ENTER && !gp.playBtn){
+                    gp.playSE(26);
+                    gp.playSE(25);
+                    gp.playBtn = true;
+		        }
 		    }
 		}
 
