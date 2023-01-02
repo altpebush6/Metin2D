@@ -44,7 +44,7 @@ public class Player extends Entity {
 
     public Random rand = new Random();
 
-    public int punchTimeOut = 0;
+    public int attackCounter = 0;
     public int holdingNum = 0;
     public int holdingCounter = 0;
     public int noPunchCounter = 0;
@@ -209,17 +209,35 @@ public class Player extends Entity {
     }
 
     public void getPlayerAttackImage() {
-        attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
-        attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
-
-        attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
-        attackDown2 = setup("/player/boy_attack_down_2", gp.tileSize, gp.tileSize * 2);
-
-        attackLeft1 = setup("/player/boy_attack_left_1", gp.tileSize * 2, gp.tileSize);
-        attackLeft2 = setup("/player/boy_attack_left_2", gp.tileSize * 2, gp.tileSize);
-
-        attackRight1 = setup("/player/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
-        attackRight2 = setup("/player/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
+        attackLeft1 = setup("/player/attackleft1", 80, 80);
+        attackLeft2 = setup("/player/attackleft2", 80, 80);
+        attackLeft3 = setup("/player/attackleft3", 80, 80);
+        attackLeft4 = setup("/player/attackleft4", 80, 80);
+        attackLeft5 = setup("/player/attackleft5", 80, 80);
+        attackLeft6 = setup("/player/attackleft6", 80, 80);
+        attackLeft7 = setup("/player/attackleft7", 80, 80);
+        attackLeft8 = setup("/player/attackleft8", 80, 80);
+        attackLeft9 = setup("/player/attackleft9", 80, 80);
+        attackLeft10 = setup("/player/attackleft10", 80, 80);
+        attackLeft11 = setup("/player/attackleft11", 80, 80);
+        attackLeft12 = setup("/player/attackleft12", 80, 80);
+        attackLeft13 = setup("/player/attackleft13", 80, 80);
+        attackLeft14 = setup("/player/attackleft14", 80, 80);
+        
+        attackRight1 = setup("/player/attackright1", 80, 80);
+        attackRight2 = setup("/player/attackright2", 80, 80);
+        attackRight3 = setup("/player/attackright3", 80, 80);
+        attackRight4 = setup("/player/attackright4", 80, 80);
+        attackRight5 = setup("/player/attackright5", 80, 80);
+        attackRight6 = setup("/player/attackright6", 80, 80);
+        attackRight7 = setup("/player/attackright7", 80, 80);
+        attackRight8 = setup("/player/attackright8", 80, 80);
+        attackRight9 = setup("/player/attackright9", 80, 80);
+        attackRight10 = setup("/player/attackright10", 80, 80);
+        attackRight11 = setup("/player/attackright11", 80, 80);
+        attackRight12 = setup("/player/attackright12", 80, 80);
+        attackRight13 = setup("/player/attackright13", 80, 80);
+        attackRight14 = setup("/player/attackright14", 80, 80);
     }
 
     public void update() {
@@ -236,28 +254,23 @@ public class Player extends Entity {
         }
 
         // When pressed space
-        punchTimeOut++;
+        attackCounter++;
         if ((keyH.spacePressed || autoHit) && !gp.skills.skillUsed) {
             // System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut:
             // "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
             holdingCounter++;
-            if (punchTimeOut >= damageTimeOut) {
-
+            if (attackCounter >= damageTimeOut) {
+                
                 if (gp.endGame) {
                     gp.endGameCounter = 0;
                     gp.endGame = false;
                     gp.ui.addMessage("Game shutdown has been cancelled.");
                 }
 
-                punchTimeOut = 0;
+                attackCounter = 0;
                 attacking = true;
-                gp.playSE(holdingNum + 10);
-                holdingNum++;
-                if (holdingNum == 4) {
-                    holdingNum = 0;
-                    holdingCounter = 0;
-                }
+                
             }
         }
 
@@ -515,10 +528,27 @@ public class Player extends Entity {
                             if (spriteNum == 2)
                                 image = auraSwordLeft2;
                         } else {
-                            if (spriteNum == 1)
-                                image = attackLeft1;
-                            if (spriteNum == 2)
-                                image = attackLeft2;
+                            if(holdingNum == 0) {
+                                if (spriteNum == 1) image = attackLeft1;
+                                if (spriteNum == 2) image = attackLeft2;
+                                if (spriteNum == 3) image = attackLeft3;
+                                if (spriteNum == 4) image = attackLeft4;
+                            }else if(holdingNum == 1) {
+                                if (spriteNum == 1) image = attackLeft5;
+                                if (spriteNum == 2) image = attackLeft6;
+                                if (spriteNum == 3) image = attackLeft7;
+                                if (spriteNum == 4) image = attackLeft8;
+                            }else if(holdingNum == 2) {
+                                if (spriteNum == 1) image = attackLeft9;
+                                if (spriteNum == 2) image = attackLeft10;
+                                if (spriteNum == 3) image = attackLeft9;
+                                if (spriteNum == 4) image = attackLeft10;
+                            }else if(holdingNum == 3) {
+                                if (spriteNum == 1) image = attackLeft11;
+                                if (spriteNum == 2) image = attackLeft12;
+                                if (spriteNum == 3) image = attackLeft13;
+                                if (spriteNum == 4) image = attackLeft14;
+                            }
                         }
 
                         tempScreenX = screenX - gp.tileSize; // To avoid sliding image when image sizes are different
@@ -542,10 +572,27 @@ public class Player extends Entity {
                             if (spriteNum == 2)
                                 image = auraSwordRight2;
                         } else {
-                            if (spriteNum == 1)
-                                image = attackRight1;
-                            if (spriteNum == 2)
-                                image = attackRight2;
+                            if(holdingNum == 0) {
+                                if (spriteNum == 1) image = attackRight1;
+                                if (spriteNum == 2) image = attackRight2;
+                                if (spriteNum == 3) image = attackRight3;
+                                if (spriteNum == 4) image = attackRight4;
+                            }else if(holdingNum == 1) {
+                                if (spriteNum == 1) image = attackRight5;
+                                if (spriteNum == 2) image = attackRight6;
+                                if (spriteNum == 3) image = attackRight7;
+                                if (spriteNum == 4) image = attackRight8;
+                            }else if(holdingNum == 2) {
+                                if (spriteNum == 1) image = attackRight9;
+                                if (spriteNum == 2) image = attackRight10;
+                                if (spriteNum == 3) image = attackRight9;
+                                if (spriteNum == 4) image = attackRight10;
+                            }else if(holdingNum == 3) {
+                                if (spriteNum == 1) image = attackRight11;
+                                if (spriteNum == 2) image = attackRight12;
+                                if (spriteNum == 3) image = attackRight13;
+                                if (spriteNum == 4) image = attackRight14;
+                            }
                         }
                     } else {
                         if (spriteNum == 1)
@@ -581,10 +628,16 @@ public class Player extends Entity {
     }
 
     public void attack() {
+        
+        // spriteCounter yürürken 2 olduğu için 3 te iken ses çal
+        if(spriteCounter == 3) {
+            gp.playSE(holdingNum + 10);
+        }
+        
         spriteCounter++;
         if (spriteCounter <= 5) {
             spriteNum = 1;
-        } else if (spriteCounter > 5 && spriteCounter <= 20) {
+        } else if (spriteCounter > 5 && spriteCounter <= 10) {
             spriteNum = 2;
 
             speed = attackWalkingSpeed;
@@ -628,12 +681,25 @@ public class Player extends Entity {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
 
+        } else if(spriteCounter > 10 && spriteCounter <= 15){
+            spriteNum = 3;
+        } else if(spriteCounter > 15 && spriteCounter <= 20){
+            spriteNum = 4;
         } else {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
             speed = speedDefault;
+            
+            if (holdingNum == 3) {
+                holdingNum = 0;
+                holdingCounter = 0;
+            }else {
+                holdingNum++;
+            }
         }
+        
+        System.out.println(holdingNum+" "+spriteCounter+" "+spriteNum);
     }
 
     public void pickUpObject(int index) {

@@ -274,7 +274,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         if (gameLoad && loadScreenControl == 1 && !loadMusic) {
-            playMusic(0);
+            //playMusic(0);
             loadMusic = true;
         }
         

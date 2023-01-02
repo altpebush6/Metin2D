@@ -71,7 +71,10 @@ public class Entity {
 
     // Images
     public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, right5;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
+    public BufferedImage attackLeft1, attackLeft2, attackLeft3, attackLeft4, attackLeft5, attackLeft6, attackLeft7, attackLeft8, attackLeft9, attackLeft10, attackLeft11, attackLeft12, attackLeft13, attackLeft14;
+    public BufferedImage attackRight1, attackRight2, attackRight3, attackRight4, attackRight5, attackRight6, attackRight7, attackRight8, attackRight9, attackRight10, attackRight11, attackRight12, attackRight13, attackRight14;
+    public BufferedImage attackDown1, attackDown2, attackDown3, attackDown4, attackDown5, attackDown6, attackDown7, attackDown8, attackDown9, attackDown10, attackDown11, attackDown12, attackDown13, attackDown14;
+    public BufferedImage attackUp1, attackUp2, attackUp3, attackUp4, attackUp5, attackUp6, attackUp7, attackUp8, attackUp9, attackUp10, attackUp11, attackUp12, attackUp13, attackUp14;
     public BufferedImage auraSwordUp1, auraSwordUp2, auraSwordDown1, auraSwordDown2, auraSwordLeft1, auraSwordLeft2, auraSwordRight1, auraSwordRight2;
     public BufferedImage image, deadImage;
     public BufferedImage hpBarImage, emptyBarImage;
