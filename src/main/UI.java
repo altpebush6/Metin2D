@@ -651,7 +651,7 @@ public class UI {
                         }
 
                         if (gp.player.enchantAccepted == true) {
-                            en.enchantIndex.add(i);
+                            
                             // System.out.println("yükselt");
                             g2.setColor(new Color(148, 0, 211));
                             g2.fillRoundRect(enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, 10, 10);
@@ -679,10 +679,12 @@ public class UI {
                             g2.setFont(g2.getFont().deriveFont(36F));
 
                             if (successEnch) {
+                                en.enchantIndex.add(i);
                                 gp.player.inventory.get(i).enchantLevel++;
                                 System.out.println(cursorIndex);
                                 g2.drawString(" Silahınız yükseltildi.", gp.tileSize * 10, gp.tileSize * 4);
                             } else {
+                                System.out.println("yandı");
                                 System.out.println(cursorIndex);
                                 g2.drawString("Yükseltme başarısız.", gp.tileSize * 10, gp.tileSize * 4);
                             }

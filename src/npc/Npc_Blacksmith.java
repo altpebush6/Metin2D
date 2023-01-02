@@ -57,7 +57,7 @@ public class Npc_Blacksmith extends Entity {
       
         if (obj.objectType == 4) {
             if(obj.objDetailedType == 1) {
-                if(obj.enchantLevel == 0) {
+                
                     int max = 1;
 	                int min = 0;
 	                int range = max - min + 1;
@@ -69,7 +69,7 @@ public class Npc_Blacksmith extends Entity {
                         return true;
                         //System.out.println("+ Basma işlemi başarılı. ");
                     }
-                }
+                
             }
 
         }
