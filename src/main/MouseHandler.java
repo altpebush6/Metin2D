@@ -75,6 +75,26 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 }
             }
         }
+        
+        // Inventory Btn
+        if (gp.ui.inventoryRec.x < mouseOverX
+                && (gp.ui.inventoryRec.x + gp.ui.inventoryRec.width) > mouseOverX
+                && gp.ui.inventoryRec.y < mouseOverY
+                && (gp.ui.inventoryRec.y + gp.ui.inventoryRec.height) > mouseOverY) {
+            if(gp.gameState == gp.playState) {
+                gp.gameState = gp.inventoryState;
+            }else if(gp.gameState == gp.inventoryState){
+                gp.gameState = gp.playState;
+            }
+        }
+        
+        // Options Btn
+        if (gp.ui.optionsRec.x < mouseOverX
+                && (gp.ui.optionsRec.x + gp.ui.optionsRec.width) > mouseOverX
+                && gp.ui.optionsRec.y < mouseOverY
+                && (gp.ui.optionsRec.y + gp.ui.optionsRec.height) > mouseOverY) {
+            gp.gameState = gp.optionsState;
+        }
 
         // RE-SPAWN
         if (gp.gameState == gp.deadState) {
@@ -176,7 +196,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         else if (gp.ui.respawnCityRec.x < mouseOverX
                 && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX
                 && gp.ui.respawnCityRec.y < mouseOverY
-                && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY)
+                && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY && gp.gameState == gp.playState)
             gp.ui.btnHover = 2;
         else
             gp.ui.btnHover = 0;
@@ -206,5 +226,20 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 gp.ui.btnHover = 0;
         }
     }
-
+    
+    public void hoverInventoryOptionsBtn(Graphics2D g2) {
+        if (gp.ui.inventoryRec.x < mouseOverX
+                && (gp.ui.inventoryRec.x + gp.ui.inventoryRec.width) > mouseOverX
+                && gp.ui.inventoryRec.y < mouseOverY
+                && (gp.ui.inventoryRec.y + gp.ui.inventoryRec.height) > mouseOverY) {
+            gp.ui.btnHover = 1;
+        }else if (gp.ui.optionsRec.x < mouseOverX
+                && (gp.ui.optionsRec.x + gp.ui.optionsRec.width) > mouseOverX
+                && gp.ui.optionsRec.y < mouseOverY
+                && (gp.ui.optionsRec.y + gp.ui.optionsRec.height) > mouseOverY) {
+            gp.ui.btnHover = 2;
+        }else {
+            gp.ui.btnHover = 0;
+        }
+    }
 }
