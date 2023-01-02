@@ -127,7 +127,7 @@ public class Player extends Entity {
         increaseLife = 1;
         increaseSp = 1.0;
         playerTimer = 0;
-        playerCoin = 0;
+        playerCoin = 200;
         playerWeapon = "";
         attackPower = 5;
         taskLevel = 0;

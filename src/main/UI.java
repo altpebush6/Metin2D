@@ -58,9 +58,9 @@ public class UI {
 
     public boolean messageOn = false;
     /*
-    public String message = "";
-    int messageCounter = 0;
-    */
+     * public String message = "";
+     * int messageCounter = 0;
+     */
     public ArrayList<String> message = new ArrayList<>();
     public ArrayList<Integer> messageCounter = new ArrayList<>();
     public int itemIndex;
@@ -88,13 +88,13 @@ public class UI {
     public int respawnBtnWidth, respawnBtnHeight;
     public int titleScreenBtnWidth, titleScreenHeight;
     public int nextPageBtnWidth, nextPageBtnHeight;
-    
+
     public String playerName = "";
     public boolean enterName = false;
     public boolean successEnch;
     public Rectangle btnRec;
-    
-    //save
+
+    // save
     SaveLoad saveLoad = new SaveLoad(gp);
 
     public UI(GamePanel gp) {
@@ -102,7 +102,7 @@ public class UI {
         en = new Entity(gp);
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
-        
+
         abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
@@ -149,12 +149,12 @@ public class UI {
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
-        
+
         // Message
         drawMessage(g2);
-        
-        //TITLE STATE
-        if(gp.gameState == gp.titleState) {
+
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
             drawTitleScreen();
             changeCursor();
         }
@@ -210,7 +210,7 @@ public class UI {
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
             g2.drawImage(abulbulImage, null, 0, 0);
-            drawStory(650, 500);     
+            drawStory(650, 500);
         }
 
         // INVENTORY STATE
@@ -219,15 +219,13 @@ public class UI {
 
             drawInventory(true);
         }
-        
-        // ENCHANT STATE 
+
+        // ENCHANT STATE
         if (gp.gameState == gp.enchantState) {
             drawBottomBar(g2);
             drawInventory(true);
             drawEnchantment();
         }
-            
-      
 
         // TRADE STATE
         if (gp.gameState == gp.tradeState) {
@@ -242,20 +240,20 @@ public class UI {
         }
 
     }
-    
+
     public void drawTitleScreen() {
-        g2.drawImage(aybu, null, 0 , 0);
-        
-        if(gp.player.name.equals("")) {
+        g2.drawImage(aybu, null, 0, 0);
+
+        if (gp.player.name.equals("")) {
             enterName = true;
-            g2.drawImage(rectangle, null, 510 , 350);
+            g2.drawImage(rectangle, null, 510, 350);
             g2.setColor(Color.white);
             g2.fillRect(680, 430, 150, 35);
             g2.setColor(Color.black);
             g2.drawString(playerName, 690, 455);
             enterNameButton(g2);
-        }else {
-            g2.drawImage(charStatus, null, 50 , 350);
+        } else {
+            g2.drawImage(charStatus, null, 50, 350);
             titleScreenCharStatus(g2);
             titleScreenButtons(g2);
         }
@@ -365,21 +363,21 @@ public class UI {
                 commandNum = 0;
             }
         }
-        //SAVE
+        // SAVE
         textY += gp.tileSize;
         g2.drawString("Save", textX, textY);
         if (commandNum == 5) {
             g2.drawString((">"), textX - 25, textY);
             if (gp.keyH.enterPressed == true) {
-                //g2.drawString(("Saving..."), textX + 25, textY);
-                //subState = 4;
+                // g2.drawString(("Saving..."), textX + 25, textY);
+                // subState = 4;
                 commandNum = 0;
                 gp.gameState = gp.playState;
             }
         }
 
         // BACK
-        textY += (int)(gp.tileSize * 1.5);
+        textY += (int) (gp.tileSize * 1.5);
         g2.drawString("Back", textX, textY);
         if (commandNum == 6) {
             g2.drawString((">"), textX - 25, textY);
@@ -388,7 +386,6 @@ public class UI {
                 commandNum = 0;
             }
         }
-        
 
         // FULL SCREEN CHECK BOX
         textX = frameX + gp.tileSize * 6;
@@ -424,6 +421,7 @@ public class UI {
 
         g2.drawString(text, x, y);
     }
+
     // SAVE TRY METHOD
     public void drawSaveScreen() {
 
@@ -441,57 +439,62 @@ public class UI {
         g2.setColor(c2);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
         x += gp.tileSize;
-        y += gp.tileSize+10;
+        y += gp.tileSize + 10;
         int lineCount = 0;
         int index = en.taskLevel;
-        for(String line : en.dialogues[index].split("\n")) {
+        for (String line : en.dialogues[index].split("\n")) {
             g2.drawString(line, x, y);
             y += 30;
             lineCount++;
-            if(lineCount >= 11){
-                /* 
-                System.out.println("yeni sayfa");
-                String nextPage = "New Page";
-                nextPageBtnWidth = gp.tileSize * 2;
-                nextPageBtnHeight = (int) (gp.tileSize * 0.65);
+            if (lineCount >= 11) {
+                /*
+                 * System.out.println("yeni sayfa");
+                 * String nextPage = "New Page";
+                 * nextPageBtnWidth = gp.tileSize * 2;
+                 * nextPageBtnHeight = (int) (gp.tileSize * 0.65);
+                 * 
+                 * nextPageRec = new Rectangle(gp.tileSize / 2, gp.tileSize / 2,
+                 * nextPageBtnWidth, nextPageBtnHeight);
+                 * //respawnCityRec = new Rectangle(gp.tileSize / 2, (int) (gp.tileSize * 1.2),
+                 * respawnBtnWidth, respawnBtnHeight);
+                 * 
+                 * g2.drawImage(btnBg, respawnHereRec.x, respawnHereRec.y, respawnHereRec.width,
+                 * respawnHereRec.height, null);
+                 * //g2.drawImage(btnBg, respawnCityRec.x, respawnCityRec.y,
+                 * respawnCityRec.width, respawnCityRec.height, null);
+                 * 
+                 * if (btnHover == 1) {
+                 * g2.setColor(new Color(238, 238, 238, 40));
+                 * g2.fillRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width,
+                 * respawnHereRec.height);
+                 * } else if (btnHover == 2) {
+                 * g2.setColor(new Color(238, 238, 238, 40));
+                 * g2.fillRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width,
+                 * respawnCityRec.height);
+                 * }
+                 * 
+                 * g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
+                 * g2.setColor(Color.white);
+                 * g2.drawString(respawnHere, 65, 44);
+                 * g2.drawString(respawnCity, 65, 76);
+                 * 
+                 * g2.setColor(new Color(0, 0, 0, 0));
+                 * g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width,
+                 * respawnHereRec.height);
+                 * g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width,
+                 * respawnCityRec.height);
+                 * g2.setColor(Color.white);
+                 */
+            }
 
-                nextPageRec = new Rectangle(gp.tileSize / 2, gp.tileSize / 2, nextPageBtnWidth, nextPageBtnHeight);
-                //respawnCityRec = new Rectangle(gp.tileSize / 2, (int) (gp.tileSize * 1.2), respawnBtnWidth, respawnBtnHeight);
-
-                g2.drawImage(btnBg, respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height, null);
-                //g2.drawImage(btnBg, respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height, null);
-
-        if (btnHover == 1) {
-            g2.setColor(new Color(238, 238, 238, 40));
-            g2.fillRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
-        } else if (btnHover == 2) {
-            g2.setColor(new Color(238, 238, 238, 40));
-            g2.fillRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
         }
 
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
-                g2.setColor(Color.white);
-            g2.drawString(respawnHere, 65, 44);
-            g2.drawString(respawnCity, 65, 76);
-
-            g2.setColor(new Color(0, 0, 0, 0));
-            g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width, respawnHereRec.height);
-            g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width, respawnCityRec.height);
-            g2.setColor(Color.white);
-         */   
-        }
-            
-        }
-
-
-
-
-          /*
-          for(int i=0;i<7;i++) {
-            g2.drawString(en.dialogues[i], x, y);
-            y += gp.tileSize;
-          }
-          */
+        /*
+         * for(int i=0;i<7;i++) {
+         * g2.drawString(en.dialogues[i], x, y);
+         * y += gp.tileSize;
+         * }
+         */
 
     }
 
@@ -506,17 +509,15 @@ public class UI {
 
         // Inventory
         g2.drawImage(inventory, inventoryX, inventoryY, inventoryWidth, inventoryHeight, null);
-        
+
         String coin = "";
-        
-        if(gp.player.playerCoin > 999) {
+
+        if (gp.player.playerCoin > 999) {
             coin = Integer.toString(gp.player.playerCoin / 1000) + "." + Integer.toString(gp.player.playerCoin % 1000);
-        }else {
+        } else {
             coin = Integer.toString(gp.player.playerCoin);
         }
-            
-        
-        
+
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14F));
         g2.drawString(coin, inventoryX + 120, inventoryY + 750);
         g2.drawString("Yang", inventoryX + 210, inventoryY + 750);
@@ -531,44 +532,54 @@ public class UI {
         // System.out.println(gp.player.inventory.size());
 
         for (int i = 0; i < gp.player.inventory.size(); i++) {
-            if(gp.player.inventory.get(i) != null) {
+            if (gp.player.inventory.get(i) != null) {
 
                 if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
                     // System.out.println("equal");
                     g2.setColor(new Color(240, 190, 90));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-                    g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null);
+                    g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize,
+                            gp.tileSize, null);
                     g2.setColor(new Color(240, 190, 90));
                     g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
                 }
-                
+
                 g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
-                
-                if(gp.player.inventory.get(i).enchantLevel >= 1 ) {
-                    System.out.println("yüksek");
-                    g2.setColor(new Color(148 , 0 , 211));
+
+                if (gp.player.inventory.get(i).enchantLevel == 1 && en.enchantIndex.contains(i)) {
+                    
+                    g2.setColor(new Color(148, 0, 211));
+                    g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+                    g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
+                } else if (gp.player.inventory.get(i).enchantLevel == 2 && en.enchantIndex.contains(i)) {
+                    g2.setColor(new Color(220, 20, 60));
+                    g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+                    g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
+                } else if (gp.player.inventory.get(i).enchantLevel >= 3 && en.enchantIndex.contains(i)) {
+                    g2.setColor(new Color(0, 218, 252));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
                     g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
                 }
-                
-                if(gp.player.inventory.get(i).name == "Red Potion" || gp.player.inventory.get(i).name == "Blue Potion") {
+
+                if (gp.player.inventory.get(i).name == "Red Potion"
+                        || gp.player.inventory.get(i).name == "Blue Potion") {
                     g2.setColor(Color.white);
                     g2.setFont(g2.getFont().deriveFont(Font.BOLD, 11F));
-                    //g2.drawRect(slotX + 25, slotY + 25, 20, 20);
-                    
-                    if(gp.player.inventory.get(i).name == "Red Potion") {
-                        if(gp.player.redPotionNumber < 10) {
+                    // g2.drawRect(slotX + 25, slotY + 25, 20, 20);
+
+                    if (gp.player.inventory.get(i).name == "Red Potion") {
+                        if (gp.player.redPotionNumber < 10) {
                             g2.drawString(Integer.toString(gp.player.redPotionNumber), slotX + 32, slotY + 35);
-                        }else {
-                            g2.drawString(Integer.toString(gp.player.redPotionNumber), slotX + 27, slotY + 35); 
+                        } else {
+                            g2.drawString(Integer.toString(gp.player.redPotionNumber), slotX + 27, slotY + 35);
                         }
                     }
-                    
-                    if(gp.player.inventory.get(i).name == "Blue Potion") {
-                        if(gp.player.bluePotionNumber < 10) {
+
+                    if (gp.player.inventory.get(i).name == "Blue Potion") {
+                        if (gp.player.bluePotionNumber < 10) {
                             g2.drawString(Integer.toString(gp.player.bluePotionNumber), slotX + 32, slotY + 35);
-                        }else {
-                            g2.drawString(Integer.toString(gp.player.bluePotionNumber), slotX + 27, slotY + 35); 
+                        } else {
+                            g2.drawString(Integer.toString(gp.player.bluePotionNumber), slotX + 27, slotY + 35);
                         }
                     }
                 }
@@ -592,7 +603,7 @@ public class UI {
         // System.out.println("cursor2: "+ cursorIndex2);
 
         // DRAW CURSOR
-        if(cursorState) {
+        if (cursorState) {
             g2.setStroke(new java.awt.BasicStroke(2));
             g2.setColor(Color.white);
             g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
@@ -600,85 +611,88 @@ public class UI {
         } else {
 
         }
-        
 
     }
-    
+
     // DRAW ENCHANTMENT
     public void drawEnchantment() {
 
         int enchantmentX = 100;
         int enchantmentY = 100;
 
-        
-        int eFrameWidth = gp.tileSize*3;
-        int eFrameHeight = gp.tileSize*3;
-        drawSubWindow(enchantmentX,enchantmentY,eFrameWidth,eFrameHeight);
+        int eFrameWidth = gp.tileSize * 3;
+        int eFrameHeight = gp.tileSize * 3;
+        drawSubWindow(enchantmentX, enchantmentY, eFrameWidth, eFrameHeight);
         /*
-        int textX = dFrameX + 20;
-        int textY = dFrameY + gp.tileSize;
-        */
+         * int textX = dFrameX + 20;
+         * int textY = dFrameY + gp.tileSize;
+         */
 
-        /* 
-        g2.setColor(new Color(240, 190, 90));
-        g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-        g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, null);
-        g2.setColor(new Color(240, 190, 90));
-        g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
-        */ 
+        /*
+         * g2.setColor(new Color(240, 190, 90));
+         * g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+         * g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY +
+         * 78, gp.tileSize, gp.tileSize, null);
+         * g2.setColor(new Color(240, 190, 90));
+         * g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
+         */
 
-        for(int i = 0; i< gp.player.inventory.size(); i++){
-            if(gp.player.inventory.get(i) != null) {
+        for (int i = 0; i < gp.player.inventory.size(); i++) {
+            if (gp.player.inventory.get(i) != null) {
+                if (gp.player.itemEnchSellected) {
 
-                if(gp.player.inventory.get(i) == gp.player.enchantWeapon) {
-                    g2.drawImage(gp.player.inventory.get(i).down1,enchantmentX,enchantmentY,gp.tileSize, gp.tileSize,null);
-                    if(gp.player.itemEnchSellected) {
-                        g2.setColor(Color.white);
-                        g2.drawString("Yükseltmek için Y' ye basın", enchantmentX, enchantmentY+eFrameHeight+20);
-                    }
+                    if (gp.player.inventory.get(i) == gp.player.enchantWeapon) {
+                        g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize,
+                                gp.tileSize, null);
+                        if (gp.player.itemEnchSellected) {
+                            g2.setColor(Color.white);
+                            g2.drawString("Yükseltmek için Y' ye basın", enchantmentX,
+                                    enchantmentY + eFrameHeight + 20);
+                        }
 
-                    if(gp.player.enchantAccepted == true) {
-                        en.enchantIndex = i;
-                        //System.out.println("yükselt");
-                        g2.setColor(new Color(148 , 0 , 211));
-                        g2.fillRoundRect(enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, 10, 10);
-                        g2.drawImage(gp.player.inventory.get(i).down1,enchantmentX,enchantmentY,gp.tileSize, gp.tileSize,null);
-                        g2.setColor(new Color(148 , 0 , 211));
-                        g2.setFont(g2.getFont().deriveFont(36F));
-                        
-                        g2.drawString("Yükseltme Gerçekleşiyor", gp.tileSize*10, gp.tileSize*4);
-                        counter++;
-                        if(counter >= 180) {
+                        if (gp.player.enchantAccepted == true) {
+                            en.enchantIndex.add(i);
+                            // System.out.println("yükselt");
+                            g2.setColor(new Color(148, 0, 211));
+                            g2.fillRoundRect(enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, 10, 10);
+                            g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize,
+                                    gp.tileSize, null);
+                            g2.setColor(new Color(148, 0, 211));
+                            g2.setFont(g2.getFont().deriveFont(36F));
+
+                            g2.drawString("Yükseltme Gerçekleşiyor", gp.tileSize * 10, gp.tileSize * 4);
+                            counter++;
+                            if (counter >= 180) {
+
+                                successEnch = Npc_Blacksmith.increaseWeapon(gp.player.inventory.get(i));
+                                System.out.println(successEnch);
+                                gp.player.enchantAccepted = false;
+                                pressed = true;
+                                counter = 0;
+                            }
+
                             
-                            successEnch = Npc_Blacksmith.increaseWeapon(gp.player.inventory.get(i));
-                            System.out.println(successEnch);
-                            gp.player.enchantAccepted = false;
-                            counter =0;
                         }
-                        pressed = true;
-                    }
 
-                    if(pressed) {
-                        g2.setColor(new Color(148 , 0 , 211));
-                        g2.setFont(g2.getFont().deriveFont(36F));
+                        if (pressed) {
+                            g2.setColor(new Color(148, 0, 211));
+                            g2.setFont(g2.getFont().deriveFont(36F));
 
-                        if(successEnch) {
-                            gp.player.inventory.get(i).enchantLevel++;
-                            System.out.println(cursorIndex);
-                            g2.drawString(" Silahınız yükseltildi.", gp.tileSize*10, gp.tileSize*4);
-                        }else {
-                            System.out.println(cursorIndex);
-                            g2.drawString("Yükseltme başarısız.", gp.tileSize*10, gp.tileSize*4);
+                            if (successEnch) {
+                                gp.player.inventory.get(i).enchantLevel++;
+                                System.out.println(cursorIndex);
+                                g2.drawString(" Silahınız yükseltildi.", gp.tileSize * 10, gp.tileSize * 4);
+                            } else {
+                                System.out.println(cursorIndex);
+                                g2.drawString("Yükseltme başarısız.", gp.tileSize * 10, gp.tileSize * 4);
+                            }
+
+                            pressed = false;
+
                         }
-                        
-
 
                     }
-
-
                 }
-
-
 
             }
 
@@ -713,7 +727,7 @@ public class UI {
         int npcSlotY = npcSlotYstart;
 
         // CURSOR
-        int npcCursorX = npcSlotXstart + (gp.tileSize* npcSlotCol);
+        int npcCursorX = npcSlotXstart + (gp.tileSize * npcSlotCol);
         int npcCursorY = npcSlotYstart + (gp.tileSize * npcSlotRow);
         int npcCursorWidth = gp.tileSize;
         int npcCursorHeight = gp.tileSize;
@@ -728,16 +742,16 @@ public class UI {
         }
 
         /*
-        // DESCRIPTION FRAME
-        int dFrameX = frameX;
-        int dFrameY = frameY + frameHeight +10 ;
-        int dFrameWidth = frameWidth;
-        int dFrameHeight = gp.tileSize*3;
-        drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
-        int textX = dFrameX + 20;
-        int textY = dFrameY + gp.tileSize;
-        g2.setFont(g2.getFont().deriveFont(28F));
-        */
+         * // DESCRIPTION FRAME
+         * int dFrameX = frameX;
+         * int dFrameY = frameY + frameHeight +10 ;
+         * int dFrameWidth = frameWidth;
+         * int dFrameHeight = gp.tileSize*3;
+         * drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+         * int textX = dFrameX + 20;
+         * int textY = dFrameY + gp.tileSize;
+         * g2.setFont(g2.getFont().deriveFont(28F));
+         */
     }
 
     public boolean controlNpcCursor() {
@@ -751,7 +765,7 @@ public class UI {
             return false;
         }
     }
-    
+
     // DEAD MENU
     public void respawnButtons(Graphics2D g2) {
         String respawnHere = "    Restart Here";
@@ -785,7 +799,7 @@ public class UI {
         g2.setColor(Color.white);
 
     }
-    
+
     public void enterNameButton(Graphics2D g2) {
         String text = "Save";
 
@@ -807,7 +821,7 @@ public class UI {
         g2.setColor(Color.white);
 
     }
-    
+
     public void titleScreenButtons(Graphics2D g2) {
         String start = "         Start";
         String exit = "          Exit";
@@ -815,8 +829,8 @@ public class UI {
         titleScreenBtnWidth = gp.tileSize * 4;
         titleScreenHeight = (int) (gp.tileSize * 0.75);
 
-        startRec = new Rectangle(gp.tileSize * 3, (int)(gp.tileSize * 14.7), titleScreenBtnWidth, titleScreenHeight);
-        exitRec = new Rectangle(gp.tileSize  * 3, (int) (gp.tileSize * 15.6), titleScreenBtnWidth, titleScreenHeight);
+        startRec = new Rectangle(gp.tileSize * 3, (int) (gp.tileSize * 14.7), titleScreenBtnWidth, titleScreenHeight);
+        exitRec = new Rectangle(gp.tileSize * 3, (int) (gp.tileSize * 15.6), titleScreenBtnWidth, titleScreenHeight);
 
         g2.drawImage(btnBg, startRec.x, startRec.y, startRec.width, startRec.height, null);
         g2.drawImage(btnBg, exitRec.x, exitRec.y, exitRec.width, exitRec.height, null);
@@ -840,17 +854,17 @@ public class UI {
         g2.setColor(Color.white);
 
     }
-    
+
     public void titleScreenCharStatus(Graphics2D g2) {
-        
+
         String userNameField = gp.player.name;
         String clanNameField = "AYBU";
         String hpField = Integer.toString(gp.player.maxLife);
-        String spField = Integer.toString((int)(gp.player.maxSp));
-                
+        String spField = Integer.toString((int) (gp.player.maxSp));
+
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25F));
         g2.setColor(Color.white);
-        
+
         g2.drawString(userNameField, 210, 432);
         g2.drawString(clanNameField, 210, 500);
         g2.drawString(hpField, 210, 590);
@@ -1008,23 +1022,27 @@ public class UI {
 
         // Item-Skill Bar
         g2.drawImage(itemSkillBar, bottomBarX + 280, gp.screenHeight - bottomBarHeight, 400, bottomBarHeight, null);
-        
+
         // Draw Red-Potion
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 10F));
         g2.setColor(Color.white);
-        if(gp.player.redPotionNumber < 10) {
-            g2.drawString(Integer.toString(gp.player.redPotionNumber), bottomBarX + 348, gp.screenHeight - bottomBarHeight + 27);
-        }else {
-            g2.drawString(Integer.toString(gp.player.redPotionNumber), bottomBarX + 344, gp.screenHeight - bottomBarHeight + 27);
+        if (gp.player.redPotionNumber < 10) {
+            g2.drawString(Integer.toString(gp.player.redPotionNumber), bottomBarX + 348,
+                    gp.screenHeight - bottomBarHeight + 27);
+        } else {
+            g2.drawString(Integer.toString(gp.player.redPotionNumber), bottomBarX + 344,
+                    gp.screenHeight - bottomBarHeight + 27);
         }
-        
+
         // Draw Blue-Potion
-        if(gp.player.bluePotionNumber < 10) {
-            g2.drawString(Integer.toString(gp.player.bluePotionNumber), bottomBarX + 384, gp.screenHeight - bottomBarHeight + 27);
-        }else {
-            g2.drawString(Integer.toString(gp.player.bluePotionNumber), bottomBarX + 380, gp.screenHeight - bottomBarHeight + 27);
+        if (gp.player.bluePotionNumber < 10) {
+            g2.drawString(Integer.toString(gp.player.bluePotionNumber), bottomBarX + 384,
+                    gp.screenHeight - bottomBarHeight + 27);
+        } else {
+            g2.drawString(Integer.toString(gp.player.bluePotionNumber), bottomBarX + 380,
+                    gp.screenHeight - bottomBarHeight + 27);
         }
-        
+
         // Bottom Bar
         g2.drawImage(bottomBar2, bottomBarX + 680, gp.screenHeight - bottomBarHeight, 375, bottomBarHeight, null);
 
@@ -1034,77 +1052,75 @@ public class UI {
     }
 
     // MESSAGES
-    
-    
+
     public void addMessage(String text) {
 
-        
-        if(message.size() == 5) {
+        if (message.size() == 5) {
             message.remove(0);
         }
-        
+
         message.add(text);
         messageCounter.add(0);
-        
+
     }
-    
+
     public void drawMessage(Graphics2D g2) {
-        
+
         int messageX = gp.tileSize;
         int messageY = gp.tileSize * 12;
-        
+
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
-        
-        for(int i = 0; i < message.size(); i++) {
-            if(message.get(i) != null) {
+
+        for (int i = 0; i < message.size(); i++) {
+            if (message.get(i) != null) {
                 g2.setColor(Color.black);
                 g2.drawString(message.get(i), messageX + 2, messageY + 2);
                 g2.setColor(Color.white);
                 g2.drawString(message.get(i), messageX, messageY);
-                
+
                 int counter = messageCounter.get(i) + 1;
                 messageCounter.set(i, counter);
                 messageY += 30;
-                
-                if(messageCounter.get(i) > 180) {
+
+                if (messageCounter.get(i) > 180) {
                     message.remove(i);
                     messageCounter.remove(i);
                 }
             }
         }
-        
+
     }
-     
+
     /*
-     public void showMessage(String text) {
-
-        message = text;
-        messageOn = true;
-    }
-    
-    public void messages(Graphics2D g2) {
-        if (messageOn) {
-            
-            int messageX = gp.tileSize;
-            int messageY = gp.tileSize * 14;
-            
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
-            
-            g2.setColor(Color.black);
-            g2.drawString(message, messageX + 2, messageY + 2);
-            
-            g2.setColor(Color.white);
-            g2.drawString(message, messageX, messageY);
-
-            messageCounter++;
-
-            if (messageCounter > 120) { // Because of FPS is 60. 120 means 2 seconds
-                messageCounter = 0;
-                messageOn = false;
-            }
-        }
-    }
-    */
+     * public void showMessage(String text) {
+     * 
+     * message = text;
+     * messageOn = true;
+     * }
+     * 
+     * public void messages(Graphics2D g2) {
+     * if (messageOn) {
+     * 
+     * int messageX = gp.tileSize;
+     * int messageY = gp.tileSize * 14;
+     * 
+     * g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
+     * 
+     * g2.setColor(Color.black);
+     * g2.drawString(message, messageX + 2, messageY + 2);
+     * 
+     * g2.setColor(Color.white);
+     * g2.drawString(message, messageX, messageY);
+     * 
+     * messageCounter++;
+     * 
+     * if (messageCounter > 120) { // Because of FPS is 60. 120 means 2 seconds
+     * messageCounter = 0;
+     * messageOn = false;
+     * }
+     * }
+     * }
+     */
 
     // DAMAGE
     public void damageAnimation(Graphics2D g2, int damageIndex) {

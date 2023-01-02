@@ -138,6 +138,7 @@ public class KeyHandler implements KeyListener {
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
 			if (code == KeyEvent.VK_ENTER) {
+				gp.player.playerCoin += 150;
 				gp.gameState = gp.playState;
 			}
 		} else if (gp.gameState == gp.tradeState) {
@@ -283,11 +284,18 @@ public class KeyHandler implements KeyListener {
 				}
 
 			}
-			if (gp.player.itemEnchSellected == true) {
-				if (code == KeyEvent.VK_Y) {
-					gp.player.enchantAccepted = true;
+			if(gp.player.playerCoin >= 100) {
+				if (gp.player.itemEnchSellected == true) {
+					if (code == KeyEvent.VK_Y) {
+						gp.player.playerCoin -= 100;
+						gp.player.enchantAccepted = true;
+						
+					}
 				}
+			} else {
+				System.out.println("yetersiz para");
 			}
+			
 
 			if (code == KeyEvent.VK_ENTER) {
 				gp.player.enchantAccepted = false;
@@ -368,16 +376,17 @@ public class KeyHandler implements KeyListener {
 
 		int code = e.getKeyCode();
 
-		/*
-		 * if(gp.gameState == gp.enchantState) {
-		 * 
-		 * if(gp.player.itemEnchSellected == true) {
-		 * if(code == KeyEvent.VK_Y) {
-		 * gp.player.enchantAccepted = false;
-		 * }
-		 * }
-		 * }
-		 */
+		/* 
+		  if(gp.gameState == gp.enchantState) {
+		  
+			if(gp.player.itemEnchSellected == true) {
+				if(code == KeyEvent.VK_Y) {
+					//gp.player.enchantAccepted = false;
+					gp.player.itemEnchSellected = false;
+				}
+			}
+		  }
+		 */ 
 		if (code == KeyEvent.VK_ENTER) {
 			gp.player.interactNPCIndex = -1;
 		}

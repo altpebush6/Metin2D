@@ -28,7 +28,8 @@ public class Entity {
     public boolean deadObj = false;
     public int objIndex;
     public int enchantLevel = 0;
-    public int enchantIndex = 0;
+    public ArrayList<Integer> enchantIndex = new ArrayList<Integer>();
+    
 
     // States
     public int worldX, worldY, screenX, screenY, speed, defaultSpeed;
