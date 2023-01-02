@@ -11,14 +11,12 @@ public class KeyHandler implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean quotePressed, openDebug;
 	public boolean spacePressed, enterPressed;
-	
 
 	GamePanel gp;
-	
 
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
-		
+
 	}
 
 	@Override
@@ -29,43 +27,49 @@ public class KeyHandler implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int code = e.getKeyCode();
-		
+
 		// TITLE STATE
-		if(gp.gameState == gp.titleState) {
-		    
-		    if(gp.ui.enterName) {
-		        if(code == KeyEvent.VK_ENTER){
-                    gp.ui.enterName = false;
-                    gp.player.name = gp.ui.playerName;
-		        }else if(code == KeyEvent.VK_BACK_SPACE && gp.ui.playerName.length() > 0) {
-		            StringBuffer sb = new StringBuffer(gp.ui.playerName);
-		            sb.deleteCharAt(sb.length() - 1);
-		            gp.ui.playerName = sb.toString();
-		        }else {
-		            if(gp.ui.playerName.length() < 12 && ((e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z') || (e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z') || (e.getKeyChar() >= '0' && e.getKeyChar() <= '9'))) {
-		                gp.ui.playerName += e.getKeyChar();
-		            }
-		        }
-		    }else {
-		        if(code == KeyEvent.VK_ENTER && !gp.playBtn){
-                    gp.playSE(26);
-                    gp.playSE(25);
-                    gp.playBtn = true;
-		        }
-		    }
+		if (gp.gameState == gp.titleState) {
+
+			if (gp.ui.enterName) {
+				if (code == KeyEvent.VK_ENTER) {
+					gp.ui.enterName = false;
+					gp.player.name = gp.ui.playerName;
+				} else if (code == KeyEvent.VK_BACK_SPACE && gp.ui.playerName.length() > 0) {
+					StringBuffer sb = new StringBuffer(gp.ui.playerName);
+					sb.deleteCharAt(sb.length() - 1);
+					gp.ui.playerName = sb.toString();
+				} else {
+					if (gp.ui.playerName.length() < 12 && ((e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z')
+							|| (e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z')
+							|| (e.getKeyChar() >= '0' && e.getKeyChar() <= '9'))) {
+						gp.ui.playerName += e.getKeyChar();
+					}
+				}
+			} else {
+				if (code == KeyEvent.VK_ENTER && !gp.playBtn) {
+					gp.playSE(26);
+					gp.playSE(25);
+					gp.playBtn = true;
+				}
+			}
 		}
 
 		// PLAY STATE
 		if (gp.gameState == gp.playState) {
-		    
-		    if(code == KeyEvent.VK_ENTER) {
-                enterPressed = true;
-                for(int i = 0; i < gp.npc.length; i++) {
-                    if(gp.npc[i] != null && (gp.npc[i].worldX < gp.player.worldX + gp.tileSize * 2 && gp.npc[i].worldX > gp.player.worldX - gp.tileSize * 2) && (gp.npc[i].worldY < gp.player.worldY + gp.tileSize * 2 && gp.npc[i].worldY > gp.player.worldY - gp.tileSize * 2)) {
-                        gp.player.interactNPCIndex = i;
-                    }
-                }
-            }
+
+			if (code == KeyEvent.VK_ENTER) {
+				enterPressed = true;
+				for (int i = 0; i < gp.npc.length; i++) {
+					if (gp.npc[i] != null
+							&& (gp.npc[i].worldX < gp.player.worldX + gp.tileSize * 2
+									&& gp.npc[i].worldX > gp.player.worldX - gp.tileSize * 2)
+							&& (gp.npc[i].worldY < gp.player.worldY + gp.tileSize * 2
+									&& gp.npc[i].worldY > gp.player.worldY - gp.tileSize * 2)) {
+						gp.player.interactNPCIndex = i;
+					}
+				}
+			}
 
 			if (code == KeyEvent.VK_W) {
 				upPressed = true;
@@ -95,30 +99,30 @@ public class KeyHandler implements KeyListener {
 				gp.player.autoHit = false;
 			}
 			if (code == KeyEvent.VK_1) {
-			    gp.player.useRedPotion();
+				gp.player.useRedPotion();
 			}
 			if (code == KeyEvent.VK_2) {
-			    gp.player.useBluePotion();
+				gp.player.useBluePotion();
 			}
 			if (code == KeyEvent.VK_3) {
-	             if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed && gp.player.sp >= 10) {
-                    gp.skills.swordSpinUsed = true;
-                    gp.skills.swordSpinCounter++;
-                    gp.skills.skillType = gp.skills.swordSpinType;
-                    gp.player.sp -= 10;
-                    gp.playSE(19);
-	             }
+				if (gp.skills.swordSpinTimeOut == 0 && !gp.skills.swordSpinUsed && gp.player.sp >= 10) {
+					gp.skills.swordSpinUsed = true;
+					gp.skills.swordSpinCounter++;
+					gp.skills.skillType = gp.skills.swordSpinType;
+					gp.player.sp -= 10;
+					gp.playSE(19);
+				}
 			}
 			if (code == KeyEvent.VK_4) {
-	             if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive && gp.player.sp >= 10) {
-	                    gp.skills.auraSwordActive = true;
-	                    gp.skills.skillUsed = true;
-	                    gp.skills.auraSwordCounter++;
-	                    gp.skills.skillType = gp.skills.auraSwordType;
-	                    gp.player.sp -= 10;
-	                    gp.playSE(22);
-	                    gp.player.attackPower += 10;
-	             }
+				if (gp.skills.auraSwordTimeOut == 0 && !gp.skills.auraSwordActive && gp.player.sp >= 10) {
+					gp.skills.auraSwordActive = true;
+					gp.skills.skillUsed = true;
+					gp.skills.auraSwordCounter++;
+					gp.skills.skillType = gp.skills.auraSwordType;
+					gp.player.sp -= 10;
+					gp.playSE(22);
+					gp.player.attackPower += 10;
+				}
 			}
 			if (code == KeyEvent.VK_F1) {
 
@@ -127,9 +131,9 @@ public class KeyHandler implements KeyListener {
 				gp.gameState = gp.optionsState;
 			}
 			if (code == KeyEvent.VK_9) {
-			    gp.saveLoad.save();
-			    gp.ui.addMessage("Saving...");
-			    
+				gp.saveLoad.save();
+				gp.ui.addMessage("Saving...");
+
 			}
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
@@ -177,54 +181,54 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_B) {
 
 				if (gp.ui.controlNpcCursor() == true) {
-					
-					 if(gp.player.playerCoin > Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price) {
-					     if(gp.player.inventory.size() < gp.player.maxInventorySize) {
-    					     if(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Red Potion") {
-    					         if(gp.player.redPotionNumber < 99) {
-    	                            if(gp.player.redPotionNumber == 0) {
-    	                                gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
-    
-    	                                 if(gp.player.taskLevel == 0 ) {
-    	                                     gp.player.playerCoin +=100;
-    	                                     gp.player.taskLevel ++;
-    	                                     gp.player.playerXP += 200;
-    	                                 }
-    	                             }
-    	                             gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
-    	                             gp.player.redPotionNumber++; 
-    					         }
-    					     }else if(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Blue Potion"){
-    		                           if(gp.player.bluePotionNumber < 99) {
-    		                                if(gp.player.bluePotionNumber == 0) {
-    		                                    gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
-    
-    		                                     if(gp.player.taskLevel == 0 ) {
-    		                                         gp.player.playerCoin +=100;
-    		                                         gp.player.taskLevel ++;
-    		                                         gp.player.playerXP += 200;
-    		                                     }
-    		                                 }
-    		                                 gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
-    		                                 gp.player.bluePotionNumber++; 
-    		                             }
-    					     }else {
-    					         gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
-    		                     gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
-    		                         
-    		                     if(gp.player.taskLevel == 0 ) {
-    		                         gp.player.playerCoin +=100;
-    		                         gp.player.taskLevel ++;
-    		                         gp.player.playerXP += 200;
-    		                     }
-    					     }
-					     }else {
-					         gp.ui.addMessage("Inventory Full");
-					     }
-					 } else {
-							gp.ui.addMessage("Not Enough Money to Buy It");
-					 }
-					 	
+
+					if (gp.player.playerCoin > Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price) {
+						if (gp.player.inventory.size() < gp.player.maxInventorySize) {
+							if (Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Red Potion") {
+								if (gp.player.redPotionNumber < 99) {
+									if (gp.player.redPotionNumber == 0) {
+										gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+
+										if (gp.player.taskLevel == 0) {
+											gp.player.playerCoin += 100;
+											gp.player.taskLevel++;
+											gp.player.playerXP += 200;
+										}
+									}
+									gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+									gp.player.redPotionNumber++;
+								}
+							} else if (Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Blue Potion") {
+								if (gp.player.bluePotionNumber < 99) {
+									if (gp.player.bluePotionNumber == 0) {
+										gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+
+										if (gp.player.taskLevel == 0) {
+											gp.player.playerCoin += 100;
+											gp.player.taskLevel++;
+											gp.player.playerXP += 200;
+										}
+									}
+									gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+									gp.player.bluePotionNumber++;
+								}
+							} else {
+								gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+								gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+
+								if (gp.player.taskLevel == 0) {
+									gp.player.playerCoin += 100;
+									gp.player.taskLevel++;
+									gp.player.playerXP += 200;
+								}
+							}
+						} else {
+							gp.ui.addMessage("Inventory Full");
+						}
+					} else {
+						gp.ui.addMessage("Not Enough Money to Buy It");
+					}
+
 					System.out.println("filled the slot");
 				} else {
 					System.out.println("not filled");
@@ -235,7 +239,7 @@ public class KeyHandler implements KeyListener {
 		} else if (gp.gameState == gp.optionsState) { // OPTIONS STATE
 			optionsState(code);
 		} else if (gp.gameState == gp.enchantState) { // ENCHANT STATE
-			
+
 			if (code == KeyEvent.VK_W) {
 				if (gp.ui.slotRow == 0) {
 					gp.ui.slotRow = 8;
@@ -279,19 +283,17 @@ public class KeyHandler implements KeyListener {
 				}
 
 			}
-			if(gp.player.itemEnchSellected == true) {
-				if(code == KeyEvent.VK_Y) {
+			if (gp.player.itemEnchSellected == true) {
+				if (code == KeyEvent.VK_Y) {
 					gp.player.enchantAccepted = true;
 				}
 			}
-			
-			if(code == KeyEvent.VK_ENTER) {
+
+			if (code == KeyEvent.VK_ENTER) {
 				gp.player.enchantAccepted = false;
 				gp.player.itemEnchSellected = false;
 				gp.gameState = gp.playState;
 			}
-
-			
 
 		}
 
@@ -367,20 +369,19 @@ public class KeyHandler implements KeyListener {
 		int code = e.getKeyCode();
 
 		/*
-		if(gp.gameState == gp.enchantState) {
-
-			if(gp.player.itemEnchSellected == true) {
-				if(code == KeyEvent.VK_Y) {
-					gp.player.enchantAccepted = false;
-				}
-			}
+		 * if(gp.gameState == gp.enchantState) {
+		 * 
+		 * if(gp.player.itemEnchSellected == true) {
+		 * if(code == KeyEvent.VK_Y) {
+		 * gp.player.enchantAccepted = false;
+		 * }
+		 * }
+		 * }
+		 */
+		if (code == KeyEvent.VK_ENTER) {
+			gp.player.interactNPCIndex = -1;
 		}
-		*/
-	        if(code == KeyEvent.VK_ENTER) {
-	            gp.player.interactNPCIndex = -1;
-	        }
-		
-        
+
 		if (code == KeyEvent.VK_W) {
 
 			upPressed = false;
@@ -475,15 +476,13 @@ public class KeyHandler implements KeyListener {
 				}
 			}
 		}
-		
-		    
-		
-		if(gp.ui.commandNum == 5) {
-            if(enterPressed == true) {
-                gp.saveLoad.save();
-                gp.ui.addMessage("Saving...");
-            }
 
-	}
+		if (gp.ui.commandNum == 5) {
+			if (enterPressed == true) {
+				gp.saveLoad.save();
+				gp.ui.addMessage("Saving...");
+			}
+
+		}
 	}
 }

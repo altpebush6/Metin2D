@@ -28,6 +28,7 @@ public class Entity {
     public boolean deadObj = false;
     public int objIndex;
     public int enchantLevel = 0;
+    public int enchantIndex = 0;
 
     // States
     public int worldX, worldY, screenX, screenY, speed, defaultSpeed;
