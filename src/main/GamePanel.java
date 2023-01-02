@@ -248,6 +248,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         
+        mouseH.hoverInventoryOptionsBtn(g2);
 
         if(playBtn) {
             btnCounter++;
