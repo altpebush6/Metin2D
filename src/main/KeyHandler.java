@@ -5,6 +5,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import entity.Player;
 import npc.Npc_Merchant;
+import object.OBJ_Dolunay;
+import object.OBJ_EcelGetiren;
+import object.OBJ_Staff;
 
 public class KeyHandler implements KeyListener {
 
@@ -214,8 +217,25 @@ public class KeyHandler implements KeyListener {
 									gp.player.bluePotionNumber++;
 								}
 							} else {
-								gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
-								gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+
+								switch(gp.ui.cursorNpcIndex) {
+									case 0:
+									gp.player.inventory.add(new OBJ_EcelGetiren(gp));
+									gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+									break;
+									case 1: 
+									gp.player.inventory.add(new OBJ_Staff(gp));
+									gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+									break;
+									case 2: 
+									gp.player.inventory.add(new OBJ_Dolunay(gp));
+									gp.player.playerCoin -= Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price;
+									break;
+
+								}
+								// For different enchantLevel: 	
+								//gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+								
 
 								if (gp.player.taskLevel == 0) {
 									gp.player.playerCoin += 100;

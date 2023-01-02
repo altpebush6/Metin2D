@@ -682,11 +682,15 @@ public class UI {
                                 en.enchantIndex.add(i);
                                 gp.player.inventory.get(i).enchantLevel++;
                                 System.out.println(cursorIndex);
-                                g2.drawString(" Silahınız yükseltildi.", gp.tileSize * 10, gp.tileSize * 4);
+                                addMessage("Silahınız yükseltildi.");
+                                drawMessage(g2);
+                                //g2.drawString(" Silahınız yükseltildi.", gp.tileSize * 10, gp.tileSize * 4);
                             } else {
                                 System.out.println("yandı");
                                 System.out.println(cursorIndex);
-                                g2.drawString("Yükseltme başarısız.", gp.tileSize * 10, gp.tileSize * 4);
+                                addMessage("Yükseltme işlemi başarısız.");
+                                drawMessage(g2);
+                                //g2.drawString("Yükseltme başarısız.", gp.tileSize * 10, gp.tileSize * 4);
                             }
 
                             pressed = false;
