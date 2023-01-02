@@ -379,7 +379,7 @@ public class UI {
         }
 
         // BACK
-        textY += gp.tileSize * 2;
+        textY += (int)(gp.tileSize * 1.5);
         g2.drawString("Back", textX, textY);
         if (commandNum == 6) {
             g2.drawString((">"), textX - 25, textY);
@@ -1230,11 +1230,12 @@ public class UI {
         textX = getXForCenteredText(g2, text);
         textY = frameY + gp.tileSize;
         g2.setColor(Color.WHITE);
-        g2.drawString(text, textX, textY);
+        g2.setFont(g2.getFont().deriveFont(18F));
+        g2.drawString(text, textX + 20, textY);
 
         frameX -= 32;
 
-        textX = frameX + gp.tileSize;
+        textX = frameX + gp.tileSize * 2;
         textY += gp.tileSize;
         g2.drawString("Move", textX, textY);
         textY += gp.tileSize;
@@ -1265,7 +1266,7 @@ public class UI {
         textY += gp.tileSize;
 
         // BACK
-        textX = frameX + gp.tileSize;
+        textX = frameX + gp.tileSize * 2;
         textY = frameY + gp.tileSize * 9;
         g2.drawString("Back", textX, textY);
         if (commandNum == 0) {

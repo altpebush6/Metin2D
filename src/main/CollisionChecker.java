@@ -29,6 +29,14 @@ public class CollisionChecker {
 	        switch(entity.direction) {
 	            case "up":
 	                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+	                
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
+	                
 	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
 	                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
 	                
@@ -54,6 +62,14 @@ public class CollisionChecker {
 	                
 	            case "upleft":
 	                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
+                    
 	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
 	                
 	                if(tileNum1 >= 2500)  tileNum1 = 2499;
@@ -65,6 +81,14 @@ public class CollisionChecker {
 	                
 	            case "upright":
 	                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+	                
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
+                    
 	                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
 	                
 	                if(tileNum1 >= 2500)  tileNum1 = 2499;
@@ -77,7 +101,12 @@ public class CollisionChecker {
 	            case "down":
 	                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 	                
-	                if(entityBottomRow >= gp.maxWorldRow)  entityBottomRow = gp.maxWorldRow - 1;
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
 	                
 	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 	                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
@@ -105,7 +134,12 @@ public class CollisionChecker {
 	            case "downleft":
 	                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 	                
-	                if(entityBottomRow >= gp.maxWorldRow)  entityBottomRow = gp.maxWorldRow - 1;
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
 	                
 	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 	                
@@ -119,7 +153,12 @@ public class CollisionChecker {
 	            case "downright":
 	                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 	                
-	                if(entityBottomRow >= gp.maxWorldRow)  entityBottomRow = gp.maxWorldRow - 1;
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
 	                
 	                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 	                
@@ -132,6 +171,13 @@ public class CollisionChecker {
 	                
 	            case "left":
 	                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+	                
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
 
 	                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
 	                tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
@@ -159,8 +205,13 @@ public class CollisionChecker {
 	            case "right":
 	                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 	                
-	                if(entityRightCol >= gp.maxWorldCol)   entityRightCol = gp.maxWorldCol - 1;
-
+                    if(entityRightCol >= gp.maxWorldCol) entityRightCol = gp.maxScreenCol - 1;
+                    if(entityLeftCol < 0) entityLeftCol = 0;
+                    if(entityLeftCol >= gp.maxWorldCol) entityLeftCol = gp.maxScreenCol - 1;
+                    if(entityBottomRow >= gp.maxWorldRow) entityBottomRow = gp.maxScreenCol - 1;
+                    if(entityTopRow < 0) entityTopRow = 0;
+                    if(entityTopRow >= gp.maxWorldCol) entityTopRow = gp.maxScreenCol - 1;
+                    
 	                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
 	                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 	                
