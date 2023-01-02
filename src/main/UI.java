@@ -35,7 +35,7 @@ public class UI {
     BufferedImage auraOfSwordImage, swordSpinImage;
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
-    BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg;
+    BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg, inventoryBtn, optionsBtn;
     BufferedImage inventory, merchantInventory;
     BufferedImage dialogueUI, abulbulImage;
     BufferedImage rectangle;
@@ -43,6 +43,7 @@ public class UI {
     BufferedImage[] xpTupe = new BufferedImage[23];
     Entity en;
     public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
+    public Rectangle inventoryRec = new Rectangle(), optionsRec = new Rectangle();
     public Rectangle nextPageRec = new Rectangle();
     public Rectangle startRec = new Rectangle();
     public Rectangle exitRec = new Rectangle();
@@ -92,7 +93,6 @@ public class UI {
     public String playerName = "";
     public boolean enterName = false;
     public boolean successEnch;
-    public Rectangle btnRec;
 
     // save
     SaveLoad saveLoad = new SaveLoad(gp);
@@ -103,6 +103,8 @@ public class UI {
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
 
+        optionsBtn = gp.uTool.setup("/UI/optionsBtn", gp.tileSize, gp.tileSize);
+        inventoryBtn = gp.uTool.setup("/UI/inventoryBtn", gp.tileSize, gp.tileSize);
         abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
@@ -113,10 +115,9 @@ public class UI {
         xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", 130, gp.tileSize);
         bottomBar = gp.uTool.setup("/UI/bottomBar", 280, 24);
         btnBg = gp.uTool.setup("/UI/respawnBtn", 181, 29);
-        bottomBar2 = gp.uTool.setup("/UI/bottomBar", 375, 24);
+        bottomBar2 = gp.uTool.setup("/UI/bottomBar", 913, 24);
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
-        inventoryBar = gp.uTool.setup("/UI/inventoryBar", 538, 30);
         inventory = gp.uTool.setup("/UI/inventory", 170, 504);
         dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 500);
         aybu = gp.uTool.setup("/titleScreen/aybu", gp.screenWidth, gp.screenHeight);
@@ -1050,12 +1051,30 @@ public class UI {
         }
 
         // Bottom Bar
-        g2.drawImage(bottomBar2, bottomBarX + 680, gp.screenHeight - bottomBarHeight, 375, bottomBarHeight, null);
-
-        // Inventory Bar
-        g2.drawImage(inventoryBar, bottomBarX + 1055, gp.screenHeight - bottomBarHeight, 163, bottomBarHeight, null);
+        g2.drawImage(bottomBar2, bottomBarX + 680, gp.screenHeight - bottomBarHeight, 913, bottomBarHeight, null);
+        
+        inventoryOptionsBtn(g2);
 
     }
+    
+    public void inventoryOptionsBtn(Graphics2D g2) {
+        
+        int btnPosX = 1470;
+        
+        inventoryRec = new Rectangle(btnPosX, gp.screenHeight - 32, 32, 32);
+        optionsRec = new Rectangle(btnPosX + 35, gp.screenHeight - 32, 32, 32);
+
+        g2.drawImage(inventoryBtn, inventoryRec.x, inventoryRec.y, inventoryRec.width, inventoryRec.height, null);
+        g2.drawImage(optionsBtn, optionsRec.x, optionsRec.y, optionsRec.width, optionsRec.height, null);
+
+        if (btnHover == 1) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(inventoryRec.x, inventoryRec.y, inventoryRec.width, inventoryRec.height);
+        } else if (btnHover == 2) {
+            g2.setColor(new Color(238, 238, 238, 40));
+            g2.fillRect(optionsRec.x, optionsRec.y, optionsRec.width, optionsRec.height);
+        }
+    }   
 
     // MESSAGES
 
