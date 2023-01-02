@@ -48,6 +48,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
             gp.player.reachedGoal = false;
 
             int tileNum = gp.tileM.mapTileNum[clickedCol][clickedRow] - 1;
+            
+            if(tileNum > gp.maxWorldCol) tileNum = gp.maxWorldCol - 1;
+            if(tileNum < 0) tileNum = 0;
+            
             if (gp.tileM.tile[tileNum].collision) {
                 pressed = false;
             } else {

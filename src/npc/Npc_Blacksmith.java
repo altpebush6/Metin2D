@@ -53,26 +53,31 @@ public class Npc_Blacksmith extends Entity {
 
     }
 
-    public static boolean increaseWeapon(Entity obj) {
+    public boolean increaseWeapon(Entity obj) {
       
-        if (obj.objectType == 4) {
-            if(obj.objDetailedType == 1) {
-                
-                    int max = 1;
-	                int min = 0;
-	                int range = max - min + 1;
-	                int rand = (int)(Math.random() * range) + min;
+        if(obj.enchantLevel >= 3) {
+            gp.ui.addMessage("This weapon is already max level");
+        }else {
+            if (obj.objectType == 4) {
+                if(obj.objDetailedType == 1) {
+                    
+                    int max = 1, min = 0;
+                    int range = max - min + 1;
+                    int rand = (int)(Math.random() * range) + min;
                     if(rand == 0) {
+                        gp.ui.addMessage("Weapon is not enhanced");
                         return false;
-                        //System.out.println("Maalesef başarısz oldu");
+                        
                     } else if(rand == 1) {
+                        gp.ui.addMessage("Weapon is enhanced");
                         return true;
-                        //System.out.println("+ Basma işlemi başarılı. ");
                     }
-                
+                }else {
+                    gp.ui.addMessage("This item can not be enhanced");
+                }
             }
-
         }
+
 
         return false;
     }

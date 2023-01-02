@@ -304,16 +304,17 @@ public class KeyHandler implements KeyListener {
 				}
 
 			}
-			if(gp.player.playerCoin >= 100) {
-				if (gp.player.itemEnchSellected == true) {
-					if (code == KeyEvent.VK_Y) {
-						gp.player.playerCoin -= 100;
-						gp.player.enchantAccepted = true;
-						
-					}
+			
+			if (gp.player.itemEnchSellected == true) {
+				if (code == KeyEvent.VK_Y) {
+				    if(gp.player.playerCoin >= 100) {
+				        
+                       gp.player.playerCoin -= 100;
+                       gp.player.enchantAccepted = true;
+				    } else {
+		               gp.ui.addMessage("Not Enough Money to Enchant");
+		            }
 				}
-			} else {
-				System.out.println("yetersiz para");
 			}
 			
 

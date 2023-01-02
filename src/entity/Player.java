@@ -145,7 +145,6 @@ public class Player extends Entity {
 
     public void setItems() {
         int itemIndex2 = 0;
-        System.out.println(gp.obj[0]);
 
         if (itemIndex2 != -1) {
             if (gp.collect[itemIndex2] != null) {
@@ -155,7 +154,6 @@ public class Player extends Entity {
         }
         if (itemIndex2 >= maxInventorySize) {
             itemIndex2 = -1;
-            System.out.println("too much Items. ");
         }
         /*
          * if(currentWeapon != null){
@@ -171,8 +169,6 @@ public class Player extends Entity {
          * }
          * }
          */
-        System.out.println(gp.obj[0]);
-
     }
 
     public void getPlayerAuraSwordImage() {
@@ -667,7 +663,6 @@ public class Player extends Entity {
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
                     gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
-                    System.out.println("taskanat index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
@@ -678,7 +673,6 @@ public class Player extends Entity {
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
                     gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
-                    System.out.println("ecelg index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
@@ -689,7 +683,6 @@ public class Player extends Entity {
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
                     gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
-                    System.out.println("staff index : " + index);
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;

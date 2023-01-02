@@ -53,10 +53,10 @@ public class SaveLoad {
             ds.bluePotionNumber = gp.player.bluePotionNumber;
             ds.playerName = gp.player.name;
             
-           // PLAYER INVENTORY
+            // PLAYER INVENTORY
             for(int i = 0; i < gp.player.inventory.size();i++) {
                 ds.itemNames.add(gp.player.inventory.get(i).name);
-               // ds.itemAmounts.add(gp.player.inventory.get(i).amount);
+                ds.enhancedLevel.add(gp.player.inventory.get(i).enchantLevel);
             }
             
             
@@ -90,6 +90,7 @@ public class SaveLoad {
             gp.player.inventory.clear();
             for(int i = 0; i < ds.itemNames.size(); i++) {
                 gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+                gp.player.inventory.get(i).enchantLevel = ds.enhancedLevel.get(i);
             }
         }
         catch(Exception e){

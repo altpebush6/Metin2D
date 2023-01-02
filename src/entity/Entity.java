@@ -121,6 +121,10 @@ public class Entity {
     
     public void changeDirection() {
     }
+    
+    public boolean increaseWeapon(Entity entity) { 
+        return false;
+    }
 
     public void checkCollision() {
         // CHECK TILE COLLISION

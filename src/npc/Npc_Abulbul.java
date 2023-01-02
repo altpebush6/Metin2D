@@ -27,10 +27,10 @@ public class Npc_Abulbul extends Entity {
         level = 100;
         name = "Abulbul";
         
-        solidArea.x = 12;
-        solidArea.y = 38;
-        solidArea.width = 50;
-        solidArea.height = 48;
+        solidArea.x = 38;
+        solidArea.y = 12;
+        solidArea.width = 20;
+        solidArea.height = 74;
         
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;

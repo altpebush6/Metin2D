@@ -44,6 +44,7 @@ public class Sound {
         soundURL[24] = getClass().getResource("/sounds/redPotion.wav");
         soundURL[25] = getClass().getResource("/sounds/titleScreen.wav");
         soundURL[26] = getClass().getResource("/sounds/button.wav");        
+        soundURL[27] = getClass().getResource("/sounds/blacksmith.wav");        
 	}
 	
 	public void setFile(int index) {

@@ -93,6 +93,8 @@ public class UI {
     public String playerName = "";
     public boolean enterName = false;
     public boolean successEnch;
+    
+    public boolean enhanceSE = true;
 
     // save
     SaveLoad saveLoad = new SaveLoad(gp);
@@ -514,7 +516,7 @@ public class UI {
         String coin = "";
 
         if (gp.player.playerCoin > 999) {
-            coin = Integer.toString(gp.player.playerCoin / 1000) + "." + Integer.toString(gp.player.playerCoin % 1000);
+            coin = Integer.toString(gp.player.playerCoin / 1000) + "." + String.format("%03d", gp.player.playerCoin % 1000);
         } else {
             coin = Integer.toString(gp.player.playerCoin);
         }
@@ -539,25 +541,35 @@ public class UI {
                     // System.out.println("equal");
                     g2.setColor(new Color(240, 190, 90));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-                    g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize,
-                            gp.tileSize, null);
+                    if (gp.player.inventory.get(i).enchantLevel == 1) {                   
+                        g2.setColor(new Color(150,116,68));
+                        g2.fillRoundRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, 10, 10);
+                    } else if (gp.player.inventory.get(i).enchantLevel == 2) {
+                        g2.setColor(new Color(192,192,192));
+                        g2.fillRoundRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, 10, 10);
+                    } else if (gp.player.inventory.get(i).enchantLevel >= 3) {
+                        g2.setColor(new Color(255,215,0));
+                        g2.fillRoundRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize, 10, 10);
+                    }
+                    g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY + 78, gp.tileSize,gp.tileSize, null);
                     g2.setColor(new Color(240, 190, 90));
                     g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
                 }
 
                 g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
 
-                if (gp.player.inventory.get(i).enchantLevel == 1 && en.enchantIndex.contains(i)) {
-                    
-                    g2.setColor(new Color(148, 0, 211));
+                g2.setStroke(new java.awt.BasicStroke(4));
+                
+                if (gp.player.inventory.get(i).enchantLevel == 1) {                   
+                    g2.setColor(new Color(150,116,68));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
                     g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
-                } else if (gp.player.inventory.get(i).enchantLevel == 2 && en.enchantIndex.contains(i)) {
-                    g2.setColor(new Color(220, 20, 60));
+                } else if (gp.player.inventory.get(i).enchantLevel == 2) {
+                    g2.setColor(new Color(192,192,192));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
                     g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
-                } else if (gp.player.inventory.get(i).enchantLevel >= 3 && en.enchantIndex.contains(i)) {
-                    g2.setColor(new Color(0, 218, 252));
+                } else if (gp.player.inventory.get(i).enchantLevel >= 3) {
+                    g2.setColor(new Color(255,215,0));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
                     g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, gp.tileSize, gp.tileSize, null);
                 }
@@ -643,31 +655,33 @@ public class UI {
                 if (gp.player.itemEnchSellected) {
 
                     if (gp.player.inventory.get(i) == gp.player.enchantWeapon) {
-                        g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize,
-                                gp.tileSize, null);
+                        g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, null);
                         if (gp.player.itemEnchSellected) {
                             g2.setColor(Color.white);
-                            g2.drawString("Yükseltmek için Y' ye basın", enchantmentX,
-                                    enchantmentY + eFrameHeight + 20);
+                            g2.drawString("Yükseltmek için Y' ye basın", enchantmentX, enchantmentY + eFrameHeight + 20);
                         }
 
                         if (gp.player.enchantAccepted == true) {
                             
-                            // System.out.println("yükselt");
+
+                            if(enhanceSE) {
+                                gp.playSE(27);
+                                enhanceSE = false;
+                            }
+
                             g2.setColor(new Color(148, 0, 211));
                             g2.fillRoundRect(enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, 10, 10);
-                            g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize,
-                                    gp.tileSize, null);
+                            g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, null);
                             g2.setColor(new Color(148, 0, 211));
                             g2.setFont(g2.getFont().deriveFont(36F));
 
-                            g2.drawString("Yükseltme Gerçekleşiyor", gp.tileSize * 10, gp.tileSize * 4);
+                            g2.drawString("Weapon is enhancing", gp.tileSize * 10, gp.tileSize * 4);
                             counter++;
                             if (counter >= 180) {
 
-                                successEnch = Npc_Blacksmith.increaseWeapon(gp.player.inventory.get(i));
-                                System.out.println(successEnch);
+                                successEnch = gp.npc[2].increaseWeapon(gp.player.inventory.get(i));
                                 gp.player.enchantAccepted = false;
+                                enhanceSE = true;
                                 pressed = true;
                                 counter = 0;
                             }
@@ -677,21 +691,9 @@ public class UI {
 
                         if (pressed) {
                             g2.setColor(new Color(148, 0, 211));
-                            g2.setFont(g2.getFont().deriveFont(36F));
 
                             if (successEnch) {
-                                en.enchantIndex.add(i);
                                 gp.player.inventory.get(i).enchantLevel++;
-                                System.out.println(cursorIndex);
-                                addMessage("Silahınız yükseltildi.");
-                                drawMessage(g2);
-                                //g2.drawString(" Silahınız yükseltildi.", gp.tileSize * 10, gp.tileSize * 4);
-                            } else {
-                                System.out.println("yandı");
-                                System.out.println(cursorIndex);
-                                addMessage("Yükseltme işlemi başarısız.");
-                                drawMessage(g2);
-                                //g2.drawString("Yükseltme başarısız.", gp.tileSize * 10, gp.tileSize * 4);
                             }
 
                             pressed = false;
