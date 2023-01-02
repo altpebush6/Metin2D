@@ -18,7 +18,7 @@ public class AssetSetter {
     public int index = 0;
     public int wolfCreateCounter = 300;
     public int aliveWolfNum = 0;
-
+    
     public boolean collisionOn;
 
     public Rectangle wolfBoundary;
@@ -67,9 +67,9 @@ public class AssetSetter {
 
     public void setEnemy() {
         wolfCreateCounter++;
-
+       
         if (wolfCreateCounter >= 180 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
-
+            
             playerWorldX = wolfBoundary.x;
             playerWorldWidth = wolfBoundary.x + wolfBoundary.width;
 

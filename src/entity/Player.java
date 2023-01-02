@@ -52,7 +52,7 @@ public class Player extends Entity {
     public boolean autoHit = false;
     public boolean doubleClicked = false;
     int attackWalkingSpeed = 1;
-
+    public int deadWolfCounter=0;
     public boolean reborn = false;
     public int rebornCounter;
 
@@ -822,9 +822,14 @@ public class Player extends Entity {
                 gp.ui.damages.add(new Damages(damageSize, damagePosX, damagePosY, 60, Color.green));
 
                 if (gp.enemy[enemyIndex].life <= 0) {
+                    
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
-
+                    if(taskLevel == 2) {
+                        deadWolfCounter++;
+                        System.out.println("ölü kurt" + deadWolfCounter);
+                    }
+                    
                     autoHit = false;
 
                     playerXP += rand.nextInt(10) + 100 / level;

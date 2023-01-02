@@ -14,6 +14,9 @@ public class KeyHandler implements KeyListener {
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
 	public boolean quotePressed, openDebug;
 	public boolean spacePressed, enterPressed;
+	public int missionPrize[] = {1,1,1,1,1};
+	public int enchantMission = 0;
+	public int takeTask1 = 0;
 
 	GamePanel gp;
 
@@ -141,8 +144,39 @@ public class KeyHandler implements KeyListener {
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
 			if (code == KeyEvent.VK_ENTER) {
-				gp.player.playerCoin += 150;
 				gp.gameState = gp.playState;
+				if(gp.player.taskLevel == 0 && missionPrize[0] == 1){
+					gp.player.playerCoin += 150;
+					missionPrize[0] = 0;
+					gp.ui.addMessage("Görev alındı.");
+					gp.ui.addMessage("150 Coin received.");
+				}else if(gp.player.taskLevel == 0 && missionPrize[0] == 0) {
+					gp.ui.addMessage("Bu görev zaten alınmış.");
+					gp.ui.addMessage("Satıcıyla alışveriş yap!");
+				}else if(gp.player.taskLevel == 1 && missionPrize[1] == 1) {
+					gp.player.playerCoin += 200;
+					takeTask1++;
+					missionPrize[1] = 0;
+					gp.ui.addMessage("Görev alındı.");
+					gp.ui.addMessage("200 Coin received.");
+				}else if(gp.player.taskLevel == 1 && missionPrize[1] == 0) {
+					gp.ui.addMessage("Bu görev zaten alınmış.");
+					gp.ui.addMessage("Demirci Rüsteme uğra!");
+				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 1) {
+					gp.player.playerCoin += 500;
+					missionPrize[2] = 0;
+					gp.ui.addMessage("Görev alındı.");
+					gp.ui.addMessage("500 Coin received.");
+				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == false) {
+					gp.ui.addMessage("Bu görev zaten alınmış.");
+					gp.ui.addMessage("3 Adet Kurt Kes!");
+				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == true) {
+					gp.player.playerCoin += 1000;
+					gp.player.taskLevel++;
+					gp.ui.addMessage("Görev Başarılı");
+					gp.ui.addMessage("500 Coin received.");
+				}
+				
 			}
 		} else if (gp.gameState == gp.tradeState) {
 			if (code == KeyEvent.VK_ENTER) {
@@ -241,6 +275,9 @@ public class KeyHandler implements KeyListener {
 									gp.player.playerCoin += 100;
 									gp.player.taskLevel++;
 									gp.player.playerXP += 200;
+									gp.ui.addMessage("Görev Başarılı.");
+									gp.ui.addMessage("XP kazanıldı.");
+									gp.ui.addMessage("100 Coin received.");
 								}
 							}
 						} else {
@@ -250,9 +287,9 @@ public class KeyHandler implements KeyListener {
 						gp.ui.addMessage("Not Enough Money to Buy It");
 					}
 
-					System.out.println("filled the slot");
+					
 				} else {
-					System.out.println("not filled");
+					
 				}
 
 			}
@@ -311,6 +348,9 @@ public class KeyHandler implements KeyListener {
 				        
                        gp.player.playerCoin -= 100;
                        gp.player.enchantAccepted = true;
+					   if(takeTask1==1) {
+						enchantMission++;
+					   }
 				    } else {
 		               gp.ui.addMessage("Not Enough Money to Enchant");
 		            }
@@ -322,6 +362,14 @@ public class KeyHandler implements KeyListener {
 				gp.player.enchantAccepted = false;
 				gp.player.itemEnchSellected = false;
 				gp.gameState = gp.playState;
+				if(enchantMission >=1 && gp.player.taskLevel == 1 && takeTask1 == 1) {
+					gp.player.playerCoin += 100;
+					gp.player.taskLevel++;
+					gp.player.playerXP += 400;
+					gp.ui.addMessage("Görev başarılı.");
+					gp.ui.addMessage("XP kazanıldı.");
+					gp.ui.addMessage("100 Coin received.");
+				} 
 			}
 
 		}
