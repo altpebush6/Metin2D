@@ -118,7 +118,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 5;
+        speed = 15;
         speedDefault = speed;
         direction = "down";
 
@@ -131,7 +131,7 @@ public class Player extends Entity {
         increaseSp = 1.0;
         playerTimer = 0;
         playerCoin = 200;
-        playerWeapon = "";
+        playerWeapon = "Sword";
         attackPower = 5;
         taskLevel = 0;
         playerXP = 0;
@@ -139,7 +139,6 @@ public class Player extends Entity {
         currentWeapon = new OBJ_Sword(gp);
         inventory.add(currentWeapon);
         attackPower += currentWeapon.weaponAttackSize;
-        System.out.println(attackPower+" "+currentWeapon.weaponAttackSize);
     }
 
     public void setDefaultPositions() {
@@ -224,49 +223,55 @@ public class Player extends Entity {
     }
 
     public void getPlayerAttackImage() {
-        attackLeft1 = setup("/player/attackleft1", 80, 80);
-        attackLeft2 = setup("/player/attackleft2", 80, 80);
-        attackLeft3 = setup("/player/attackleft3", 80, 80);
-        attackLeft4 = setup("/player/attackleft4", 80, 80);
-        attackLeft5 = setup("/player/attackleft5", 80, 80);
-        attackLeft6 = setup("/player/attackleft6", 80, 80);
-        attackLeft7 = setup("/player/attackleft7", 80, 80);
-        attackLeft8 = setup("/player/attackleft8", 80, 80);
-        attackLeft9 = setup("/player/attackleft9", 80, 80);
-        attackLeft10 = setup("/player/attackleft10", 80, 80);
-        attackLeft11 = setup("/player/attackleft11", 80, 80);
-        attackLeft12 = setup("/player/attackleft12", 80, 80);
-        attackLeft13 = setup("/player/attackleft13", 80, 80);
-        attackLeft14 = setup("/player/attackleft14", 80, 80);
+        attackLeft1 = setup("/player/attackLeft1", 81, 80);
+        attackLeft2 = setup("/player/attackLeft2", 81, 80);
+        attackLeft3 = setup("/player/attackLeft3", 81, 80);
+        attackLeft4 = setup("/player/attackLeft4", 81, 80);
+        attackLeft5 = setup("/player/attackLeft5", 81, 80);
+        attackLeft6 = setup("/player/attackLeft6", 81, 80);
+        attackLeft7 = setup("/player/attackLeft7", 81, 80);
+        attackLeft8 = setup("/player/attackLeft8", 81, 80);
+        attackLeft9 = setup("/player/attackLeft9", 81, 80);
+        attackLeft10 = setup("/player/attackLeft10", 81, 80);
+        attackLeft11 = setup("/player/attackLeft11", 81, 80);
+        attackLeft12 = setup("/player/attackLeft12", 81, 80);
+        attackLeft13 = setup("/player/attackLeft13", 81, 80);
+        attackLeft14 = setup("/player/attackLeft14", 81, 80);
 
-        attackRight1 = setup("/player/attackright1", 80, 80);
-        attackRight2 = setup("/player/attackright2", 80, 80);
-        attackRight3 = setup("/player/attackright3", 80, 80);
-        attackRight4 = setup("/player/attackright4", 80, 80);
-        attackRight5 = setup("/player/attackright5", 80, 80);
-        attackRight6 = setup("/player/attackright6", 80, 80);
-        attackRight7 = setup("/player/attackright7", 80, 80);
-        attackRight8 = setup("/player/attackright8", 80, 80);
-        attackRight9 = setup("/player/attackright9", 80, 80);
-
-        attackRight10 = setup("/player/attackright10", 80, 80);
-        attackRight11 = setup("/player/attackright11", 80, 80);
-        attackRight12 = setup("/player/attackright12", 80, 80);
-        attackRight13 = setup("/player/attackright13", 80, 80);
-        attackRight14 = setup("/player/attackright14", 80, 80);
+        attackRight1 = setup("/player/attackRight1", 81, 80);
+        attackRight2 = setup("/player/attackRight2", 81, 80);
+        attackRight3 = setup("/player/attackRight3", 81, 80);
+        attackRight4 = setup("/player/attackRight4", 81, 80);
+        attackRight5 = setup("/player/attackRight5", 81, 80);
+        attackRight6 = setup("/player/attackRight6", 81, 80);
+        attackRight7 = setup("/player/attackRight7", 81, 80);
+        attackRight8 = setup("/player/attackRight8", 81, 80);
+        attackRight9 = setup("/player/attackRight9", 81, 80);
+        attackRight10 = setup("/player/attackRight10", 81, 80);
+        attackRight11 = setup("/player/attackRight11", 81, 80);
+        attackRight12 = setup("/player/attackRight12", 81, 80);
+        attackRight13 = setup("/player/attackRight13", 81, 80);
+        attackRight14 = setup("/player/attackRight14", 81, 80);
+        
+        attackUp1 = setup("/player/attackUp1", 80, 92);
+        attackUp2 = setup("/player/attackUp2", 80, 92);
+        attackUp3 = setup("/player/attackUp3", 80, 92);
+        attackUp4 = setup("/player/attackUp4", 80, 92);
+        attackUp5 = setup("/player/attackUp5", 80, 92);
+        attackUp6 = setup("/player/attackUp6", 80, 92);
+        attackUp7 = setup("/player/attackUp7", 80, 92);
+        attackUp8 = setup("/player/attackUp8", 80, 92);
+        attackUp9 = setup("/player/attackUp9", 80, 92);
+        attackUp10 = setup("/player/attackUp10", 80, 92);
+        attackUp11 = setup("/player/attackUp11", 80, 92);
+        attackUp12 = setup("/player/attackUp12", 80, 92);
+        attackUp13 = setup("/player/attackUp13", 80, 92);
+        attackUp14 = setup("/player/attackUp14", 80, 92);
     }
 
     public void update() {
-
-        // clickCounter++; // to detect double click
-
-        // If Player doesn't press space longer than damageTimeOut (45sec) second reset
-        // holding
         
         // CHECK NPC COLLISION for msg
-        
-        gp.ui.addMessage(Integer.toString(attackPower));
-        
         boolean noNPC = false;
         for (int i = 0; i < gp.npc.length; i++) {
             if (gp.npc[i] != null
@@ -287,6 +292,10 @@ public class Player extends Entity {
         if (noPunchCounter >= damageTimeOut) {
             gp.player.holdingCounter = 0;
             gp.player.holdingNum = 0;
+        }
+        
+        if(keyH.spacePressed) {
+            attacking = true;
         }
 
         // When pressed space
@@ -509,14 +518,47 @@ public class Player extends Entity {
                                 image = auraSwordUp1;
                             if (spriteNum == 2)
                                 image = auraSwordUp2;
-                        } else {
-                            if (spriteNum == 1)
-                                image = attackUp1;
-                            if (spriteNum == 2)
-                                image = attackUp2;
+                        }else {
+                            if (holdingNum == 0) {
+                                if (spriteNum == 1)
+                                    image = attackUp1;
+                                if (spriteNum == 2)
+                                    image = attackUp2;
+                                if (spriteNum == 3)
+                                    image = attackUp3;
+                                if (spriteNum == 4)
+                                    image = attackUp4;
+                            } else if (holdingNum == 1) {
+                                if (spriteNum == 1)
+                                    image = attackUp5;
+                                if (spriteNum == 2)
+                                    image = attackUp6;
+                                if (spriteNum == 3)
+                                    image = attackUp7;
+                                if (spriteNum == 4)
+                                    image = attackUp8;
+                            } else if (holdingNum == 2) {
+                                if (spriteNum == 1)
+                                    image = attackUp9;
+                                if (spriteNum == 2)
+                                    image = attackUp10;
+                                if (spriteNum == 3)
+                                    image = attackUp9;
+                                if (spriteNum == 4)
+                                    image = attackUp10;
+                            } else if (holdingNum == 3) {
+                                if (spriteNum == 1)
+                                    image = attackUp11;
+                                if (spriteNum == 2)
+                                    image = attackUp12;
+                                if (spriteNum == 3)
+                                    image = attackUp13;
+                                if (spriteNum == 4)
+                                    image = attackUp14;
+                            }
                         }
+                        tempScreenY = screenY - 12; // To avoid sliding image when image sizes are different
 
-                        tempScreenY = screenY - gp.tileSize; // To avoid sliding image when image sizes are different
                     } else {
                         if (spriteNum == 1)
                             image = up1;
@@ -603,7 +645,7 @@ public class Player extends Entity {
                             }
                         }
 
-                        tempScreenX = screenX - gp.tileSize; // To avoid sliding image when image sizes are different
+                        tempScreenX = screenX - 1; // To avoid sliding image when image sizes are different
                     } else {
                         if (spriteNum == 1)
                             image = left1;
@@ -662,6 +704,7 @@ public class Player extends Entity {
                                     image = attackRight14;
                             }
                         }
+                        tempScreenX = screenX + 1; // To avoid sliding image when image sizes are different
                     } else {
                         if (spriteNum == 1)
                             image = right1;
@@ -791,30 +834,30 @@ public class Player extends Entity {
                     setItems();
                     gp.obj[index] = null;
                     break;
-                case "TasKanat":
+                case "Su Perisi":
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
-                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
+                    gp.ui.addMessage(gp.obj[index].name + " obtained.");
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();
                     gp.obj[index] = null;
                     break;
-                case "EcelGetiren":
+                case "Kırmızı Demir Pala":
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
-                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
+                    gp.ui.addMessage(gp.obj[index].name + " obtained.");
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
                     setItems();
                     gp.obj[index] = null;
                     break;
-                case "Staff":
+                case "Geniş Kılıç":
                     gp.playSE(3);
                     // playerWeapon = gp.obj[index].name;
-                    gp.ui.addMessage(gp.obj[index].name + " sword obtained.");
+                    gp.ui.addMessage(gp.obj[index].name + " obtained.");
                     gp.ui.itemIndex = 1;
                     gp.collect[collectIndex] = gp.obj[index];
                     collectIndex++;
@@ -937,7 +980,7 @@ public class Player extends Entity {
                 if (!gp.enemy[enemyIndex].inFight) {
                     invincible = true;
                 }
-                if (holdingNum == 0 && !gp.skills.skillUsed) {
+                if (holdingNum == 3 && !gp.skills.skillUsed) {
                     knockBack(gp.enemy[enemyIndex]);
                 }
 
@@ -959,7 +1002,6 @@ public class Player extends Entity {
                     gp.playSE(6);
                     if (taskLevel == 2) {
                         deadWolfCounter++;
-                        System.out.println("ölü kurt" + deadWolfCounter);
                     }
 
                     autoHit = false;

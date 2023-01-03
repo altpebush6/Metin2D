@@ -9,7 +9,7 @@ public class Skills {
     public int skillType;
     public boolean skillUsed = false;
     public int skillSpriteCounter = 0;
-    public int skillStandbyTime = 120; // 10s
+    public int skillStandbyTime = 20; // 10s
 
     // Sword Spin
     public int swordSpinType = 1;
@@ -114,10 +114,10 @@ public class Skills {
     
     public void drawSwordSpin() {
         switch(gp.player.spriteNum) {
-            case 1: gp.player.image = gp.player.attackRight2;   break;
-            case 2: gp.player.image = gp.player.attackUp2;      gp.player.tempScreenY = gp.player.screenY - gp.tileSize;    break;
-            case 3: gp.player.image = gp.player.attackLeft2;    gp.player.tempScreenX = gp.player.screenX - gp.tileSize;    break;
-            case 4: gp.player.image = gp.player.attackDown2;    break;
+            case 1: gp.player.image = gp.player.attackRight10;    gp.player.tempScreenX = gp.player.screenX + 20;    break;
+            case 2: gp.player.image = gp.player.attackUp10;      gp.player.tempScreenY = gp.player.screenY - 10;    break;
+            case 3: gp.player.image = gp.player.attackLeft10;   gp.player.tempScreenX = gp.player.screenX - 20;    break;
+            case 4: gp.player.image = gp.player.attackDown10;      gp.player.tempScreenY = gp.player.screenY - 20;    break;
         }
     }
     

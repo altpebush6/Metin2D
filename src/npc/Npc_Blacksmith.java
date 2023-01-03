@@ -6,9 +6,9 @@ import entity.Entity;
 import main.GamePanel;
 import object.OBJ_BluePotion;
 import object.OBJ_Dolunay;
-import object.OBJ_EcelGetiren;
+import object.OBJ_KDP;
 import object.OBJ_RedPotion;
-import object.OBJ_Staff;
+import object.OBJ_GenisKilic;
 import java.lang.Math;
 
 

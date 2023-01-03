@@ -6,8 +6,9 @@ import java.awt.event.KeyListener;
 import entity.Player;
 import npc.Npc_Merchant;
 import object.OBJ_Dolunay;
-import object.OBJ_EcelGetiren;
-import object.OBJ_Staff;
+import object.OBJ_KDP;
+import object.OBJ_SuPerisi;
+import object.OBJ_GenisKilic;
 
 public class KeyHandler implements KeyListener {
 
@@ -179,8 +180,8 @@ public class KeyHandler implements KeyListener {
 					gp.ui.addMessage("Commissioned.");
 					gp.ui.addMessage("150 Coin received.");
 				}else if(gp.player.taskLevel == 0 && missionPrize[0] == 0) {
-					gp.ui.addMessage("Bu görev zaten alınmış.");
-					gp.ui.addMessage("Satıcıyla alışveriş yap!");
+					gp.ui.addMessage("Already Commissioned.");
+					gp.ui.addMessage("Shop with Seller!");
 				}else if(gp.player.taskLevel == 1 && missionPrize[1] == 1) {
                     gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 200);
 					takeTask1++;
@@ -188,8 +189,8 @@ public class KeyHandler implements KeyListener {
 					gp.ui.addMessage("Commissioned.");
 					gp.ui.addMessage("200 Coin received.");
 				}else if(gp.player.taskLevel == 1 && missionPrize[1] == 0) {
-					gp.ui.addMessage("Bu görev zaten alınmış.");
-					gp.ui.addMessage("Demirci Rüsteme uğra!");
+					gp.ui.addMessage("Already Commissioned.");
+					gp.ui.addMessage("Go to Blacksmith Rustem!");
 				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 1) {
                     gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 500);
 					missionPrize[2] = 0;
@@ -199,7 +200,7 @@ public class KeyHandler implements KeyListener {
 				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == false) {
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Already Commissioned.");
-					gp.ui.addMessage("3 Adet Kurt Kes!");
+					gp.ui.addMessage("Kill 3 Wolves!");
 				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == true) {
                     gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 1000);
 					gp.player.taskLevel++;
@@ -305,17 +306,21 @@ public class KeyHandler implements KeyListener {
 
 								switch(gp.ui.cursorNpcIndex) {
 									case 0:
-									gp.player.inventory.add(new OBJ_EcelGetiren(gp));
-                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-									break;
+    									gp.player.inventory.add(new OBJ_KDP(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+    									break;
 									case 1: 
-									gp.player.inventory.add(new OBJ_Staff(gp));
-                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-									break;
+    									gp.player.inventory.add(new OBJ_GenisKilic(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+    									break;
 									case 2: 
-									gp.player.inventory.add(new OBJ_Dolunay(gp));
-                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-									break;
+    									gp.player.inventory.add(new OBJ_Dolunay(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+    									break;
+									case 3: 
+                                        gp.player.inventory.add(new OBJ_SuPerisi(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                        break;
 
 								}
 								// For different enchantLevel: 	
@@ -384,11 +389,10 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_E) {
 
 				if (gp.ui.controlCursor() == true) {
+                    gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
 					gp.player.enchantWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
 					gp.player.itemEnchSellected = true;
-					System.out.println("filled the slot");
-				} else {
-					System.out.println("not filled");
+	                gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
 				}
 
 			}
@@ -409,7 +413,7 @@ public class KeyHandler implements KeyListener {
 			}
 			
 
-			if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_ESCAPE) {
+			if ((code == KeyEvent.VK_ENTER || code == KeyEvent.VK_ESCAPE) && !gp.player.enchantAccepted) {
 				gp.player.enchantAccepted = false;
 				gp.player.itemEnchSellected = false;
 				gp.gameState = gp.playState;
@@ -476,12 +480,9 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_E) {
 
 				if (gp.ui.controlCursor() == true) {
-				    System.out.println(gp.player.getAttackPower()+" "+gp.player.currentWeapon.weaponAttackSize + " "+ gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
 				    gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
 					gp.player.currentWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
 					gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
-				} else {
-					System.out.println("not filled");
 				}
 			}
 			if(code == KeyEvent.VK_ESCAPE) {

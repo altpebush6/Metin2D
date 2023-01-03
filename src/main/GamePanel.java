@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int FPS = 500;
 
     // SYSTEM
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public MouseHandler mouseH = new MouseHandler(this);;
     Sound soundtrack = new Sound();
     Sound se = new Sound(); // sound effects

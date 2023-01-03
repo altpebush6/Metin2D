@@ -5,16 +5,18 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_BluePotion;
 import object.OBJ_Dolunay;
-import object.OBJ_EcelGetiren;
+import object.OBJ_KDP;
 import object.OBJ_RedPotion;
-import object.OBJ_TasKanat;
+import object.OBJ_Sword;
+import object.OBJ_SuPerisi;
 
-public class SaveLoad {
+public class SaveLoad implements Serializable{
     
     GamePanel gp;
     
@@ -28,8 +30,10 @@ public class SaveLoad {
         
         switch(itemName) {
             
-            case "EcelGetiren": obj = new OBJ_EcelGetiren(gp); break;
-            case "TasKanat": obj = new OBJ_TasKanat(gp); break;
+            case "Sword": obj = new OBJ_Sword(gp); break;
+            case "Kırmızı Demir Pala": obj = new OBJ_KDP(gp); break;
+            case "Su Perisi": obj = new OBJ_SuPerisi(gp); break;
+            case "Geniş Kılıç": obj = new OBJ_BluePotion(gp); break;
             case "Dolunay": obj = new OBJ_Dolunay(gp); break;
             case "Red Potion": obj = new OBJ_RedPotion(gp); break;
             case "Blue Potion": obj = new OBJ_BluePotion(gp); break;
@@ -40,7 +44,7 @@ public class SaveLoad {
     public void save() {
         
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save1.dat")));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
             
             DataStorage ds = new DataStorage();
             
@@ -52,7 +56,14 @@ public class SaveLoad {
             ds.redPotionNumber = gp.player.redPotionNumber;
             ds.bluePotionNumber = gp.player.bluePotionNumber;
             ds.playerName = gp.player.name;
+            ds.currentWeaponName = gp.player.currentWeapon.name;
+            ds.taskLevel = gp.player.taskLevel;
             
+            for(int i = 0; i < 5; i++) {
+                ds.missionPrize[i] = gp.keyH.missionPrize[i];
+            }
+            
+
             // PLAYER INVENTORY
             for(int i = 0; i < gp.player.inventory.size();i++) {
                 ds.itemNames.add(gp.player.inventory.get(i).name);
@@ -65,36 +76,48 @@ public class SaveLoad {
             System.out.println("SAVED");
         }
         catch(Exception e) {
-            System.out.println("Save Exception!");
+            System.out.println(e+": Save Exception!");
         }
         
     }
     public void load() {
         
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save1.dat")));
-            
-            //Read the DataStorage object
-            DataStorage ds = (DataStorage)ois.readObject();
-            //PLAYER STATS
-            gp.player.level = ds.level;
-            gp.player.setAttackPower(ds.attackPower);
-            gp.player.setPlayerCoin(ds.playerCoin);
-            gp.player.playerWeapon = ds.playerWeapon;
-            gp.player.setPlayerXP(ds.playerXP);
-            gp.player.redPotionNumber = ds.redPotionNumber;
-            gp.player.bluePotionNumber = ds.bluePotionNumber;
-            gp.player.name = ds.playerName;
-            
-            // PLAYER INVENTORY
-            gp.player.inventory.clear();
-            for(int i = 0; i < ds.itemNames.size(); i++) {
-                gp.player.inventory.add(getObject(ds.itemNames.get(i)));
-                gp.player.inventory.get(i).enchantLevel = ds.enhancedLevel.get(i);
+            File saveFile = new File("save.dat");
+            if(saveFile.exists()) {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
+                
+                //Read the DataStorage object
+                DataStorage ds = (DataStorage)ois.readObject();
+                //PLAYER STATS
+                gp.player.level = ds.level;
+                gp.player.setAttackPower(ds.attackPower);
+                gp.player.setPlayerCoin(ds.playerCoin);
+                gp.player.playerWeapon = ds.playerWeapon;
+                gp.player.setPlayerXP(ds.playerXP);
+                gp.player.redPotionNumber = ds.redPotionNumber;
+                gp.player.bluePotionNumber = ds.bluePotionNumber;
+                gp.player.name = ds.playerName;
+                gp.player.taskLevel = ds.taskLevel;
+                
+                for(int i = 0; i < 5; i++) {
+                    gp.keyH.missionPrize[i] = ds.missionPrize[i];
+                }
+                
+                // PLAYER INVENTORY
+                gp.player.inventory.clear();
+                
+                for(int i = 0; i < ds.itemNames.size(); i++) {
+                    gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+                    gp.player.inventory.get(i).enchantLevel = ds.enhancedLevel.get(i);
+                    if(gp.player.inventory.get(i).name.equals(ds.currentWeaponName)) {
+                        gp.player.currentWeapon = gp.player.inventory.get(i);
+                    }
+                }
             }
         }
         catch(Exception e){
-            System.out.println("Load exception!");
+            System.out.println(e+": Load exception!");
             
         }
     }

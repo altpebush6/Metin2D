@@ -15,6 +15,6 @@ public class OBJ_Dolunay extends Entity{
 		price = 100;
 		enchantLevel = 0;
 		objDetailedType = 1;
-		weaponAttackSize = 3;
+		weaponAttackSize = 4;
 	}
 }

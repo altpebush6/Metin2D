@@ -37,11 +37,11 @@ public class UI {
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
     BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg, inventoryBtn,
             optionsBtn;
-    BufferedImage inventory, merchantInventory;
-    BufferedImage deadWolf;
+    BufferedImage inventory, merchantInventory, blackSmithSlot;
+    BufferedImage deadWolf,wolfPNG;
     BufferedImage taskList, abulbulImage;
     BufferedImage rectangle;
-    BufferedImage aybu, charStatus;
+    BufferedImage aybu, titleScreenPlayer, titleScreenPlayer1,titleScreenPlayer2,titleScreenPlayer3,titleScreenPlayer4, charStatus;
     BufferedImage rightKey, leftKey, enterKey;
     BufferedImage[] xpTupe = new BufferedImage[23];
     Entity en;
@@ -103,6 +103,9 @@ public class UI {
     public boolean successEnch;
 
     public boolean enhanceSE = true;
+    
+    public int titleScreenPlayerCounter = 0;
+    public int titleScreenPlayerSpriteNum = 0;
 
     // save
     SaveLoad saveLoad = new SaveLoad(gp);
@@ -113,12 +116,18 @@ public class UI {
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
 
+        titleScreenPlayer = gp.uTool.setup("/UI/titleScreenPlayer", 650, 650);
+        titleScreenPlayer1 = gp.uTool.setup("/UI/titleScreenPlayer1", 650, 650);
+        titleScreenPlayer2 = gp.uTool.setup("/UI/titleScreenPlayer2", 650, 650);
+        titleScreenPlayer3 = gp.uTool.setup("/UI/titleScreenPlayer3", 650, 650);
+        titleScreenPlayer4 = gp.uTool.setup("/UI/titleScreenPlayer4", 650, 650);
         enterKey = gp.uTool.setup("/UI/enterKey", 32, 32);
         rightKey = gp.uTool.setup("/UI/rightKey", 32, 32);
         leftKey = gp.uTool.setup("/UI/leftKey", 32, 32);
         optionsBtn = gp.uTool.setup("/UI/optionsBtn", gp.tileSize, gp.tileSize);
         inventoryBtn = gp.uTool.setup("/UI/inventoryBtn", gp.tileSize, gp.tileSize);
         abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
+        blackSmithSlot =  gp.uTool.setup("/UI/blacksmithslot", 380, 456);
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
@@ -135,6 +144,7 @@ public class UI {
         aybu = gp.uTool.setup("/titleScreen/aybu", gp.screenWidth, gp.screenHeight);
         charStatus = gp.uTool.setup("/titleScreen/char", 370, 450);
         deadWolf = gp.uTool.setup("/wolf/deadWolf", gp.tileSize * 3 / 2, gp.tileSize * 3 / 2);
+        wolfPNG = gp.uTool.setup("/ui/wolfPng", gp.tileSize, gp.tileSize);
 
         for (int i = 0; i < hpBarImages.length; i++) {
             hpBarImages[i] = gp.uTool.setup("/UI/HpBar" + (i + 1), gp.tileSize, gp.tileSize);
@@ -183,6 +193,7 @@ public class UI {
             changeCursor();
         }
 
+        
         // PLAY STATE
         if (gp.gameState == gp.playState) {
 
@@ -270,6 +281,9 @@ public class UI {
     }
 
     public void drawTitleScreen() {
+        
+        BufferedImage image = null;
+        
         g2.drawImage(aybu, null, 0, 0);
 
         if (gp.player.name.equals("")) {
@@ -281,6 +295,38 @@ public class UI {
             g2.drawString(playerName, 690, 455);
             enterNameButton(g2);
         } else {
+            if(gp.playBtn) {
+                titleScreenPlayerCounter++;
+                if(titleScreenPlayerCounter % 2 == 0) {
+                    if(titleScreenPlayerSpriteNum == 3) {
+                        titleScreenPlayerSpriteNum = 0;
+                    }else {
+                        titleScreenPlayerSpriteNum++;
+                    }
+                }
+                
+                switch(titleScreenPlayerSpriteNum) {
+                    
+                    case 0:
+                        image = titleScreenPlayer1;
+                        break;
+                    case 1:
+                        image = titleScreenPlayer2;
+                        break;
+                    case 2:
+                        image = titleScreenPlayer3;
+                        break;
+                    case 3:
+                        image = titleScreenPlayer4;
+                        break;
+                    
+                }
+                
+                g2.drawImage(image, null, 650 + titleScreenPlayerCounter * 10, 220);
+            }else {
+                g2.drawImage(titleScreenPlayer, null, 650, 220);
+            }
+            
             g2.drawImage(charStatus, null, 50, 350);
             titleScreenCharStatus(g2);
             titleScreenButtons(g2);
@@ -292,16 +338,16 @@ public class UI {
         if (gp.player.taskLevel == 2 && gp.keyH.missionPrize[2] == 0) {
             if (gp.player.deadWolfCounter < 3) {
                 int wolfCounter = 3 - gp.player.deadWolfCounter;
-                wolfCountersString = "Kalan Kurt Miktarı: " + wolfCounter;
-                g2.drawImage(deadWolf, null, gp.tileSize, gp.tileSize);
+                wolfCountersString = "Remaining Wolf Amount: " + wolfCounter;
+                g2.drawImage(wolfPNG, null, gp.tileSize, gp.tileSize);
                 g2.setFont(g2.getFont().deriveFont(32F));
                 g2.drawString(wolfCountersString, gp.tileSize * 3, gp.tileSize * 2);
             } else if (gp.player.deadWolfCounter >= 3) {
-                wolfCountersString = "3 kurt haklandı!";
+                wolfCountersString = "3 wolves killed!";
                 g2.drawImage(deadWolf, null, gp.tileSize, gp.tileSize);
                 g2.setFont(g2.getFont().deriveFont(32F));
                 g2.drawString(wolfCountersString, gp.tileSize * 3, gp.tileSize * 2);
-                addMessage("Görevi Teslim Edin!");
+                addMessage("Submit the Mission!");
                 wolfTaskDo = true;
             }
 
@@ -602,7 +648,6 @@ public class UI {
         // System.out.println(gp.player.inventory.size());
 
         for (int i = 0; i < gp.player.inventory.size(); i++) {
-            System.out.println(i);
             if (gp.player.inventory.get(i) != null) {
 
                 if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
@@ -702,34 +747,19 @@ public class UI {
         int enchantmentX = 100;
         int enchantmentY = 100;
 
-        int eFrameWidth = gp.tileSize * 3;
-        int eFrameHeight = gp.tileSize * 3;
-        drawSubWindow(enchantmentX, enchantmentY, eFrameWidth, eFrameHeight);
-        /*
-         * int textX = dFrameX + 20;
-         * int textY = dFrameY + gp.tileSize;
-         */
+        int eFrameWidth = 152;
+        int eFrameHeight = 156;
 
-        /*
-         * g2.setColor(new Color(240, 190, 90));
-         * g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
-         * g2.drawImage(gp.player.inventory.get(i).down1, inventoryX + 168, inventoryY +
-         * 78, gp.tileSize, gp.tileSize, null);
-         * g2.setColor(new Color(240, 190, 90));
-         * g2.drawRect(inventoryX + 168, inventoryY + 78, gp.tileSize, gp.tileSize);
-         */
+        g2.drawImage(blackSmithSlot, null, enchantmentX, enchantmentY);
 
         for (int i = 0; i < gp.player.inventory.size(); i++) {
             if (gp.player.inventory.get(i) != null) {
                 if (gp.player.itemEnchSellected) {
 
                     if (gp.player.inventory.get(i) == gp.player.enchantWeapon) {
-                        g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize,
-                                gp.tileSize, null);
+                        g2.drawImage(gp.player.inventory.get(i).down1, 260, 260, 60, 60, null);
                         if (gp.player.itemEnchSellected) {
                             g2.setColor(Color.white);
-                            g2.drawString("Yükseltmek için Y' ye basın", enchantmentX,
-                                    enchantmentY + eFrameHeight + 20);
                         }
 
                         if (gp.player.enchantAccepted == true) {
@@ -738,18 +768,19 @@ public class UI {
                                 gp.playSE(27);
                                 enhanceSE = false;
                             }
+                            
+                            g2.setColor(Color.white);
+                            g2.setFont(g2.getFont().deriveFont(22F));
 
-                            g2.setColor(new Color(148, 0, 211));
-                            g2.fillRoundRect(enchantmentX, enchantmentY, gp.tileSize, gp.tileSize, 10, 10);
-                            g2.drawImage(gp.player.inventory.get(i).down1, enchantmentX, enchantmentY, gp.tileSize,
-                                    gp.tileSize, null);
-                            g2.setColor(new Color(148, 0, 211));
-                            g2.setFont(g2.getFont().deriveFont(36F));
-
-                            g2.drawString("Weapon is enhancing", gp.tileSize * 10, gp.tileSize * 4);
                             counter++;
+                            if(counter < 30)        g2.drawString("Weapon is enhancing.", 165, 400);
+                            else if(counter < 60 )  g2.drawString("Weapon is enhancing..", 165, 400);
+                            else if(counter < 90 )  g2.drawString("Weapon is enhancing...", 165, 400);
+                            else if(counter < 120 ) g2.drawString("Weapon is enhancing.", 165, 400);
+                            else if(counter < 150 ) g2.drawString("Weapon is enhancing..", 165, 400);
+                            else if(counter < 180 ) g2.drawString("Weapon is enhancing...", 165, 400);
+                            
                             if (counter >= 180) {
-
                                 successEnch = gp.npc[2].increaseWeapon(gp.player.inventory.get(i));
                                 gp.player.enchantAccepted = false;
                                 enhanceSE = true;
@@ -816,8 +847,15 @@ public class UI {
         g2.drawRoundRect(npcCursorX, npcCursorY, npcCursorWidth, npcCursorHeight, 10, 10);
 
         for (int i = 0; i < Npc_Merchant.npcInventory.size(); i++) {
-            g2.drawImage(Npc_Merchant.npcInventory.get(i).down1, npcSlotX, npcSlotY, gp.tileSize, gp.tileSize, null);
-            npcSlotX += gp.tileSize;
+            if(Npc_Merchant.npcInventory.get(i) != null) {
+                g2.drawImage(Npc_Merchant.npcInventory.get(i).down1, npcSlotX, npcSlotY, gp.tileSize, gp.tileSize, null);
+                npcSlotX += gp.tileSize;
+                if (i % 5 == 4) {
+                    npcSlotX = npcSlotXstart;
+                    npcSlotY += gp.tileSize;
+                }
+            }
+
         }
 
         /*

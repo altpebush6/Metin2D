@@ -518,14 +518,22 @@ public class Entity {
                         g2.setColor(Color.cyan);
                         g2.drawString("Dolunay Sword", screenX - 8, screenY);
                         break;
-                    case "TasKanat":
+                        
+                    case "Su Perisi":
                         g2.setColor(Color.YELLOW);
-                        g2.drawString("Tas Kanat Axe", screenX - 10, screenY - 10);
+                        g2.drawString("Su Perisi", screenX - 10, screenY - 10);
                         break;
-                    case "EcelGetiren":
+                        
+                    case "Kırmızı Demir Pala":
                         g2.setColor(Color.cyan);
-                        g2.drawString("Ecel Getiren Sword", screenX - 25, screenY - 10);
-                    
+                        g2.drawString("Kırmızı Demir Pala", screenX - 25, screenY - 10);
+                        break;
+                        
+                    case "Geniş Kılıç":
+                        g2.setColor(Color.cyan);
+                        g2.drawString("Geniş Kılıç", screenX - 25, screenY - 10);
+                        break;
+                        
                     default:
                         break;
                 }

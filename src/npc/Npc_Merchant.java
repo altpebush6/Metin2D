@@ -6,9 +6,10 @@ import entity.Entity;
 import main.GamePanel;
 import object.OBJ_BluePotion;
 import object.OBJ_Dolunay;
-import object.OBJ_EcelGetiren;
+import object.OBJ_KDP;
 import object.OBJ_RedPotion;
-import object.OBJ_Staff;
+import object.OBJ_SuPerisi;
+import object.OBJ_GenisKilic;
 
 public class Npc_Merchant extends Entity {
     
@@ -47,9 +48,10 @@ public class Npc_Merchant extends Entity {
 
     public void setItems() {
 
-        npcInventory.add(new OBJ_EcelGetiren(gp));
-        npcInventory.add(new OBJ_Staff(gp));
+        npcInventory.add(new OBJ_KDP(gp));
+        npcInventory.add(new OBJ_GenisKilic(gp));
         npcInventory.add(new OBJ_Dolunay(gp));
+        npcInventory.add(new OBJ_SuPerisi(gp));
         npcInventory.add(new OBJ_RedPotion(gp));
         npcInventory.add(new OBJ_BluePotion(gp));
     }
