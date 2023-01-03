@@ -150,6 +150,27 @@ public class KeyHandler implements KeyListener {
 			}
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
+
+			if(code == KeyEvent.VK_RIGHT) {
+				if(gp.player.taskLevel == 2 && gp.ui.pageNum == 0) {
+					gp.ui.pageNum++;
+				}
+				
+				if(gp.player.taskLevel == 3 && gp.ui.pageNum == 0) {
+					gp.ui.pageNum++;
+				}
+			}
+
+			if(code == KeyEvent.VK_LEFT) {
+				if(gp.player.taskLevel == 2 && gp.ui.pageNum == 1) {
+					gp.ui.pageNum--;
+				}
+
+				if(gp.player.taskLevel == 3 && gp.ui.pageNum == 1) {
+					gp.ui.pageNum++;
+				}
+			}
+
 			if (code == KeyEvent.VK_ENTER) {
 				gp.gameState = gp.playState;
 				if(gp.player.taskLevel == 0 && missionPrize[0] == 1){
@@ -172,19 +193,42 @@ public class KeyHandler implements KeyListener {
 				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 1) {
 					gp.player.playerCoin += 500;
 					missionPrize[2] = 0;
+					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Görev alındı.");
 					gp.ui.addMessage("500 Coin received.");
 				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == false) {
+					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Bu görev zaten alınmış.");
 					gp.ui.addMessage("3 Adet Kurt Kes!");
 				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == true) {
 					gp.player.playerCoin += 1000;
 					gp.player.taskLevel++;
+					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Görev Başarılı");
 					gp.ui.addMessage("500 Coin received.");
+				}else if(gp.player.taskLevel == 3 && missionPrize[3] == 1) {
+					gp.player.playerCoin += 1000;
+					missionPrize[3] = 0;
+					gp.ui.pageNum = 0;
+					gp.ui.addMessage("Görev alındı.");
+					gp.ui.addMessage("1000 Coin received.");
+				}else if(gp.player.taskLevel == 3 && missionPrize[3] == 0) {
+					gp.ui.pageNum = 0;
+					gp.ui.addMessage("Bu görev zaten alınmış.");
+					gp.ui.addMessage("Anten'i Parçala!");
+				} else if(gp.player.taskLevel == 4 && missionPrize[4] == 1) {
+					gp.player.playerCoin += 10000;
+					missionPrize[4] = 0;
+					gp.ui.pageNum = 0;
+					gp.ui.addMessage("Köyün sefasını sür!");
+					gp.ui.addMessage("10.000 Coin received.");
+				}else if(gp.player.taskLevel == 4 && missionPrize[4] == 0) {
+					gp.ui.pageNum = 0;
+					gp.ui.addMessage("Köyün sefasını sür!");
 				}
-				
+
 			}
+
 		} else if (gp.gameState == gp.tradeState) {
 			if (code == KeyEvent.VK_ENTER) {
 				gp.gameState = gp.playState;

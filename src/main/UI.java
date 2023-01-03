@@ -39,7 +39,7 @@ public class UI {
             optionsBtn;
     BufferedImage inventory, merchantInventory;
     BufferedImage deadWolf;
-    BufferedImage  taskList ,abulbulImage;
+    BufferedImage taskList, abulbulImage;
     BufferedImage rectangle;
     BufferedImage aybu, charStatus;
     BufferedImage[] xpTupe = new BufferedImage[23];
@@ -53,7 +53,7 @@ public class UI {
     public Rectangle saveRec = new Rectangle();
     public int healthBar;
     public int spBar;
-    
+
     public int hpBarCounter = 0;
     public int spBarCounter = 0;
 
@@ -61,7 +61,7 @@ public class UI {
 
     public boolean messageOn = false;
 
-    // TASK SCREEN OPENER 
+    // TASK SCREEN OPENER
     public boolean openTaskScreen = false;
     /*
      * public String message = "";
@@ -74,6 +74,7 @@ public class UI {
     public String currentDialogue = " ";
     public String wolfCountersString = "";
     public boolean wolfTaskDo = false;
+    public int pageNum = 0; // FOR DIALOGUE SCREEN NEXT PAGE
     public int slotCol = 0;
     public int slotRow = 0;
     public int npcSlotCol = 0;
@@ -475,51 +476,54 @@ public class UI {
         y += gp.tileSize + 10;
         int lineCount = 0;
         int index = en.taskLevel;
-        for (String line : en.dialogues[index].split("\n")) {
-            g2.drawString(line, x, y);
-            y += 30;
-            lineCount++;
-            if (lineCount >= 11) {
-                /*
-                 * System.out.println("yeni sayfa");
-                 * String nextPage = "New Page";
-                 * nextPageBtnWidth = gp.tileSize * 2;
-                 * nextPageBtnHeight = (int) (gp.tileSize * 0.65);
-                 * 
-                 * nextPageRec = new Rectangle(gp.tileSize / 2, gp.tileSize / 2,
-                 * nextPageBtnWidth, nextPageBtnHeight);
-                 * //respawnCityRec = new Rectangle(gp.tileSize / 2, (int) (gp.tileSize * 1.2),
-                 * respawnBtnWidth, respawnBtnHeight);
-                 * 
-                 * g2.drawImage(btnBg, respawnHereRec.x, respawnHereRec.y, respawnHereRec.width,
-                 * respawnHereRec.height, null);
-                 * //g2.drawImage(btnBg, respawnCityRec.x, respawnCityRec.y,
-                 * respawnCityRec.width, respawnCityRec.height, null);
-                 * 
-                 * if (btnHover == 1) {
-                 * g2.setColor(new Color(238, 238, 238, 40));
-                 * g2.fillRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width,
-                 * respawnHereRec.height);
-                 * } else if (btnHover == 2) {
-                 * g2.setColor(new Color(238, 238, 238, 40));
-                 * g2.fillRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width,
-                 * respawnCityRec.height);
-                 * }
-                 * 
-                 * g2.setFont(g2.getFont().deriveFont(Font.BOLD, 13F));
-                 * g2.setColor(Color.white);
-                 * g2.drawString(respawnHere, 65, 44);
-                 * g2.drawString(respawnCity, 65, 76);
-                 * 
-                 * g2.setColor(new Color(0, 0, 0, 0));
-                 * g2.drawRect(respawnHereRec.x, respawnHereRec.y, respawnHereRec.width,
-                 * respawnHereRec.height);
-                 * g2.drawRect(respawnCityRec.x, respawnCityRec.y, respawnCityRec.width,
-                 * respawnCityRec.height);
-                 * g2.setColor(Color.white);
-                 */
+        if (index == 0) {
+            for (String line : en.dialogues[0].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
             }
-
+        } else if (index == 1) {
+            for (String line : en.dialogues[1].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
+        } else if (index == 2 && pageNum == 0 && wolfTaskDo == false) {
+            for (String line : en.dialogues[2].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
+        } else if (index == 2 && pageNum == 1 && wolfTaskDo == false) {
+            for (String line : en.dialogues[3].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
+        } else if (index == 2 && wolfTaskDo == true) {
+            for (String line : en.dialogues[4].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
+        } else if (index == 3 && pageNum == 0) {
+            for (String line : en.dialogues[5].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
+        } else if (index == 3 && pageNum == 1) {
+            for (String line : en.dialogues[6].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
+        } else if (index == 4) {
+            for (String line : en.dialogues[7].split("\n")) {
+                g2.drawString(line, x, y);
+                y += 30;
+                lineCount++;
+            }
         }
 
         /*
@@ -956,17 +960,16 @@ public class UI {
         gp.setCursor(cursor);
     }
 
-    // TASK LIST SCREEN 
+    // TASK LIST SCREEN
 
     public void drawTaskList() {
         if (openTaskScreen) {
-            g2.drawImage(taskList,100,100,null);
+            g2.drawImage(taskList, 100, 100, null);
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
             g2.setColor(Color.white);
-            g2.drawString("Görev Listesi",140,150);
-            drawTaskRec(130,180,200,60,gp.player.taskLevel);
+            g2.drawString("Görev Listesi", 140, 150);
+            drawTaskRec(130, 180, 200, 60, gp.player.taskLevel);
         }
-
 
     }
 
@@ -974,13 +977,11 @@ public class UI {
 
         g2.drawRoundRect(taskRecX, taskRecY, taskRecWidth, taskRecHeight, 10, 10);
         g2.setFont(g2.getFont().deriveFont(14F));
-        int taskNum = taskLevel +1;
+        int taskNum = taskLevel + 1;
         String currentTask = gp.player.taskNameList.get(taskLevel);
-        g2.drawString("Görev "+taskNum,taskRecX+80, taskRecY+15);
-        g2.drawString(currentTask,taskRecX+4, taskRecY+35);
+        g2.drawString("Görev " + taskNum, taskRecX + 80, taskRecY + 15);
+        g2.drawString(currentTask, taskRecX + 4, taskRecY + 35);
     }
-
-
 
     // BOTTOM BAR
     public void drawBottomBar(Graphics2D g2) {

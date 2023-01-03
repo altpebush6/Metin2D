@@ -52,7 +52,7 @@ public class Player extends Entity {
     public boolean autoHit = false;
     public boolean doubleClicked = false;
     int attackWalkingSpeed = 1;
-    public int deadWolfCounter=0;
+    public int deadWolfCounter = 0;
     public boolean reborn = false;
     public int rebornCounter;
 
@@ -71,7 +71,7 @@ public class Player extends Entity {
     // To avoid sliding image when sizes are different
     public int tempScreenX;
     public int tempScreenY;
-    
+
     public int interactNPCIndex = -1;
 
     // Tasks Name
@@ -178,7 +178,8 @@ public class Player extends Entity {
         taskNameList.add("Teşkilata katıl!");
         taskNameList.add("Teşkilatın Direği!");
         taskNameList.add("Fatih Bey'e Tahribat!");
-        taskNameList.add("Köyü Kurtar!");
+        taskNameList.add("Köyün Bekası");
+        taskNameList.add("Köyün Sefası");
     }
 
     public void getPlayerAuraSwordImage() {
@@ -233,7 +234,7 @@ public class Player extends Entity {
         attackLeft12 = setup("/player/attackleft12", 80, 80);
         attackLeft13 = setup("/player/attackleft13", 80, 80);
         attackLeft14 = setup("/player/attackleft14", 80, 80);
-        
+
         attackRight1 = setup("/player/attackright1", 80, 80);
         attackRight2 = setup("/player/attackright2", 80, 80);
         attackRight3 = setup("/player/attackright3", 80, 80);
@@ -243,7 +244,7 @@ public class Player extends Entity {
         attackRight7 = setup("/player/attackright7", 80, 80);
         attackRight8 = setup("/player/attackright8", 80, 80);
         attackRight9 = setup("/player/attackright9", 80, 80);
-        
+
         attackRight10 = setup("/player/attackright10", 80, 80);
         attackRight11 = setup("/player/attackright11", 80, 80);
         attackRight12 = setup("/player/attackright12", 80, 80);
@@ -272,7 +273,7 @@ public class Player extends Entity {
             noPunchCounter = 0;
             holdingCounter++;
             if (attackCounter >= damageTimeOut) {
-                
+
                 if (gp.endGame) {
                     gp.endGameCounter = 0;
                     gp.endGame = false;
@@ -281,7 +282,7 @@ public class Player extends Entity {
 
                 attackCounter = 0;
                 attacking = true;
-                
+
             }
         }
 
@@ -344,7 +345,7 @@ public class Player extends Entity {
                 // gp.ui.showMessage("Press \" to pick up item.");
             }
         }
-        
+
         // CHECK NPC COLLISION
         if (interactNPCIndex != -1) {
             interactNpc(interactNPCIndex);
@@ -539,26 +540,42 @@ public class Player extends Entity {
                             if (spriteNum == 2)
                                 image = auraSwordLeft2;
                         } else {
-                            if(holdingNum == 0) {
-                                if (spriteNum == 1) image = attackLeft1;
-                                if (spriteNum == 2) image = attackLeft2;
-                                if (spriteNum == 3) image = attackLeft3;
-                                if (spriteNum == 4) image = attackLeft4;
-                            }else if(holdingNum == 1) {
-                                if (spriteNum == 1) image = attackLeft5;
-                                if (spriteNum == 2) image = attackLeft6;
-                                if (spriteNum == 3) image = attackLeft7;
-                                if (spriteNum == 4) image = attackLeft8;
-                            }else if(holdingNum == 2) {
-                                if (spriteNum == 1) image = attackLeft9;
-                                if (spriteNum == 2) image = attackLeft10;
-                                if (spriteNum == 3) image = attackLeft9;
-                                if (spriteNum == 4) image = attackLeft10;
-                            }else if(holdingNum == 3) {
-                                if (spriteNum == 1) image = attackLeft11;
-                                if (spriteNum == 2) image = attackLeft12;
-                                if (spriteNum == 3) image = attackLeft13;
-                                if (spriteNum == 4) image = attackLeft14;
+                            if (holdingNum == 0) {
+                                if (spriteNum == 1)
+                                    image = attackLeft1;
+                                if (spriteNum == 2)
+                                    image = attackLeft2;
+                                if (spriteNum == 3)
+                                    image = attackLeft3;
+                                if (spriteNum == 4)
+                                    image = attackLeft4;
+                            } else if (holdingNum == 1) {
+                                if (spriteNum == 1)
+                                    image = attackLeft5;
+                                if (spriteNum == 2)
+                                    image = attackLeft6;
+                                if (spriteNum == 3)
+                                    image = attackLeft7;
+                                if (spriteNum == 4)
+                                    image = attackLeft8;
+                            } else if (holdingNum == 2) {
+                                if (spriteNum == 1)
+                                    image = attackLeft9;
+                                if (spriteNum == 2)
+                                    image = attackLeft10;
+                                if (spriteNum == 3)
+                                    image = attackLeft9;
+                                if (spriteNum == 4)
+                                    image = attackLeft10;
+                            } else if (holdingNum == 3) {
+                                if (spriteNum == 1)
+                                    image = attackLeft11;
+                                if (spriteNum == 2)
+                                    image = attackLeft12;
+                                if (spriteNum == 3)
+                                    image = attackLeft13;
+                                if (spriteNum == 4)
+                                    image = attackLeft14;
                             }
                         }
 
@@ -583,26 +600,42 @@ public class Player extends Entity {
                             if (spriteNum == 2)
                                 image = auraSwordRight2;
                         } else {
-                            if(holdingNum == 0) {
-                                if (spriteNum == 1) image = attackRight1;
-                                if (spriteNum == 2) image = attackRight2;
-                                if (spriteNum == 3) image = attackRight3;
-                                if (spriteNum == 4) image = attackRight4;
-                            }else if(holdingNum == 1) {
-                                if (spriteNum == 1) image = attackRight5;
-                                if (spriteNum == 2) image = attackRight6;
-                                if (spriteNum == 3) image = attackRight7;
-                                if (spriteNum == 4) image = attackRight8;
-                            }else if(holdingNum == 2) {
-                                if (spriteNum == 1) image = attackRight9;
-                                if (spriteNum == 2) image = attackRight10;
-                                if (spriteNum == 3) image = attackRight9;
-                                if (spriteNum == 4) image = attackRight10;
-                            }else if(holdingNum == 3) {
-                                if (spriteNum == 1) image = attackRight11;
-                                if (spriteNum == 2) image = attackRight12;
-                                if (spriteNum == 3) image = attackRight13;
-                                if (spriteNum == 4) image = attackRight14;
+                            if (holdingNum == 0) {
+                                if (spriteNum == 1)
+                                    image = attackRight1;
+                                if (spriteNum == 2)
+                                    image = attackRight2;
+                                if (spriteNum == 3)
+                                    image = attackRight3;
+                                if (spriteNum == 4)
+                                    image = attackRight4;
+                            } else if (holdingNum == 1) {
+                                if (spriteNum == 1)
+                                    image = attackRight5;
+                                if (spriteNum == 2)
+                                    image = attackRight6;
+                                if (spriteNum == 3)
+                                    image = attackRight7;
+                                if (spriteNum == 4)
+                                    image = attackRight8;
+                            } else if (holdingNum == 2) {
+                                if (spriteNum == 1)
+                                    image = attackRight9;
+                                if (spriteNum == 2)
+                                    image = attackRight10;
+                                if (spriteNum == 3)
+                                    image = attackRight9;
+                                if (spriteNum == 4)
+                                    image = attackRight10;
+                            } else if (holdingNum == 3) {
+                                if (spriteNum == 1)
+                                    image = attackRight11;
+                                if (spriteNum == 2)
+                                    image = attackRight12;
+                                if (spriteNum == 3)
+                                    image = attackRight13;
+                                if (spriteNum == 4)
+                                    image = attackRight14;
                             }
                         }
                     } else {
@@ -639,12 +672,12 @@ public class Player extends Entity {
     }
 
     public void attack() {
-        
+
         // spriteCounter yürürken 2 olduğu için 3 te iken ses çal
-        if(spriteCounter == 3) {
+        if (spriteCounter == 3) {
             gp.playSE(holdingNum + 10);
         }
-        
+
         spriteCounter++;
         if (spriteCounter <= 5) {
             spriteNum = 1;
@@ -692,25 +725,25 @@ public class Player extends Entity {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
 
-        } else if(spriteCounter > 10 && spriteCounter <= 15){
+        } else if (spriteCounter > 10 && spriteCounter <= 15) {
             spriteNum = 3;
-        } else if(spriteCounter > 15 && spriteCounter <= 20){
+        } else if (spriteCounter > 15 && spriteCounter <= 20) {
             spriteNum = 4;
         } else {
             spriteNum = 1;
             spriteCounter = 0;
             attacking = false;
             speed = speedDefault;
-            
+
             if (holdingNum == 3) {
                 holdingNum = 0;
                 holdingCounter = 0;
-            }else {
+            } else {
                 holdingNum++;
             }
         }
-        
-        System.out.println(holdingNum+" "+spriteCounter+" "+spriteNum);
+
+        System.out.println(holdingNum + " " + spriteCounter + " " + spriteNum);
     }
 
     public void pickUpObject(int index) {
@@ -781,7 +814,7 @@ public class Player extends Entity {
                 gp.npc[0].speak();
             } else if (i == 1) {
                 gp.gameState = gp.tradeState;
-            } else if(i == 2) {
+            } else if (i == 2) {
                 gp.gameState = gp.enchantState;
             }
 
@@ -899,14 +932,14 @@ public class Player extends Entity {
                 gp.ui.damages.add(new Damages(damageSize, damagePosX, damagePosY, 60, Color.green));
 
                 if (gp.enemy[enemyIndex].life <= 0) {
-                    
+
                     gp.aSetter.aliveWolfNum--;
                     gp.playSE(6);
-                    if(taskLevel == 2) {
+                    if (taskLevel == 2) {
                         deadWolfCounter++;
                         System.out.println("ölü kurt" + deadWolfCounter);
                     }
-                    
+
                     autoHit = false;
 
                     playerXP += rand.nextInt(10) + 100 / level;
@@ -926,10 +959,10 @@ public class Player extends Entity {
 
                         gp.aSetter.createCoin(xPosition, yPosition);
                     }
-                    
+
                     // Dolunay 28% Luck
                     int dolunayLuck = rand.nextInt(100);
-                    if(dolunayLuck < 28) {
+                    if (dolunayLuck < 28) {
                         int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
                         int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
                         gp.aSetter.createDolunay(xPosition, yPosition);
@@ -960,10 +993,10 @@ public class Player extends Entity {
             playerTimer = 0;
         }
     }
-    
+
     public void useRedPotion() {
-        if(redPotionNumber > 0) {
-            if(life != maxLife) {
+        if (redPotionNumber > 0) {
+            if (life != maxLife) {
                 increaseLife = 5;
                 if (maxLife < life + increaseLife) {
                     life += maxLife - life;
@@ -972,30 +1005,30 @@ public class Player extends Entity {
                 }
                 redPotionNumber--;
                 gp.playSE(24);
-                
-                if(redPotionNumber == 0) {
-                    int redPotionIndex = 0, i=0;
-                    while(i < inventory.size()) {
-                        if(inventory.get(i) != null && inventory.get(i).name == "Red Potion") {
+
+                if (redPotionNumber == 0) {
+                    int redPotionIndex = 0, i = 0;
+                    while (i < inventory.size()) {
+                        if (inventory.get(i) != null && inventory.get(i).name == "Red Potion") {
                             redPotionIndex = i;
                             break;
                         }
                         i++;
                     }
-                    
+
                     inventory.remove(redPotionIndex);
                 }
-            }else {
+            } else {
                 gp.ui.addMessage("Full Health!");
             }
-        }else {
+        } else {
             gp.ui.addMessage("Not Enough Potion to Drink!");
         }
     }
-    
+
     public void useBluePotion() {
-        if(bluePotionNumber > 0) {
-            if(sp != maxSp) {
+        if (bluePotionNumber > 0) {
+            if (sp != maxSp) {
                 increaseSp = 5;
                 if (maxSp < sp + increaseSp) {
                     sp += maxSp - sp;
@@ -1004,23 +1037,23 @@ public class Player extends Entity {
                 }
                 bluePotionNumber--;
                 gp.playSE(24);
-                
-                if(bluePotionNumber == 0) {
-                    int bluePotionIndex = 0, i=0;
-                    while(i < inventory.size()) {
-                        if(inventory.get(i) != null && inventory.get(i).name == "Blue Potion") {
+
+                if (bluePotionNumber == 0) {
+                    int bluePotionIndex = 0, i = 0;
+                    while (i < inventory.size()) {
+                        if (inventory.get(i) != null && inventory.get(i).name == "Blue Potion") {
                             bluePotionIndex = i;
                             break;
                         }
                         i++;
                     }
-                    
+
                     inventory.remove(bluePotionIndex);
                 }
-            }else {
+            } else {
                 gp.ui.addMessage("Full Stamina!");
             }
-        }else {
+        } else {
             gp.ui.addMessage("Not Enough Potion to Drink!");
         }
     }
