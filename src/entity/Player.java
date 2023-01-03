@@ -74,6 +74,9 @@ public class Player extends Entity {
     
     public int interactNPCIndex = -1;
 
+    // Tasks Name
+    public ArrayList<String> taskNameList = new ArrayList<String>();
+
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
         this.gp = gp;
@@ -107,7 +110,7 @@ public class Player extends Entity {
         getPlayerAttackImage();
         getPlayerAuraSwordImage();
         setItems();
-
+        setTaskList();
     }
 
     public void setPlayer() {
@@ -169,6 +172,13 @@ public class Player extends Entity {
          * }
          * }
          */
+    }
+
+    public void setTaskList() {
+        taskNameList.add("Teşkilata katıl!");
+        taskNameList.add("Teşkilatın Direği!");
+        taskNameList.add("Fatih Bey'e Tahribat!");
+        taskNameList.add("Köyü Kurtar!");
     }
 
     public void getPlayerAuraSwordImage() {

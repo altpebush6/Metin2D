@@ -964,7 +964,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
             g2.setColor(Color.white);
             g2.drawString("Görev Listesi",140,150);
-            drawTaskRec(130,180,200,60,0);
+            drawTaskRec(130,180,200,60,gp.player.taskLevel);
         }
 
 
@@ -974,7 +974,10 @@ public class UI {
 
         g2.drawRoundRect(taskRecX, taskRecY, taskRecWidth, taskRecHeight, 10, 10);
         g2.setFont(g2.getFont().deriveFont(14F));
-        g2.drawString("Görev 1: Teşkilata Katıl",taskRecX+4, taskRecY+20);
+        int taskNum = taskLevel +1;
+        String currentTask = gp.player.taskNameList.get(taskLevel);
+        g2.drawString("Görev "+taskNum,taskRecX+80, taskRecY+15);
+        g2.drawString(currentTask,taskRecX+4, taskRecY+35);
     }
 
 
