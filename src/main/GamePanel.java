@@ -103,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int endGameCounter = 0, endGameTime = 180;
     
     public boolean loadMusic = false;
+    public boolean loadCharMusic = false;
     
     public int btnCounter = 0;
     public int btnTimeOut = 120;
@@ -265,6 +266,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         if(loadScreen && loadScreenControl == 0) {
+            stopMusic();
             tileM.loadScreen(g2);
             loadScreenControl = 1;
         }
@@ -274,8 +276,13 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         if (gameLoad && loadScreenControl == 1 && !loadMusic) {
-            //playMusic(0);
+            playMusic(0);
             loadMusic = true;
+        }
+        
+        if (gameState == titleState && !loadCharMusic) {
+            playMusic(28);
+            loadCharMusic = true;
         }
         
         if (endGame) {
@@ -292,7 +299,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (exit) {
-            System.exit(0);
+            System.exit(0);         
         }
 
 

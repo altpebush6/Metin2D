@@ -233,6 +233,7 @@ public class Player extends Entity {
         attackRight7 = setup("/player/attackright7", 80, 80);
         attackRight8 = setup("/player/attackright8", 80, 80);
         attackRight9 = setup("/player/attackright9", 80, 80);
+        
         attackRight10 = setup("/player/attackright10", 80, 80);
         attackRight11 = setup("/player/attackright11", 80, 80);
         attackRight12 = setup("/player/attackright12", 80, 80);
