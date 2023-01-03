@@ -45,10 +45,10 @@ public class SaveLoad {
             DataStorage ds = new DataStorage();
             
             ds.level = gp.player.level;
-            ds.attackPower = gp.player.attackPower;
-            ds.playerCoin = gp.player.playerCoin;
+            ds.attackPower = gp.player.getAttackPower();
+            ds.playerCoin = gp.player.getPlayerCoin();
             ds.playerWeapon = gp.player.playerWeapon;
-            ds.playerXP = gp.player.playerXP;
+            ds.playerXP = gp.player.getPlayerXP();
             ds.redPotionNumber = gp.player.redPotionNumber;
             ds.bluePotionNumber = gp.player.bluePotionNumber;
             ds.playerName = gp.player.name;
@@ -78,10 +78,10 @@ public class SaveLoad {
             DataStorage ds = (DataStorage)ois.readObject();
             //PLAYER STATS
             gp.player.level = ds.level;
-            gp.player.attackPower = ds.attackPower;
-            gp.player.playerCoin = ds.playerCoin;
+            gp.player.setAttackPower(ds.attackPower);
+            gp.player.setPlayerCoin(ds.playerCoin);
             gp.player.playerWeapon = ds.playerWeapon;
-            gp.player.playerXP = ds.playerXP;
+            gp.player.setPlayerXP(ds.playerXP);
             gp.player.redPotionNumber = ds.redPotionNumber;
             gp.player.bluePotionNumber = ds.bluePotionNumber;
             gp.player.name = ds.playerName;

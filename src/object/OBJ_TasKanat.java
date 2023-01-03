@@ -14,6 +14,8 @@ public class OBJ_TasKanat extends Entity {
         down1 = setup("/objects/tasKanat", gp.tileSize, gp.tileSize);
         price = 200;
         enchantLevel = 0;
+        weaponAttackSize = 2;
+
     }
 
 }

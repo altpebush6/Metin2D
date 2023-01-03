@@ -104,7 +104,7 @@ public class Skills {
                     auraSwordCounter = 0;
                     auraSwordActive = false;
                     auraSwordTimeOut++;
-                    gp.player.attackPower -= 10;
+                    gp.player.setAttackPower(gp.player.getAttackPower() - 10);
                     
                 }
             }

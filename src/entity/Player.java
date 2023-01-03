@@ -4,6 +4,7 @@ import main.KeyHandler;
 import main.MouseHandler;
 import main.MovePlayer;
 import object.OBJ_Dolunay;
+import object.OBJ_Sword;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -29,14 +30,14 @@ public class Player extends Entity {
     public int defaultScreenY; // Where we draw player on screen Y
 
     // Player Specification
-    public int playerCoin;
+    private int playerCoin;
     public String playerWeapon;
     public int playerTimer;
     public int increaseLife;
     public double increaseSp;
-    public int speedDefault;
-    public int playerXP;
-    public int attackPower;
+    private int speedDefault;
+    private int playerXP;
+    private int attackPower;
 
     // Mouse Click Movement
     public int goalX;
@@ -73,6 +74,7 @@ public class Player extends Entity {
     public int tempScreenY;
 
     public int interactNPCIndex = -1;
+    public int closeNPCIndex = -1;
 
     // Tasks Name
     public ArrayList<String> taskNameList = new ArrayList<String>();
@@ -85,8 +87,6 @@ public class Player extends Entity {
 
         type = playerType;
         name = "";
-
-        currentWeapon = new OBJ_Dolunay(gp);
 
         defaultScreenX = screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         defaultScreenY = screenY = gp.screenHeight / 2 - gp.tileSize / 2;
@@ -135,7 +135,11 @@ public class Player extends Entity {
         attackPower = 5;
         taskLevel = 0;
         playerXP = 0;
-
+        
+        currentWeapon = new OBJ_Sword(gp);
+        inventory.add(currentWeapon);
+        attackPower += currentWeapon.weaponAttackSize;
+        System.out.println(attackPower+" "+currentWeapon.weaponAttackSize);
     }
 
     public void setDefaultPositions() {
@@ -258,6 +262,26 @@ public class Player extends Entity {
 
         // If Player doesn't press space longer than damageTimeOut (45sec) second reset
         // holding
+        
+        // CHECK NPC COLLISION for msg
+        
+        gp.ui.addMessage(Integer.toString(attackPower));
+        
+        boolean noNPC = false;
+        for (int i = 0; i < gp.npc.length; i++) {
+            if (gp.npc[i] != null
+                    && (gp.npc[i].worldX < gp.player.worldX + gp.tileSize * 2
+                            && gp.npc[i].worldX > gp.player.worldX - gp.tileSize * 2)
+                    && (gp.npc[i].worldY < gp.player.worldY + gp.tileSize * 2
+                            && gp.npc[i].worldY > gp.player.worldY - gp.tileSize * 2)) {
+                closeNPCIndex = i;
+                noNPC = true;
+            }
+        }
+        
+        if(!noNPC) {
+            closeNPCIndex = -1;
+        }
 
         noPunchCounter++;
         if (noPunchCounter >= damageTimeOut) {
@@ -345,7 +369,7 @@ public class Player extends Entity {
                 // gp.ui.showMessage("Press \" to pick up item.");
             }
         }
-
+        
         // CHECK NPC COLLISION
         if (interactNPCIndex != -1) {
             interactNpc(interactNPCIndex);
@@ -742,8 +766,6 @@ public class Player extends Entity {
                 holdingNum++;
             }
         }
-
-        System.out.println(holdingNum + " " + spriteCounter + " " + spriteNum);
     }
 
     public void pickUpObject(int index) {
@@ -1096,5 +1118,37 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+    }
+    
+    public int getPlayerCoin() {
+        return playerCoin;
+    }
+
+    public int getSpeedDefault() {
+        return speedDefault;
+    }
+    
+    public int getPlayerXP() {
+        return playerXP;
+    }
+    
+    public int getAttackPower() {
+        return attackPower;
+    }
+    
+    public void setPlayerCoin(int playerCoin) {
+        this.playerCoin = playerCoin;
+    }
+    
+    public void setSpeedDefault(int speedDefault) {
+        this.speedDefault = speedDefault;
+    }
+    
+    public void setPlayerXP(int playerXP) {
+        this.playerXP = playerXP;
+    }
+    
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
     }
 }

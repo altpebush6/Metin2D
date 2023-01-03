@@ -15,6 +15,7 @@ public class OBJ_EcelGetiren extends Entity {
 		price = 150;
 		enchantLevel =0;
 		objDetailedType = 1;
+	    weaponAttackSize = 1;
 	}
     
 }

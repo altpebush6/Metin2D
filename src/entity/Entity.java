@@ -61,8 +61,10 @@ public class Entity {
     public int actionLockCounter = 0;
     public int level = 1;
     public static int taskLevel;
+    
     // Item
     public int objDetailedType;
+    public int weaponAttackSize;
     
     public static ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 45;
@@ -101,6 +103,8 @@ public class Entity {
 
     // Enemy
     public int wolfID;
+    
+    public int drawX, drawY;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -330,6 +334,9 @@ public class Entity {
 
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        
+        drawX = worldX - gp.player.worldX + gp.player.screenX;
+        drawY = worldY - gp.player.worldY + gp.player.screenY;
 
         /*
          * when player moves to the edges of the map,

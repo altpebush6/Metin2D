@@ -42,6 +42,7 @@ public class UI {
     BufferedImage taskList, abulbulImage;
     BufferedImage rectangle;
     BufferedImage aybu, charStatus;
+    BufferedImage rightKey, leftKey, enterKey;
     BufferedImage[] xpTupe = new BufferedImage[23];
     Entity en;
     public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
@@ -112,6 +113,9 @@ public class UI {
         e1 = new Entity(gp);
         arial_30 = new Font("Arial", Font.PLAIN, 20);
 
+        enterKey = gp.uTool.setup("/UI/enterKey", 32, 32);
+        rightKey = gp.uTool.setup("/UI/rightKey", 32, 32);
+        leftKey = gp.uTool.setup("/UI/leftKey", 32, 32);
         optionsBtn = gp.uTool.setup("/UI/optionsBtn", gp.tileSize, gp.tileSize);
         inventoryBtn = gp.uTool.setup("/UI/inventoryBtn", gp.tileSize, gp.tileSize);
         abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
@@ -162,6 +166,16 @@ public class UI {
 
         // Message
         drawMessage(g2);
+        
+        // NPC
+        if(gp.player.closeNPCIndex != -1) {
+            g2.setFont(g2.getFont().deriveFont(11F));
+            g2.setColor(Color.black);
+            g2.drawString("Press     to interact with " + gp.npc[gp.player.closeNPCIndex].name, gp.npc[gp.player.closeNPCIndex].drawX - 75, gp.npc[gp.player.closeNPCIndex].drawY + 120);
+            g2.setColor(Color.white);
+            g2.drawString("Press     to interact with " + gp.npc[gp.player.closeNPCIndex].name, gp.npc[gp.player.closeNPCIndex].drawX - 75, gp.npc[gp.player.closeNPCIndex].drawY + 120);
+            g2.drawImage(enterKey, gp.npc[gp.player.closeNPCIndex].drawX - 29, gp.npc[gp.player.closeNPCIndex].drawY + 104, 20, 20, null);
+        }
 
         // TITLE STATE
         if (gp.gameState == gp.titleState) {
@@ -525,6 +539,24 @@ public class UI {
                 lineCount++;
             }
         }
+        
+        g2.setFont(g2.getFont().deriveFont(15F));
+        
+        if(gp.player.taskLevel == 2 || gp.player.taskLevel == 3) {
+            if(pageNum == 0) {
+                g2.drawString("Press       to read next page", 1230, 850);
+                g2.drawImage(rightKey, null, 1290, 830);
+            }else {
+                g2.drawString("Press       to read previous page", 700, 850);
+                g2.drawImage(leftKey, null, 760, 830);
+                
+                g2.drawString("Press       to take up the task", 1230, 850);
+                g2.drawImage(enterKey, null, 1290, 830);
+            }
+        }else {
+            g2.drawString("Press       to take up the task", 1230, 850);
+            g2.drawImage(enterKey, null, 1290, 830);
+        }
 
         /*
          * for(int i=0;i<7;i++) {
@@ -549,11 +581,11 @@ public class UI {
 
         String coin = "";
 
-        if (gp.player.playerCoin > 999) {
-            coin = Integer.toString(gp.player.playerCoin / 1000) + "."
-                    + String.format("%03d", gp.player.playerCoin % 1000);
+        if (gp.player.getPlayerCoin() > 999) {
+            coin = Integer.toString(gp.player.getPlayerCoin() / 1000) + "."
+                    + String.format("%03d", gp.player.getPlayerCoin() % 1000);
         } else {
-            coin = Integer.toString(gp.player.playerCoin);
+            coin = Integer.toString(gp.player.getPlayerCoin());
         }
 
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 14F));
@@ -570,10 +602,11 @@ public class UI {
         // System.out.println(gp.player.inventory.size());
 
         for (int i = 0; i < gp.player.inventory.size(); i++) {
+            System.out.println(i);
             if (gp.player.inventory.get(i) != null) {
 
                 if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
-                    // System.out.println("equal");
+                    
                     g2.setColor(new Color(240, 190, 90));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
                     if (gp.player.inventory.get(i).enchantLevel == 1) {
@@ -967,20 +1000,32 @@ public class UI {
             g2.drawImage(taskList, 100, 100, null);
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
             g2.setColor(Color.white);
-            g2.drawString("Görev Listesi", 140, 150);
-            drawTaskRec(130, 180, 200, 60, gp.player.taskLevel);
+            g2.drawString("Task List", 150, 150);
+            
+            int taskX = 130, taskY = 180;
+            for(int i = 0; i <= gp.player.taskLevel; i++) {
+                drawTaskRec(taskX, taskY + i * 20, 200, 60, i);
+            }
+
+            
         }
 
     }
 
     public void drawTaskRec(int taskRecX, int taskRecY, int taskRecWidth, int taskRecHeight, int taskLevel) {
-
-        g2.drawRoundRect(taskRecX, taskRecY, taskRecWidth, taskRecHeight, 10, 10);
+        
         g2.setFont(g2.getFont().deriveFont(14F));
-        int taskNum = taskLevel + 1;
         String currentTask = gp.player.taskNameList.get(taskLevel);
-        g2.drawString("Görev " + taskNum, taskRecX + 80, taskRecY + 15);
-        g2.drawString(currentTask, taskRecX + 4, taskRecY + 35);
+        
+        if(taskLevel == gp.player.taskLevel) {
+            g2.drawOval(taskRecX, taskRecY, 10, 10);
+        }else {
+            int textWidth = g2.getFontMetrics().stringWidth(currentTask);
+            g2.drawLine(taskRecX + 15, taskRecY + 6,  taskRecX + 15 + textWidth, taskRecY + 6);
+            g2.fillOval(taskRecX, taskRecY, 10, 10);
+        }
+        
+        g2.drawString(currentTask, taskRecX + 15, taskRecY + 10);
     }
 
     // BOTTOM BAR
@@ -1031,11 +1076,11 @@ public class UI {
 
         g2.drawImage(xpTupeBg, 188, xpTupeY, 130, bottomBarHeight, null);
 
-        fillTupeNum = (gp.player.playerXP % 920) / 230;
+        fillTupeNum = (gp.player.getPlayerXP()  % 920) / 230;
 
         switch (fillTupeNum) {
             case 0:
-                tupeImg = (gp.player.playerXP % 230) / 10;
+                tupeImg = (gp.player.getPlayerXP() % 230) / 10;
 
                 g2.drawImage(xpTupe[tupeImg], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 g2.drawImage(xpTupe[0], 225, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
@@ -1043,7 +1088,7 @@ public class UI {
                 g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 1:
-                tupeImg = (gp.player.playerXP % 230) / 10;
+                tupeImg = (gp.player.getPlayerXP() % 230) / 10;
 
                 g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
                         null);
@@ -1052,7 +1097,7 @@ public class UI {
                 g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 2:
-                tupeImg = (gp.player.playerXP % 230) / 10;
+                tupeImg = (gp.player.getPlayerXP() % 230) / 10;
 
                 g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
                         null);
@@ -1062,7 +1107,7 @@ public class UI {
                 g2.drawImage(xpTupe[0], 285, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3, null);
                 break;
             case 3:
-                tupeImg = (gp.player.playerXP % 230) / 10;
+                tupeImg = (gp.player.getPlayerXP() % 230) / 10;
 
                 g2.drawImage(xpTupe[xpTupe.length - 1], 195, xpTupeY + 2, bottomBarHeight - 3, bottomBarHeight - 3,
                         null);
