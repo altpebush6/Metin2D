@@ -128,7 +128,7 @@ public class UI {
         inventoryBtn = gp.uTool.setup("/UI/inventoryBtn", gp.tileSize, gp.tileSize);
         abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
         blackSmithSlot =  gp.uTool.setup("/UI/blacksmithslot", 380, 456);
-        merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
+        merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 491);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);

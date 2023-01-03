@@ -118,7 +118,7 @@ public class Player extends Entity {
         // Player Movement
         worldX = 25 * gp.tileSize; // Where character will start on map X
         worldY = 25 * gp.tileSize; // Where character will start on map Y
-        speed = 15;
+        speed = 5;
         speedDefault = speed;
         direction = "down";
 
@@ -223,50 +223,50 @@ public class Player extends Entity {
     }
 
     public void getPlayerAttackImage() {
-        attackLeft1 = setup("/player/attackLeft1", 81, 80);
-        attackLeft2 = setup("/player/attackLeft2", 81, 80);
-        attackLeft3 = setup("/player/attackLeft3", 81, 80);
-        attackLeft4 = setup("/player/attackLeft4", 81, 80);
-        attackLeft5 = setup("/player/attackLeft5", 81, 80);
-        attackLeft6 = setup("/player/attackLeft6", 81, 80);
-        attackLeft7 = setup("/player/attackLeft7", 81, 80);
-        attackLeft8 = setup("/player/attackLeft8", 81, 80);
-        attackLeft9 = setup("/player/attackLeft9", 81, 80);
-        attackLeft10 = setup("/player/attackLeft10", 81, 80);
-        attackLeft11 = setup("/player/attackLeft11", 81, 80);
-        attackLeft12 = setup("/player/attackLeft12", 81, 80);
-        attackLeft13 = setup("/player/attackLeft13", 81, 80);
-        attackLeft14 = setup("/player/attackLeft14", 81, 80);
+        attackLeft1 = setup("/player/attackleft1", 81, 80);
+        attackLeft2 = setup("/player/attackleft2", 81, 80);
+        attackLeft3 = setup("/player/attackleft3", 81, 80);
+        attackLeft4 = setup("/player/attackleft4", 81, 80);
+        attackLeft5 = setup("/player/attackleft5", 81, 80);
+        attackLeft6 = setup("/player/attackleft6", 81, 80);
+        attackLeft7 = setup("/player/attackleft7", 81, 80);
+        attackLeft8 = setup("/player/attackleft8", 81, 80);
+        attackLeft9 = setup("/player/attackleft9", 81, 80);
+        attackLeft10 = setup("/player/attackleft10", 81, 80);
+        attackLeft11 = setup("/player/attackleft11", 81, 80);
+        attackLeft12 = setup("/player/attackleft12", 81, 80);
+        attackLeft13 = setup("/player/attackleft13", 81, 80);
+        attackLeft14 = setup("/player/attackleft14", 81, 80);
 
-        attackRight1 = setup("/player/attackRight1", 81, 80);
-        attackRight2 = setup("/player/attackRight2", 81, 80);
-        attackRight3 = setup("/player/attackRight3", 81, 80);
-        attackRight4 = setup("/player/attackRight4", 81, 80);
-        attackRight5 = setup("/player/attackRight5", 81, 80);
-        attackRight6 = setup("/player/attackRight6", 81, 80);
-        attackRight7 = setup("/player/attackRight7", 81, 80);
-        attackRight8 = setup("/player/attackRight8", 81, 80);
-        attackRight9 = setup("/player/attackRight9", 81, 80);
-        attackRight10 = setup("/player/attackRight10", 81, 80);
-        attackRight11 = setup("/player/attackRight11", 81, 80);
-        attackRight12 = setup("/player/attackRight12", 81, 80);
-        attackRight13 = setup("/player/attackRight13", 81, 80);
-        attackRight14 = setup("/player/attackRight14", 81, 80);
+        attackRight1 = setup("/player/attackright1", 81, 80);
+        attackRight2 = setup("/player/attackright2", 81, 80);
+        attackRight3 = setup("/player/attackright3", 81, 80);
+        attackRight4 = setup("/player/attackright4", 81, 80);
+        attackRight5 = setup("/player/attackright5", 81, 80);
+        attackRight6 = setup("/player/attackright6", 81, 80);
+        attackRight7 = setup("/player/attackright7", 81, 80);
+        attackRight8 = setup("/player/attackright8", 81, 80);
+        attackRight9 = setup("/player/attackright9", 81, 80);
+        attackRight10 = setup("/player/attackright10", 81, 80);
+        attackRight11 = setup("/player/attackright11", 81, 80);
+        attackRight12 = setup("/player/attackright12", 81, 80);
+        attackRight13 = setup("/player/attackright13", 81, 80);
+        attackRight14 = setup("/player/attackright14", 81, 80);
         
-        attackUp1 = setup("/player/attackUp1", 80, 92);
-        attackUp2 = setup("/player/attackUp2", 80, 92);
-        attackUp3 = setup("/player/attackUp3", 80, 92);
-        attackUp4 = setup("/player/attackUp4", 80, 92);
-        attackUp5 = setup("/player/attackUp5", 80, 92);
-        attackUp6 = setup("/player/attackUp6", 80, 92);
-        attackUp7 = setup("/player/attackUp7", 80, 92);
-        attackUp8 = setup("/player/attackUp8", 80, 92);
-        attackUp9 = setup("/player/attackUp9", 80, 92);
-        attackUp10 = setup("/player/attackUp10", 80, 92);
-        attackUp11 = setup("/player/attackUp11", 80, 92);
-        attackUp12 = setup("/player/attackUp12", 80, 92);
-        attackUp13 = setup("/player/attackUp13", 80, 92);
-        attackUp14 = setup("/player/attackUp14", 80, 92);
+        attackUp1 = setup("/player/attackup1", 80, 92);
+        attackUp2 = setup("/player/attackup2", 80, 92);
+        attackUp3 = setup("/player/attackup3", 80, 92);
+        attackUp4 = setup("/player/attackup4", 80, 92);
+        attackUp5 = setup("/player/attackup5", 80, 92);
+        attackUp6 = setup("/player/attackup6", 80, 92);
+        attackUp7 = setup("/player/attackup7", 80, 92);
+        attackUp8 = setup("/player/attackup8", 80, 92);
+        attackUp9 = setup("/player/attackup9", 80, 92);
+        attackUp10 = setup("/player/attackup10", 80, 92);
+        attackUp11 = setup("/player/attackup11", 80, 92);
+        attackUp12 = setup("/player/attackup12", 80, 92);
+        attackUp13 = setup("/player/attackup13", 80, 92);
+        attackUp14 = setup("/player/attackup14", 80, 92);
     }
 
     public void update() {
@@ -630,9 +630,9 @@ public class Player extends Entity {
                                 if (spriteNum == 2)
                                     image = attackLeft10;
                                 if (spriteNum == 3)
-                                    image = attackLeft9;
-                                if (spriteNum == 4)
                                     image = attackLeft10;
+                                if (spriteNum == 4)
+                                    image = attackLeft9;
                             } else if (holdingNum == 3) {
                                 if (spriteNum == 1)
                                     image = attackLeft11;
@@ -690,9 +690,9 @@ public class Player extends Entity {
                                 if (spriteNum == 2)
                                     image = attackRight10;
                                 if (spriteNum == 3)
-                                    image = attackRight9;
-                                if (spriteNum == 4)
                                     image = attackRight10;
+                                if (spriteNum == 4)
+                                    image = attackRight9;
                             } else if (holdingNum == 3) {
                                 if (spriteNum == 1)
                                     image = attackRight11;
@@ -746,9 +746,9 @@ public class Player extends Entity {
         }
 
         spriteCounter++;
-        if (spriteCounter <= 5) {
+        if (spriteCounter <= 4) {
             spriteNum = 1;
-        } else if (spriteCounter > 5 && spriteCounter <= 10) {
+        } else if (spriteCounter > 4 && spriteCounter <= 8) {
             spriteNum = 2;
 
             speed = attackWalkingSpeed;
@@ -792,9 +792,9 @@ public class Player extends Entity {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
 
-        } else if (spriteCounter > 10 && spriteCounter <= 15) {
+        } else if (spriteCounter > 8 && spriteCounter <= 12) {
             spriteNum = 3;
-        } else if (spriteCounter > 15 && spriteCounter <= 20) {
+        } else if (spriteCounter > 12 && spriteCounter <= 16) {
             spriteNum = 4;
         } else {
             spriteNum = 1;

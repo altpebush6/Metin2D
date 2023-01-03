@@ -9,7 +9,7 @@ public class Skills {
     public int skillType;
     public boolean skillUsed = false;
     public int skillSpriteCounter = 0;
-    public int skillStandbyTime = 20; // 10s
+    public int skillStandbyTime = 120; // 10s
 
     // Sword Spin
     public int swordSpinType = 1;
@@ -45,7 +45,7 @@ public class Skills {
                 int solidAreaWidth = gp.player.solidArea.width;
                 int solidAreaHeight = gp.player.solidArea.height;
                 
-                increaseAmount = 3;
+                increaseAmount = 2;
                 if(skillSpriteCounter < increaseAmount) {
                     gp.player.spriteNum = 1;
                     gp.player.worldX += gp.player.attackArea.width;
