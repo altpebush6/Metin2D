@@ -76,6 +76,13 @@ public class KeyHandler implements KeyListener {
 					}
 				}
 			}
+			if(code == KeyEvent.VK_G) {
+				if (gp.ui.openTaskScreen == false ) {
+					gp.ui.openTaskScreen = true;
+				} else {
+					gp.ui.openTaskScreen = false; 
+				}
+			}
 
 			if (code == KeyEvent.VK_W) {
 				upPressed = true;

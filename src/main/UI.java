@@ -39,7 +39,7 @@ public class UI {
             optionsBtn;
     BufferedImage inventory, merchantInventory;
     BufferedImage deadWolf;
-    BufferedImage dialogueUI, abulbulImage;
+    BufferedImage  taskList ,abulbulImage;
     BufferedImage rectangle;
     BufferedImage aybu, charStatus;
     BufferedImage[] xpTupe = new BufferedImage[23];
@@ -53,13 +53,16 @@ public class UI {
     public Rectangle saveRec = new Rectangle();
     public int healthBar;
     public int spBar;
-
+    
     public int hpBarCounter = 0;
     public int spBarCounter = 0;
 
     public ArrayList<Damages> damages = new ArrayList<>();
 
     public boolean messageOn = false;
+
+    // TASK SCREEN OPENER 
+    public boolean openTaskScreen = false;
     /*
      * public String message = "";
      * int messageCounter = 0;
@@ -114,7 +117,6 @@ public class UI {
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 459);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
-        dialogueUI = gp.uTool.setup("/UI/dialogueUI", gp.tileSize * 6, gp.tileSize * 10);
         emptyBarImage = gp.uTool.setup("/UI/emptyBar", gp.tileSize, gp.tileSize);
         cursorImage = gp.uTool.setup("/UI/cursorImage", gp.tileSize, gp.tileSize);
         xpTupeBg = gp.uTool.setup("/UI/xpTupeBg", 130, gp.tileSize);
@@ -124,7 +126,7 @@ public class UI {
         dragonCoin = gp.uTool.setup("/UI/dragonCoin", gp.tileSize, gp.tileSize);
         itemSkillBar = gp.uTool.setup("/UI/itemSkillBar", 400, 30);
         inventory = gp.uTool.setup("/UI/inventory", 170, 504);
-        dialogueUI = gp.uTool.setup("/UI/dialogueUI", 600, 500);
+        taskList = gp.uTool.setup("/UI/taskList", 260, 300);
         aybu = gp.uTool.setup("/titleScreen/aybu", gp.screenWidth, gp.screenHeight);
         charStatus = gp.uTool.setup("/titleScreen/char", 370, 450);
         deadWolf = gp.uTool.setup("/wolf/deadWolf", gp.tileSize * 3 / 2, gp.tileSize * 3 / 2);
@@ -168,6 +170,8 @@ public class UI {
 
         // PLAY STATE
         if (gp.gameState == gp.playState) {
+
+            drawTaskList();
 
             // Skills
             drawSkills(g2);
@@ -951,6 +955,29 @@ public class UI {
         Cursor cursor = toolkit.createCustomCursor(cursorImage, point, "Cursor");
         gp.setCursor(cursor);
     }
+
+    // TASK LIST SCREEN 
+
+    public void drawTaskList() {
+        if (openTaskScreen) {
+            g2.drawImage(taskList,100,100,null);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
+            g2.setColor(Color.white);
+            g2.drawString("Görev Listesi",140,150);
+            drawTaskRec(130,180,200,60,0);
+        }
+
+
+    }
+
+    public void drawTaskRec(int taskRecX, int taskRecY, int taskRecWidth, int taskRecHeight, int taskLevel) {
+
+        g2.drawRoundRect(taskRecX, taskRecY, taskRecWidth, taskRecHeight, 10, 10);
+        g2.setFont(g2.getFont().deriveFont(14F));
+        g2.drawString("Görev 1: Teşkilata Katıl",taskRecX+4, taskRecY+20);
+    }
+
+
 
     // BOTTOM BAR
     public void drawBottomBar(Graphics2D g2) {
