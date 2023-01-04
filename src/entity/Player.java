@@ -882,7 +882,14 @@ public class Player extends Entity {
                 int damageSize = attackPower + level * (rand.nextInt(3) + 3);
 
                 gp.enemy[enemyIndex].damageCounter = 0;
-                gp.enemy[enemyIndex].life -= damageSize;
+                if(gp.enemy[enemyIndex].name == "Satellite") {
+                    if(gp.player.taskLevel ==3 && gp.keyH.missionPrize[3]==0) {
+                        gp.enemy[enemyIndex].life -= damageSize;
+                    }
+                }else {
+                    gp.enemy[enemyIndex].life -= damageSize;
+                }
+                
                 gp.enemy[enemyIndex].invincible = true;
                 gp.enemy[enemyIndex].damageReaction();
 
