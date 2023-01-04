@@ -50,6 +50,7 @@ public class Entity {
     public boolean reachedGoal = false;
     public boolean knockBack = false;
 
+
     // Character Attributes
     public int type;
     public int playerType = 1, enemyType = 2, npcType = 3, objectType = 4;
@@ -61,6 +62,7 @@ public class Entity {
     public int actionLockCounter = 0;
     public int level = 1;
     public static int taskLevel;
+    public int subType;
     
     // Item
     public int objDetailedType;
@@ -195,14 +197,17 @@ public class Entity {
                     worldX = newWorldX;
                     worldY = newWorldY;
                     if(type == enemyType && name == "Wolf") {
+                        System.out.println("girdi ");
                         if (newWorldX > gp.aSetter.wolfBoundary.x && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
                                 newWorldY > gp.aSetter.wolfBoundary.y && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
                             worldX = newWorldX;
                             worldY = newWorldY;
                         }
                     }else {
+                        /* 
                         worldX = newWorldX;
                         worldY = newWorldY;
+                        */
                     }
                 }
             }
@@ -439,6 +444,7 @@ public class Entity {
 
             // Enemy fill Hp
             damageCounter++;
+             
             if (type == enemyType && damageCounter == 360) {
                 if (life != maxLife) {
                     life++;

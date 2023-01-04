@@ -25,6 +25,7 @@ public class ENEMY_Wolf extends Entity {
         life = maxLife;
         type = enemyType;
         standing = true;
+        subType =1;
 
         int bornDirection = rand.nextInt(4) + 1;
         switch (bornDirection) {

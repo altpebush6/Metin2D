@@ -628,7 +628,7 @@ public class Player extends Entity {
             solidArea.height = attackArea.height;
 
             int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy); // check enemy collision with the updated
-                                                                              // worldX, worldY and solidArea
+                                                                           // worldX, worldY and solidArea
             damageEnemy(enemyIndex);
 
             worldX = currentWorldX;
@@ -763,6 +763,16 @@ public class Player extends Entity {
                         invincible = true;
                     }
                     break;
+                    case "Sattelite":
+                    // Wolf Barking
+                    enemySoundCounter++;
+                    if (enemySoundCounter == 40) {
+                        int soundChoice = rand.nextInt(2) + 7;
+                        gp.playSE(soundChoice);
+
+                        enemySoundCounter = 0;
+                    }
+                    
             }
         } else {
             if (life < maxLife) {
@@ -818,10 +828,12 @@ public class Player extends Entity {
 
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
+            
             if (!gp.enemy[enemyIndex].invincible) {
 
                 // Don't get damage in the first giving damage
                 if (!gp.enemy[enemyIndex].inFight) {
+                    
                     invincible = true;
                 }
                 if (holdingNum == 3 && !gp.skills.skillUsed) {
@@ -832,7 +844,9 @@ public class Player extends Entity {
 
                 gp.enemy[enemyIndex].damageCounter = 0;
                 gp.enemy[enemyIndex].life -= damageSize;
+                System.out.println("life: "+ gp.enemy[enemyIndex].life);
                 gp.enemy[enemyIndex].invincible = true;
+                System.out.println(gp.enemy[enemyIndex].invincible);
                 gp.enemy[enemyIndex].damageReaction();
 
                 int damagePosX = gp.enemy[enemyIndex].worldX - worldX + screenX;

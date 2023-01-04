@@ -21,6 +21,7 @@ public class AssetSetter {
     public int aliveWolfNum = 0;
     
     public boolean collisionOn;
+    public boolean createdSatallite=true;
 
     public Rectangle wolfBoundary;
     
@@ -118,8 +119,16 @@ public class AssetSetter {
     }
 
     public void setSatellite() {
-        gp.enemy[index] = new ENEMY_Sattelite(gp, index);
-        index++;
+        if(createdSatallite) {
+            gp.enemy[0] = new ENEMY_Sattelite(gp, 0);
+            gp.enemy[0].worldX = gp.tileSize * 35;
+            gp.enemy[0].worldY = gp.tileSize * 37;
+            index++;
+            createdSatallite = false;
+            System.out.println("girdi");
+        }
+        
+        
     }
 
     public void setNpc() {
