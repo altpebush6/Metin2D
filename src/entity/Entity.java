@@ -75,6 +75,7 @@ public class Entity {
 
     // Images
     public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4;
+    public BufferedImage[] dyingUp = new BufferedImage[5], dyingDown = new BufferedImage[5], dyingLeft = new BufferedImage[5], dyingRight = new BufferedImage[5];
     public BufferedImage[] up = new BufferedImage[4], down = new BufferedImage[4], left = new BufferedImage[4], right = new BufferedImage[4];
     public BufferedImage[] attackUp = new BufferedImage[16], attackDown = new BufferedImage[16], attackLeft = new BufferedImage[16], attackRight = new BufferedImage[16];
     public BufferedImage[] auraUp = new BufferedImage[4], auraDown = new BufferedImage[4], auraLeft = new BufferedImage[4], auraRight = new BufferedImage[4];
@@ -458,23 +459,39 @@ public class Entity {
             if (type == enemyType && showNames) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
 
-                g2.setColor(Color.green);
-                g2.drawString("Lv " + level, screenX - 10, screenY - 20);
+                if(name != "Satellite") {
+                    g2.setColor(Color.green);
+                    g2.drawString("Lv " + level, screenX - 10, screenY - 20);
+                    g2.setColor(Color.red);
+                    g2.drawString(name, screenX + 25, screenY - 20);
+                }else {
+                    g2.setColor(Color.red);
+                    g2.drawString(name, screenX + 50, screenY - 20);
+                }
+                
 
-                g2.setColor(Color.red);
-                g2.drawString(name, screenX + 25, screenY - 20);
+
             }
 
             // Enemy Hp bar
             if (type == enemyType && hpBarOn == true) {
 
-                double oneScale = (double) gp.tileSize / maxLife;
+                double oneScale;
+               
+                if(name == "Satellite") oneScale = (double) gp.tileSize * 5 / maxLife;
+                else oneScale = (double) gp.tileSize / maxLife;
+                
+                
                 double hpBarValue = oneScale * life;
                 double maxBar = oneScale * maxLife;
+                
+   
 
                 g2.drawImage(emptyBarImage, screenX, screenY - 10, (int) maxBar, gp.tileSize / 8, null);
-                g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8,
-                        null);
+                
+                if(name == "Satellite") g2.drawImage(hpBarImage, screenX + 10, screenY - 10, Math.abs((int) hpBarValue - 20), gp.tileSize / 8,null);
+                else g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8,null);
+                
 
                 hpBarCounter++;
                 if (hpBarCounter > 600) {

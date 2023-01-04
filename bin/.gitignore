@@ -1,4 +1,10 @@
+/satellite/
+/skills/
+/sounds/
 /tile/
+/titleScreen/
+/wolf/
+/xpTupe/
 /ai/
 /data/
 /enemy/
@@ -6,6 +12,5 @@
 /main/
 /npc/
 /object/
-/titleScreen/
-/wolf/
-/xpTupe/
+/objects/
+/player/

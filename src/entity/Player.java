@@ -114,9 +114,11 @@ public class Player extends Entity {
         getPlayerAttackImage();
         getPlayerAuraSwordImage();
         getPlayerAttackAuraSwordImage();
+        getPlayerDyingImage();
         setItems();
         setTaskList();
     }
+    
     public void getPlayerImage() {
         for(int i = 0; i < 4; i++) {
            up[i] = setup("/player/up" + (i + 1), 80, 80);
@@ -137,7 +139,7 @@ public class Player extends Entity {
             attackUp[i] = setup("/player/attackup" + (i + 1), 80, 92);
         }
         for(int i = 0; i < 16; i++) {
-            //attackDown[i] = setup("/player/attackdown" + (i + 1), 80, 92);
+            attackDown[i] = setup("/player/attackdown" + (i + 1), 80, 92);
         }
         for(int i = 0; i < 16; i++) {
             attackLeft[i] = setup("/player/attackleft" + (i + 1), 81, 80);
@@ -167,13 +169,28 @@ public class Player extends Entity {
             auraSwordUp[i] = setup("/player/playerAuraSwordUp" + (i + 1), 80, 92);
         }
         for(int i = 0; i < 16; i++) {
-            //auraSwordDown[i] = setup("/player/playerAuraSwordDown" + (i + 1), 80, 92);
+            auraSwordDown[i] = setup("/player/playerAuraSwordDown" + (i + 1), 80, 92);
         }
         for(int i = 0; i < 16; i++) {
             auraSwordLeft[i] = setup("/player/playerAuraSwordLeft" + (i + 1), 81, 80);
         }
         for(int i = 0; i < 16; i++) {
             auraSwordRight[i] = setup("/player/playerAuraSwordRight" + (i + 1), 81, 80);
+        }
+    }
+    
+    public void getPlayerDyingImage() {
+        for(int i = 0; i < 5; i++) {
+            dyingUp[i] = setup("/player/deathUp" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 5; i++) {
+            dyingDown[i] = setup("/player/deathDown" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 5; i++) {
+            dyingLeft[i] = setup("/player/deathLeft" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 5; i++) {
+            dyingRight[i] = setup("/player/deathRight" + (i + 1), 80, 80);
         }
     }
     
@@ -187,7 +204,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 100;
+        maxLife = 5;
         life = maxLife;
         maxSp = 100;
         sp = maxSp;
@@ -513,10 +530,9 @@ public class Player extends Entity {
                 case "downright":
                     if (attacking) {
                         if (gp.skills.auraSwordActive) {
-                            //image = auraSwordDown[holdingNum * 4 + spriteNum - 1];
-
+                            image = auraSwordDown[holdingNum * 4 + spriteNum - 1];
                         } else {
-                            //image = attackDown[holdingNum * 4 + spriteNum - 1];
+                            image = attackDown[holdingNum * 4 + spriteNum - 1];
                         }
 
                     } else {
@@ -573,7 +589,7 @@ public class Player extends Entity {
         }
 
         if (dying) {
-            dyingAnimation(g2);
+            dyingAnimation();
         }
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);
@@ -837,7 +853,9 @@ public class Player extends Entity {
                     invincible = true;
                 }
                 if (holdingNum == 3 && !gp.skills.skillUsed) {
-                    knockBack(gp.enemy[enemyIndex]);
+                    if(gp.enemy[enemyIndex].name != "Satellite") {
+                        knockBack(gp.enemy[enemyIndex]);
+                    }
                 }
 
                 int damageSize = attackPower + level * (rand.nextInt(3) + 3);
@@ -854,7 +872,8 @@ public class Player extends Entity {
 
                 if (gp.enemy[enemyIndex].life <= 0) {
 
-                    gp.aSetter.aliveWolfNum--;
+                    if(gp.enemy[enemyIndex].name != "Satellite") {
+                        gp.aSetter.aliveWolfNum--;
                         gp.playSE(6);
                         if (taskLevel == 2) {
                             deadWolfCounter++;
@@ -887,10 +906,13 @@ public class Player extends Entity {
                             int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
                             gp.aSetter.createDolunay(xPosition, yPosition);
                         }
-    
-                        gp.enemy[enemyIndex].dying = true;
-                        gp.enemy[enemyIndex].alive = false;
+                        
                         gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
+                    }
+
+                    gp.enemy[enemyIndex].dying = true;
+                    gp.enemy[enemyIndex].alive = false;
+                   
 
                     /* 
                     switch(gp.enemy[enemyIndex].name){
@@ -968,14 +990,8 @@ public class Player extends Entity {
                         gp.enemy[enemyIndex].dying = true;
                         gp.enemy[enemyIndex].alive = false;    
                         
-
-
-                        
                     }
                     */
-                    
-
-                    
                 }
             }
         }
@@ -1087,6 +1103,34 @@ public class Player extends Entity {
             }
             stepCounter = 0;
         }
+    }
+    
+    public void dyingAnimation() {
+        dyingCounter++;
+        
+        switch (direction) {
+            case "up":
+            case "upleft":
+            case "upright":
+                if(dyingCounter < 60) image = dyingUp[dyingCounter / 12];
+                else   image = dyingUp[4];
+                break;
+            case "down":
+            case "downleft":
+            case "downright":
+                if(dyingCounter < 60) image = dyingDown[dyingCounter / 12];
+                else   image = dyingDown[4];
+                break;
+            case "left":
+                if(dyingCounter < 60) image = dyingLeft[dyingCounter / 12];
+                else   image = dyingLeft[4];
+                break;
+            case "right":
+                if(dyingCounter < 60) image = dyingRight[dyingCounter / 12];
+                else   image = dyingRight[4];
+                break;
+        }
+        
     }
 
     public void animationCharacter() {
