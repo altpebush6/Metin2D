@@ -466,7 +466,7 @@ public class Entity {
                     g2.drawString(name, screenX + 25, screenY - 20);
                 }else {
                     g2.setColor(Color.red);
-                    g2.drawString(name, screenX + 50, screenY - 20);
+                    g2.drawString(name, screenX + 60, screenY - 20);
                 }
                 
 
@@ -478,7 +478,7 @@ public class Entity {
 
                 double oneScale;
                
-                if(name == "Satellite") oneScale = (double) gp.tileSize * 5 / maxLife;
+                if(name == "Satellite") oneScale = (double) gp.tileSize * 4 / maxLife;
                 else oneScale = (double) gp.tileSize / maxLife;
                 
                 
