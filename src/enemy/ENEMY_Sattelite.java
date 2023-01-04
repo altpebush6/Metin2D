@@ -19,7 +19,7 @@ public class ENEMY_Sattelite extends Entity {
         name = "Satellite";
         speed = 0;
         defaultSpeed = speed;
-        maxLife = 100;
+        maxLife = 300;
         life = maxLife;
         type = enemyType;
         standing = true;

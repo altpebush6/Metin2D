@@ -93,12 +93,12 @@ public class Player extends Entity {
 
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
-        
+
         solidArea.x = 25;
         solidArea.y = 31;
         solidArea.width = 31;
         solidArea.height = 49;
-        
+
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         solidAreaDefaultWidth = solidArea.width;
@@ -108,8 +108,7 @@ public class Player extends Entity {
         attackArea.height = 36;
 
         setPlayer();
-        
-        
+
         getPlayerImage();
         getPlayerAttackImage();
         getPlayerAuraSwordImage();
@@ -118,82 +117,82 @@ public class Player extends Entity {
         setItems();
         setTaskList();
     }
-    
+
     public void getPlayerImage() {
-        for(int i = 0; i < 4; i++) {
-           up[i] = setup("/player/up" + (i + 1), 80, 80);
+        for (int i = 0; i < 4; i++) {
+            up[i] = setup("/player/up" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             down[i] = setup("/player/down" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             left[i] = setup("/player/left" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             right[i] = setup("/player/right" + (i + 1), 80, 80);
         }
     }
 
     public void getPlayerAttackImage() {
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             attackUp[i] = setup("/player/attackup" + (i + 1), 80, 92);
         }
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             attackDown[i] = setup("/player/attackdown" + (i + 1), 80, 92);
         }
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             attackLeft[i] = setup("/player/attackleft" + (i + 1), 81, 80);
         }
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             attackRight[i] = setup("/player/attackright" + (i + 1), 81, 80);
         }
     }
-    
+
     public void getPlayerAuraSwordImage() {
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             auraUp[i] = setup("/player/auraUp" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             auraDown[i] = setup("/player/auraDown" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             auraLeft[i] = setup("/player/auraLeft" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             auraRight[i] = setup("/player/auraRight" + (i + 1), 80, 80);
         }
     }
-    
+
     public void getPlayerAttackAuraSwordImage() {
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             auraSwordUp[i] = setup("/player/playerAuraSwordUp" + (i + 1), 80, 92);
         }
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             auraSwordDown[i] = setup("/player/playerAuraSwordDown" + (i + 1), 80, 92);
         }
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             auraSwordLeft[i] = setup("/player/playerAuraSwordLeft" + (i + 1), 81, 80);
         }
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             auraSwordRight[i] = setup("/player/playerAuraSwordRight" + (i + 1), 81, 80);
         }
     }
-    
+
     public void getPlayerDyingImage() {
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             dyingUp[i] = setup("/player/deathUp" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             dyingDown[i] = setup("/player/deathDown" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             dyingLeft[i] = setup("/player/deathLeft" + (i + 1), 80, 80);
         }
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             dyingRight[i] = setup("/player/deathRight" + (i + 1), 80, 80);
         }
     }
-    
+
     public void setPlayer() {
 
         // Player Movement
@@ -216,7 +215,7 @@ public class Player extends Entity {
         attackPower = 5;
         taskLevel = 3;
         playerXP = 0;
-        
+
         currentWeapon = new OBJ_Sword(gp);
         inventory.add(currentWeapon);
         attackPower += currentWeapon.weaponAttackSize;
@@ -267,7 +266,7 @@ public class Player extends Entity {
     }
 
     public void update() {
-        
+
         // CHECK NPC COLLISION for msg
         boolean noNPC = false;
         for (int i = 0; i < gp.npc.length; i++) {
@@ -280,8 +279,8 @@ public class Player extends Entity {
                 noNPC = true;
             }
         }
-        
-        if(!noNPC) {
+
+        if (!noNPC) {
             closeNPCIndex = -1;
         }
 
@@ -371,7 +370,7 @@ public class Player extends Entity {
                 // gp.ui.showMessage("Press \" to pick up item.");
             }
         }
-        
+
         // CHECK NPC COLLISION
         if (interactNPCIndex != -1) {
             interactNpc(interactNPCIndex);
@@ -495,8 +494,8 @@ public class Player extends Entity {
 
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 40, screenY - 10);
-        
-        if(keyH.spacePressed) {
+
+        if (keyH.spacePressed) {
             attacking = true;
         }
 
@@ -512,14 +511,14 @@ public class Player extends Entity {
                     if (attacking) {
                         if (gp.skills.auraSwordActive) {
                             image = auraSwordUp[holdingNum * 4 + spriteNum - 1];
-                        }else {
+                        } else {
                             image = attackUp[holdingNum * 4 + spriteNum - 1];
                         }
                         tempScreenY = screenY - 12; // To avoid sliding image when image sizes are different
                     } else {
                         if (gp.skills.auraSwordActive) {
                             image = auraUp[spriteNum - 1];
-                        }else {
+                        } else {
                             image = up[spriteNum - 1];
                         }
                     }
@@ -538,7 +537,7 @@ public class Player extends Entity {
                     } else {
                         if (gp.skills.auraSwordActive) {
                             image = auraDown[spriteNum - 1];
-                        }else {
+                        } else {
                             image = down[spriteNum - 1];
                         }
                     }
@@ -554,7 +553,7 @@ public class Player extends Entity {
                     } else {
                         if (gp.skills.auraSwordActive) {
                             image = auraLeft[spriteNum - 1];
-                        }else {
+                        } else {
                             image = left[spriteNum - 1];
                         }
                     }
@@ -571,7 +570,7 @@ public class Player extends Entity {
                     } else {
                         if (gp.skills.auraSwordActive) {
                             image = auraRight[spriteNum - 1];
-                        }else {
+                        } else {
                             image = right[spriteNum - 1];
                         }
                     }
@@ -644,7 +643,7 @@ public class Player extends Entity {
             solidArea.height = attackArea.height;
 
             int enemyIndex = gp.collisionChecker.checkEntity(this, gp.enemy); // check enemy collision with the updated
-                                                                           // worldX, worldY and solidArea
+                                                                              // worldX, worldY and solidArea
             damageEnemy(enemyIndex);
 
             worldX = currentWorldX;
@@ -779,7 +778,7 @@ public class Player extends Entity {
                         invincible = true;
                     }
                     break;
-                    case "Sattelite":
+                case "Sattelite":
                     // Wolf Barking
                     enemySoundCounter++;
                     if (enemySoundCounter == 40) {
@@ -788,7 +787,7 @@ public class Player extends Entity {
 
                         enemySoundCounter = 0;
                     }
-                    
+
             }
         } else {
             if (life < maxLife) {
@@ -844,16 +843,16 @@ public class Player extends Entity {
 
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
-            
+
             if (!gp.enemy[enemyIndex].invincible) {
 
                 // Don't get damage in the first giving damage
                 if (!gp.enemy[enemyIndex].inFight) {
-                    
+
                     invincible = true;
                 }
                 if (holdingNum == 3 && !gp.skills.skillUsed) {
-                    if(gp.enemy[enemyIndex].name != "Satellite") {
+                    if (gp.enemy[enemyIndex].name != "Satellite") {
                         knockBack(gp.enemy[enemyIndex]);
                     }
                 }
@@ -872,33 +871,33 @@ public class Player extends Entity {
 
                 if (gp.enemy[enemyIndex].life <= 0) {
 
-                    if(gp.enemy[enemyIndex].name != "Satellite") {
+                    if (gp.enemy[enemyIndex].name != "Satellite") {
                         gp.aSetter.aliveWolfNum--;
                         gp.playSE(6);
                         if (taskLevel == 2) {
                             deadWolfCounter++;
                         }
-    
+
                         autoHit = false;
-    
+
                         playerXP += rand.nextInt(10) + 100 / level;
-    
+
                         // If level up
                         if (playerXP / 920 + 1 > level) {
                             life = maxLife;
                         }
-    
+
                         level = (playerXP / 920) + 1;
-    
+
                         int coinNumber = rand.nextInt(3) + 3;
                         for (int i = coinNumber; i > 0; i--) {
-    
+
                             int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
                             int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-    
+
                             gp.aSetter.createCoin(xPosition, yPosition);
                         }
-    
+
                         // Dolunay 28% Luck
                         int dolunayLuck = rand.nextInt(100);
                         if (dolunayLuck < 28) {
@@ -906,92 +905,105 @@ public class Player extends Entity {
                             int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
                             gp.aSetter.createDolunay(xPosition, yPosition);
                         }
-                        
+
                         gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
+                    } else if (gp.enemy[enemyIndex].name == "Satellite") {
+                        if (taskLevel == 3 && gp.keyH.missionPrize[3] == 0) {
+                            taskLevel++;
+                            gp.ui.addMessage("Mission Accomplished!");
+                            gp.ui.addMessage("Turn back Abulbul!");
+                        }
                     }
 
                     gp.enemy[enemyIndex].dying = true;
                     gp.enemy[enemyIndex].alive = false;
-                   
 
-                    /* 
-                    switch(gp.enemy[enemyIndex].name){
-                        case "Wolf":
-
-                        gp.aSetter.aliveWolfNum--;
-                        gp.playSE(6);
-                        if (taskLevel == 2) {
-                            deadWolfCounter++;
-                        }
-    
-                        autoHit = false;
-    
-                        playerXP += rand.nextInt(10) + 100 / level;
-    
-                        // If level up
-                        if (playerXP / 920 + 1 > level) {
-                            life = maxLife;
-                        }
-    
-                        level = (playerXP / 920) + 1;
-    
-                        int coinNumber = rand.nextInt(3) + 3;
-                        for (int i = coinNumber; i > 0; i--) {
-    
-                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
-                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-    
-                            gp.aSetter.createCoin(xPosition, yPosition);
-                        }
-    
-                        // Dolunay 28% Luck
-                        int dolunayLuck = rand.nextInt(100);
-                        if (dolunayLuck < 28) {
-                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
-                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-                            gp.aSetter.createDolunay(xPosition, yPosition);
-                        }
-    
-                        gp.enemy[enemyIndex].dying = true;
-                        gp.enemy[enemyIndex].alive = false;
-                        gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
-                        break;
-
-                        case "Satellite":
-                    
-                        autoHit = false;
-
-                        playerXP += rand.nextInt(10) + 100 / level;
-    
-                        // If level up
-                        if (playerXP / 920 + 1 > level) {
-                            life = maxLife;
-                        }
-    
-                        level = (playerXP / 920) + 1;
-    
-                        coinNumber = rand.nextInt(3) + 3;
-                        for (int i = coinNumber; i > 0; i--) {
-    
-                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
-                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-    
-                            gp.aSetter.createCoin(xPosition, yPosition);
-                        }
-    
-                        // Dolunay 28% Luck
-                        dolunayLuck = rand.nextInt(100);
-                        if (dolunayLuck < 28) {
-                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
-                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-                            gp.aSetter.createDolunay(xPosition, yPosition);
-                        }
-    
-                        gp.enemy[enemyIndex].dying = true;
-                        gp.enemy[enemyIndex].alive = false;    
-                        
-                    }
-                    */
+                    /*
+                     * switch(gp.enemy[enemyIndex].name){
+                     * case "Wolf":
+                     * 
+                     * gp.aSetter.aliveWolfNum--;
+                     * gp.playSE(6);
+                     * if (taskLevel == 2) {
+                     * deadWolfCounter++;
+                     * }
+                     * 
+                     * autoHit = false;
+                     * 
+                     * playerXP += rand.nextInt(10) + 100 / level;
+                     * 
+                     * // If level up
+                     * if (playerXP / 920 + 1 > level) {
+                     * life = maxLife;
+                     * }
+                     * 
+                     * level = (playerXP / 920) + 1;
+                     * 
+                     * int coinNumber = rand.nextInt(3) + 3;
+                     * for (int i = coinNumber; i > 0; i--) {
+                     * 
+                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * 
+                     * gp.aSetter.createCoin(xPosition, yPosition);
+                     * }
+                     * 
+                     * // Dolunay 28% Luck
+                     * int dolunayLuck = rand.nextInt(100);
+                     * if (dolunayLuck < 28) {
+                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * gp.aSetter.createDolunay(xPosition, yPosition);
+                     * }
+                     * 
+                     * gp.enemy[enemyIndex].dying = true;
+                     * gp.enemy[enemyIndex].alive = false;
+                     * gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
+                     * break;
+                     * 
+                     * case "Satellite":
+                     * 
+                     * autoHit = false;
+                     * 
+                     * playerXP += rand.nextInt(10) + 100 / level;
+                     * 
+                     * // If level up
+                     * if (playerXP / 920 + 1 > level) {
+                     * life = maxLife;
+                     * }
+                     * 
+                     * level = (playerXP / 920) + 1;
+                     * 
+                     * coinNumber = rand.nextInt(3) + 3;
+                     * for (int i = coinNumber; i > 0; i--) {
+                     * 
+                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * 
+                     * gp.aSetter.createCoin(xPosition, yPosition);
+                     * }
+                     * 
+                     * // Dolunay 28% Luck
+                     * dolunayLuck = rand.nextInt(100);
+                     * if (dolunayLuck < 28) {
+                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
+                     * 5;
+                     * gp.aSetter.createDolunay(xPosition, yPosition);
+                     * }
+                     * 
+                     * gp.enemy[enemyIndex].dying = true;
+                     * gp.enemy[enemyIndex].alive = false;
+                     * 
+                     * }
+                     */
                 }
             }
         }
@@ -1104,33 +1116,41 @@ public class Player extends Entity {
             stepCounter = 0;
         }
     }
-    
+
     public void dyingAnimation() {
         dyingCounter++;
-        
+
         switch (direction) {
             case "up":
             case "upleft":
             case "upright":
-                if(dyingCounter < 60) image = dyingUp[dyingCounter / 12];
-                else   image = dyingUp[4];
+                if (dyingCounter < 60)
+                    image = dyingUp[dyingCounter / 12];
+                else
+                    image = dyingUp[4];
                 break;
             case "down":
             case "downleft":
             case "downright":
-                if(dyingCounter < 60) image = dyingDown[dyingCounter / 12];
-                else   image = dyingDown[4];
+                if (dyingCounter < 60)
+                    image = dyingDown[dyingCounter / 12];
+                else
+                    image = dyingDown[4];
                 break;
             case "left":
-                if(dyingCounter < 60) image = dyingLeft[dyingCounter / 12];
-                else   image = dyingLeft[4];
+                if (dyingCounter < 60)
+                    image = dyingLeft[dyingCounter / 12];
+                else
+                    image = dyingLeft[4];
                 break;
             case "right":
-                if(dyingCounter < 60) image = dyingRight[dyingCounter / 12];
-                else   image = dyingRight[4];
+                if (dyingCounter < 60)
+                    image = dyingRight[dyingCounter / 12];
+                else
+                    image = dyingRight[4];
                 break;
         }
-        
+
     }
 
     public void animationCharacter() {
@@ -1146,7 +1166,7 @@ public class Player extends Entity {
             }
         }
     }
-    
+
     public int getPlayerCoin() {
         return playerCoin;
     }
@@ -1154,27 +1174,27 @@ public class Player extends Entity {
     public int getSpeedDefault() {
         return speedDefault;
     }
-    
+
     public int getPlayerXP() {
         return playerXP;
     }
-    
+
     public int getAttackPower() {
         return attackPower;
     }
-    
+
     public void setPlayerCoin(int playerCoin) {
         this.playerCoin = playerCoin;
     }
-    
+
     public void setSpeedDefault(int speedDefault) {
         this.speedDefault = speedDefault;
     }
-    
+
     public void setPlayerXP(int playerXP) {
         this.playerXP = playerXP;
     }
-    
+
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
