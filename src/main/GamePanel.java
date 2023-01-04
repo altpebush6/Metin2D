@@ -305,6 +305,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gameState == playState) {
             aSetter.setEnemy();
+            aSetter.setSatellite();
 
             player.update();
 

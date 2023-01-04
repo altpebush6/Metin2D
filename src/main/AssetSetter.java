@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.swing.JTextField;
 
+import enemy.ENEMY_Sattelite;
 import enemy.ENEMY_Wolf;
 import npc.Npc_Abulbul;
 import npc.Npc_Blacksmith;
@@ -67,7 +68,7 @@ public class AssetSetter {
 
     public void setEnemy() {
         wolfCreateCounter++;
-       
+        
         if (wolfCreateCounter >= 180 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
             
             playerWorldX = wolfBoundary.x;
@@ -114,6 +115,11 @@ public class AssetSetter {
             }
             wolfCreateCounter = 0;
         }
+    }
+
+    public void setSatellite() {
+        gp.enemy[index] = new ENEMY_Sattelite(gp, index);
+        index++;
     }
 
     public void setNpc() {

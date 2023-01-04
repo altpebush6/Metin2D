@@ -197,7 +197,7 @@ public class Player extends Entity {
         playerCoin = 200;
         playerWeapon = "Sword";
         attackPower = 5;
-        taskLevel = 0;
+        taskLevel = 3;
         playerXP = 0;
         
         currentWeapon = new OBJ_Sword(gp);

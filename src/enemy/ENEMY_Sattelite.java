@@ -25,10 +25,10 @@ public class ENEMY_Sattelite extends Entity {
         standing = true;
 
 
-        solidArea.x = 10;
-        solidArea.y = 0;
-        solidArea.width = 25;
-        solidArea.height = 48;
+        solidArea.x = gp.tileSize*30;
+        solidArea.y = gp.tileSize*30;
+        solidArea.width = gp.tileSize*2;
+        solidArea.height = gp.tileSize*3;
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
@@ -37,7 +37,7 @@ public class ENEMY_Sattelite extends Entity {
     }
 
     public void getImage() {
-        down1 = setup("/wolf/down1", gp.tileSize, gp.tileSize);
+        down1 = setup("/satellite/satellite", gp.tileSize*2, gp.tileSize*3);
     }
 
     public void update() {
