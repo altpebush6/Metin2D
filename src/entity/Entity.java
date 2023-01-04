@@ -37,7 +37,7 @@ public class Entity {
     public boolean collisionOn = false;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
-    public int solidAreaDefaultX, solidAreaDefaultY;
+    public int solidAreaDefaultX, solidAreaDefaultY, solidAreaDefaultWidth, solidAreaDefaultHeight;
     public String direction = "down";
     public boolean standing = false;
     public boolean attacking = false;
@@ -72,12 +72,11 @@ public class Entity {
     public String description = "" ;
 
     // Images
-    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, right5;
-    public BufferedImage attackLeft1, attackLeft2, attackLeft3, attackLeft4, attackLeft5, attackLeft6, attackLeft7, attackLeft8, attackLeft9, attackLeft10, attackLeft11, attackLeft12, attackLeft13, attackLeft14;
-    public BufferedImage attackRight1, attackRight2, attackRight3, attackRight4, attackRight5, attackRight6, attackRight7, attackRight8, attackRight9, attackRight10, attackRight11, attackRight12, attackRight13, attackRight14;
-    public BufferedImage attackDown1, attackDown2, attackDown3, attackDown4, attackDown5, attackDown6, attackDown7, attackDown8, attackDown9, attackDown10, attackDown11, attackDown12, attackDown13, attackDown14;
-    public BufferedImage attackUp1, attackUp2, attackUp3, attackUp4, attackUp5, attackUp6, attackUp7, attackUp8, attackUp9, attackUp10, attackUp11, attackUp12, attackUp13, attackUp14;
-    public BufferedImage auraSwordUp1, auraSwordUp2, auraSwordDown1, auraSwordDown2, auraSwordLeft1, auraSwordLeft2, auraSwordRight1, auraSwordRight2;
+    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4;
+    public BufferedImage[] up = new BufferedImage[4], down = new BufferedImage[4], left = new BufferedImage[4], right = new BufferedImage[4];
+    public BufferedImage[] attackUp = new BufferedImage[16], attackDown = new BufferedImage[16], attackLeft = new BufferedImage[16], attackRight = new BufferedImage[16];
+    public BufferedImage[] auraUp = new BufferedImage[4], auraDown = new BufferedImage[4], auraLeft = new BufferedImage[4], auraRight = new BufferedImage[4];
+    public BufferedImage[] auraSwordUp = new BufferedImage[16], auraSwordDown = new BufferedImage[16], auraSwordLeft = new BufferedImage[16], auraSwordRight = new BufferedImage[16];
     public BufferedImage image, deadImage;
     public BufferedImage hpBarImage, emptyBarImage;
 
@@ -642,6 +641,13 @@ public class Entity {
     }
 
     public void searchPath(int goalCol, int goalRow) {
+        
+        if(type == playerType) {
+            solidArea.x = 9;
+            solidArea.y = 20;
+            solidArea.width = 30;
+            solidArea.height = 28;
+        }
 
         int startCol = (worldX + solidArea.x) / gp.tileSize;
         int startRow = (worldY + solidArea.y) / gp.tileSize;
@@ -736,6 +742,13 @@ public class Entity {
                  * }
                  */
             }
+        }
+        
+        if(type == playerType) {
+            solidArea.x = solidAreaDefaultX;
+            solidArea.y = solidAreaDefaultY;
+            solidArea.width = solidAreaDefaultWidth;
+            solidArea.height = solidAreaDefaultHeight;
         }
     }
 }

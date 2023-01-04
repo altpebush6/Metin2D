@@ -114,19 +114,47 @@ public class Skills {
     
     public void drawSwordSpin() {
         switch(gp.player.spriteNum) {
-            case 1: gp.player.image = gp.player.attackRight10;    gp.player.tempScreenX = gp.player.screenX + 20;    break;
-            case 2: gp.player.image = gp.player.attackUp10;      gp.player.tempScreenY = gp.player.screenY - 10;    break;
-            case 3: gp.player.image = gp.player.attackLeft10;   gp.player.tempScreenX = gp.player.screenX - 20;    break;
-            case 4: gp.player.image = gp.player.attackDown10;      gp.player.tempScreenY = gp.player.screenY - 20;    break;
+            case 1: 
+                if (gp.skills.auraSwordActive) {
+                    gp.player.image = gp.player.auraSwordRight[9];  
+                }else {
+                    gp.player.image = gp.player.attackRight[9];  
+                }    
+                gp.player.tempScreenX = gp.player.screenX + 20;    
+                break;
+            case 2: 
+                if (gp.skills.auraSwordActive) {
+                    gp.player.image = gp.player.auraSwordUp[9];  
+                }else {
+                    gp.player.image = gp.player.attackUp[9];  
+                }     
+                gp.player.tempScreenY = gp.player.screenY - 10;
+                break;
+            case 3:
+                if (gp.skills.auraSwordActive) {
+                    gp.player.image = gp.player.auraSwordLeft[9];  
+                }else {
+                    gp.player.image = gp.player.attackLeft[9];  
+                }
+                gp.player.tempScreenX = gp.player.screenX - 20;
+                break;
+            case 4: 
+                if (gp.skills.auraSwordActive) {
+                    gp.player.image = gp.player.auraSwordDown[9];  
+                }else {
+                    gp.player.image = gp.player.attackDown[9];      
+                }
+                gp.player.tempScreenY = gp.player.screenY + 10;    
+                break;
         }
     }
     
     public void drawAuraSword() {
         switch(gp.player.direction) {
-            case "up":  case "upleft":  case "upright":     gp.player.image = gp.player.auraSwordUp2;  gp.player.tempScreenY = gp.player.screenY - gp.tileSize; break;
-            case "down":case "downleft":case "downright":   gp.player.image = gp.player.auraSwordDown2;    break;
-            case "left":    gp.player.image = gp.player.auraSwordLeft2; gp.player.tempScreenX = gp.player.screenX - gp.tileSize;   break;
-            case "right":   gp.player.image = gp.player.auraSwordRight2;   break;
+            case "up":  case "upleft":  case "upright":     gp.player.image = gp.player.auraSwordUp[9];  gp.player.tempScreenY = gp.player.screenY - 10; break;
+            case "down":case "downleft":case "downright":   gp.player.image = gp.player.auraSwordDown[9];  gp.player.tempScreenY = gp.player.screenY + 10;  break;
+            case "left":    gp.player.image = gp.player.auraSwordLeft[9]; gp.player.tempScreenX = gp.player.screenX - 20;   break;
+            case "right":   gp.player.image = gp.player.auraSwordRight[9]; gp.player.tempScreenX = gp.player.screenX + 20;  break;
         }
     }
     

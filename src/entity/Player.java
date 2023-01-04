@@ -93,26 +93,90 @@ public class Player extends Entity {
 
         // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
+        
         solidArea.x = 25;
         solidArea.y = 31;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
         solidArea.width = 31;
         solidArea.height = 49;
+        
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidAreaDefaultWidth = solidArea.width;
+        solidAreaDefaultHeight = solidArea.height;
 
-        // CHANGE THIS ACCORDING TO ATTACKING CHARACTER PIXEL ART
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         attackArea.width = 36;
         attackArea.height = 36;
 
         setPlayer();
+        
+        
         getPlayerImage();
         getPlayerAttackImage();
         getPlayerAuraSwordImage();
+        getPlayerAttackAuraSwordImage();
         setItems();
         setTaskList();
     }
+    public void getPlayerImage() {
+        for(int i = 0; i < 4; i++) {
+           up[i] = setup("/player/up" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 4; i++) {
+            down[i] = setup("/player/down" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 4; i++) {
+            left[i] = setup("/player/left" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 4; i++) {
+            right[i] = setup("/player/right" + (i + 1), 80, 80);
+        }
+    }
 
+    public void getPlayerAttackImage() {
+        for(int i = 0; i < 16; i++) {
+            attackUp[i] = setup("/player/attackup" + (i + 1), 80, 92);
+        }
+        for(int i = 0; i < 16; i++) {
+            //attackDown[i] = setup("/player/attackdown" + (i + 1), 80, 92);
+        }
+        for(int i = 0; i < 16; i++) {
+            attackLeft[i] = setup("/player/attackleft" + (i + 1), 81, 80);
+        }
+        for(int i = 0; i < 16; i++) {
+            attackRight[i] = setup("/player/attackright" + (i + 1), 81, 80);
+        }
+    }
+    
+    public void getPlayerAuraSwordImage() {
+        for(int i = 0; i < 4; i++) {
+            auraUp[i] = setup("/player/auraUp" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 4; i++) {
+            auraDown[i] = setup("/player/auraDown" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 4; i++) {
+            auraLeft[i] = setup("/player/auraLeft" + (i + 1), 80, 80);
+        }
+        for(int i = 0; i < 4; i++) {
+            auraRight[i] = setup("/player/auraRight" + (i + 1), 80, 80);
+        }
+    }
+    
+    public void getPlayerAttackAuraSwordImage() {
+        for(int i = 0; i < 16; i++) {
+            auraSwordUp[i] = setup("/player/playerAuraSwordUp" + (i + 1), 80, 92);
+        }
+        for(int i = 0; i < 16; i++) {
+            //auraSwordDown[i] = setup("/player/playerAuraSwordDown" + (i + 1), 80, 92);
+        }
+        for(int i = 0; i < 16; i++) {
+            auraSwordLeft[i] = setup("/player/playerAuraSwordLeft" + (i + 1), 81, 80);
+        }
+        for(int i = 0; i < 16; i++) {
+            auraSwordRight[i] = setup("/player/playerAuraSwordRight" + (i + 1), 81, 80);
+        }
+    }
+    
     public void setPlayer() {
 
         // Player Movement
@@ -185,90 +249,6 @@ public class Player extends Entity {
         taskNameList.add("Köyün Sefası");
     }
 
-    public void getPlayerAuraSwordImage() {
-
-        auraSwordUp1 = setup("/player/playerAuraSwordUp1", gp.tileSize, gp.tileSize * 2);
-        auraSwordUp2 = setup("/player/playerAuraSwordUp2", gp.tileSize, gp.tileSize * 2);
-
-        auraSwordDown1 = setup("/player/playerAuraSwordDown1", gp.tileSize, gp.tileSize * 2);
-        auraSwordDown2 = setup("/player/playerAuraSwordDown2", gp.tileSize, gp.tileSize * 2);
-
-        auraSwordLeft1 = setup("/player/playerAuraSwordLeft1", gp.tileSize * 2, gp.tileSize);
-        auraSwordLeft2 = setup("/player/playerAuraSwordLeft2", gp.tileSize * 2, gp.tileSize);
-
-        auraSwordRight1 = setup("/player/playerAuraSwordRight1", gp.tileSize * 2, gp.tileSize);
-        auraSwordRight2 = setup("/player/playerAuraSwordRight2", gp.tileSize * 2, gp.tileSize);
-    }
-
-    public void getPlayerImage() {
-        up1 = setup("/player/up1", 80, 80);
-        up2 = setup("/player/up2", 80, 80);
-        up3 = setup("/player/up3", 80, 80);
-        up4 = setup("/player/up4", 80, 80);
-
-        down1 = setup("/player/down1", 80, 80);
-        down2 = setup("/player/down2", 80, 80);
-        down3 = setup("/player/down3", 80, 80);
-        down4 = setup("/player/down4", 80, 80);
-
-        left1 = setup("/player/left1", 80, 80);
-        left2 = setup("/player/left2", 80, 80);
-        left3 = setup("/player/left3", 80, 80);
-        left4 = setup("/player/left4", 80, 80);
-
-        right1 = setup("/player/right1", 80, 80);
-        right2 = setup("/player/right2", 80, 80);
-        right3 = setup("/player/right3", 80, 80);
-        right4 = setup("/player/right4", 80, 80);
-    }
-
-    public void getPlayerAttackImage() {
-        attackLeft1 = setup("/player/attackleft1", 81, 80);
-        attackLeft2 = setup("/player/attackleft2", 81, 80);
-        attackLeft3 = setup("/player/attackleft3", 81, 80);
-        attackLeft4 = setup("/player/attackleft4", 81, 80);
-        attackLeft5 = setup("/player/attackleft5", 81, 80);
-        attackLeft6 = setup("/player/attackleft6", 81, 80);
-        attackLeft7 = setup("/player/attackleft7", 81, 80);
-        attackLeft8 = setup("/player/attackleft8", 81, 80);
-        attackLeft9 = setup("/player/attackleft9", 81, 80);
-        attackLeft10 = setup("/player/attackleft10", 81, 80);
-        attackLeft11 = setup("/player/attackleft11", 81, 80);
-        attackLeft12 = setup("/player/attackleft12", 81, 80);
-        attackLeft13 = setup("/player/attackleft13", 81, 80);
-        attackLeft14 = setup("/player/attackleft14", 81, 80);
-
-        attackRight1 = setup("/player/attackright1", 81, 80);
-        attackRight2 = setup("/player/attackright2", 81, 80);
-        attackRight3 = setup("/player/attackright3", 81, 80);
-        attackRight4 = setup("/player/attackright4", 81, 80);
-        attackRight5 = setup("/player/attackright5", 81, 80);
-        attackRight6 = setup("/player/attackright6", 81, 80);
-        attackRight7 = setup("/player/attackright7", 81, 80);
-        attackRight8 = setup("/player/attackright8", 81, 80);
-        attackRight9 = setup("/player/attackright9", 81, 80);
-        attackRight10 = setup("/player/attackright10", 81, 80);
-        attackRight11 = setup("/player/attackright11", 81, 80);
-        attackRight12 = setup("/player/attackright12", 81, 80);
-        attackRight13 = setup("/player/attackright13", 81, 80);
-        attackRight14 = setup("/player/attackright14", 81, 80);
-        
-        attackUp1 = setup("/player/attackup1", 80, 92);
-        attackUp2 = setup("/player/attackup2", 80, 92);
-        attackUp3 = setup("/player/attackup3", 80, 92);
-        attackUp4 = setup("/player/attackup4", 80, 92);
-        attackUp5 = setup("/player/attackup5", 80, 92);
-        attackUp6 = setup("/player/attackup6", 80, 92);
-        attackUp7 = setup("/player/attackup7", 80, 92);
-        attackUp8 = setup("/player/attackup8", 80, 92);
-        attackUp9 = setup("/player/attackup9", 80, 92);
-        attackUp10 = setup("/player/attackup10", 80, 92);
-        attackUp11 = setup("/player/attackup11", 80, 92);
-        attackUp12 = setup("/player/attackup12", 80, 92);
-        attackUp13 = setup("/player/attackup13", 80, 92);
-        attackUp14 = setup("/player/attackup14", 80, 92);
-    }
-
     public void update() {
         
         // CHECK NPC COLLISION for msg
@@ -292,10 +272,6 @@ public class Player extends Entity {
         if (noPunchCounter >= damageTimeOut) {
             gp.player.holdingCounter = 0;
             gp.player.holdingNum = 0;
-        }
-        
-        if(keyH.spacePressed) {
-            attacking = true;
         }
 
         // When pressed space
@@ -502,6 +478,10 @@ public class Player extends Entity {
 
         g2.setColor(Color.yellow);
         g2.drawString(name, screenX + 40, screenY - 10);
+        
+        if(keyH.spacePressed) {
+            attacking = true;
+        }
 
         if (gp.skills.skillUsed && gp.skills.skillType == gp.skills.swordSpinType) {
             gp.skills.drawSwordSpin();
@@ -514,60 +494,17 @@ public class Player extends Entity {
                 case "upright":
                     if (attacking) {
                         if (gp.skills.auraSwordActive) {
-                            if (spriteNum == 1)
-                                image = auraSwordUp1;
-                            if (spriteNum == 2)
-                                image = auraSwordUp2;
+                            image = auraSwordUp[holdingNum * 4 + spriteNum - 1];
                         }else {
-                            if (holdingNum == 0) {
-                                if (spriteNum == 1)
-                                    image = attackUp1;
-                                if (spriteNum == 2)
-                                    image = attackUp2;
-                                if (spriteNum == 3)
-                                    image = attackUp3;
-                                if (spriteNum == 4)
-                                    image = attackUp4;
-                            } else if (holdingNum == 1) {
-                                if (spriteNum == 1)
-                                    image = attackUp5;
-                                if (spriteNum == 2)
-                                    image = attackUp6;
-                                if (spriteNum == 3)
-                                    image = attackUp7;
-                                if (spriteNum == 4)
-                                    image = attackUp8;
-                            } else if (holdingNum == 2) {
-                                if (spriteNum == 1)
-                                    image = attackUp9;
-                                if (spriteNum == 2)
-                                    image = attackUp10;
-                                if (spriteNum == 3)
-                                    image = attackUp9;
-                                if (spriteNum == 4)
-                                    image = attackUp10;
-                            } else if (holdingNum == 3) {
-                                if (spriteNum == 1)
-                                    image = attackUp11;
-                                if (spriteNum == 2)
-                                    image = attackUp12;
-                                if (spriteNum == 3)
-                                    image = attackUp13;
-                                if (spriteNum == 4)
-                                    image = attackUp14;
-                            }
+                            image = attackUp[holdingNum * 4 + spriteNum - 1];
                         }
                         tempScreenY = screenY - 12; // To avoid sliding image when image sizes are different
-
                     } else {
-                        if (spriteNum == 1)
-                            image = up1;
-                        if (spriteNum == 2)
-                            image = up2;
-                        if (spriteNum == 3)
-                            image = up3;
-                        if (spriteNum == 4)
-                            image = up4;
+                        if (gp.skills.auraSwordActive) {
+                            image = auraUp[spriteNum - 1];
+                        }else {
+                            image = up[spriteNum - 1];
+                        }
                     }
 
                     break;
@@ -576,144 +513,51 @@ public class Player extends Entity {
                 case "downright":
                     if (attacking) {
                         if (gp.skills.auraSwordActive) {
-                            if (spriteNum == 1)
-                                image = auraSwordDown1;
-                            if (spriteNum == 2)
-                                image = auraSwordDown2;
+                            //image = auraSwordDown[holdingNum * 4 + spriteNum - 1];
+
                         } else {
-                            if (spriteNum == 1)
-                                image = attackDown1;
-                            if (spriteNum == 2)
-                                image = attackDown2;
+                            //image = attackDown[holdingNum * 4 + spriteNum - 1];
                         }
 
                     } else {
-                        if (spriteNum == 1)
-                            image = down1;
-                        if (spriteNum == 2)
-                            image = down2;
-                        if (spriteNum == 3)
-                            image = down3;
-                        if (spriteNum == 4)
-                            image = down4;
+                        if (gp.skills.auraSwordActive) {
+                            image = auraDown[spriteNum - 1];
+                        }else {
+                            image = down[spriteNum - 1];
+                        }
                     }
                     break;
                 case "left":
                     if (attacking) {
                         if (gp.skills.auraSwordActive) {
-                            if (spriteNum == 1)
-                                image = auraSwordLeft1;
-                            if (spriteNum == 2)
-                                image = auraSwordLeft2;
+                            image = auraSwordLeft[holdingNum * 4 + spriteNum - 1];
                         } else {
-                            if (holdingNum == 0) {
-                                if (spriteNum == 1)
-                                    image = attackLeft1;
-                                if (spriteNum == 2)
-                                    image = attackLeft2;
-                                if (spriteNum == 3)
-                                    image = attackLeft3;
-                                if (spriteNum == 4)
-                                    image = attackLeft4;
-                            } else if (holdingNum == 1) {
-                                if (spriteNum == 1)
-                                    image = attackLeft5;
-                                if (spriteNum == 2)
-                                    image = attackLeft6;
-                                if (spriteNum == 3)
-                                    image = attackLeft7;
-                                if (spriteNum == 4)
-                                    image = attackLeft8;
-                            } else if (holdingNum == 2) {
-                                if (spriteNum == 1)
-                                    image = attackLeft9;
-                                if (spriteNum == 2)
-                                    image = attackLeft10;
-                                if (spriteNum == 3)
-                                    image = attackLeft10;
-                                if (spriteNum == 4)
-                                    image = attackLeft9;
-                            } else if (holdingNum == 3) {
-                                if (spriteNum == 1)
-                                    image = attackLeft11;
-                                if (spriteNum == 2)
-                                    image = attackLeft12;
-                                if (spriteNum == 3)
-                                    image = attackLeft13;
-                                if (spriteNum == 4)
-                                    image = attackLeft14;
-                            }
+                            image = attackLeft[holdingNum * 4 + spriteNum - 1];
                         }
-
-                        tempScreenX = screenX - 1; // To avoid sliding image when image sizes are different
+                        tempScreenX = screenX - 20; // To avoid sliding image when image sizes are different
                     } else {
-                        if (spriteNum == 1)
-                            image = left1;
-                        if (spriteNum == 2)
-                            image = left2;
-                        if (spriteNum == 3)
-                            image = left3;
-                        if (spriteNum == 4)
-                            image = left4;
+                        if (gp.skills.auraSwordActive) {
+                            image = auraLeft[spriteNum - 1];
+                        }else {
+                            image = left[spriteNum - 1];
+                        }
                     }
 
                     break;
                 case "right":
                     if (attacking) {
                         if (gp.skills.auraSwordActive) {
-                            if (spriteNum == 1)
-                                image = auraSwordRight1;
-                            if (spriteNum == 2)
-                                image = auraSwordRight2;
+                            image = auraSwordRight[holdingNum * 4 + spriteNum - 1];
                         } else {
-                            if (holdingNum == 0) {
-                                if (spriteNum == 1)
-                                    image = attackRight1;
-                                if (spriteNum == 2)
-                                    image = attackRight2;
-                                if (spriteNum == 3)
-                                    image = attackRight3;
-                                if (spriteNum == 4)
-                                    image = attackRight4;
-                            } else if (holdingNum == 1) {
-                                if (spriteNum == 1)
-                                    image = attackRight5;
-                                if (spriteNum == 2)
-                                    image = attackRight6;
-                                if (spriteNum == 3)
-                                    image = attackRight7;
-                                if (spriteNum == 4)
-                                    image = attackRight8;
-                            } else if (holdingNum == 2) {
-                                if (spriteNum == 1)
-                                    image = attackRight9;
-                                if (spriteNum == 2)
-                                    image = attackRight10;
-                                if (spriteNum == 3)
-                                    image = attackRight10;
-                                if (spriteNum == 4)
-                                    image = attackRight9;
-                            } else if (holdingNum == 3) {
-                                if (spriteNum == 1)
-                                    image = attackRight11;
-                                if (spriteNum == 2)
-                                    image = attackRight12;
-                                if (spriteNum == 3)
-                                    image = attackRight13;
-                                if (spriteNum == 4)
-                                    image = attackRight14;
-                            }
+                            image = attackRight[holdingNum * 4 + spriteNum - 1];
                         }
-                        tempScreenX = screenX + 1; // To avoid sliding image when image sizes are different
+                        tempScreenX = screenX + 20; // To avoid sliding image when image sizes are different
                     } else {
-                        if (spriteNum == 1)
-                            image = right1;
-                        if (spriteNum == 2)
-                            image = right2;
-                        if (spriteNum == 3)
-                            image = right3;
-                        if (spriteNum == 4)
-                            image = right4;
+                        if (gp.skills.auraSwordActive) {
+                            image = auraRight[spriteNum - 1];
+                        }else {
+                            image = right[spriteNum - 1];
+                        }
                     }
                     break;
             }
