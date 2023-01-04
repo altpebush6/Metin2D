@@ -1341,7 +1341,7 @@ public class UI {
         int textX = frameX + gp.tileSize;
         int textY = frameY + gp.tileSize * 3;
 
-        currentDialogue = "The change will\ntake effect after \nrestarting the game.";
+        currentDialogue = "The change is not available for now.";
 
         for (String line : currentDialogue.split("\n")) {
             g2.setFont(arial_30);

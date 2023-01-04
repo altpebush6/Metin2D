@@ -285,7 +285,7 @@ public class KeyHandler implements KeyListener {
 											gp.player.setPlayerXP(gp.player.getPlayerXP() + 200);
 										}
 									}
-									gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+									gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
 									gp.player.redPotionNumber++;
 								}
 							} else if (Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Blue Potion") {
@@ -299,7 +299,7 @@ public class KeyHandler implements KeyListener {
 											gp.player.setPlayerXP(gp.player.getPlayerXP() + 200);
 										}
 									}
-                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
 									gp.player.bluePotionNumber++;
 								}
 							} else {
@@ -307,19 +307,19 @@ public class KeyHandler implements KeyListener {
 								switch(gp.ui.cursorNpcIndex) {
 									case 0:
     									gp.player.inventory.add(new OBJ_KDP(gp));
-                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
     									break;
 									case 1: 
     									gp.player.inventory.add(new OBJ_GenisKilic(gp));
-                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
     									break;
 									case 2: 
     									gp.player.inventory.add(new OBJ_Dolunay(gp));
-                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
     									break;
 									case 3: 
                                         gp.player.inventory.add(new OBJ_SuPerisi(gp));
-                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() + Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
                                         break;
 
 								}
@@ -389,10 +389,12 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_E) {
 
 				if (gp.ui.controlCursor() == true) {
-                    gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
-					gp.player.enchantWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
-					gp.player.itemEnchSellected = true;
-	                gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
+				    if(gp.player.inventory.get(gp.ui.cursorIndex).name != "Red Potion" && gp.player.inventory.get(gp.ui.cursorIndex).name != "Blue Potion") {
+                        gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
+    					gp.player.enchantWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
+    					gp.player.itemEnchSellected = true;
+    	                gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
+				    }
 				}
 
 			}
@@ -480,9 +482,11 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_E) {
 
 				if (gp.ui.controlCursor() == true) {
-				    gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
-					gp.player.currentWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
-					gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
+				    if(gp.player.inventory.get(gp.ui.cursorIndex).name != "Red Potion" && gp.player.inventory.get(gp.ui.cursorIndex).name != "Blue Potion") {
+    				    gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
+    					gp.player.currentWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
+    					gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
+				    }
 				}
 			}
 			if(code == KeyEvent.VK_ESCAPE) {
