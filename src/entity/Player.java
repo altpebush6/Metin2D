@@ -844,9 +844,7 @@ public class Player extends Entity {
 
                 gp.enemy[enemyIndex].damageCounter = 0;
                 gp.enemy[enemyIndex].life -= damageSize;
-                System.out.println("life: "+ gp.enemy[enemyIndex].life);
                 gp.enemy[enemyIndex].invincible = true;
-                System.out.println(gp.enemy[enemyIndex].invincible);
                 gp.enemy[enemyIndex].damageReaction();
 
                 int damagePosX = gp.enemy[enemyIndex].worldX - worldX + screenX;
@@ -857,42 +855,127 @@ public class Player extends Entity {
                 if (gp.enemy[enemyIndex].life <= 0) {
 
                     gp.aSetter.aliveWolfNum--;
-                    gp.playSE(6);
-                    if (taskLevel == 2) {
-                        deadWolfCounter++;
+                        gp.playSE(6);
+                        if (taskLevel == 2) {
+                            deadWolfCounter++;
+                        }
+    
+                        autoHit = false;
+    
+                        playerXP += rand.nextInt(10) + 100 / level;
+    
+                        // If level up
+                        if (playerXP / 920 + 1 > level) {
+                            life = maxLife;
+                        }
+    
+                        level = (playerXP / 920) + 1;
+    
+                        int coinNumber = rand.nextInt(3) + 3;
+                        for (int i = coinNumber; i > 0; i--) {
+    
+                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+    
+                            gp.aSetter.createCoin(xPosition, yPosition);
+                        }
+    
+                        // Dolunay 28% Luck
+                        int dolunayLuck = rand.nextInt(100);
+                        if (dolunayLuck < 28) {
+                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+                            gp.aSetter.createDolunay(xPosition, yPosition);
+                        }
+    
+                        gp.enemy[enemyIndex].dying = true;
+                        gp.enemy[enemyIndex].alive = false;
+                        gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
+
+                    /* 
+                    switch(gp.enemy[enemyIndex].name){
+                        case "Wolf":
+
+                        gp.aSetter.aliveWolfNum--;
+                        gp.playSE(6);
+                        if (taskLevel == 2) {
+                            deadWolfCounter++;
+                        }
+    
+                        autoHit = false;
+    
+                        playerXP += rand.nextInt(10) + 100 / level;
+    
+                        // If level up
+                        if (playerXP / 920 + 1 > level) {
+                            life = maxLife;
+                        }
+    
+                        level = (playerXP / 920) + 1;
+    
+                        int coinNumber = rand.nextInt(3) + 3;
+                        for (int i = coinNumber; i > 0; i--) {
+    
+                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+    
+                            gp.aSetter.createCoin(xPosition, yPosition);
+                        }
+    
+                        // Dolunay 28% Luck
+                        int dolunayLuck = rand.nextInt(100);
+                        if (dolunayLuck < 28) {
+                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+                            gp.aSetter.createDolunay(xPosition, yPosition);
+                        }
+    
+                        gp.enemy[enemyIndex].dying = true;
+                        gp.enemy[enemyIndex].alive = false;
+                        gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
+                        break;
+
+                        case "Satellite":
+                    
+                        autoHit = false;
+
+                        playerXP += rand.nextInt(10) + 100 / level;
+    
+                        // If level up
+                        if (playerXP / 920 + 1 > level) {
+                            life = maxLife;
+                        }
+    
+                        level = (playerXP / 920) + 1;
+    
+                        coinNumber = rand.nextInt(3) + 3;
+                        for (int i = coinNumber; i > 0; i--) {
+    
+                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+    
+                            gp.aSetter.createCoin(xPosition, yPosition);
+                        }
+    
+                        // Dolunay 28% Luck
+                        dolunayLuck = rand.nextInt(100);
+                        if (dolunayLuck < 28) {
+                            int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
+                            int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
+                            gp.aSetter.createDolunay(xPosition, yPosition);
+                        }
+    
+                        gp.enemy[enemyIndex].dying = true;
+                        gp.enemy[enemyIndex].alive = false;    
+                        
+
+
+                        
                     }
+                    */
+                    
 
-                    autoHit = false;
-
-                    playerXP += rand.nextInt(10) + 100 / level;
-
-                    // If level up
-                    if (playerXP / 920 + 1 > level) {
-                        life = maxLife;
-                    }
-
-                    level = (playerXP / 920) + 1;
-
-                    int coinNumber = rand.nextInt(3) + 3;
-                    for (int i = coinNumber; i > 0; i--) {
-
-                        int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
-                        int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-
-                        gp.aSetter.createCoin(xPosition, yPosition);
-                    }
-
-                    // Dolunay 28% Luck
-                    int dolunayLuck = rand.nextInt(100);
-                    if (dolunayLuck < 28) {
-                        int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize / 5;
-                        int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize / 5;
-                        gp.aSetter.createDolunay(xPosition, yPosition);
-                    }
-
-                    gp.enemy[enemyIndex].dying = true;
-                    gp.enemy[enemyIndex].alive = false;
-                    gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
+                    
                 }
             }
         }

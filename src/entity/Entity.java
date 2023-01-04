@@ -268,8 +268,10 @@ public class Entity {
                         changeDirection();
                     }
                 }else {
+                    /* 
                     worldX = newWorldX;
                     worldY = newWorldY;
+                    */
                 }
             }
         }

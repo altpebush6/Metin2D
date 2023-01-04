@@ -16,7 +16,7 @@ public class ENEMY_Sattelite extends Entity {
         super(gp);
 
         this.gp = gp;
-        name = "Sattelite";
+        name = "Satellite";
         speed = 0;
         defaultSpeed = speed;
         maxLife = 100;
