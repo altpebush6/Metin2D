@@ -1,22 +1,62 @@
 package main;
 
 import java.awt.Rectangle;
-
 import entity.Entity;
 
+/**
+ * <p>
+ * This Class controls the collision status of the player and objects.
+ * </p>
+ */
 public class CollisionChecker {
 	
 	GamePanel gp;
 	
+	/**
+     * <p>
+     * this is constructor
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
 	public CollisionChecker(GamePanel gp) {
 		this.gp = gp;
 	}
 	
+	/**
+     * <p>
+     * this is tile collision checker. Collision is true if there is a solid object in the direction of the entity
+     * </p>
+     * 
+     * @param entity is may be player or enemy
+     * @since 1.0
+     */
 	public void checkTile(Entity entity) {
-        int entityLeftWorldX = entity.worldX + entity.solidArea.x; // Defines how far character collision is from left side of map.
-        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width; // Defines how far character collision is from right side of map.
-        int entityTopWorldY = entity.worldY + entity.solidArea.y; // Defines how far character collision is from top side of map.
-        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height; // Defines how far character collision is from bottom side of map.
+	    /**
+	     * <p>
+	     * Defines how far character collision is from left side of map.
+	     * </p>
+	     */
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x; 
+        /**
+         * <p>
+         *  Defines how far character collision is from right side of map.
+         * </p>
+         */
+        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
+        /**
+         * <p>
+         * Defines how far character collision is from top side of map.
+         * </p>
+         */
+        int entityTopWorldY = entity.worldY + entity.solidArea.y; 
+        /**
+         * <p>
+         * Defines how far character collision is from bottom side of map.
+         * </p>
+         */
+        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height; 
     
         int entityLeftCol = entityLeftWorldX / gp.tileSize;
         int entityRightCol = entityRightWorldX / gp.tileSize;
@@ -242,6 +282,16 @@ public class CollisionChecker {
 		
 	}
 	
+	
+	 /**
+     * <p>
+     * this is  object collision checker. Collision is true if there is a solid object in the direction of the entity
+     * </p>
+     * 
+     * @param entity is may be player or enemy
+     * @param player is true return set the index i
+     * @since 1.0
+     */
 	public int checkObject(Entity entity, boolean player) {
 		
 		int index = -1;
@@ -286,6 +336,15 @@ public class CollisionChecker {
 		return index;
 	}
 	
+	/**
+     * <p>
+     * this is  entity collision  checker. Collision is true if there is a solid object in the direction of the entity
+     * </p>
+     * 
+     * @param entity is may be npc or enemy
+     * @param target is array of the entity target
+     * @since 1.0
+     */
 	// NPC or ENEMY Collision
 	public int checkEntity(Entity entity, Entity[] target) {
         int index = -1;
@@ -329,6 +388,16 @@ public class CollisionChecker {
         return index;
 	}
 	
+	
+	/**
+     * <p>
+     * this is  player collision checker. Collision is true if there is a solid object in the direction of the entity
+     * </p>
+     * 
+     * @param entity is may be npc tile or enemy
+     * @return collision contact player value
+     * @since 1.0
+     */
 	public boolean checkPlayer(Entity entity) {
 	    
 	    boolean contactPlayer = false;
@@ -365,7 +434,16 @@ public class CollisionChecker {
         return contactPlayer;
 	}
 	
-	
+	/**
+     * <p>
+     * this is fight area checker. if distance bigger than hipotenus return enemy index
+     * </p>
+     * 
+     * @param entity is may be player
+     * @param enemy is the array of the enemies
+     * @return enemy index
+     * @since 1.0
+     */
 	public int checkFightArea(Entity entity, Entity enemy[]) {
 	    int index = -1;
         
@@ -414,7 +492,16 @@ public class CollisionChecker {
         return index;
 	}
 	
-	// To check is enemy around player for standing
+	/**
+     * <p>
+     * this is fight area checker for enemy. To check is enemy around player for standing
+     * </p>
+     * 
+     * @param entity is may be player
+     * @param enemy is  enemy
+     * @return if hipotenus les than 50  return true otherwise return false
+     * @since 1.0
+     */
 	public boolean checkFightAreaForEnemy(Entity entity, Entity enemy) {
         
         int enemyX = enemy.worldX;
@@ -437,6 +524,16 @@ public class CollisionChecker {
         
     }
 	
+	/**
+     * <p>
+     * this is tile collision checker for new entity. 
+     * </p>
+     * 
+     * @param entityWorldX is enemy's x cordinates
+     * @param entityWorldY is enemy's y cordinates
+     * @since 1.0
+     */
+	
 	// New Entity Collisions
 	public void checkTileForNewEntity(int entityWorldX, int entityWorldY) {
         int tileNum = gp.tileM.mapTileNum[entityWorldX / gp.tileSize][entityWorldY / gp.tileSize];
@@ -446,6 +543,16 @@ public class CollisionChecker {
         }
     }
     
+	/**
+     * <p>
+     * this is entity collision checker for new entity.
+     * </p>
+     * 
+     * @param entityWorldX is  x cordinates
+     * @param entityWorldY is  y cordinates
+     * @param target is enemy's target
+     * @since 1.0
+     */
     public void checkEntityForNewEntity(int entityWorldX, int entityWorldY,  Entity[] target) {
         // Get Entity's solid area position
         Rectangle newEntitySolidArea = new Rectangle(entityWorldX, entityWorldY, gp.tileSize, gp.tileSize);
@@ -466,6 +573,15 @@ public class CollisionChecker {
         }
     }
     
+    /**
+     * <p>
+     * this is player collision checker for new entity.
+     * </p>
+     * 
+     * @param entityWorldX is enemy's x cordinates
+     * @param entityWorldY is enemy's y cordinates
+     * @since 1.0
+     */
     public void checkPlayerForNewEntity(int entityWorldX, int entityWorldY) {     
         // Get Entity's solid area position
         Rectangle newEntitySolidArea = new Rectangle(entityWorldX, entityWorldY, gp.tileSize, gp.tileSize);
