@@ -778,7 +778,8 @@ public class Player extends Entity {
                         invincible = true;
                     }
                     break;
-                case "Sattelite":
+                case "Satellite":
+                
                     // Wolf Barking
                     enemySoundCounter++;
                     if (enemySoundCounter == 40) {
@@ -786,6 +787,27 @@ public class Player extends Entity {
                         gp.playSE(soundChoice);
 
                         enemySoundCounter = 0;
+                    }
+
+                    if (gp.collisionChecker.checkEntity(this, gp.enemy) == 0) {
+                        System.out.println("can");
+                        reborn = false;
+                        int damage = rand.nextInt(5) + 1;
+                        if (life - damage >= 0) {
+
+                            int soundChoice = rand.nextInt(5) + 14;
+                            gp.playSE(soundChoice);
+                            life -= damage;
+
+                            int damagePosX = screenX;
+                            int damagePosY = screenY;
+
+                            gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
+                        } else {
+                            dying = true;
+                            setDead();
+                        }
+                        invincible = true;
                     }
 
             }

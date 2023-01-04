@@ -449,7 +449,7 @@ public class CollisionChecker {
         
         for(int i=0; i < enemy.length; i++ ) {
             if(enemy[i] != null) {
-                
+                 
                 int enemyX = enemy[i].worldX;
                 int enemyY = enemy[i].worldY;
                 
@@ -466,7 +466,8 @@ public class CollisionChecker {
                 if(hipotenus <= distance) {
                     index = i;
                 }
-                /*
+                
+                /* 
                 // Get Entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
