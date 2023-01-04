@@ -2,9 +2,6 @@ package main;
 
 import java.awt.Rectangle;
 import java.util.Random;
-
-import javax.swing.JTextField;
-
 import enemy.ENEMY_Sattelite;
 import enemy.ENEMY_Wolf;
 import npc.Npc_Abulbul;
@@ -12,30 +9,88 @@ import npc.Npc_Blacksmith;
 import npc.Npc_Merchant;
 import object.*;
 
+/**
+ * <p>
+ * This Class set the objects
+ * </p>
+ */
 public class AssetSetter {
 
     GamePanel gp;
     Random rand = new Random();
-    public int index = 0;
-    public int wolfCreateCounter = 300;
-    public int aliveWolfNum = 0;
-    
-    public boolean collisionOn;
-    public boolean createdSatallite=true;
 
+    /**
+     * <p>
+     * Counts array index when setting objects
+     * </p>
+     */
+    public int index = 0;
+
+    /**
+     * <p>
+     * Acts as counter for setting wolves
+     * </p>
+     */
+    public int wolfCreateCounter = 300;
+
+    /**
+     * <p>
+     * Keeps the number of surviving wolves
+     * </p>
+     */
+    public int aliveWolfNum = 0;
+
+    /**
+     * <p>
+     * Keeps the collision status.If there is a collision, it takes the true value
+     * otherwise, it takes the false value
+     * </p>
+     */
+    public boolean collisionOn;
+
+    /**
+     * <p>
+     * It holds satellite status is created takes the true value otherwise, it takes
+     * the false value
+     * </p>
+     */
+    public boolean createdSatallite = true;
+
+    /**
+     * <p>
+     * A rectangle for the field boundaries of wolves
+     * </p>
+     */
     public Rectangle wolfBoundary;
-    
+
+    /**
+     * <p>
+     * It holds the coordinates of the player and the items to be loaded
+     * </p>
+     */
     int playerWorldX, playerWorldY, playerWorldWidth, playerWorldHeight, spawnWorldX, spawnWorldY;
 
+    /**
+     * <p>
+     * this is constructor
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
         wolfBoundary = new Rectangle(20 * gp.tileSize, 20 * gp.tileSize, 30 * gp.tileSize, 30 * gp.tileSize);
     }
 
-    public void setObjectManually() {
-
-    }
-
+    /**
+     * <p>
+     * create coin object
+     * </p>
+     * 
+     * @param worldX refers the coin object x codinates and worldY refers the object y condinates
+     * @since 1.0
+     */
     public void createCoin(int worldX, int worldY) {
         gp.obj[index] = new OBJ_Coin(gp, rand.nextInt(100));
         gp.obj[index].worldX = worldX;
@@ -43,6 +98,15 @@ public class AssetSetter {
         gp.obj[index].objIndex = index;
         index++;
     }
+    
+    /**
+     * <p>
+     * create dolunay sword object
+     * </p>
+     * 
+     * @param worldX refers the coin object x codinates and worldY refers the object y condinates
+     * @since 1.0
+     */
     public void createDolunay(int worldX, int worldY) {
         gp.obj[index] = new OBJ_Dolunay(gp);
         gp.obj[index].worldX = worldX;
@@ -50,6 +114,16 @@ public class AssetSetter {
         gp.obj[index].objIndex = index;
         index++;
     }
+
+
+    /**
+     * <p>
+     * create dead wolf sword object
+     * </p>
+     * 
+     * @param worldX refers the coin object x codinates and worldY refers the object y condinates
+     * @since 1.0
+     */
     public void createDeadWolf(int worldX, int worldY) {
         gp.obj[index] = new OBJ_DeadWolf(gp);
         gp.obj[index].worldX = worldX;
@@ -58,20 +132,18 @@ public class AssetSetter {
         index++;
     }
 
-    /*
-     * public void createWolf() {
-     * gp.enemy[0] = new ENEMY_Wolf(gp,index);
-     * gp.enemy[0].worldX = 20 * gp.tileSize;
-     * gp.enemy[0].worldY = 25 * gp.tileSize;
-     * index++;
-     * }
+    /**
+     * <p>
+     * This method set the enemies.Crate new enemy different cordinates.
+     * </p>
+     * 
+     * @since 1.0
      */
-
     public void setEnemy() {
         wolfCreateCounter++;
-        
+
         if (wolfCreateCounter >= 180 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
-            
+
             playerWorldX = wolfBoundary.x;
             playerWorldWidth = wolfBoundary.x + wolfBoundary.width;
 
@@ -117,9 +189,16 @@ public class AssetSetter {
             wolfCreateCounter = 0;
         }
     }
-
+    
+    /**
+     * <p>
+     * This method set the satellite.if createdSatallite is true create satellite
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void setSatellite() {
-        if(createdSatallite) {
+        if (createdSatallite) {
             gp.enemy[0] = new ENEMY_Sattelite(gp, 0);
             gp.enemy[0].worldX = gp.tileSize * 35;
             gp.enemy[0].worldY = gp.tileSize * 37;
@@ -127,10 +206,16 @@ public class AssetSetter {
             createdSatallite = false;
             System.out.println("girdi");
         }
-        
-        
+
     }
 
+    /**
+     * <p>
+     * This method set the Npc.All npc are created here
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void setNpc() {
 
         gp.npc[0] = new Npc_Abulbul(gp);
