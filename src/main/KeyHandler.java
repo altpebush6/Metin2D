@@ -171,7 +171,7 @@ public class KeyHandler implements KeyListener {
 				}
 
 				if(gp.player.taskLevel == 3 && gp.ui.pageNum == 1) {
-					gp.ui.pageNum++;
+					gp.ui.pageNum--;
 				}
 			}
 

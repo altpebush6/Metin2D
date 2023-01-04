@@ -548,7 +548,7 @@ public class UI {
     public void drawStory(int x, int y) {
         Color c2 = new Color(255, 255, 255);
         g2.setColor(c2);
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 18F));
         x += gp.tileSize;
         y += gp.tileSize + 10;
         int lineCount = 0;
