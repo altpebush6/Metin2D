@@ -6,8 +6,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * <p>
+ * This Class set the images
+ * </p>
+ */
 public class UtilityTool {
-	
+    
+    /**
+     * <p>
+     * this method scale images 
+     * </p>
+     * 
+     * @param original refers the original image and width and height parameters represent the dimensions of the 
+     * original image 
+     * @since 1.0
+     */
 	public BufferedImage scaleImage(BufferedImage original, int width, int height) {
 		
 		BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
@@ -18,6 +32,15 @@ public class UtilityTool {
 		return scaledImage;
 	}
 	
+	/**
+     * <p>
+     * this method gets images and scale images by calling scaleImage method  
+     * </p>
+     * 
+     * @param original refers the original image and width and height parameters represent the dimensions of the 
+     * original image 
+     * @since 1.0
+     */
     public BufferedImage setup(String imagePath, int width, int height) {
 
         UtilityTool uTool = new UtilityTool();
