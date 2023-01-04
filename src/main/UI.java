@@ -101,6 +101,8 @@ public class UI {
     public String playerName = "";
     public boolean enterName = false;
     public boolean successEnch;
+    public int textAreaCounter = 0;
+    public int textCursorX = 690;
 
     public boolean enhanceSE = true;
     
@@ -287,12 +289,27 @@ public class UI {
         g2.drawImage(aybu, null, 0, 0);
 
         if (gp.player.name.equals("")) {
+            textAreaCounter++;
             enterName = true;
             g2.drawImage(rectangle, null, 510, 350);
             g2.setColor(Color.white);
             g2.fillRect(680, 430, 150, 35);
             g2.setColor(Color.black);
             g2.drawString(playerName, 690, 455);
+            
+            if(textAreaCounter < 20) {
+                g2.drawLine(textCursorX, 433, textCursorX, 460); 
+            }else if(textAreaCounter <= 40) {
+                if(textAreaCounter == 40) {
+                    textAreaCounter = 0;
+                }
+            }
+            
+            if(playerName == "") {
+                g2.setColor(Color.gray);
+                g2.drawString("Enter name", 690, 455);
+            }
+            
             enterNameButton(g2);
         } else {
             if(gp.playBtn) {

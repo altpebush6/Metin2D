@@ -119,8 +119,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                     gp.ui.addMessage("Wait " + timeRemaining + "s to respawn");
                 }
 
-            } else if (gp.ui.respawnHereRec.x < mouseOverX && gp.ui.respawnHereRec.width > mouseOverX
-                    && gp.ui.respawnHereRec.y < mouseOverY && gp.ui.respawnHereRec.height > mouseOverY) {
+            } else if (gp.ui.respawnCityRec.x < mouseOverX
+                    && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX
+                    && gp.ui.respawnCityRec.y < mouseOverY
+                    && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY) {
 
                 if (gp.player.deadCounter >= respawnTime) {
                     gp.gameState = gp.playState;
@@ -197,10 +199,9 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 && gp.ui.respawnHereRec.y < mouseOverY
                 && (gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height) > mouseOverY)
             gp.ui.btnHover = 1;
-        else if (gp.ui.respawnCityRec.x < mouseOverX
-                && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX
+        else if (gp.ui.respawnCityRec.x < mouseOverX && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX
                 && gp.ui.respawnCityRec.y < mouseOverY
-                && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY && gp.gameState == gp.playState)
+                && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY)
             gp.ui.btnHover = 2;
         else
             gp.ui.btnHover = 0;

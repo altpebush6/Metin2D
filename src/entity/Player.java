@@ -204,7 +204,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 5;
+        maxLife = 25;
         life = maxLife;
         maxSp = 100;
         sp = maxSp;
@@ -214,7 +214,7 @@ public class Player extends Entity {
         playerCoin = 200;
         playerWeapon = "Sword";
         attackPower = 5;
-        taskLevel = 3;
+        taskLevel = 0;
         playerXP = 0;
         
         currentWeapon = new OBJ_Sword(gp);

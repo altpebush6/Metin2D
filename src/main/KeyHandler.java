@@ -46,11 +46,13 @@ public class KeyHandler implements KeyListener {
 					StringBuffer sb = new StringBuffer(gp.ui.playerName);
 					sb.deleteCharAt(sb.length() - 1);
 					gp.ui.playerName = sb.toString();
+					gp.ui.textCursorX -= 12;
 				} else {
-					if (gp.ui.playerName.length() < 12 && ((e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z')
+					if (gp.ui.playerName.length() < 11 && ((e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z')
 							|| (e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z')
 							|| (e.getKeyChar() >= '0' && e.getKeyChar() <= '9'))) {
 						gp.ui.playerName += e.getKeyChar();
+						gp.ui.textCursorX += 12;
 					}
 				}
 			} else {
@@ -159,6 +161,7 @@ public class KeyHandler implements KeyListener {
 				
 				if(gp.player.taskLevel == 3 && gp.ui.pageNum == 0) {
 					gp.ui.pageNum++;
+					System.out.println("sa");
 				}
 			}
 
