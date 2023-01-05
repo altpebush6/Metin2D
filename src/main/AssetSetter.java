@@ -88,7 +88,8 @@ public class AssetSetter {
      * create coin object
      * </p>
      * 
-     * @param worldX refers the coin object x coordinates and worldY refers the object y coordinates
+     * @param worldX refers the coin object x coordinates
+     * @param worldY refers the object y coordinates
      * @since 1.0
      */
     public void createCoin(int worldX, int worldY) {
@@ -104,7 +105,8 @@ public class AssetSetter {
      * create dolunay sword object
      * </p>
      * 
-     * @param worldX refers the coin object x codinates and worldY refers the object y condinates
+     * @param worldX refers the coin object x coordinates 
+     * @param worldY refers the object y coordinates
      * @since 1.0
      */
     public void createDolunay(int worldX, int worldY) {
@@ -121,7 +123,8 @@ public class AssetSetter {
      * create dead wolf sword object
      * </p>
      * 
-     * @param worldX refers the coin object x codinates and worldY refers the object y condinates
+     * @param worldX refers the coin object x coordinates 
+     * @param worldY refers the object y coordinates
      * @since 1.0
      */
     public void createDeadWolf(int worldX, int worldY) {
