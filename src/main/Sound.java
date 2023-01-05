@@ -6,15 +6,48 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-
+/**
+ * <p>
+ * This class sets sounds of game
+ * </p> 
+ */
 public class Sound {
-
+    /**
+     * <p>
+     * This field is created to adjust sounds
+     * </p> 
+     */
 	Clip clip;
+	/**
+     * <p>
+     * This field is created to store sounds
+     * </p> 
+     */
 	URL soundURL[] = new URL[30];
+	/**
+     * <p>
+     * This field is created to adjust music
+     * </p> 
+     */
 	FloatControl fc;
+	/**
+     * <p>
+     * This field is created to adjust sounds level
+     * </p> 
+     */
     int volumeScale = 3;
+    /**
+     * <p>
+     * This field is created to adjust sounds level
+     * </p> 
+     */
     float volume;
-	
+    
+    /**
+     * <p>
+     * This method stores sounds on soundURL array
+     * </p> 
+     */
 	public Sound() {
 		
 		soundURL[0] = getClass().getResource("/sounds/enterTheEast.wav");
@@ -47,7 +80,11 @@ public class Sound {
         soundURL[27] = getClass().getResource("/sounds/blacksmith.wav");        
         soundURL[28] = getClass().getResource("/sounds/characterChoose.wav");        
 	}
-	
+	/**
+     * <p>
+     * This method sets sounds and opens also checks the volume level
+     * </p> 
+     */
 	public void setFile(int index) {
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[index]);  
@@ -59,21 +96,37 @@ public class Sound {
 		} catch (Exception e) {
 		}
 	}
-	
+	/**
+     * <p>
+     * This method starts the sound
+     * </p> 
+     */
 	public void play() {
 		
 		clip.start();
 		
 	}
-	
+	/**
+     * <p>
+     * This method loops the sound
+     * </p> 
+     */
 	public void loop() {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-	
+	/**
+     * <p>
+     * This method stops the sound
+     * </p> 
+     */
 	public void stop() {
 		clip.stop();
 	}
-	
+	/**
+     * <p>
+     * This method adjusts volume level
+     * </p> 
+     */
 	public void checkVolume() {
         switch (volumeScale) {
             case 0:

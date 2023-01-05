@@ -2,14 +2,26 @@ package main;
 
 import java.awt.Color;
 
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * <p>
+ * This class is main class of the game it uses Java Swing to create window, and in this class
+ * game is getting ready and being started 
+ * </p>
+ * 
+ */
 public class Main {
-
+    /**
+     * <p>
+     * This parameter is the window of game
+     * </p> 
+     */
 	public static JFrame window;
 
 	public static void main(String[] args) throws Exception {
@@ -18,7 +30,7 @@ public class Main {
 
 		// f.setUndecorated(true); // To close top bar
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setUndecorated(true);
+		window.setUndecorated(true);	
 
 		GamePanel gamePanel = new GamePanel();
 		
@@ -42,7 +54,11 @@ public class Main {
 		window.setVisible(true);
 	}
 
-
+	/**
+     * <p>
+     * This method sets the name of the window
+     * </p> 
+     */
 	public static void createText(GamePanel gamePanel) {
 		JTextField t = new JTextField();
 		window.add(t);
