@@ -74,7 +74,7 @@ public class Entity {
     public String description = "" ;
 
     // Images
-    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4;
+    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, downCracked1, downCracked2, downCracked3;
     public BufferedImage[] dyingUp = new BufferedImage[5], dyingDown = new BufferedImage[5], dyingLeft = new BufferedImage[5], dyingRight = new BufferedImage[5];
     public BufferedImage[] up = new BufferedImage[4], down = new BufferedImage[4], left = new BufferedImage[4], right = new BufferedImage[4];
     public BufferedImage[] attackUp = new BufferedImage[16], attackDown = new BufferedImage[16], attackLeft = new BufferedImage[16], attackRight = new BufferedImage[16];
@@ -153,6 +153,16 @@ public class Entity {
     }
 
     public void update() {
+        
+        if(dying && name == "Satellite") {
+            solidArea.x = 50;
+            solidArea.y = 60;
+            solidArea.width = 100;
+            solidArea.height = 205;
+
+            solidAreaDefaultX = solidArea.x;
+            solidAreaDefaultY = solidArea.y;
+        }
         
         if(knockBack == true) {
             
@@ -448,7 +458,7 @@ public class Entity {
             // Enemy fill Hp
             damageCounter++;
              
-            if (type == enemyType && damageCounter == 360) {
+            if (type == enemyType && damageCounter == 360 && !dying) {
                 if (life != maxLife) {
                     life++;
                     damageCounter = 0;
@@ -456,25 +466,17 @@ public class Entity {
             }
 
             // Enemy Label
-            if (type == enemyType && showNames) {
-                g2.setFont(new Font("Courier New", Font.BOLD, 12));
-
-                if(name != "Satellite") {
-                    g2.setColor(Color.green);
-                    g2.drawString("Lv " + level, screenX - 10, screenY - 20);
-                    g2.setColor(Color.red);
-                    g2.drawString(name, screenX + 25, screenY - 20);
-                }else {
-                    g2.setColor(Color.red);
-                    g2.drawString(name, screenX + 60, screenY - 20);
-                }
+            if (type == enemyType && showNames && name != "Satellite") {
                 
-
-
+                g2.setFont(new Font("Courier New", Font.BOLD, 12));
+                g2.setColor(Color.green);
+                g2.drawString("Lv " + level, screenX - 14, screenY - 20);
+                g2.setColor(Color.red);
+                g2.drawString(name, screenX + 25, screenY - 20);
             }
 
             // Enemy Hp bar
-            if (type == enemyType && hpBarOn == true) {
+            if (type == enemyType && hpBarOn == true && !dying) {
 
                 double oneScale;
                
@@ -501,14 +503,14 @@ public class Entity {
             }
 
             // Set entity transparent after damage
-            if (invincible) {
+            if (invincible && !dying) {
                 hpBarOn = true;
                 hpBarCounter = 0;
                 changeAlpha(g2, 0.4F);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             }
 
-            if (deadObj) {
+            if (deadObj && name != "Satellite") {
                 dyingAnimation(g2);
             }
 
@@ -561,6 +563,12 @@ public class Entity {
                     default:
                         break;
                 }
+            }
+            
+            if(name == "Satellite" && life <= 0) {
+                System.out.println(life);
+                dying = true;
+                image = downCracked1;
             }
 
 

@@ -203,7 +203,7 @@ public class Player extends Entity {
         direction = "down";
 
         // Player Specifications
-        maxLife = 25;
+        maxLife = 100;
         life = maxLife;
         maxSp = 100;
         sp = maxSp;
@@ -213,7 +213,7 @@ public class Player extends Entity {
         playerCoin = 200;
         playerWeapon = "Sword";
         attackPower = 5;
-        taskLevel = 3;
+        taskLevel = 0;
         playerXP = 0;
 
         currentWeapon = new OBJ_Sword(gp);
@@ -780,34 +780,35 @@ public class Player extends Entity {
                     break;
                 case "Satellite":
                 
-                    // Wolf Barking
-                    enemySoundCounter++;
-                    if (enemySoundCounter == 40) {
-                        int soundChoice = rand.nextInt(2) + 7;
-                        gp.playSE(soundChoice);
-
-                        enemySoundCounter = 0;
-                    }
-
-                    if (gp.collisionChecker.checkEntity(this, gp.enemy) == 0) {
-                        System.out.println("can");
-                        reborn = false;
-                        int damage = rand.nextInt(5) + 1;
-                        if (life - damage >= 0) {
-
-                            int soundChoice = rand.nextInt(5) + 14;
-                            gp.playSE(soundChoice);
-                            life -= damage;
-
-                            int damagePosX = screenX;
-                            int damagePosY = screenY;
-
-                            gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
-                        } else {
-                            dying = true;
-                            setDead();
+                    if(!gp.enemy[0].dying) {
+                        // Wolf Barking
+                        enemySoundCounter++;
+                        if (enemySoundCounter == 40) {
+                            int sougdChoice = rand.nextInt(2) + 7;
+                            //gp.playSE(soundChoice);
+    
+                            enemySoundCounter = 0;
                         }
-                        invincible = true;
+    
+                        if (gp.collisionChecker.checkEntity(this, gp.enemy) == 0) {
+                            reborn = false;
+                            int damage = rand.nextInt(5) + 1;
+                            if (life - damage >= 0 && !gp.enemy[0].dying) {
+    
+                                int soundChoice = rand.nextInt(5) + 14;
+                                //gp.playSE(soundChoice);
+                                life -= damage;
+    
+                                int damagePosX = screenX;
+                                int damagePosY = screenY;
+    
+                                gp.ui.damages.add(new Damages(damage, damagePosX, damagePosY, 60, Color.red));
+                            } else {
+                                dying = true;
+                                setDead();
+                            }
+                            invincible = true;
+                        }
                     }
 
             }
@@ -866,7 +867,7 @@ public class Player extends Entity {
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
 
-            if (!gp.enemy[enemyIndex].invincible) {
+            if (!gp.enemy[enemyIndex].invincible && !gp.enemy[enemyIndex].dying) {
 
                 // Don't get damage in the first giving damage
                 if (!gp.enemy[enemyIndex].inFight) {
@@ -936,7 +937,11 @@ public class Player extends Entity {
                         }
 
                         gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
-                    } else if (gp.enemy[enemyIndex].name == "Satellite") {
+                        
+                        gp.enemy[enemyIndex].dying = true;
+                        gp.enemy[enemyIndex].alive = false;
+                        
+                    } else if (gp.enemy[enemyIndex].name == "Satellite" && !gp.enemy[enemyIndex].dying) {
                         if (taskLevel == 3 && gp.keyH.missionPrize[3] == 0) {
                             taskLevel++;
                             gp.ui.addMessage("Mission Accomplished!");
@@ -944,8 +949,7 @@ public class Player extends Entity {
                         }
                     }
 
-                    gp.enemy[enemyIndex].dying = true;
-                    gp.enemy[enemyIndex].alive = false;
+
 
                     /*
                      * switch(gp.enemy[enemyIndex].name){

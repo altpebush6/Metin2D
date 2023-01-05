@@ -29,9 +29,9 @@ public class ENEMY_Sattelite extends Entity {
         // hpBarCounter = 0;
 
         solidArea.x = 50;
-        solidArea.y = 10 * 2;
-        solidArea.width = 37 * 2;
-        solidArea.height = 122 * 2;
+        solidArea.y = 20;
+        solidArea.width = 74;
+        solidArea.height = 244;
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
@@ -43,6 +43,10 @@ public class ENEMY_Sattelite extends Entity {
         down1 = setup("/satellite/satellite", gp.tileSize * 4, gp.tileSize * 6);
         down2 = setup("/satellite/satellite", gp.tileSize * 4, gp.tileSize * 6);
         down3 = setup("/satellite/satellite", gp.tileSize * 4, gp.tileSize * 6);
+        
+        downCracked1 = setup("/satellite/deathsatellite", gp.tileSize * 4, gp.tileSize * 6);
+        downCracked2 = setup("/satellite/deathsatellite", gp.tileSize * 4, gp.tileSize * 6);
+        downCracked3 = setup("/satellite/deathsatellite", gp.tileSize * 4, gp.tileSize * 6);
     }
 
     public void update() {

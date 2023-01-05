@@ -358,7 +358,7 @@ public class UI {
                 wolfCountersString = "Remaining Wolf Amount: " + wolfCounter;
                 g2.drawImage(wolfPNG, null, gp.tileSize, gp.tileSize);
                 g2.setFont(g2.getFont().deriveFont(32F));
-                g2.drawString(wolfCountersString, gp.tileSize * 3, gp.tileSize * 2);
+                g2.drawString(wolfCountersString, gp.tileSize * 3 - 40, gp.tileSize * 2 - 15);
             } else if (gp.player.deadWolfCounter >= 3) {
                 wolfCountersString = "3 wolves killed!";
                 g2.drawImage(deadWolf, null, gp.tileSize, gp.tileSize);
