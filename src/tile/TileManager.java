@@ -14,18 +14,91 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 
+/**
+ * <p>
+ * This Class operates the tiles and draw the maps
+ * </p>
+ */
 public class TileManager {
 	
-	GamePanel gp;
-	BufferedImage loadingScreen, loadingScreen2;
-	public Tile tile[];
-	public int mapTileNum[][];
-	boolean drawPath = false;
-	public int i = 0;
-	public boolean collisionControl = false;
-	public int[] collisionTiles = {374,375,376,377,424,425,426,427,472,473,474,475,476,477,478,479,523,524,525,526,527,528,573,574,575,576,577,578,622,623,624,625,626,627,628,629,672,673,674,675,676,677,678,679,722,723,724,725,726,727,728,729,772,772,773,774,775,776,777,778,779,841,859,860,890,891,892,908,909,910,911,940,941,942,958,959,960,961,989,990,991,992,1008,1009,1010,1011,1039,1040,1041,1042,1058,1059,1060,1061};
-	Random rand = new Random();
+    /**
+     * <p>
+     * for usage of the GamePanel
+     * </p>
+     */
+	public GamePanel gp;
 	
+    /**
+     * <p>
+     * Holds loading screen Image
+     * </p>
+     */
+	public BufferedImage loadingScreen;
+	
+    /**
+     * <p>
+     * Keeps loading bar image
+     * </p>
+     */
+	public BufferedImage loadingBar;
+	
+    /**
+     * <p>
+     * Tile array for tile images
+     * </p>
+     */
+	public Tile tile[];
+	
+    /**
+     * <p>
+     * Holds numbers taken from map.txt
+     * </p>
+     */
+	public int mapTileNum[][];
+	
+    /**
+     * <p>
+     * If this is true, draw path created by path finder
+     * </p>
+     */
+	public boolean drawPath = false;
+	
+    /**
+     * <p>
+     * Counts the loaded images
+     * </p>
+     */
+	public int imageCounter = 0;
+	
+    /**
+     * <p>
+     * Checks whether tile's collision on or off
+     * </p>
+     */
+	public boolean collisionControl = false;
+	
+    /**
+     * <p>
+     * This array keeps all the tiles with collision property
+     * </p>
+     */
+	public int[] collisionTiles = {374,375,376,377,424,425,426,427,472,473,474,475,476,477,478,479,523,524,525,526,527,528,573,574,575,576,577,578,622,623,624,625,626,627,628,629,672,673,674,675,676,677,678,679,722,723,724,725,726,727,728,729,772,772,773,774,775,776,777,778,779,841,859,860,890,891,892,908,909,910,911,940,941,942,958,959,960,961,989,990,991,992,1008,1009,1010,1011,1039,1040,1041,1042,1058,1059,1060,1061};
+	
+    /**
+     * <p>
+     * Instantiate a Random object and assign it for usage
+     * </p>
+     */
+	public Random rand = new Random();
+	
+    /**
+     * <p>
+     * This is constructor sets tile numbers and gets the loading screen images
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
 	public TileManager(GamePanel gp) {
 		
 		this.gp = gp;
@@ -34,30 +107,46 @@ public class TileManager {
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		
-		loadMap("/maps/newMap.txt");
+		loadMap("/maps/map.txt");
 		
 		int randomImage = rand.nextInt(6) + 1;
 		
 		loadingScreen = setup("/loadingScreen/loadingScreen" + Integer.toString(randomImage), gp.screenWidth, gp.screenHeight);
-		loadingScreen2 = setup("/loadingScreen/loadingBar", 148, 15);
+		loadingBar = setup("/loadingScreen/loadingBar", 148, 15);
         
 	}
 	
+    /**
+     * <p>
+     * Draws loading screen image
+     * </p>
+     * 
+     * @param g2 to draw image
+     * @since 1.0
+     */
 	public void loadScreen(Graphics2D g2) {
 	    g2.drawImage(loadingScreen, null, 0 ,0); 
 	}
 	
+    /**
+     * <p>
+     * Loads all tiles one by one and according to the process draws process bar
+     * </p>
+     * 
+     * @param g2 to draw image
+     * @since 1.0
+     */
 	public void getTileImage(Graphics2D g2) {
 	    String prefix = "";
 	        
-	    if(i % 17 == 0 && i / 7 < 305) {
-	        g2.drawImage(loadingScreen2, 583, 780, i / 7, 15, null); 
+	    if(imageCounter % 17 == 0 && imageCounter / 7 < 305) {
+	        g2.drawImage(loadingBar, 583, 780, imageCounter / 7, 15, null); 
 	    }
 	       
 	    
-        if(i < 9) {
+        if(imageCounter < 9) {
             prefix = "00";
-        }else if(i < 99) {
+        }else if(imageCounter < 99) {
             prefix = "0";
         }else {
             prefix = "";
@@ -65,23 +154,20 @@ public class TileManager {
         
         collisionControl = false;
         for(int j = 0; j < collisionTiles.length; j++) {
-            if(collisionTiles[j] == i) {
+            if(collisionTiles[j] == imageCounter) {
                 collisionControl = true;
             }
         }
         
         if(collisionControl) {
-            setup(i, "tile_" + prefix + Integer.toString(i + 1), true);
+            setup(imageCounter, "tile_" + prefix + Integer.toString(imageCounter + 1), true);
         }else {
-            setup(i, "tile_" + prefix + Integer.toString(i + 1), false);
+            setup(imageCounter, "tile_" + prefix + Integer.toString(imageCounter + 1), false);
         }
         
-        System.out.println("tile_" + prefix + Integer.toString(i + 1));
-
-    
-        i++;
+        imageCounter++;
 	        
-        if(i == 2500) {
+        if(imageCounter == 2500) {
             gp.gameLoad = true;
             gp.gameState = gp.playState;
             gp.FPS = 60;
@@ -89,20 +175,14 @@ public class TileManager {
 	    
 	}
 	
-	public void setup(int index, String imageName, boolean collision) {
-		UtilityTool uTool = new UtilityTool();
-		
-		try {
-			tile[index] = new Tile();
-			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tile/" + imageName + ".png"));
-			tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
-			tile[index].collision = collision;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
+    /**
+     * <p>
+     * Loads map from the map.txt
+     * </p>
+     * 
+     * @param gets path of map.txt file
+     * @since 1.0
+     */
 	public void loadMap(String mapPath) {
 		try {
 			InputStream is = getClass().getResourceAsStream(mapPath);
@@ -136,6 +216,14 @@ public class TileManager {
 		}
 	}
 	
+    /**
+     * <p>
+     * This method draws each image to the tiles where each column and row intersects one by one and if true draws the path given  by path finder
+     * </p>
+     * 
+     * @param g2 to draw image
+     * @since 1.0
+     */
 	public void draw(Graphics2D g2) {
 		int worldCol = 0;
 		int worldRow = 0;
@@ -175,19 +263,6 @@ public class TileManager {
 			}
 		}
 		
-		/*// WITH FOR LOOP
-		for(row = 0; row < gp.maxWorldRow; row++) {
-			for(col = 0; col < gp.maxWorldCol; col++) {
-				
-				int tileNum = mapTileNum[col][row];
-				g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-				
-				x += gp.tileSize;
-			}
-			x = 0;
-			y += gp.tileSize;
-		}
-		*/
 		
 		if(drawPath) {
 		    g2.setColor(new Color(0, 100, 255, 70));
@@ -204,6 +279,40 @@ public class TileManager {
 		}
 	}
 	
+    /**
+     * <p>
+     * Assigns image to tile which is given
+     * </p>
+     * 
+     * @param index indicates image index
+     * @param imageName gets the image name to load
+     * @param gets collision property
+     * @since 1.0
+     */
+    public void setup(int index, String imageName, boolean collision) {
+        UtilityTool uTool = new UtilityTool();
+        
+        try {
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tile/" + imageName + ".png"));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+    /**
+     * <p>
+     * Returns the image given path and property
+     * </p>
+     * 
+     * @param index indicates image index
+     * @param imageName gets the image name to load
+     * @param gets collision property
+     * @since 1.0
+     */
     public BufferedImage setup(String imagePath, int width, int height) {
 
         UtilityTool uTool = new UtilityTool();

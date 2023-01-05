@@ -1,14 +1,87 @@
 package main;
 
+
+/**
+ * <p>
+ * This Class controls screen and avoid screen sliding when player moves to the edges of the map
+ * </p>
+ */
+
 public class MovePlayer {
     
-    static int newScreenX, newScreenY;
-    static int newWorldX, newWorldY;
-    static boolean overX, overY;
-    static boolean underX, underY; 
-    static int lockScreenCounterX, lockScreenCounterY;
+    /**
+     * <p>
+     * Keeps the new screen X when player goes to the edges
+     * </p>
+     */
+    public static int newScreenX;
+    /**
+     * <p>
+     * Keeps the new screen Y when player goes to the edges
+     * </p>
+     */
+    public static int newScreenY;
+    /**
+     * <p>
+     * Keeps the new world X when player goes to the edges
+     * </p>
+     */
+    public static int newWorldX;
+    /**
+     * <p>
+     * Keeps the new world Y when player goes to the edges
+     * </p>
+     */
+    public static int newWorldY;
+    
+    /**
+     * <p>
+     * This variable is for avoiding sliding screen only when screen intersects with the horizontal axis edges for the first time
+     * </p>
+     */
+    public static int lockScreenCounterX;
+    
+    /**
+     * <p>
+     * This variable is for avoiding sliding screen only when screen intersects with the vertical edges for the first time
+     * </p>
+     */
+    public static int lockScreenCounterY;
+    
+    /**
+     * <p>
+     * Checks is player moving to the right edge
+     * </p>
+     */
+    public static boolean overX;
+    /**
+     * <p>
+     * Checks is player moving to the bottom edge
+     * </p>
+     */
+    public static boolean overY;
+    /**
+     * <p>
+     * Checks is player moving to the left edge
+     * </p>
+     */
+    public static boolean underX;
+    /**
+     * <p>
+     * Checks is player moving to the top edge
+     * </p>
+     */
+    public static boolean underY; 
 
 
+    /**
+     * <p>
+     * This method moves the screen when player goes to the edges
+     * </p>
+     * 
+     * @param gp gets GamePanel
+     * @since 1.0
+     */
     public static void move(GamePanel gp) {
         
         // These variables to control can player move

@@ -1,17 +1,32 @@
 package enemy;
 
-import java.util.Random;
-
 import entity.Entity;
 import main.GamePanel;
-import ai.Node;
-import ai.PathFinder;
 
-public class ENEMY_Sattelite extends Entity {
+/**
+ * <p>
+ * This Class contains wolf Satellite as an enemy
+ * </p>
+ */
+public class ENEMY_Satellite extends Entity {
 
-    GamePanel gp;
-
-    public ENEMY_Sattelite(GamePanel gp, int id) {
+    /**
+     * <p>
+     * for usage of GamePanel 
+     * </p>
+     */
+    public GamePanel gp;
+    
+    /**
+     * <p>
+     * This constructor instantiates the wolf specifications
+     * </p>
+     * 
+     * @param gp means GamePanel
+     * @param id gets the Satellite id
+     * @since 1.0
+     */
+    public ENEMY_Satellite(GamePanel gp, int id) {
 
         super(gp);
 
@@ -39,6 +54,13 @@ public class ENEMY_Sattelite extends Entity {
         getImage();
     }
 
+    /**
+     * <p>
+     * Gets the satellite images as alive and cracked
+     * </p>
+     * 
+     * @since 1.0
+    */
     public void getImage() {
         down1 = setup("/satellite/satellite", gp.tileSize * 4, gp.tileSize * 6);
         down2 = setup("/satellite/satellite", gp.tileSize * 4, gp.tileSize * 6);
@@ -49,11 +71,24 @@ public class ENEMY_Sattelite extends Entity {
         downCracked3 = setup("/satellite/deathsatellite", gp.tileSize * 4, gp.tileSize * 6);
     }
 
+    /**
+     * <p>
+     * Calls the super's update method
+     * </p>
+     * 
+     * @since 1.0
+    */
     public void update() {
-
         super.update();
     }
 
+    /**
+     * <p>
+     * If damage taken by player sets inFight true
+     * </p>
+     * 
+     * @since 1.0
+    */
     public void damageReaction() {
         inFight = true;
     }

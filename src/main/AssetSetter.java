@@ -2,7 +2,7 @@ package main;
 
 import java.awt.Rectangle;
 import java.util.Random;
-import enemy.ENEMY_Sattelite;
+import enemy.ENEMY_Satellite;
 import enemy.ENEMY_Wolf;
 import npc.Npc_Abulbul;
 import npc.Npc_Blacksmith;
@@ -199,7 +199,7 @@ public class AssetSetter {
      */
     public void setSatellite() {
         if (createdSatallite) {
-            gp.enemy[0] = new ENEMY_Sattelite(gp, 0);
+            gp.enemy[0] = new ENEMY_Satellite(gp, 0);
             gp.enemy[0].worldX = gp.tileSize * 35;
             gp.enemy[0].worldY = gp.tileSize * 37;
             index++;
