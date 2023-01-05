@@ -7,19 +7,81 @@ import main.GamePanel;
 
 public class PathFinder {
 
+    /**
+     * <p>
+     * for usage of GamePanel 
+     * </p>
+     */
     GamePanel gp;
+    /**
+     * <p>
+     * Node array to store all nodes
+     * </p>
+     */
     Node[][] node;
-    ArrayList <Node> openList = new ArrayList<>();
+    /**
+     * <p>
+     *  This array list stores the open node list
+     * </p>
+     */
+    public ArrayList <Node> openList = new ArrayList<>();
+    /**
+     * <p>
+     *  This array list stores the path list
+     * </p>
+     */
     public ArrayList<Node> pathList = new ArrayList<>();
-    Node startNode, goalNode, currentNode;
-    boolean goalReached = false;
-    int step = 0;
+    /**
+     * <p>
+     *  This is the node where given starting point is in.
+     * </p>
+     */
+    public Node startNode;
+    /**
+     * <p>
+     *  This is the node of given goal point 
+     * </p>
+     */
+    public Node goalNode;
+    /**
+     * <p>
+     *  This node keeps the current nodes.
+     * </p>
+     */
+    public Node currentNode;
+    /**
+     * <p>
+     *  If entity reaches its goal this indicates the situation
+     * </p>
+     */
+    public boolean goalReached = false;
+    /**
+     * <p>
+     *  This is a counter for each step
+     * </p>
+     */
+    public int step = 0;
     
+    /**
+     * <p>
+     * This is constructor
+     * </p>
+     * 
+     * @param gp means GamePanel
+     * @since 1.0
+     */
     public PathFinder(GamePanel gp) {
         this.gp = gp;
         instantiateNodes();
     }
     
+    /**
+     * <p>
+     * This method instantiate the nodes with assigning new Node to each node
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void instantiateNodes() {
         node = new Node[gp.maxWorldCol][gp.maxWorldRow];
         
@@ -30,6 +92,13 @@ public class PathFinder {
         }
     }
     
+    /**
+     * <p>
+     * Resets the nodes as open, checked and solid properties are false
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void resetNodes() {
         
         for(int row = 0; row < gp.maxWorldRow; row++) {         
@@ -47,6 +116,17 @@ public class PathFinder {
         step = 0;
     }
     
+    /**
+     * <p>
+     * This method sets the nodes as if there is a obstacle on a node, makes node solid
+     * </p>
+     * @param startCol indicates starting column
+     * @param startRow indicates starting row
+     * @param goalCol indicates starting goal column
+     * @param goalRow indicates starting goal row
+     * @param entity gets the entity
+     * @since 1.0
+     */
     public void setNodes(int startCol, int startRow, int goalCol, int goalRow, Entity entity) {
         
         resetNodes();
@@ -80,21 +160,10 @@ public class PathFinder {
             for(int col = 0; col < gp.maxWorldCol; col++) {     
                 // Set Solid Node
                 // Check Tiles
-                int tileNum = gp.tileM.mapTileNum[col][row]; // Change here After change MapTileNum
+                int tileNum = gp.tileM.mapTileNum[col][row];
                 if(gp.tileM.tile[tileNum-1].collision == true) {
                     node[col][row].solid = true;
                 }
-                
-                // Check interactive tiles
-                /*
-                for(int i=0; i < gp.iTile[1].length; i++) {
-                    if(gp.iTile[gp.currentMap][i] != null && gp.iTile[gp.currentMap][i].destructible == true) {
-                        int itCol = gp.iTile[gp.currentMap][i].worldX / gp.tileSize;
-                        int itRow = gp.iTile[gp.currentMap][i].worldY / gp.tileSize;
-                        node[itCol][itRow].solid = true;
-                    }
-                }
-                */
                 
                 // Set Cost
                 getCost(node[col][row]);
@@ -103,6 +172,14 @@ public class PathFinder {
         }
     }
     
+    /**
+     * <p>
+     * This method calculates the G, H and F costs for each node
+     * </p>
+     * 
+     * @param node gets node
+     * @since 1.0
+     */
     public void getCost(Node node) {
         
         // G Cost
@@ -119,6 +196,17 @@ public class PathFinder {
         node.fCost = node.gCost + node.hCost;
     }
     
+    
+    /**
+     * <p>
+     * This method searches the best node according to the costs. Returns goalReached if entity reaches to the given goal
+     * </p>
+     * 
+     * @param goalCol indicates goal column
+     * @param goalRow indicates goal row
+     * @param Entity gets entity object
+     * @since 1.0
+     */
     public boolean search(int goalCol, int goalRow, Entity entity) {
         while(!goalReached && step < 500 && !entity.reachedGoal) {
             
@@ -189,6 +277,14 @@ public class PathFinder {
         return goalReached;
     }
     
+    /**
+     * <p>
+     * Opens given node
+     * </p>
+     * 
+     * @param gets node object
+     * @since 1.0
+     */
     public void openNode(Node node) {
         if(!node.open && !node.checked && !node.solid) {
             
@@ -198,6 +294,13 @@ public class PathFinder {
         }
     }
     
+    /**
+     * <p>
+     *  Finally this method provides to track the path
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void trackPath() {
         
         Node current = goalNode;

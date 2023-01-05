@@ -1,8 +1,6 @@
 package main;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,10 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import ai.PathFinder;
 import data.SaveLoad;
@@ -24,90 +19,442 @@ import entity.Entity;
 import entity.Player;
 import entity.Skills;
 import tile.TileManager;
-import main.Main;
 
+/**
+ * <p>
+ * This Class include gaming main methods.
+ * İmplements Runnable interfaces and inheritance Jpanel
+ * </p>
+ */
 public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
+    /**
+     * <p>
+     * This is original Tile size set the 16
+     * </p>
+     */
     final int originalTileSize = 16;
+    /**
+     * <p>
+     * This is scale for different situation
+     * </p>
+     */
     final int scale = 3;
-
+    /**
+     * <p>
+     * This is tile size
+     * </p>
+     */
     public final int tileSize = originalTileSize * scale; // 48x48 tile
+    /**
+     * <p>
+     * This is max screen column size
+     * </p>
+     */
     public final int maxScreenCol = 32;
+    /**
+     * <p>
+     * This is max screen row size
+     * </p>
+     */
     public final int maxScreenRow = 18;
-
+    /**
+     * <p>
+     * This is screen width. It is obtained by multiplying the tile size by the
+     * number of columns.
+     * </p>
+     */
     public final int screenWidth = tileSize * maxScreenCol; // 960 pixels
+    /**
+     * <p>
+     * This is screen height. It is obtained by multiplying the tile size by the
+     * number of rows.
+     * </p>
+     */
     public final int screenHeight = tileSize * maxScreenRow; // 1080 pixels
 
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
+    /**
+     * <p>
+     * This is maximum world row size
+     * </p>
+     */
     public final int maxWorldRow = 50;
+    /**
+     * <p>
+     * Checks if the character is on the left edge of the map.
+     * </p>
+     */
     public boolean isPlayerAtLeftEdge = false;
+    /**
+     * <p>
+     * Checks if the character is on the right edge of the map.
+     * </p>
+     */
     public boolean isPlayerAtRightEdge = false;
+    /**
+     * <p>
+     * Checks if the character is on the top edge of the map.
+     * </p>
+     */
     public boolean isPlayerAtTopEdge = false;
+    /**
+     * <p>
+     * Checks if the character is on the bottom edge of the map.
+     * </p>
+     */
     public boolean isPlayerAtBottomEdge = false;
     // FOR FULL SCREEN
+    /**
+     * <p>
+     * For full screen screen width
+     * </p>
+     */
     int screenWidth2 = screenWidth;
+    /**
+     * <p>
+     * For full screen screen height
+     * </p>
+     */
     int screenHeight2 = screenHeight;
-    BufferedImage tempScreen;
+    /**
+     * <p>
+     * For full screen temporary screen image
+     * </p>
+     */
+    public BufferedImage tempScreen;
+
+    /**
+     * <p>
+     * Main drawing component
+     * </p>
+     */
     public Graphics2D g2;
+
+    /**
+     * <p>
+     * This keeps full screen status
+     * </p>
+     */
     public boolean fullScreenOn = false;
 
     // FPS
+    /**
+     * <p>
+     * This is frame per second
+     * </p>
+     */
     public int FPS = 500;
 
     // SYSTEM
+    /**
+     * <p>
+     * This is key handler. This handling keyboard input
+     * </p>
+     */
     public KeyHandler keyH = new KeyHandler(this);
-    public MouseHandler mouseH = new MouseHandler(this);;
+
+    /**
+     * <p>
+     * This is mouse handler. This handling mouse input.
+     * </p>
+     */
+    public MouseHandler mouseH = new MouseHandler(this);
+
+    /**
+     * <p>
+     * This is sound track for game sound instance
+     * </p>
+     */
     Sound soundtrack = new Sound();
+
+    /**
+     * <p>
+     * This is sound track for effects sound instance
+     * </p>
+     */
     Sound se = new Sound(); // sound effects
+
+    /**
+     * <p>
+     * This is tile mananager instance
+     * </p>
+     */
     public TileManager tileM = new TileManager(this);
+
+    /**
+     * <p>
+     * This is tile collision checker instance
+     * </p>
+     */
     public CollisionChecker collisionChecker = new CollisionChecker(this);
+
+    /**
+     * <p>
+     * This is tile assetsetter class instance
+     * </p>
+     */
     public AssetSetter aSetter = new AssetSetter(this);
+
+    /**
+     * <p>
+     * This is tile utility tool instance
+     * </p>
+     */
     public UtilityTool uTool = new UtilityTool();
+
+    /**
+     * <p>
+     * This is tile pathFinder instance
+     * </p>
+     */
     public PathFinder pathFinder = new PathFinder(this);
 
-    Thread gameThread;
+    /**
+     * <p>
+     * This is game thread
+     * </p>
+     */
+    public Thread gameThread;
+
+    /**
+     * <p>
+     * This is ui instance
+     * </p>
+     */
     public UI ui = new UI(this);
-    SaveLoad saveLoad = new SaveLoad(this);
+
+    /**
+     * <p>
+     * This is save load instance
+     * </p>
+     */
+    public SaveLoad saveLoad = new SaveLoad(this);
 
     // ENTITY AND OBJECT
 
+    /**
+     * <p>
+     * This is object array
+     * </p>
+     */
     public Entity obj[] = new Entity[99999];
+
+    /**
+     * <p>
+     * This is collected object array
+     * </p>
+     */
     public Entity collect[] = new Entity[99999];
+
+    /**
+     * <p>
+     * This is player instance
+     * </p>
+     */
     public Player player = new Player(this, keyH, mouseH);
+    /**
+     * <p>
+     * This is enemy array
+     * </p>
+     */
     public Entity enemy[] = new Entity[99999];
+
+    /**
+     * <p>
+     * This is npc array.
+     * </p>
+     */
     public Entity npc[] = new Entity[10];
+
+    /**
+     * <p>
+     * this series keeps players and enemies
+     * </p>
+     */
     ArrayList<Entity> entityList = new ArrayList<>();
+
+    /**
+     * <p>
+     * This is skills instance. Player has specific skills
+     * </p>
+     */
     public Skills skills = new Skills(this);
 
     // GAME STATE
+    /**
+     * <p>
+     * Game State Check the game status
+     * </p>
+     */
     public int gameState;
+
+    /**
+     * <p>
+     * This is loading page state. If game state equals loading state show the
+     * loading page
+     * </p>
+     */
     public final int loadingState = 0;
+
+    /**
+     * <p>
+     * This is player state. If game state equals player state play game.
+     * </p>
+     */
     public final int playState = 1;
+
+    /**
+     * <p>
+     * This is pause state. If game state equals pause state, game paused
+     * </p>
+     */
     public final int pauseState = 2;
+
+    /**
+     * <p>
+     * This is dialogue state. If game state equals dialogue state, show dialogue
+     * </p>
+     */
     public final int dialogueState = 3;
+
+    /**
+     * <p>
+     * This is inventory state. If game state equals inventory state, show inventory
+     * </p>
+     */
     public final int inventoryState = 4;
+
+    /**
+     * <p>
+     * This is options state. If game state equals options state, open options menu
+     * </p>
+     */
     public final int optionsState = 5;
+
+    /**
+     * <p>
+     * This is deadState state. If game state equals deadState state, show respawn
+     * buttons
+     * </p>
+     */
     public final int deadState = 6;
+
+    /**
+     * <p>
+     * This is tradeState state. If game state equals tradeState state, show trade
+     * </p>
+     */
     public final int tradeState = 7;
+
+    /**
+     * <p>
+     * This is titleState state. If game state equals titleState state, show
+     * character status and start end exit button
+     * </p>
+     */
     public final int titleState = 8;
+
+    /**
+     * <p>
+     * This is enchantState state. If game state equals enchantState state opening
+     * blacksmith page
+     * </p>
+     */
     public final int enchantState = 9;
 
+    /**
+     * <p>
+     * This check the play button status
+     * </p>
+     */
     public boolean playBtn = false;
+
+    /**
+     * <p>
+     * This check the game load status
+     * </p>
+     */
     public boolean gameLoad = true;
+
+    /**
+     * <p>
+     * This check the load screen status
+     * </p>
+     */
     public boolean loadScreen = false;
+
+    /**
+     * <p>
+     * This check the load screen status.If is opening set the 1 otherwise 0
+     * </p>
+     */
     public int loadScreenControl = 0;
 
-    public boolean endGame = false, exit = false;
-    public int endGameCounter = 0, endGameTime = 180;
-    
+    /**
+     * <p>
+     * This check the end game .if the game is over it gets the true value
+     * </p>
+     */
+    public boolean endGame = false;
+
+    /**
+     * <p>
+     * This check the exit status .If it gets the true value, the game is closed.
+     * </p>
+     */
+    public boolean exit = false;
+
+    /**
+     * <p>
+     * The values ​​of this field when counting down as the game closes
+     * </p>
+     */
+    public int endGameCounter = 0;
+
+    /**
+     * <p>
+     * This field set end game time
+     * </p>
+     */
+    public int endGameTime = 180;
+
+    /**
+     * <p>
+     * This field check the loading music status
+     * </p>
+     */
     public boolean loadMusic = false;
+
+    /**
+     * <p>
+     * This field check the loading character music status
+     * </p>
+     */
     public boolean loadCharMusic = false;
-    
+
+    /**
+     * <p>
+     * This field count button
+     * </p>
+     */
     public int btnCounter = 0;
+
+    /**
+     * <p>
+     * This field hold button click timeout
+     * </p>
+     */
     public int btnTimeOut = 120;
 
+    /**
+     * <p>
+     * This is game panel constructor.Set the setPreferredSize,setDoubleBuffered,
+     * and add addKeyListener,addMouseListener
+     * </p>
+     */
     public GamePanel() {
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // Set the size of this class (JPanel)
@@ -120,11 +467,17 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
+    /**
+     * <p>
+     * Set up game. Set npc , draw screen and save load
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void setupGame() {
 
         aSetter.setNpc();
-        
-        
+
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
 
@@ -136,6 +489,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * <p>
+     * If the character dies, it will respawn
+     * </p>
+     * 
+     * @param rebornInCenter Allows the player to respawn where they died
+     * @since 1.0
+     */
     public void reborn(boolean rebornInCenter) {
         player.reborn = true;
         player.rebornCounter = 0;
@@ -152,6 +513,13 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * <p>
+     * This method set the full screen mode
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void setFullScreen() {
         // GET LOCAL SCREEN DEVICE
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -165,11 +533,26 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * <p>
+     * This method start game thread
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /**
+     * <p>
+     * It allows 60 frames per second to be drawn on the screen by making FPS
+     * adjustments
+     * </p>
+     * 
+     * @since 1.0
+     */
     @Override
     public void run() {
 
@@ -246,25 +629,33 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * <p>
+     * This method updates everything according to their new status according to the
+     * state of the game
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void update() {
-        
+
         mouseH.hoverInventoryOptionsBtn(g2);
 
-        if(playBtn) {
+        if (playBtn) {
             btnCounter++;
-            if(btnCounter == btnTimeOut) {
+            if (btnCounter == btnTimeOut) {
                 loadScreen = true;
                 gameLoad = false;
                 gameState = loadingState;
             }
         }
-        
-        if(gameState == titleState) {
+
+        if (gameState == titleState) {
             mouseH.hoverTitleScreenBtn(g2);
             mouseH.hoverNameBtn(g2);
         }
-        
-        if(loadScreen && loadScreenControl == 0) {
+
+        if (loadScreen && loadScreenControl == 0) {
             stopMusic();
             tileM.loadScreen(g2);
             loadScreenControl = 1;
@@ -273,17 +664,17 @@ public class GamePanel extends JPanel implements Runnable {
         if (!gameLoad) {
             tileM.getTileImage(g2);
         }
-        
+
         if (gameLoad && loadScreenControl == 1 && !loadMusic) {
             playMusic(0);
             loadMusic = true;
         }
-        
+
         if (gameState == titleState && !loadCharMusic) {
             playMusic(28);
             loadCharMusic = true;
         }
-        
+
         if (endGame) {
 
             if (endGameCounter % 60 == 0) {
@@ -298,9 +689,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (exit) {
-            System.exit(0);         
+            System.exit(0);
         }
-
 
         if (gameState == playState) {
             aSetter.setEnemy();
@@ -361,10 +751,27 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * <p>
+     * This method changes the opacity of the drawing.
+     * </p>
+     * 
+     * @param g2         is the drawing component
+     * @param alphaValue set the opacity
+     * @since 1.0
+     */
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
+    /**
+     * <p>
+     * This method draws drawings on a temporary screen to make the game full
+     * screen.
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void drawToTempScreen() {
 
         if (gameState != loadingState) {
@@ -445,25 +852,60 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
     }
+    
 
+    /**
+     * <p>
+     * This method draws the drawings on the temporary screen to the main screen.
+     * screen.
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void drawToScreen() {
         Graphics g = getGraphics();
         g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
         g.dispose();
     }
+    
 
+    /**
+     * <p>
+     * This method plays music
+     * screen.
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void playMusic(int index) {
 
         soundtrack.setFile(index);
         soundtrack.play();
         soundtrack.loop();
     }
+    
 
+    /**
+     * <p>
+     * This method stops music
+     * screen.
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void stopMusic() {
 
         soundtrack.stop();
     }
-
+    
+    /**
+     * <p>
+     * This method plays sound effects 
+     * screen.
+     * </p>
+     * 
+     * @since 1.0
+     */
     public void playSE(int index) { // Sound Effects
 
         se.setFile(index);

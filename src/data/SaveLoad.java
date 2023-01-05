@@ -15,15 +15,33 @@ import object.OBJ_KDP;
 import object.OBJ_RedPotion;
 import object.OBJ_Sword;
 import object.OBJ_SuPerisi;
-
+/**
+ * <p>
+ * This Class makes save and load process 
+ * </p>
+ */
 public class SaveLoad implements Serializable{
     
     GamePanel gp;
     
+    /**
+     * <p>
+     * this is constructor
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
     public SaveLoad(GamePanel gp) {
         this.gp = gp;
         
     }
+    /**
+     * <p>
+     * This method returns the object corresponding to the name
+     * </p>
+     * @param itemName item's name in the game
+     */
     public Entity getObject(String itemName) {
         
         Entity obj = null;
@@ -40,7 +58,12 @@ public class SaveLoad implements Serializable{
         }
         return obj;
     }
-    
+    /**
+     * <p>
+     * This method does save process by creating .dat file by using ObjectOutputStream 
+     * </p>
+     * 
+     */
     public void save() {
         
         try {
@@ -80,6 +103,12 @@ public class SaveLoad implements Serializable{
         }
         
     }
+    /**
+     * <p>
+     * This method does load process if there is a .dat file by using ObjectInputStream
+     * </p>
+     * 
+     */
     public void load() {
         
         try {
