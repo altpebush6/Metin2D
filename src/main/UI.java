@@ -306,15 +306,9 @@ public class UI {
             spBarImages[i] = gp.uTool.setup("/UI/SpBar" + (i + 1), gp.tileSize, gp.tileSize);
         }
 
-<<<<<<< HEAD
-        swordSpinImage = gp.uTool.setup("/skills/swordspin", gp.tileSize, gp.tileSize);
-        for (int i = 0; i < swordSpinImageUsed.length; i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/spordspin" + (swordSpinImageUsed.length - i),
-=======
         swordSpinImage = gp.uTool.setup("/skills/swordSpin", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
             swordSpinImageUsed[i] = gp.uTool.setup("/skills/swordSpin" + (swordSpinImageUsed.length - i),
->>>>>>> ce383af93a4f98d7d6009d6bbd47e6ed26bf60ed
                     gp.tileSize, gp.tileSize);
         }
 
