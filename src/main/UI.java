@@ -1,10 +1,7 @@
 package main;
 
 import java.awt.Cursor;
-import java.awt.event.*;
-import javax.swing.*;
 import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -13,35 +10,188 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import data.SaveLoad;
-import npc.Npc_Blacksmith;
 import npc.Npc_Merchant;
 import entity.Entity;
 
+/**
+ * <p>
+ * This Class draws all UI elements in the screen.
+ * </p>
+ */
 public class UI {
 
     GamePanel gp;
+
     Graphics2D g2;
+
+    /**
+     * <p>
+     * e1 variable for using Entity's method.
+     * </p>
+     */
     Entity e1;
-    Font arial_30, damageFont;
-    BufferedImage dolunayImage, emptyBarImage, cursorImage;
+
+    /**
+     * <p>
+     * This variable for text's font in UI
+     * </p>
+     */
+    Font arial_30;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    Font damageFont;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage dolunayImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage emptyBarImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage cursorImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
     BufferedImage[] hpBarImages = new BufferedImage[8];
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
     BufferedImage[] spBarImages = new BufferedImage[8];
-    BufferedImage auraOfSwordImage, swordSpinImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage auraOfSwordImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage swordSpinImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
-    BufferedImage xpTupeBg, dragonCoin, bottomBar, bottomBar2, itemSkillBar, inventoryBar, btnBg, inventoryBtn,
-            optionsBtn;
-    BufferedImage inventory, merchantInventory, blackSmithSlot;
-    BufferedImage deadWolf,wolfPNG;
-    BufferedImage taskList, abulbulImage;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage xpTupeBg;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage dragonCoin;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage bottomBar;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage bottomBar2;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage itemSkillBar;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage inventoryBar;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage btnBg;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage inventoryBtn;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage optionsBtn;
+
+    /**
+     * <p>
+     * This variable for text's font for damage.
+     * </p>
+     */
+    BufferedImage inventory;
+    BufferedImage merchantInventory;
+    BufferedImage blackSmithSlot;
+    BufferedImage deadWolf;
+    BufferedImage wolfPNG;
+    BufferedImage taskList;
+    BufferedImage abulbulImage;
     BufferedImage rectangle;
-    BufferedImage aybu, titleScreenPlayer, titleScreenPlayer1,titleScreenPlayer2,titleScreenPlayer3,titleScreenPlayer4, charStatus;
+    BufferedImage aybu;
+    BufferedImage titleScreenPlayer;
+    BufferedImage titleScreenPlayer1;
+    BufferedImage titleScreenPlayer2;
+    BufferedImage titleScreenPlayer3;
+    BufferedImage titleScreenPlayer4;
+    BufferedImage charStatus;
     BufferedImage rightKey, leftKey, enterKey;
     BufferedImage[] xpTupe = new BufferedImage[23];
     Entity en;
@@ -105,7 +255,7 @@ public class UI {
     public int textCursorX = 690;
 
     public boolean enhanceSE = true;
-    
+
     public int titleScreenPlayerCounter = 0;
     public int titleScreenPlayerSpriteNum = 0;
 
@@ -129,7 +279,7 @@ public class UI {
         optionsBtn = gp.uTool.setup("/UI/optionsBtn", gp.tileSize, gp.tileSize);
         inventoryBtn = gp.uTool.setup("/UI/inventoryBtn", gp.tileSize, gp.tileSize);
         abulbulImage = gp.uTool.setup("/UI/abulbul", gp.screenWidth, gp.screenHeight);
-        blackSmithSlot =  gp.uTool.setup("/UI/blacksmithslot", 380, 456);
+        blackSmithSlot = gp.uTool.setup("/UI/blacksmithslot", 380, 456);
         merchantInventory = gp.uTool.setup("/UI/merchantInventory", 255, 491);
         rectangle = gp.uTool.setup("/titleScreen/rectangle", 474, 196);
         dolunayImage = gp.uTool.setup("/objects/dolunayItem", gp.tileSize, gp.tileSize);
@@ -156,9 +306,9 @@ public class UI {
             spBarImages[i] = gp.uTool.setup("/UI/SpBar" + (i + 1), gp.tileSize, gp.tileSize);
         }
 
-        swordSpinImage = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
+        swordSpinImage = gp.uTool.setup("/skills/swordspin", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/spordspin" + (swordSpinImageUsed.length - i),
                     gp.tileSize, gp.tileSize);
         }
 
@@ -178,15 +328,18 @@ public class UI {
 
         // Message
         drawMessage(g2);
-        
+
         // NPC
-        if(gp.player.closeNPCIndex != -1) {
+        if (gp.player.closeNPCIndex != -1) {
             g2.setFont(g2.getFont().deriveFont(11F));
             g2.setColor(Color.black);
-            g2.drawString("Press     to interact with " + gp.npc[gp.player.closeNPCIndex].name, gp.npc[gp.player.closeNPCIndex].drawX - 75, gp.npc[gp.player.closeNPCIndex].drawY + 120);
+            g2.drawString("Press     to interact with " + gp.npc[gp.player.closeNPCIndex].name,
+                    gp.npc[gp.player.closeNPCIndex].drawX - 75, gp.npc[gp.player.closeNPCIndex].drawY + 120);
             g2.setColor(Color.white);
-            g2.drawString("Press     to interact with " + gp.npc[gp.player.closeNPCIndex].name, gp.npc[gp.player.closeNPCIndex].drawX - 75, gp.npc[gp.player.closeNPCIndex].drawY + 120);
-            g2.drawImage(enterKey, gp.npc[gp.player.closeNPCIndex].drawX - 29, gp.npc[gp.player.closeNPCIndex].drawY + 104, 20, 20, null);
+            g2.drawString("Press     to interact with " + gp.npc[gp.player.closeNPCIndex].name,
+                    gp.npc[gp.player.closeNPCIndex].drawX - 75, gp.npc[gp.player.closeNPCIndex].drawY + 120);
+            g2.drawImage(enterKey, gp.npc[gp.player.closeNPCIndex].drawX - 29,
+                    gp.npc[gp.player.closeNPCIndex].drawY + 104, 20, 20, null);
         }
 
         // TITLE STATE
@@ -195,7 +348,6 @@ public class UI {
             changeCursor();
         }
 
-        
         // PLAY STATE
         if (gp.gameState == gp.playState) {
 
@@ -283,9 +435,9 @@ public class UI {
     }
 
     public void drawTitleScreen() {
-        
+
         BufferedImage image = null;
-        
+
         g2.drawImage(aybu, null, 0, 0);
 
         if (gp.player.name.equals("")) {
@@ -296,34 +448,34 @@ public class UI {
             g2.fillRect(680, 430, 150, 35);
             g2.setColor(Color.black);
             g2.drawString(playerName, 690, 455);
-            
-            if(textAreaCounter < 20) {
-                g2.drawLine(textCursorX, 433, textCursorX, 460); 
-            }else if(textAreaCounter <= 40) {
-                if(textAreaCounter == 40) {
+
+            if (textAreaCounter < 20) {
+                g2.drawLine(textCursorX, 433, textCursorX, 460);
+            } else if (textAreaCounter <= 40) {
+                if (textAreaCounter == 40) {
                     textAreaCounter = 0;
                 }
             }
-            
-            if(playerName == "") {
+
+            if (playerName == "") {
                 g2.setColor(Color.gray);
                 g2.drawString("Enter name", 690, 455);
             }
-            
+
             enterNameButton(g2);
         } else {
-            if(gp.playBtn) {
+            if (gp.playBtn) {
                 titleScreenPlayerCounter++;
-                if(titleScreenPlayerCounter % 2 == 0) {
-                    if(titleScreenPlayerSpriteNum == 3) {
+                if (titleScreenPlayerCounter % 2 == 0) {
+                    if (titleScreenPlayerSpriteNum == 3) {
                         titleScreenPlayerSpriteNum = 0;
-                    }else {
+                    } else {
                         titleScreenPlayerSpriteNum++;
                     }
                 }
-                
-                switch(titleScreenPlayerSpriteNum) {
-                    
+
+                switch (titleScreenPlayerSpriteNum) {
+
                     case 0:
                         image = titleScreenPlayer1;
                         break;
@@ -336,14 +488,14 @@ public class UI {
                     case 3:
                         image = titleScreenPlayer4;
                         break;
-                    
+
                 }
-                
+
                 g2.drawImage(image, null, 650 + titleScreenPlayerCounter * 10, 220);
-            }else {
+            } else {
                 g2.drawImage(titleScreenPlayer, null, 650, 220);
             }
-            
+
             g2.drawImage(charStatus, null, 50, 350);
             titleScreenCharStatus(g2);
             titleScreenButtons(g2);
@@ -602,21 +754,21 @@ public class UI {
                 lineCount++;
             }
         }
-        
+
         g2.setFont(g2.getFont().deriveFont(15F));
-        
-        if(gp.player.taskLevel == 2 || gp.player.taskLevel == 3) {
-            if(pageNum == 0) {
+
+        if (gp.player.taskLevel == 2 || gp.player.taskLevel == 3) {
+            if (pageNum == 0) {
                 g2.drawString("Press       to read next page", 1230, 850);
                 g2.drawImage(rightKey, null, 1290, 830);
-            }else {
+            } else {
                 g2.drawString("Press       to read previous page", 700, 850);
                 g2.drawImage(leftKey, null, 760, 830);
-                
+
                 g2.drawString("Press       to take up the task", 1230, 850);
                 g2.drawImage(enterKey, null, 1290, 830);
             }
-        }else {
+        } else {
             g2.drawString("Press       to take up the task", 1230, 850);
             g2.drawImage(enterKey, null, 1290, 830);
         }
@@ -668,7 +820,7 @@ public class UI {
             if (gp.player.inventory.get(i) != null) {
 
                 if (gp.player.inventory.get(i) == gp.player.currentWeapon) {
-                    
+
                     g2.setColor(new Color(240, 190, 90));
                     g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
                     if (gp.player.inventory.get(i).enchantLevel == 1) {
@@ -785,18 +937,24 @@ public class UI {
                                 gp.playSE(27);
                                 enhanceSE = false;
                             }
-                            
+
                             g2.setColor(Color.white);
                             g2.setFont(g2.getFont().deriveFont(22F));
 
                             counter++;
-                            if(counter < 30)        g2.drawString("Weapon is enhancing.", 165, 400);
-                            else if(counter < 60 )  g2.drawString("Weapon is enhancing..", 165, 400);
-                            else if(counter < 90 )  g2.drawString("Weapon is enhancing...", 165, 400);
-                            else if(counter < 120 ) g2.drawString("Weapon is enhancing.", 165, 400);
-                            else if(counter < 150 ) g2.drawString("Weapon is enhancing..", 165, 400);
-                            else if(counter < 180 ) g2.drawString("Weapon is enhancing...", 165, 400);
-                            
+                            if (counter < 30)
+                                g2.drawString("Weapon is enhancing.", 165, 400);
+                            else if (counter < 60)
+                                g2.drawString("Weapon is enhancing..", 165, 400);
+                            else if (counter < 90)
+                                g2.drawString("Weapon is enhancing...", 165, 400);
+                            else if (counter < 120)
+                                g2.drawString("Weapon is enhancing.", 165, 400);
+                            else if (counter < 150)
+                                g2.drawString("Weapon is enhancing..", 165, 400);
+                            else if (counter < 180)
+                                g2.drawString("Weapon is enhancing...", 165, 400);
+
                             if (counter >= 180) {
                                 successEnch = gp.npc[2].increaseWeapon(gp.player.inventory.get(i));
                                 gp.player.enchantAccepted = false;
@@ -864,8 +1022,9 @@ public class UI {
         g2.drawRoundRect(npcCursorX, npcCursorY, npcCursorWidth, npcCursorHeight, 10, 10);
 
         for (int i = 0; i < Npc_Merchant.npcInventory.size(); i++) {
-            if(Npc_Merchant.npcInventory.get(i) != null) {
-                g2.drawImage(Npc_Merchant.npcInventory.get(i).down1, npcSlotX, npcSlotY, gp.tileSize, gp.tileSize, null);
+            if (Npc_Merchant.npcInventory.get(i) != null) {
+                g2.drawImage(Npc_Merchant.npcInventory.get(i).down1, npcSlotX, npcSlotY, gp.tileSize, gp.tileSize,
+                        null);
                 npcSlotX += gp.tileSize;
                 if (i % 5 == 4) {
                     npcSlotX = npcSlotXstart;
@@ -1021,7 +1180,8 @@ public class UI {
             g2.drawImage(swordSpinImageUsed[gp.skills.swordSpinTimeOut / swordSpinImg],
                     gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
         } else {
-            //g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize / 3, gp.tileSize / 2, gp.tileSize / 2, null);
+            // g2.drawImage(swordSpinImage, gp.tileSize * (gp.maxScreenCol - 1), gp.tileSize
+            // / 3, gp.tileSize / 2, gp.tileSize / 2, null);
         }
 
         // AURA SWORD
@@ -1055,30 +1215,29 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
             g2.setColor(Color.white);
             g2.drawString("Task List", 150, 150);
-            
+
             int taskX = 130, taskY = 180;
-            for(int i = 0; i <= gp.player.taskLevel; i++) {
+            for (int i = 0; i <= gp.player.taskLevel; i++) {
                 drawTaskRec(taskX, taskY + i * 20, 200, 60, i);
             }
 
-            
         }
 
     }
 
     public void drawTaskRec(int taskRecX, int taskRecY, int taskRecWidth, int taskRecHeight, int taskLevel) {
-        
+
         g2.setFont(g2.getFont().deriveFont(14F));
         String currentTask = gp.player.taskNameList.get(taskLevel);
-        
-        if(taskLevel == gp.player.taskLevel) {
+
+        if (taskLevel == gp.player.taskLevel) {
             g2.drawOval(taskRecX, taskRecY, 10, 10);
-        }else {
+        } else {
             int textWidth = g2.getFontMetrics().stringWidth(currentTask);
-            g2.drawLine(taskRecX + 15, taskRecY + 6,  taskRecX + 15 + textWidth, taskRecY + 6);
+            g2.drawLine(taskRecX + 15, taskRecY + 6, taskRecX + 15 + textWidth, taskRecY + 6);
             g2.fillOval(taskRecX, taskRecY, 10, 10);
         }
-        
+
         g2.drawString(currentTask, taskRecX + 15, taskRecY + 10);
     }
 
@@ -1130,7 +1289,7 @@ public class UI {
 
         g2.drawImage(xpTupeBg, 188, xpTupeY, 130, bottomBarHeight, null);
 
-        fillTupeNum = (gp.player.getPlayerXP()  % 920) / 230;
+        fillTupeNum = (gp.player.getPlayerXP() % 920) / 230;
 
         switch (fillTupeNum) {
             case 0:

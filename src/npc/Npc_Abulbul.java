@@ -1,18 +1,26 @@
 package npc;
 
-import java.awt.Rectangle;
-import java.util.Random;
-
 import entity.Entity;
-import entity.Player;
 import main.GamePanel;
-import main.KeyHandler;
-import main.MouseHandler;
 
+/**
+ * <p>
+ * This Class determines the story teller NPC's property. Contains scenario
+ * dialogues.
+ * </p>
+ */
 public class Npc_Abulbul extends Entity {
 
     GamePanel gp;
 
+    /**
+     * <p>
+     * This is Constructor. The constructor assign variables. NPC's name, level etc:
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
     public Npc_Abulbul(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -36,6 +44,11 @@ public class Npc_Abulbul extends Entity {
         setDialogue();
     }
 
+    /**
+     * <p>
+     * This method sets the images of NPC. 4 images ensure the animation.
+     * </p>
+     */
     public void getNpcImage() {
         down1 = setup("/npc/abulbul1", 96, 96);
         down2 = setup("/npc/abulbul2", 96, 96);
@@ -43,11 +56,21 @@ public class Npc_Abulbul extends Entity {
         down4 = setup("/npc/abulbul4", 96, 96);
     }
 
+    /**
+     * <p>
+     * This method keeps it from moving.
+     * </p>
+     */
     public void setAction() {
-
         standing = true;
     }
 
+    /**
+     * <p>
+     * This method sets the NPC's dialogues. It is game's scenario also task
+     * system's dialogues.
+     * </p>
+     */
     public void setDialogue() {
 
         dialogues[0] = "Merhaba, " + gp.player.name
@@ -65,6 +88,11 @@ public class Npc_Abulbul extends Entity {
 
     }
 
+    /**
+     * <p>
+     * This method send the NPC's dialogue arrays' first element.
+     * </p>
+     */
     public void speak() {
         gp.ui.currentDialogue = dialogues[0];
     }
