@@ -289,7 +289,8 @@ public class CollisionChecker {
      * </p>
      * 
      * @param entity is may be player or enemy
-     * @param player is true return set the index i
+     * @param player check player or not
+     * @return player is true return set the index i
      * @since 1.0
      */
 	public int checkObject(Entity entity, boolean player) {
@@ -343,6 +344,7 @@ public class CollisionChecker {
      * 
      * @param entity is may be npc or enemy
      * @param target is array of the entity target
+     * @return player is true return set the index i
      * @since 1.0
      */
 	// NPC or ENEMY Collision

@@ -3,8 +3,22 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_BluePotion extends Entity{
+/**
+ * <p>
+ * This Class set the bluePotion and inherit from Entity class
+ * </p>
+ */
 
+public class OBJ_BluePotion extends Entity{
+    
+    /**
+     * <p>
+     * this is constructor. Set name,type,image,price and details
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
     public OBJ_BluePotion(GamePanel gp) {
         
         super(gp);
