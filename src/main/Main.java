@@ -61,7 +61,7 @@ public class Main {
 	     * This field sets background image
 	     * </p> 
 	     */
-		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
+		ImageIcon favicon = new ImageIcon("resources/UI/metin2.png");
 		window.setIconImage(favicon.getImage());
 		window.setVisible(true);
 	}

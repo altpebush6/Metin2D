@@ -156,9 +156,9 @@ public class UI {
             spBarImages[i] = gp.uTool.setup("/UI/SpBar" + (i + 1), gp.tileSize, gp.tileSize);
         }
 
-        swordSpinImage = gp.uTool.setup("/skills/Kılıç_Çevirme", gp.tileSize, gp.tileSize);
+        swordSpinImage = gp.uTool.setup("/skills/swordSpin", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/Kılıç_Çevirme" + (swordSpinImageUsed.length - i),
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/swordSpin" + (swordSpinImageUsed.length - i),
                     gp.tileSize, gp.tileSize);
         }
 
