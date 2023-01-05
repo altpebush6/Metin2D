@@ -25,7 +25,11 @@ public class Main {
 	public static JFrame window;
 
 	public static void main(String[] args) throws Exception {
-
+	    /**
+	     * <p>
+	     * This field is the window of game and sets the name
+	     * </p> 
+	     */
 		window = new JFrame("Metin2");
 
 		// f.setUndecorated(true); // To close top bar
