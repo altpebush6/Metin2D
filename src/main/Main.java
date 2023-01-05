@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 public class Main {
     /**
      * <p>
-     * This parameter is the window of game
+     * This field is the window of game
      * </p> 
      */
 	public static JFrame window;
@@ -31,7 +31,11 @@ public class Main {
 		// f.setUndecorated(true); // To close top bar
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setUndecorated(true);	
-
+		/**
+	     * <p>
+	     * This field is instance of gamePanel class
+	     * </p> 
+	     */
 		GamePanel gamePanel = new GamePanel();
 		
 		
@@ -48,7 +52,11 @@ public class Main {
 		gamePanel.startGameThread();
 		
 	
-
+		/**
+	     * <p>
+	     * This field sets background image
+	     * </p> 
+	     */
 		ImageIcon favicon = new ImageIcon("resources/background/metin2.png");
 		window.setIconImage(favicon.getImage());
 		window.setVisible(true);
