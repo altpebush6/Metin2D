@@ -12,36 +12,124 @@ import java.awt.event.MouseMotionListener;
  */
 public class MouseHandler implements MouseListener, MouseMotionListener {
 
+    /**
+     * <p>
+     * This variable for x location of mouse.
+     * </p>
+     */
     public int screenX;
-    public int screenY; 
-    public int clickedWorldX; 
-    public int clickedWorldY; 
-    public int clickedCol; 
+
+    /**
+     * <p>
+     * This variable for y location of mouse.
+     * </p>
+     */
+    public int screenY;
+
+    /**
+     * <p>
+     * This variable for mouse clicked X location.
+     * </p>
+     */
+    public int clickedWorldX;
+
+    /**
+     * <p>
+     * This variable for mouse clicked Y location.
+     * </p>
+     */
+    public int clickedWorldY;
+
+    /**
+     * <p>
+     * This variable for mouse clicked location column.
+     * </p>
+     */
+    public int clickedCol;
+
+    /**
+     * <p>
+     * This variable for mouse clicked location row.
+     * </p>
+     */
     public int clickedRow;
-    public int mouseOverX; 
+
+    /**
+     * <p>
+     * This variable ensure the mouse's X location interaction
+     * </p>
+     */
+    public int mouseOverX;
+
+    /**
+     * <p>
+     * This variable ensure the mouse's Y location interaction.
+     * </p>
+     */
     public int mouseOverY;
+
+    /**
+     * <p>
+     * This boolean variable determined pressed or not pressed
+     * </p>
+     */
     public boolean pressed = false;
 
+    /**
+     * <p>
+     * This boolean variable mouse click on enemy or not.
+     * </p>
+     */
     public boolean pressedOnEnemy = false;
+
+    /**
+     * <p>
+     * This variable determine enemy array's index.
+     * </p>
+     */
     public int enemyIndex;
 
     GamePanel gp;
 
+    /**
+     * <p>
+     * This is constructor
+     * </p>
+     * 
+     * @param gp is the game panel
+     * @since 1.0
+     */
     public MouseHandler(GamePanel gp) {
         this.gp = gp;
         gp.addMouseMotionListener(this);
     }
 
+    /**
+     * <p>
+     * This is deafult method's mouselistener
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * This is deafult method's mouselistener
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mousePressed(MouseEvent e) {
 
         screenX = e.getPoint().x;
         screenY = e.getPoint().y;
-        
+
         // Move
         if (gp.gameState == gp.playState) {
 
@@ -57,10 +145,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
             gp.player.reachedGoal = false;
 
             int tileNum = gp.tileM.mapTileNum[clickedCol][clickedRow] - 1;
-            
-            if(tileNum > gp.maxWorldCol) tileNum = gp.maxWorldCol - 1;
-            if(tileNum < 0) tileNum = 0;
-            
+
+            if (tileNum > gp.maxWorldCol)
+                tileNum = gp.maxWorldCol - 1;
+            if (tileNum < 0)
+                tileNum = 0;
+
             if (gp.tileM.tile[tileNum].collision) {
                 pressed = false;
             } else {
@@ -88,19 +178,19 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 }
             }
         }
-        
+
         // Inventory Btn
         if (gp.ui.inventoryRec.x < mouseOverX
                 && (gp.ui.inventoryRec.x + gp.ui.inventoryRec.width) > mouseOverX
                 && gp.ui.inventoryRec.y < mouseOverY
                 && (gp.ui.inventoryRec.y + gp.ui.inventoryRec.height) > mouseOverY) {
-            if(gp.gameState == gp.playState) {
+            if (gp.gameState == gp.playState) {
                 gp.gameState = gp.inventoryState;
-            }else if(gp.gameState == gp.inventoryState){
+            } else if (gp.gameState == gp.inventoryState) {
                 gp.gameState = gp.playState;
             }
         }
-        
+
         // Options Btn
         if (gp.ui.optionsRec.x < mouseOverX
                 && (gp.ui.optionsRec.x + gp.ui.optionsRec.width) > mouseOverX
@@ -145,7 +235,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         }
 
         if (gp.gameState == gp.titleState) {
-            if(gp.ui.enterName) {
+            if (gp.ui.enterName) {
                 if (gp.ui.saveRec.x < mouseOverX
                         && (gp.ui.saveRec.x + gp.ui.saveRec.width) > mouseOverX
                         && gp.ui.saveRec.y < mouseOverY
@@ -153,23 +243,22 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                     gp.ui.enterName = false;
                     gp.player.name = gp.ui.playerName;
                 }
-            }else {
+            } else {
                 if (gp.ui.startRec.x < mouseOverX
                         && (gp.ui.startRec.x + gp.ui.startRec.width) > mouseOverX
                         && gp.ui.startRec.y < mouseOverY
                         && (gp.ui.startRec.y + gp.ui.startRec.height) > mouseOverY && !gp.playBtn) {
-                        
+
                     gp.playSE(26);
                     gp.playSE(25);
                     gp.playBtn = true;
 
-                    
                 }
                 if (gp.ui.exitRec.x < mouseOverX
                         && (gp.ui.exitRec.x + gp.ui.exitRec.width) > mouseOverX
                         && gp.ui.exitRec.y < mouseOverY
                         && (gp.ui.exitRec.y + gp.ui.startRec.height) > mouseOverY) {
-                        
+
                     System.exit(0);
                 }
             }
@@ -177,22 +266,62 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     }
 
+    /**
+     * <p>
+     * This is deafult method's mouselistener
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * This is deafult method's mouselistener
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * This is deafult method's mouselistener
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * This is deafult method's mouselistener
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * This method using for perceiving mouse moving
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         mouseOverX = e.getX();
@@ -203,19 +332,37 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         // mouseOverX+" "+mouseOverY);
     }
 
+    /**
+     * <p>
+     * This method perceive mouse moving and change the button's color.
+     * </p>
+     * 
+     * @param KeyEvent e for interaction
+     * @since 1.0
+     */
     public void hoverRespawnBtn(Graphics2D g2) {
         if (gp.ui.respawnHereRec.x < mouseOverX && (gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width) > mouseOverX
                 && gp.ui.respawnHereRec.y < mouseOverY
                 && (gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height) > mouseOverY)
             gp.ui.btnHover = 1;
-        else if (gp.ui.respawnCityRec.x < mouseOverX && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX
+        else if (gp.ui.respawnCityRec.x < mouseOverX
+                && (gp.ui.respawnCityRec.x + gp.ui.respawnCityRec.width) > mouseOverX
                 && gp.ui.respawnCityRec.y < mouseOverY
                 && (gp.ui.respawnCityRec.y + gp.ui.respawnCityRec.height) > mouseOverY)
             gp.ui.btnHover = 2;
         else
             gp.ui.btnHover = 0;
     }
-    
+
+    /**
+     * <p>
+     * This method perceive mouse moving on title screen button and change the
+     * button's color.
+     * </p>
+     * 
+     * @param g2 for Graphics2D
+     * @since 1.0
+     */
     public void hoverTitleScreenBtn(Graphics2D g2) {
         if (gp.ui.startRec.x < mouseOverX && (gp.ui.startRec.x + gp.ui.startRec.width) > mouseOverX
                 && gp.ui.startRec.y < mouseOverY
@@ -229,9 +376,17 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         else
             gp.ui.btnHover = 0;
     }
-    
+
+    /**
+     * <p>
+     * This method perceive mouse moving on name text area.
+     * </p>
+     * 
+     * @param g2 for Graphics2D
+     * @since 1.0
+     */
     public void hoverNameBtn(Graphics2D g2) {
-        if(gp.ui.enterName) {
+        if (gp.ui.enterName) {
             if (gp.ui.saveRec.x < mouseOverX && (gp.ui.saveRec.x + gp.ui.saveRec.width) > mouseOverX
                     && gp.ui.saveRec.y < mouseOverY
                     && (gp.ui.saveRec.y + gp.ui.saveRec.height) > mouseOverY)
@@ -240,19 +395,27 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                 gp.ui.btnHover = 0;
         }
     }
-    
+
+    /**
+     * <p>
+     * This method perceive mouse moving on inventory button.
+     * </p>
+     * 
+     * @param g2 for Graphics2D
+     * @since 1.0
+     */
     public void hoverInventoryOptionsBtn(Graphics2D g2) {
         if (gp.ui.inventoryRec.x < mouseOverX
                 && (gp.ui.inventoryRec.x + gp.ui.inventoryRec.width) > mouseOverX
                 && gp.ui.inventoryRec.y < mouseOverY
                 && (gp.ui.inventoryRec.y + gp.ui.inventoryRec.height) > mouseOverY) {
             gp.ui.btnHover = 1;
-        }else if (gp.ui.optionsRec.x < mouseOverX
+        } else if (gp.ui.optionsRec.x < mouseOverX
                 && (gp.ui.optionsRec.x + gp.ui.optionsRec.width) > mouseOverX
                 && gp.ui.optionsRec.y < mouseOverY
                 && (gp.ui.optionsRec.y + gp.ui.optionsRec.height) > mouseOverY) {
             gp.ui.btnHover = 2;
-        }else {
+        } else {
             gp.ui.btnHover = 0;
         }
     }
