@@ -1518,6 +1518,7 @@ public class Player extends Entity {
      * <p>
      * This method returns player coin
      * </p>
+     * @return players coin
      */
     public int getPlayerCoin() {
         return playerCoin;
@@ -1526,6 +1527,7 @@ public class Player extends Entity {
      * <p>
      * This method returns player default speed
      * </p>
+     * @return default speed
      */
     public int getSpeedDefault() {
         return speedDefault;
@@ -1534,6 +1536,7 @@ public class Player extends Entity {
      * <p>
      * This method returns player experience point
      * </p>
+     * @return player XP
      */
     public int getPlayerXP() {
         return playerXP;
@@ -1542,6 +1545,7 @@ public class Player extends Entity {
      * <p>
      * This method returns player attack power
      * </p>
+     * @return player attack power
      */
     public int getAttackPower() {
         return attackPower;
