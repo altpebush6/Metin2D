@@ -1,8 +1,3 @@
-/UI/
-/loadingScreen/
-/maps/
-/npc/
-/objects/
 /player/
 /satellite/
 /skills/
@@ -17,3 +12,4 @@
 /titleScreen/
 /wolf/
 /xpTupe/
+/npc/

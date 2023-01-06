@@ -17,68 +17,282 @@ import java.util.Random;
 
 import main.Damages;
 import main.GamePanel;
-
+/**
+ * <p>
+ * This Class adjusts player behavior
+ * </p>
+ */
 public class Player extends Entity {
-
+    /**
+     * <p>
+     * This field is instance of GamePanel class
+     * </p>
+     */
     GamePanel gp;
+    /**
+     * <p>
+     * This field is instance of KeyHandler class
+     * </p>
+     */
     KeyHandler keyH;
+    /**
+     * <p>
+     * This field is instance of MouseHandler class
+     * </p>
+     */
     MouseHandler mouseH;
-
+    /**
+     * <p>
+     * This field stores the position of the player on the screen on the x-axis
+     * </p>
+     */
     public int screenX; // Where we draw player on screen X
+    /**
+     * <p>
+     * This field stores the position of the player on the screen on the y-axis
+     * </p>
+     */
     public int screenY; // Where we draw player on screen Y
+    /**
+     * <p>
+     * This field stores the default position of the player on the screen on the x-axis
+     * </p>
+     */
     public int defaultScreenX; // Where we draw player on screen X
+    /**
+     * <p>
+     * This field stores the default position of the player on the screen on the y-axis
+     * </p>
+     */
     public int defaultScreenY; // Where we draw player on screen Y
 
     // Player Specification
+    /**
+     * <p>
+     * This field stores the players coin
+     * </p>
+     */
     private int playerCoin;
+    /**
+     * <p>
+     * This field stores the players weapon name
+     * </p>
+     */
     public String playerWeapon;
+    /**
+     * <p>
+     * This field stores the player timer
+     * </p>
+     */
     public int playerTimer;
+    /**
+     * <p>
+     * This field stores the increase life coefficient
+     * </p>
+     */
     public int increaseLife;
+    /**
+     * <p>
+     * This field stores the special point coefficient
+     * </p>
+     */
     public double increaseSp;
+    /**
+     * <p>
+     * This field stores default speed value
+     * </p>
+     */
     private int speedDefault;
+    /**
+     * <p>
+     * This field stores the players experience point
+     * </p>
+     */
     private int playerXP;
+    /**
+     * <p>
+     * This field stores the players attack power
+     * </p>
+     */
     private int attackPower;
 
     // Mouse Click Movement
+    /**
+     * <p>
+     * This field stores the target position from mouse click at x-axis
+     * </p>
+     */
     public int goalX;
+    /**
+     * <p>
+     * This field stores the target position from mouse click at y-axis
+     * </p>
+     */
     public int goalY;
-
+    /**
+     * <p>
+     * This field is instance of Random class
+     * </p>
+     */
     public Random rand = new Random();
-
+    /**
+     * <p>
+     * This field stores the counter of attack
+     * </p>
+     */
     public int attackCounter = 0;
+    /**
+     * <p>
+     * This field stores position of holding number
+     * </p>
+     */
     public int holdingNum = 0;
+    /**
+     * <p>
+     * This field stores position of holding counter
+     * </p>
+     */
     public int holdingCounter = 0;
+    /**
+     * <p>
+     * This field stores position of no punch counter
+     * </p>
+     */
     public int noPunchCounter = 0;
+    /**
+     * <p>
+     * This field stores click counter
+     * </p>
+     */
     public int clickCounter = 0;
+    /**
+     * <p>
+     * This field stores whether auto hit or not
+     * </p>
+     */
     public boolean autoHit = false;
+    /**
+     * <p>
+     * This field stores whether double clicked or not
+     * </p>
+     */
     public boolean doubleClicked = false;
+    /**
+     * <p>
+     * This field stores attack walking speed
+     * </p>
+     */
     int attackWalkingSpeed = 1;
+    /**
+     * <p>
+     * This field stores dead wolf counter
+     * </p>
+     */
     public int deadWolfCounter = 0;
+    /**
+     * <p>
+     * This field stores whether reborn or not
+     * </p>
+     */
     public boolean reborn = false;
+    /**
+     * <p>
+     * This field stores reborn counter
+     * </p>
+     */
     public int rebornCounter;
-
+    /**
+     * <p>
+     * This field stores dead counter
+     * </p>
+     */
     public int deadCounter = 0;
 
     // INVENTORY
+    /**
+     * <p>
+     * This field stores current weapon of player
+     * </p>
+     */
     public Entity currentWeapon;
+    /**
+     * <p>
+     * This field stores enchant weapon
+     * </p>
+     */
     public Entity enchantWeapon;
+    /**
+     * <p>
+     * This field stores whether enchant is accepted or not
+     * </p>
+     */
     public boolean enchantAccepted = false;
+    /**
+     * <p>
+     * This field stores whether item enchant is selected or not
+     * </p>
+     */
     public boolean itemEnchSellected = false;
+    /**
+     * <p>
+     * This field stores how many red potions does character have
+     * </p>
+     */
     public int redPotionNumber = 0;
+    /**
+     * <p>
+     * This field stores how many blue potions does character have
+     * </p>
+     */
     public int bluePotionNumber = 0;
-
+    /**
+     * <p>
+     * This field stores a buffered image
+     * </p>
+     */
     public BufferedImage image;
 
     // To avoid sliding image when sizes are different
+    /**
+     * <p>
+     * This field stores position of x-axis to avoid sliding image when sizes are different
+     * </p>
+     */
     public int tempScreenX;
+    /**
+     * <p>
+     * This field stores position of y-axis to avoid sliding image when sizes are different
+     * </p>
+     */
     public int tempScreenY;
-
+    /**
+     * <p>
+     * This field stores interact NPC index
+     * </p>
+     */
     public int interactNPCIndex = -1;
+    /**
+     * <p>
+     * This field stores close NPC index
+     * </p>
+     */
     public int closeNPCIndex = -1;
 
     // Tasks Name
+    /**
+     * <p>
+     * This field stores tasks name 
+     * </p>
+     */
     public ArrayList<String> taskNameList = new ArrayList<String>();
-
+    /**
+     * <p>
+     * This is constructor
+     * </p>
+     * @param gp instance of GamePanel class 
+     * @param keyH instance of KeyHandler class
+     * @param mouseH instance of MouseHandler class
+     */
     public Player(GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
         super(gp);
         this.gp = gp;
@@ -117,7 +331,11 @@ public class Player extends Entity {
         setItems();
         setTaskList();
     }
-
+    /**
+     * <p>
+     * This method gets player images
+     * </p>
+     */
     public void getPlayerImage() {
         for (int i = 0; i < 4; i++) {
             up[i] = setup("/player/up" + (i + 1), 80, 80);
@@ -132,7 +350,11 @@ public class Player extends Entity {
             right[i] = setup("/player/right" + (i + 1), 80, 80);
         }
     }
-
+    /**
+     * <p>
+     * This method gets player attack images
+     * </p>
+     */
     public void getPlayerAttackImage() {
         for (int i = 0; i < 16; i++) {
             attackUp[i] = setup("/player/attackup" + (i + 1), 80, 92);
@@ -147,7 +369,11 @@ public class Player extends Entity {
             attackRight[i] = setup("/player/attackright" + (i + 1), 81, 80);
         }
     }
-
+    /**
+     * <p>
+     * This method gets player images on when using Aura Sword
+     * </p>
+     */
     public void getPlayerAuraSwordImage() {
         for (int i = 0; i < 4; i++) {
             auraUp[i] = setup("/player/auraUp" + (i + 1), 80, 80);
@@ -162,7 +388,11 @@ public class Player extends Entity {
             auraRight[i] = setup("/player/auraRight" + (i + 1), 80, 80);
         }
     }
-
+    /**
+     * <p>
+     * This method gets player attack images on when using Aura Sword
+     * </p>
+     */
     public void getPlayerAttackAuraSwordImage() {
         for (int i = 0; i < 16; i++) {
             auraSwordUp[i] = setup("/player/playerAuraSwordUp" + (i + 1), 80, 92);
@@ -177,7 +407,11 @@ public class Player extends Entity {
             auraSwordRight[i] = setup("/player/playerAuraSwordRight" + (i + 1), 81, 80);
         }
     }
-
+    /**
+     * <p>
+     * This method gets player dying images 
+     * </p>
+     */
     public void getPlayerDyingImage() {
         for (int i = 0; i < 5; i++) {
             dyingUp[i] = setup("/player/deathUp" + (i + 1), 80, 80);
@@ -192,7 +426,11 @@ public class Player extends Entity {
             dyingRight[i] = setup("/player/deathRight" + (i + 1), 80, 80);
         }
     }
-
+    /**
+     * <p>
+     * This method sets player states 
+     * </p>
+     */
     public void setPlayer() {
 
         // Player Movement
@@ -220,7 +458,11 @@ public class Player extends Entity {
         inventory.add(currentWeapon);
         attackPower += currentWeapon.weaponAttackSize;
     }
-
+    /**
+     * <p>
+     * This method sets default position for player 
+     * </p>
+     */
     public void setDefaultPositions() {
         worldX = 25 * gp.tileSize;
         worldY = 25 * gp.tileSize;
@@ -228,7 +470,11 @@ public class Player extends Entity {
         screenY = defaultScreenY;
         direction = "down";
     }
-
+    /**
+     * <p>
+     * This method sets items
+     * </p>
+     */
     public void setItems() {
         int itemIndex2 = 0;
 
@@ -256,7 +502,11 @@ public class Player extends Entity {
          * }
          */
     }
-
+    /**
+     * <p>
+     * This method sets task list
+     * </p>
+     */
     public void setTaskList() {
         taskNameList.add("Teşkilata katıl!");
         taskNameList.add("Teşkilatın Direği!");
@@ -264,7 +514,11 @@ public class Player extends Entity {
         taskNameList.add("Köyün Bekası");
         taskNameList.add("Köyün Sefası");
     }
-
+    /**
+     * <p>
+     * This method updates player 
+     * </p>
+     */
     public void update() {
 
         // CHECK NPC COLLISION for msg
@@ -478,7 +732,11 @@ public class Player extends Entity {
         }
 
     }
-
+    /**
+     * <p>
+     * This method draws player
+     * </p>
+     */
     public void draw(Graphics2D g2) {
 
         image = null;
@@ -596,7 +854,11 @@ public class Player extends Entity {
         // Reset transparency
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
-
+    /**
+     * <p>
+     * This method sets player attack behavior
+     * </p>
+     */
     public void attack() {
 
         // spriteCounter yürürken 2 olduğu için 3 te iken ses çal
@@ -669,7 +931,11 @@ public class Player extends Entity {
             }
         }
     }
-
+    /**
+     * <p>
+     * This method adjusts player how to pick up object
+     * </p>
+     */
     public void pickUpObject(int index) {
 
         if (index != -1) {
@@ -728,6 +994,11 @@ public class Player extends Entity {
     }
 
     // Interacting with npc
+    /**
+     * <p>
+     * This method adjusts player how to interact NPC
+     * </p>
+     */
     public void interactNpc(int i) {
 
         onPath = false;
@@ -744,7 +1015,11 @@ public class Player extends Entity {
 
         }
     }
-
+    /**
+     * <p>
+     * This method sets player how to get damage
+     * </p>
+     */
     public void getDamage(int index) {
         if (index != -1 && gp.enemy[index].inFight) {
             String enemyName = gp.enemy[index].name;
@@ -841,7 +1116,11 @@ public class Player extends Entity {
              */
         }
     }
-
+    /**
+     * <p>
+     * This method sets player dead
+     * </p>
+     */
     public void setDead() {
         life = 0;
         gp.playSE(21);
@@ -863,7 +1142,11 @@ public class Player extends Entity {
 
         deadCounter = 0;
     }
-
+    /**
+     * <p>
+     * This method sets enemy damage
+     * </p>
+     */
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
 
@@ -1041,13 +1324,21 @@ public class Player extends Entity {
             }
         }
     }
-
+    /**
+     * <p>
+     * This method sets knock back 
+     * </p>
+     */
     public void knockBack(Entity entity) {
         entity.direction = direction;
         entity.speed += 5;
         entity.knockBack = true;
     }
-
+    /**
+     * <p>
+     * This method sets get heal
+     * </p>
+     */
     public void getHeal(int healCounter) {
         playerTimer++;
         if (playerTimer >= healCounter) {
@@ -1059,7 +1350,11 @@ public class Player extends Entity {
             playerTimer = 0;
         }
     }
-
+    /**
+     * <p>
+     * This method sets use red potion
+     * </p>
+     */
     public void useRedPotion() {
         if (redPotionNumber > 0) {
             if (life != maxLife) {
@@ -1091,7 +1386,11 @@ public class Player extends Entity {
             gp.ui.addMessage("Not Enough Potion to Drink!");
         }
     }
-
+    /**
+     * <p>
+     * This method sets use blue potion
+     * </p>
+     */
     public void useBluePotion() {
         if (bluePotionNumber > 0) {
             if (sp != maxSp) {
@@ -1123,7 +1422,11 @@ public class Player extends Entity {
             gp.ui.addMessage("Not Enough Potion to Drink!");
         }
     }
-
+    /**
+     * <p>
+     * This method sets get special point
+     * </p>
+     */
     public void getSp(int spCounter) {
         playerTimer++;
         if (playerTimer >= spCounter) {
@@ -1135,7 +1438,11 @@ public class Player extends Entity {
             playerTimer = 0;
         }
     }
-
+    /**
+     * <p>
+     * This method sets sound of step
+     * </p>
+     */
     public void stepSound() {
         stepCounter++;
         if (stepCounter == 10) {
@@ -1149,7 +1456,11 @@ public class Player extends Entity {
             stepCounter = 0;
         }
     }
-
+    /**
+     * <p>
+     * This method sets dying animation
+     * </p>
+     */
     public void dyingAnimation() {
         dyingCounter++;
 
@@ -1185,7 +1496,11 @@ public class Player extends Entity {
         }
 
     }
-
+    /**
+     * <p>
+     * This method sets animation character
+     * </p>
+     */
     public void animationCharacter() {
         if (!gp.skills.skillUsed && !attacking) {
             spriteCounter++;
@@ -1199,35 +1514,67 @@ public class Player extends Entity {
             }
         }
     }
-
+    /**
+     * <p>
+     * This method returns player coin
+     * </p>
+     */
     public int getPlayerCoin() {
         return playerCoin;
     }
-
+    /**
+     * <p>
+     * This method returns player default speed
+     * </p>
+     */
     public int getSpeedDefault() {
         return speedDefault;
     }
-
+    /**
+     * <p>
+     * This method returns player experience point
+     * </p>
+     */
     public int getPlayerXP() {
         return playerXP;
     }
-
+    /**
+     * <p>
+     * This method returns player attack power
+     * </p>
+     */
     public int getAttackPower() {
         return attackPower;
     }
-
+    /**
+     * <p>
+     * This method sets player coin
+     * </p>
+     */
     public void setPlayerCoin(int playerCoin) {
         this.playerCoin = playerCoin;
     }
-
+    /**
+     * <p>
+     * This method sets default speed
+     * </p>
+     */
     public void setSpeedDefault(int speedDefault) {
         this.speedDefault = speedDefault;
     }
-
+    /**
+     * <p>
+     * This method sets player experience point
+     * </p>
+     */
     public void setPlayerXP(int playerXP) {
         this.playerXP = playerXP;
     }
-
+    /**
+     * <p>
+     * This method sets attack power
+     * </p>
+     */
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
