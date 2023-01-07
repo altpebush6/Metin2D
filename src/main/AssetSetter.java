@@ -147,11 +147,11 @@ public class AssetSetter {
 
         if (wolfCreateCounter >= 180 && aliveWolfNum < 5) { // if 5 seconds past and there are wolf less than 5
 
-            playerWorldX = wolfBoundary.x;
-            playerWorldWidth = wolfBoundary.x + wolfBoundary.width;
+            playerWorldX = gp.player.worldX - gp.tileSize * 5;
+            playerWorldWidth = gp.player.worldX + gp.tileSize * 5;
 
-            playerWorldY = wolfBoundary.y;
-            playerWorldHeight = wolfBoundary.y + wolfBoundary.height;
+            playerWorldY = gp.player.worldY - gp.tileSize * 5;
+            playerWorldHeight = gp.player.worldY + gp.tileSize * 5;
 
             do {
                 spawnWorldX = (int) (rand.nextInt(playerWorldX, playerWorldWidth) / gp.tileSize) * gp.tileSize; // new
@@ -170,14 +170,10 @@ public class AssetSetter {
                 int yPosition = rand.nextInt(3);
 
                 collisionOn = false;
-                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize);
-                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize, gp.enemy);
-                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize, gp.npc);
-                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize,
-                        spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkTileForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.enemy);
+                gp.collisionChecker.checkEntityForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize, gp.npc);
+                gp.collisionChecker.checkPlayerForNewEntity(spawnWorldX + xPosition * gp.tileSize, spawnWorldY + yPosition * gp.tileSize);
                 if (!collisionOn) {
                     gp.enemy[index] = new ENEMY_Wolf(gp, index);
                     gp.enemy[index].worldX = spawnWorldX + xPosition * gp.tileSize;

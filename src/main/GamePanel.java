@@ -461,7 +461,6 @@ public class GamePanel extends JPanel implements Runnable {
         // this.setBackground(Color.black);
         this.setDoubleBuffered(true);// If set true, all the drawing from this component will be done in an offscreen
                                      // pointing buffer. IMPROVE GAME RENDERING PERFORMANS
-
         this.addKeyListener(keyH);
         this.addMouseListener(mouseH);
         this.setFocusable(true);
@@ -555,10 +554,7 @@ public class GamePanel extends JPanel implements Runnable {
      */
     @Override
     public void run() {
-
-        // when press a key button computer catches it too many times. to avoid this, we
-        // use 2 different methods.
-
+        
         // FIRST METHOD to avoid
         double drawInterval = 1000000000 / FPS; // 0.01666 seconds = 16,666,666 nanoseconds
         double delta = 0;
@@ -589,44 +585,6 @@ public class GamePanel extends JPanel implements Runnable {
                 timer = 0;
             }
         }
-
-        /*
-         * // SECOND METHOD to avoid
-         * double drawInterval = 1000000000/FPS; // 0.01666 seconds
-         * double nextDrawTime = System.nanoTime() + drawInterval;
-         * 
-         * while(gameThread != null) {
-         * //System.out.println("The Game Loop is running!");
-         * 
-         * long currentTime = System.nanoTime(); // Returns current value of the running
-         * Java Virtual Machine's high-resolution time source in nanoseconds
-         * System.out.println("current time: "+currentTime);
-         * 
-         * 
-         * // 1 UPDATE: update information such as character position
-         * update();
-         * // 2 DRAW: draw the screen with the updated information
-         * repaint();
-         * 
-         * try { // it won't do anything until sleep time is over.
-         * 
-         * double remainingTime = nextDrawTime - System.nanoTime();
-         * remainingTime = remainingTime/1000000; // nano to mili seconds
-         * 
-         * if(remainingTime < 0) {
-         * remainingTime = 0;
-         * }
-         * 
-         * Thread.sleep((long) remainingTime);
-         * 
-         * nextDrawTime += drawInterval;
-         * 
-         * } catch (InterruptedException e) {
-         * e.printStackTrace();
-         * }
-         * 
-         */
-
     }
 
     /**
@@ -801,15 +759,7 @@ public class GamePanel extends JPanel implements Runnable {
 
                 // ADD ENTITIES TO THE LIST
                 entityList.add(player);
-
-                /*
-                 * for(int i=0; i < obj.length; i++) {
-                 * if(obj[i] != null) {
-                 * entityList.add(obj[i]);
-                 * }
-                 * }
-                 */
-
+                
                 for (int i = 0; i < enemy.length; i++) {
                     if (enemy[i] != null) {
                         entityList.add(enemy[i]);

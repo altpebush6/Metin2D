@@ -83,17 +83,6 @@ public class CollisionChecker {
 	                if(tileNum1 >= 2500)  tileNum1 = 2499;
 	                if(tileNum2 >= 2500)  tileNum2 = 2499;
 	                
-	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-	                /*
-	                if(gp.tileM.tile[tileNum1].collision) {
-	                    entity.worldX += entity.speed;
-	                    entity.collisionOn = true;
-	                }else if(gp.tileM.tile[tileNum2].collision){
-	                    entity.worldX -= entity.speed;
-	                    entity.collisionOn = true;
-	                }
-	                */
-	                
 	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
 	                    entity.collisionOn = true;
 	                }
@@ -154,17 +143,6 @@ public class CollisionChecker {
 	                if(tileNum1 >= 2500)  tileNum1 = 2499;
 	                if(tileNum2 >= 2500)  tileNum2 = 2499;
 	                
-	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-	                /*
-	                if(gp.tileM.tile[tileNum1].collision) {
-	                    entity.worldX += entity.speed;
-	                    entity.collisionOn = true;
-	                }else if(gp.tileM.tile[tileNum2].collision) {
-	                    entity.worldX -= entity.speed;
-	                    entity.collisionOn = true;
-	                }
-	                */
-	                
 	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
 	                    entity.collisionOn = true;
 	                }
@@ -224,17 +202,6 @@ public class CollisionChecker {
 	                
                     if(tileNum1 >= 2500)  tileNum1 = 2499;
                     if(tileNum2 >= 2500)  tileNum2 = 2499;
-                    
-	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-	                /*
-	                if(gp.tileM.tile[tileNum1].collision) {
-	                    entity.worldY += entity.speed;
-	                    entity.collisionOn = true;
-	                }else if(gp.tileM.tile[tileNum2].collision) {
-	                    entity.worldY -= entity.speed;
-	                    entity.collisionOn = true;
-	                }
-	                */
 	                
 	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
 	                    entity.collisionOn = true;
@@ -257,17 +224,6 @@ public class CollisionChecker {
 	                
                     if(tileNum1 >= 2500)  tileNum1 = 2499;
                     if(tileNum2 >= 2500)  tileNum2 = 2499;
-	                
-	                // If player wants to go through a path and if there is a obstacle on path. these makes player to go around of this obstacle
-	                /*
-	                if(gp.tileM.tile[tileNum1].collision) {
-	                    entity.worldY += entity.speed;
-	                    entity.collisionOn = true;
-	                }else if(gp.tileM.tile[tileNum2].collision) {
-	                    entity.worldY -= entity.speed;
-	                    entity.collisionOn = true;
-	                }
-	                */
 	                
 	                if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
 	                    entity.collisionOn = true;
@@ -468,27 +424,6 @@ public class CollisionChecker {
                 if(hipotenus <= distance) {
                     index = i;
                 }
-                
-                /* 
-                // Get Entity's solid area position
-                entity.solidArea.x = entity.worldX + entity.solidArea.x;
-                entity.solidArea.y = entity.worldY + entity.solidArea.y;
-                
-                // Get Enemy's Fight Area (3*3)
-                int enemyAreaX = enemy[i].worldX - gp.tileSize;         // Subtract tileSize from enemy's location X
-                int enemyAreaY = enemy[i].worldY - gp.tileSize;         // Subtract tileSize from enemy's location Y
-                int enemyAreaWidth = gp.tileSize * 3;                   // Width equals to 3 times of tileSize
-                int enemyAreaHeight = gp.tileSize * 3;                  // Heights equals to 3 times of tileSize
-                
-                Rectangle enemyArea = new Rectangle(enemyAreaX, enemyAreaY, enemyAreaWidth, enemyAreaHeight);
-
-                if(entity.solidArea.intersects(enemyArea)) {
-                    index = i;
-                }
-
-                entity.solidArea.x = entity.solidAreaDefaultX;
-                entity.solidArea.y = entity.solidAreaDefaultY;
-                */
             }
         }
         

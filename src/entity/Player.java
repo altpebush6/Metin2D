@@ -3,7 +3,6 @@ package entity;
 import main.KeyHandler;
 import main.MouseHandler;
 import main.MovePlayer;
-import object.OBJ_Dolunay;
 import object.OBJ_Sword;
 
 import java.awt.AlphaComposite;
@@ -305,7 +304,6 @@ public class Player extends Entity {
         defaultScreenX = screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         defaultScreenY = screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
-        // CHANGE THIS ACCORDING TO CHARACTER PIXEL ART @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         solidArea = new Rectangle();
 
         solidArea.x = 25;
@@ -487,20 +485,6 @@ public class Player extends Entity {
         if (itemIndex2 >= maxInventorySize) {
             itemIndex2 = -1;
         }
-        /*
-         * if(currentWeapon != null){
-         * inventory.add(currentWeapon);
-         * }
-         * if(gp.collect != null){
-         * for(int i = 0; i<maxInventorySize;i++){
-         * if(gp.collect[i] != null){
-         * 
-         * inventory.add(gp.collect[i]);
-         * }
-         * 
-         * }
-         * }
-         */
     }
     /**
      * <p>
@@ -547,8 +531,6 @@ public class Player extends Entity {
         // When pressed space
         attackCounter++;
         if ((keyH.spacePressed || autoHit) && !gp.skills.skillUsed) {
-            // System.out.println("noPunchCounter: "+ noPunchCounter+" punchTimeOut:
-            // "+punchTimeOut+" holdingCounter: "+holdingCounter);
             noPunchCounter = 0;
             holdingCounter++;
             if (attackCounter >= damageTimeOut) {
@@ -566,27 +548,7 @@ public class Player extends Entity {
         }
 
         gp.skills.increaseTimeouts();
-
         gp.skills.resetSkills();
-
-        /*
-         * if (gp.skills.swordSpinUsed && gp.skills.swordSpinTimeOut == 0) {
-         * if (gp.skills.swordSpinCounter > 20) {
-         * gp.skills.useSkill(gp.skills.swordSpinType);
-         * gp.skills.skillUsed = true;
-         * }
-         * speed = attackWalkingSpeed;
-         * gp.skills.swordSpinCounter++;
-         * if (gp.skills.swordSpinCounter == gp.skills.skillTimeOut) {
-         * gp.skills.swordSpinCounter = 0;
-         * gp.skills.swordSpinUsed = false;
-         * gp.skills.skillUsed = false;
-         * spriteNum = 1;
-         * gp.skills.swordSpinTimeOut++;
-         * }
-         * }
-         */
-
         gp.skills.swordSpin();
         gp.skills.auraOfTheSword();
 
@@ -599,8 +561,7 @@ public class Player extends Entity {
             speed = speedDefault;
         }
 
-        // To avoid player to get damage every frame. Instead waits for 1 seconds and
-        // get damage.
+        // To avoid player to get damage every frame. Instead waits for 1 seconds and get damage.
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter == 30) {
@@ -620,8 +581,6 @@ public class Player extends Entity {
                 }
                 keyH.quotePressed = false;
 
-            } else {
-                // gp.ui.showMessage("Press \" to pick up item.");
             }
         }
 
@@ -668,8 +627,6 @@ public class Player extends Entity {
             // CHECK NPC COLLISION
             gp.collisionChecker.checkEntity(this, gp.npc);
 
-            // interactNpc(npcIndex);
-
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
                 MovePlayer.move(gp);
@@ -695,9 +652,9 @@ public class Player extends Entity {
 
             if (mouseH.pressedOnEnemy) {
                 int enemyCol = (gp.enemy[mouseH.enemyIndex].worldX + gp.enemy[mouseH.enemyIndex].solidArea.x)
-                        / gp.tileSize; // gp.player.worldX + gp.player.solidArea.x
+                        / gp.tileSize;
                 int enemyRow = (gp.enemy[mouseH.enemyIndex].worldY + gp.enemy[mouseH.enemyIndex].solidArea.y)
-                        / gp.tileSize; // gp.player.worldY + gp.player.solidArea.y
+                        / gp.tileSize;
                 searchPath(enemyCol, enemyRow);
 
                 if (enemyCollisionIndex == mouseH.enemyIndex) {
@@ -861,7 +818,6 @@ public class Player extends Entity {
      */
     public void attack() {
 
-        // spriteCounter yürürken 2 olduğu için 3 te iken ses çal
         if (spriteCounter == 3) {
             gp.playSE(holdingNum + 10);
         }
@@ -1062,9 +1018,6 @@ public class Player extends Entity {
                         // Wolf Barking
                         enemySoundCounter++;
                         if (enemySoundCounter == 40) {
-                            int sougdChoice = rand.nextInt(2) + 7;
-                            //gp.playSE(soundChoice);
-    
                             enemySoundCounter = 0;
                         }
     
@@ -1073,8 +1026,6 @@ public class Player extends Entity {
                             int damage = rand.nextInt(5) + 1;
                             if (life - damage >= 0 && !gp.enemy[0].dying) {
     
-                                int soundChoice = rand.nextInt(5) + 14;
-                                //gp.playSE(soundChoice);
                                 life -= damage;
     
                                 int damagePosX = screenX;
@@ -1097,26 +1048,6 @@ public class Player extends Entity {
             if (sp < maxSp) {
                 getSp(60);
             }
-            /*
-             * if(sp < maxSp) {
-             * getSp(90);
-             * }
-             */
-            /*
-             * if (gp.player.playerSp < 100) {
-             * playerTimer++;
-             * if (playerTimer == 3600) {
-             * if (maxPlayerSp - playerSp < increaseSp) {
-             * playerSp+= maxPlayerSp - playerSp;
-             * playerTimer = 0;
-             * } else {
-             * playerSp += increaseSp;
-             * playerTimer = 0;
-             * }
-             * }
-             * 
-             * }
-             */
         }
     }
     /**
@@ -1133,8 +1064,7 @@ public class Player extends Entity {
 
         gp.skills.swordSpinUsed = false;
         gp.skills.skillUsed = false;
-        gp.skills.skillSpriteCounter = gp.skills.increaseAmount * 10; // Skill içindeki son if'e girerek doğduktan sonra
-                                                                      // skill kullanmaması için
+        gp.skills.skillSpriteCounter = gp.skills.increaseAmount * 10;
 
         for (int i = 0; i < gp.enemy.length; i++) {
             if (gp.enemy[i] != null) {
@@ -1235,95 +1165,6 @@ public class Player extends Entity {
                             gp.ui.addMessage("Turn back Abulbul!");
                         }
                     }
-
-
-
-                    /*
-                     * switch(gp.enemy[enemyIndex].name){
-                     * case "Wolf":
-                     * 
-                     * gp.aSetter.aliveWolfNum--;
-                     * gp.playSE(6);
-                     * if (taskLevel == 2) {
-                     * deadWolfCounter++;
-                     * }
-                     * 
-                     * autoHit = false;
-                     * 
-                     * playerXP += rand.nextInt(10) + 100 / level;
-                     * 
-                     * // If level up
-                     * if (playerXP / 920 + 1 > level) {
-                     * life = maxLife;
-                     * }
-                     * 
-                     * level = (playerXP / 920) + 1;
-                     * 
-                     * int coinNumber = rand.nextInt(3) + 3;
-                     * for (int i = coinNumber; i > 0; i--) {
-                     * 
-                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * 
-                     * gp.aSetter.createCoin(xPosition, yPosition);
-                     * }
-                     * 
-                     * // Dolunay 28% Luck
-                     * int dolunayLuck = rand.nextInt(100);
-                     * if (dolunayLuck < 28) {
-                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * gp.aSetter.createDolunay(xPosition, yPosition);
-                     * }
-                     * 
-                     * gp.enemy[enemyIndex].dying = true;
-                     * gp.enemy[enemyIndex].alive = false;
-                     * gp.aSetter.createDeadWolf(worldX, worldY + (gp.tileSize / 2));
-                     * break;
-                     * 
-                     * case "Satellite":
-                     * 
-                     * autoHit = false;
-                     * 
-                     * playerXP += rand.nextInt(10) + 100 / level;
-                     * 
-                     * // If level up
-                     * if (playerXP / 920 + 1 > level) {
-                     * life = maxLife;
-                     * }
-                     * 
-                     * level = (playerXP / 920) + 1;
-                     * 
-                     * coinNumber = rand.nextInt(3) + 3;
-                     * for (int i = coinNumber; i > 0; i--) {
-                     * 
-                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * 
-                     * gp.aSetter.createCoin(xPosition, yPosition);
-                     * }
-                     * 
-                     * // Dolunay 28% Luck
-                     * dolunayLuck = rand.nextInt(100);
-                     * if (dolunayLuck < 28) {
-                     * int xPosition = gp.enemy[enemyIndex].worldX + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * int yPosition = gp.enemy[enemyIndex].worldY + rand.nextInt(3) * gp.tileSize /
-                     * 5;
-                     * gp.aSetter.createDolunay(xPosition, yPosition);
-                     * }
-                     * 
-                     * gp.enemy[enemyIndex].dying = true;
-                     * gp.enemy[enemyIndex].alive = false;
-                     * 
-                     * }
-                     */
                 }
             }
         }

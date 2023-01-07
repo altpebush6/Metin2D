@@ -326,10 +326,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         mouseOverX = e.getX();
         mouseOverY = e.getY();
-        // System.out.println(gp.ui.respawnHereRec.x+" "+gp.ui.respawnHereRec.y+"
-        // "+(gp.ui.respawnHereRec.x + gp.ui.respawnHereRec.width)+"
-        // "+(gp.ui.respawnHereRec.y + gp.ui.respawnHereRec.height)+ " ::: "+
-        // mouseOverX+" "+mouseOverY);
     }
 
     /**

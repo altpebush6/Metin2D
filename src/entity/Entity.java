@@ -643,7 +643,6 @@ public class Entity {
                     worldX = newWorldX;
                     worldY = newWorldY;
                     if (type == enemyType && name == "Wolf") {
-                        System.out.println("girdi ");
                         if (newWorldX > gp.aSetter.wolfBoundary.x
                                 && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
                                 newWorldY > gp.aSetter.wolfBoundary.y
@@ -651,11 +650,6 @@ public class Entity {
                             worldX = newWorldX;
                             worldY = newWorldY;
                         }
-                    } else {
-                        /*
-                         * worldX = newWorldX;
-                         * worldY = newWorldY;
-                         */
                     }
                 }
             }
@@ -717,11 +711,6 @@ public class Entity {
                     } else {
                         changeDirection();
                     }
-                } else {
-                    /*
-                     * worldX = newWorldX;
-                     * worldY = newWorldY;
-                     */
                 }
             }
         }
@@ -889,16 +878,6 @@ public class Entity {
             if (newBorn) {
                 bornAnimation(g2);
             }
-
-            // if object not collected remove it
-            /*
-             * if (type == objectType) {
-             * objectCounter++;
-             * if (objectCounter == 300) {
-             * deadObj = true;
-             * }
-             * }
-             */
 
             // Enemy fill Hp
             damageCounter++;
@@ -1182,22 +1161,10 @@ public class Entity {
                 int nextX = gp.pathFinder.pathList.get(0).col * gp.tileSize;
                 int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
 
-                // Entity's solidArea Position
-                /*
-                 * int entityLeftX = (int)(worldX / gp.tileSize) * gp.tileSize;
-                 * int entityRightX = entityLeftX;
-                 * int entityTopY = (int)(worldY / gp.tileSize) * gp.tileSize;
-                 * int entityBottomY = entityTopY;
-                 */
-
                 int entityLeftX = worldX + solidArea.x;
                 int entityRightX = worldX + solidArea.x + solidArea.width;
                 int entityTopY = worldY + solidArea.y;
                 int entityBottomY = worldY + solidArea.y + solidArea.height;
-
-                // System.out.println("nextX:" + nextX + " nextY:" + nextY + " entityLeftX: " +
-                // entityLeftX + " entityRightX: " + entityRightX+ " entityTopY:" + entityTopY +
-                // " entityBottomY:" + entityBottomY);
 
                 if (entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
                     direction = "up";
@@ -1243,22 +1210,6 @@ public class Entity {
                         direction = "right";
                     }
                 }
-
-                /*
-                 * // If reaches the goal, stop searching
-                 * int nextCol = gp.pathFinder.pathList.get(0).col;
-                 * int nextRow = gp.pathFinder.pathList.get(0).row;
-                 * 
-                 * if(nextCol == goalCol && nextRow == goalRow) {
-                 * onPath = false;
-                 * if(gp.player.mouseH.pressed && type == playerType) {
-                 * gp.player.mouseH.pressed = false;
-                 * }
-                 * if(type == npcType) {
-                 * //standing = true; // stop NPC when it reaches to goal
-                 * }
-                 * }
-                 */
             }
         }
 
