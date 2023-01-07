@@ -935,6 +935,7 @@ public class Player extends Entity {
      * <p>
      * This method adjusts player how to pick up object
      * </p>
+     * @param index refers object index
      */
     public void pickUpObject(int index) {
 
@@ -998,6 +999,7 @@ public class Player extends Entity {
      * <p>
      * This method adjusts player how to interact NPC
      * </p>
+     * @param i refers the state for dialogue, trade or enchant
      */
     public void interactNpc(int i) {
 
@@ -1019,6 +1021,7 @@ public class Player extends Entity {
      * <p>
      * This method sets player how to get damage
      * </p>
+     * @param index referes enemy index
      */
     public void getDamage(int index) {
         if (index != -1 && gp.enemy[index].inFight) {
@@ -1146,6 +1149,7 @@ public class Player extends Entity {
      * <p>
      * This method sets enemy damage
      * </p>
+     * @param enemyIndex refers enemy index on the array
      */
     public void damageEnemy(int enemyIndex) {
         if (enemyIndex != -1) {
@@ -1328,6 +1332,7 @@ public class Player extends Entity {
      * <p>
      * This method sets knock back 
      * </p>
+     * @param entity is referes player
      */
     public void knockBack(Entity entity) {
         entity.direction = direction;
@@ -1338,6 +1343,7 @@ public class Player extends Entity {
      * <p>
      * This method sets get heal
      * </p>
+     * @param healCounter count get health time
      */
     public void getHeal(int healCounter) {
         playerTimer++;
@@ -1426,6 +1432,7 @@ public class Player extends Entity {
      * <p>
      * This method sets get special point
      * </p>
+     * @param spCounter count get sp time 
      */
     public void getSp(int spCounter) {
         playerTimer++;
@@ -1550,34 +1557,42 @@ public class Player extends Entity {
     public int getAttackPower() {
         return attackPower;
     }
+    
     /**
      * <p>
      * This method sets player coin
      * </p>
+     * @param playerCoin referes player total coin
      */
     public void setPlayerCoin(int playerCoin) {
         this.playerCoin = playerCoin;
     }
+    
     /**
      * <p>
      * This method sets default speed
      * </p>
+     * @param speedDefault is refers player's run speed default value
      */
     public void setSpeedDefault(int speedDefault) {
         this.speedDefault = speedDefault;
     }
+    
     /**
      * <p>
      * This method sets player experience point
      * </p>
+     * @param playerXP set the player level xp
      */
     public void setPlayerXP(int playerXP) {
         this.playerXP = playerXP;
     }
+    
     /**
      * <p>
      * This method sets attack power
      * </p>
+     * @param attackPower is refers player's attack damage
      */
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;

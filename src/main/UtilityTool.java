@@ -18,8 +18,9 @@ public class UtilityTool {
      * this method scale images 
      * </p>
      * 
-     * @param original refers the original image and width and height parameters represent the dimensions of the 
-     * original image 
+     * @param original refers the original image
+     * @param width is refers image width
+     * @param height is referes image height
      * @since 1.0
      * @return BufferedImage
      */
@@ -38,8 +39,9 @@ public class UtilityTool {
      * this method gets images and scale images by calling scaleImage method  
      * </p>
      * 
-     * @param original refers the original image and width and height parameters represent the dimensions of the 
-     * original image 
+     * @param imagePath refers the original image path 
+     * @param width refers original image's width
+     * @param height refers original image's height
      * @since 1.0
      * @return BufferedImage
      */

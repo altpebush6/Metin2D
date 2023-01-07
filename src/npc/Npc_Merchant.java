@@ -19,6 +19,11 @@ import object.OBJ_GenisKilic;
 public class Npc_Merchant extends Entity {
 
     GamePanel gp;
+    /**
+     * <p>
+     * This array hold inventory
+     * </p>
+     */
     public static ArrayList<Entity> npcInventory = new ArrayList<>();
 
     /**

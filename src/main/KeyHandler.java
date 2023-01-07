@@ -112,7 +112,7 @@ public class KeyHandler implements KeyListener {
 	 * This is deafult method's keylistener
 	 * </p>
 	 * 
-	 * @param KeyEvent for interaction
+	 * @param e for interaction
 	 * @since 1.0
 	 */
 	@Override
@@ -124,7 +124,7 @@ public class KeyHandler implements KeyListener {
 	 * This is deafult method's keylistener. All interaction ensure keyPressed
 	 * </p>
 	 * 
-	 * @param KeyEvent for interaction
+	 * @param e for interaction
 	 * @since 1.0
 	 */
 	@Override
@@ -607,7 +607,7 @@ public class KeyHandler implements KeyListener {
 	 * This is deafult method's keylistener
 	 * </p>
 	 * 
-	 * @param KeyEvent for interaction
+	 * @param e for interaction
 	 * @since 1.0
 	 */
 	@Override
@@ -671,7 +671,7 @@ public class KeyHandler implements KeyListener {
 	 * This method ensure passing the option screen.
 	 * </p>
 	 * 
-	 * @param KeyEvent for interaction
+	 * @param code for interaction
 	 * @since 1.0
 	 */
 	public void optionsState(int code) {
