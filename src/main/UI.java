@@ -55,7 +55,7 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage for empty health bar.
+     * This BufferedImage for empty healty bar.
      * </p>
      */
     BufferedImage emptyBarImage;
@@ -69,14 +69,14 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage array for health bar.
+     * This BufferedImage array for healty bar.
      * </p>
      */
     BufferedImage[] hpBarImages = new BufferedImage[8];
 
     /**
      * <p>
-     * This BufferedImage array for sp bar.
+     * This BufferedImage arrat for sp bar.
      * </p>
      */
     BufferedImage[] spBarImages = new BufferedImage[8];
@@ -125,14 +125,14 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage for Bottom Bar.
+     * This BufferedImage for Buttom Bar.
      * </p>
      */
     BufferedImage bottomBar;
 
     /**
      * <p>
-     * This BufferedImage for Bottom Bar.
+     * This BufferedImage for Buttom Bar.
      * </p>
      */
     BufferedImage bottomBar2;
@@ -146,7 +146,7 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage for inventory Bar.
+     * This BufferedImage for Inventory Bar.
      * </p>
      */
     BufferedImage inventoryBar;
@@ -160,7 +160,7 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage for inventory button.
+     * This BufferedImage for Inventory button.
      * </p>
      */
     BufferedImage inventoryBtn;
@@ -174,14 +174,14 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage for inventory.
+     * This BufferedImage for Inventory.
      * </p>
      */
     BufferedImage inventory;
 
     /**
      * <p>
-     * This BufferedImage for merchant NPC inventory.
+     * This BufferedImage for merchant NPC Inventory.
      * </p>
      */
     BufferedImage merchantInventory;
@@ -370,7 +370,7 @@ public class UI {
 
     /**
      * <p>
-     * This variable for health;
+     * This variable for healty;
      * </p>
      */
     public int healthBar;
@@ -384,7 +384,7 @@ public class UI {
 
     /**
      * <p>
-     * This variable is timer for health increases
+     * This variable is timer for healty increases
      * </p>
      */
     public int hpBarCounter = 0;
@@ -545,14 +545,14 @@ public class UI {
 
     /**
      * <p>
-     * This variable for health tube.
+     * This variable for healty tube.
      * </p>
      */
     public int fillTupeNum = 0;
 
     /**
      * <p>
-     * This variable for health tube increases.
+     * This variable for healty tube increases.
      * </p>
      */
     public int tupeImg;
@@ -740,7 +740,7 @@ public class UI {
 
     /**
      * <p>
-     * This method ensure UI elements drawing.
+     * Thismethod ensure UI elements drawing.
      * </p>
      * 
      * @param g2 Graphics2D for GamePanel
@@ -998,10 +998,6 @@ public class UI {
      * <p>
      * This method draw special rounded rectangle for UI
      * </p>
-     * @param x is x coordinates
-     * @param y is y coordinates
-     * @param width is refers drawing shape's width 
-     * @param height is refers drawing shape's height
      */
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 200);
@@ -1013,10 +1009,9 @@ public class UI {
     /**
      * <p>
      * This method draw option menu top.
-     * </p>
-     * @param frameX is x location
-     * @param frameY is y location
-     *                
+     * 
+     * @param frameX, frameY for location
+     *                </p>
      */
     public void options_top(int frameX, int frameY) {
 
@@ -1164,8 +1159,6 @@ public class UI {
      * <p>
      * This method draw NPC's dialogue.
      * </p>
-     * @param x is x coordinates
-     * @param y is y coordinates
      */
     public void drawStory(int x, int y) {
         Color c2 = new Color(255, 255, 255);
@@ -1246,10 +1239,10 @@ public class UI {
 
     /**
      * <p>
-     * This method draw inventory.
-     * </p>
+     * This method draw Inventory.
+     * 
      * @param cursorState for in merchant NPC inventory or not.
-     *                    
+     *                    </p>
      */
     public void drawInventory(boolean cursorState) {
 
@@ -1487,7 +1480,6 @@ public class UI {
      * <p>
      * This method ensure the cursor's moving.
      * </p>
-     * @return if cursor on the  inventory true otherwise false
      */
     public boolean controlCursor() {
         if (gp.player.inventory.size() > cursorIndex) {
@@ -1548,7 +1540,6 @@ public class UI {
      * <p>
      * This method for merchant NPC's inventory cursor's moving.
      * </p>
-     * @return  if cursor on the  npc true otherwise false
      */
     public boolean controlNpcCursor() {
         if (Npc_Merchant.npcInventory.size() > cursorNpcIndex) {
@@ -1565,9 +1556,9 @@ public class UI {
     /**
      * <p>
      * This method draws respawn buttons.
-     * </p>
+     * 
      * @param g2 Gaphics2D for GamePanel
-     *           
+     *           </p>
      */
     public void respawnButtons(Graphics2D g2) {
         String respawnHere = "    Restart Here";
@@ -1605,9 +1596,9 @@ public class UI {
     /**
      * <p>
      * This method draws title screen buttons.
-     * </p>
+     * 
      * @param g2 Gaphics2D for GamePanel
-     *           
+     *           </p>
      */
     public void enterNameButton(Graphics2D g2) {
         String text = "Save";
@@ -1634,9 +1625,9 @@ public class UI {
     /**
      * <p>
      * This method draws title screen buttons.
-     * </p>
+     * 
      * @param g2 Gaphics2D for GamePanel
-     *           
+     *           </p>
      */
     public void titleScreenButtons(Graphics2D g2) {
         String start = "         Start";
@@ -1674,9 +1665,9 @@ public class UI {
     /**
      * <p>
      * This method draws title screen name area.
-     * </p>
+     * 
      * @param g2 Gaphics2D for GamePanel
-     *           
+     *           </p>
      */
     public void titleScreenCharStatus(Graphics2D g2) {
 
@@ -1698,11 +1689,9 @@ public class UI {
     /**
      * <p>
      * This method draws centered text.
-     * </p>
+     * 
      * @param g2 Gaphics2D for GamePanel
-     * @param text is refers string
-     * @return center coordinates
-     *           
+     *           </p>
      */
     public int getXForCenteredText(Graphics2D g2, String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
@@ -1712,9 +1701,9 @@ public class UI {
     /**
      * <p>
      * This method draws skills.
-     * </p>
+     * 
      * @param g2 Gaphics2D for GamePanel
-     *           
+     *           </p>
      */
     public void drawSkills(Graphics2D g2) {
 
@@ -1780,11 +1769,6 @@ public class UI {
      * <p>
      * This method task screen rectangle
      * </p>
-     * @param taskRecX is refers rectangle x coordinates
-     * @param taskRecY is refers rectangle y coordinates
-     * @param taskRecWidth is refers rectangle width
-     * @param taskRecHeight is refers rectangle height
-     * @param taskLevel is refers player's task level
      */
     public void drawTaskRec(int taskRecX, int taskRecY, int taskRecWidth, int taskRecHeight, int taskLevel) {
 
@@ -1804,9 +1788,8 @@ public class UI {
 
     /**
      * <p>
-     * This method draw bottom bar.
+     * This method draw buttom bar.
      * </p>
-     * @param g2 draws 2 dimensional text or shapes
      */
     public void drawBottomBar(Graphics2D g2) {
 
@@ -1947,7 +1930,6 @@ public class UI {
      * <p>
      * This method draws inventory button.
      * </p>
-     * @param g2 draws 2 dimensional text or shapes
      */
     public void inventoryOptionsBtn(Graphics2D g2) {
 
@@ -1971,9 +1953,9 @@ public class UI {
     /**
      * <p>
      * This method draws message.
-     * </p>
+     * 
      * @param text for which message draws
-     *             
+     *             </p>
      */
     public void addMessage(String text) {
 
@@ -1990,7 +1972,6 @@ public class UI {
      * <p>
      * This method draws message list
      * </p>
-     * @param g2 drawing 2 dimensional text or shape
      */
     public void drawMessage(Graphics2D g2) {
 
@@ -2022,10 +2003,9 @@ public class UI {
     /**
      * <p>
      * This method draws damage amount
-     * </p>
+     * 
      * @param damageIndex determines current damage
-     * @param g2 draws 2 dimensional text or shapes
-     *                    
+     *                    </p>
      */
     public void damageAnimation(Graphics2D g2, int damageIndex) {
 
@@ -2075,10 +2055,9 @@ public class UI {
     /**
      * <p>
      * This method draw option full screen.
-     * </p>
+     * 
      * @param frameX : Location
-     * @param frameY : Location
-     *               
+     *               </p>
      */
     public void options_fullScreenNotification(int frameX, int frameY) {
         int textX = frameX + gp.tileSize;
@@ -2112,8 +2091,6 @@ public class UI {
      * <p>
      * This method determines end game message
      * </p>
-     * @param frameX : Location
-     * @param frameY : Location
      */
     public void options_endGameConfirmation(int frameX, int frameY) {
 
@@ -2159,8 +2136,6 @@ public class UI {
      * <p>
      * This method ensure using option screen.
      * </p>
-     * @param frameX : Location
-     *  @param frameY : Location
      */
     public void options_control(int frameX, int frameY) {
 
@@ -2222,10 +2197,8 @@ public class UI {
 
     /**
      * <p>
-     * This method change the transparency.
+     * This method change the transpency.
      * </p>
-     * @param g2 drawing 2 dimensional text or shapes
-     * @param alphaValue refers opacity value
      */
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));

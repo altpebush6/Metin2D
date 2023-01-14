@@ -70,7 +70,6 @@ public class Main {
      * <p>
      * This method sets the name of the window
      * </p> 
-     * @param gamePanel is refers gaming panel
      */
     public static void createText(GamePanel gamePanel) {
         JTextField t = new JTextField();

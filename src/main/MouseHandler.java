@@ -109,7 +109,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This is deafult method's mouselistener
      * </p>
      * 
-     * @param e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -121,7 +121,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This is deafult method's mouselistener
      * </p>
      * 
-     * @param e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -271,7 +271,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This is deafult method's mouselistener
      * </p>
      * 
-     * @param  e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -283,7 +283,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This is deafult method's mouselistener
      * </p>
      * 
-     * @param  e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -295,7 +295,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This is deafult method's mouselistener
      * </p>
      * 
-     * @param e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -307,7 +307,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This is deafult method's mouselistener
      * </p>
      * 
-     * @param e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -319,7 +319,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This method using for perceiving mouse moving
      * </p>
      * 
-     * @param e for interaction
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     @Override
@@ -337,7 +337,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
      * This method perceive mouse moving and change the button's color.
      * </p>
      * 
-     * @param  g2 for drawing 2 dimentional text or shape 
+     * @param KeyEvent e for interaction
      * @since 1.0
      */
     public void hoverRespawnBtn(Graphics2D g2) {

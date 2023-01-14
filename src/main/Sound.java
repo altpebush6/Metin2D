@@ -84,7 +84,6 @@ public class Sound {
      * <p>
      * This method sets sounds and opens also checks the volume level
      * </p> 
-     * @param index refers sound url index
      */
 	public void setFile(int index) {
 		try {

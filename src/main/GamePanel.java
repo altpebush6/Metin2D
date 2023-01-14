@@ -874,7 +874,7 @@ public class GamePanel extends JPanel implements Runnable {
      * This method plays music
      * screen.
      * </p>
-     * param index choose sound track 
+     * 
      * @since 1.0
      */
     public void playMusic(int index) {
@@ -903,7 +903,7 @@ public class GamePanel extends JPanel implements Runnable {
      * This method plays sound effects 
      * screen.
      * </p>
-     * @param index set sound effects 
+     * 
      * @since 1.0
      */
     public void playSE(int index) { // Sound Effects

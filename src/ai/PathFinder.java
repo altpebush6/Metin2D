@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import entity.Entity;
 import main.GamePanel;
 
-
-/**
- * <p>
- * This class using path Finder
- * </p>
- */
 public class PathFinder {
 
     /**
@@ -210,9 +204,8 @@ public class PathFinder {
      * 
      * @param goalCol indicates goal column
      * @param goalRow indicates goal row
-     * @param entity gets entity object
+     * @param Entity gets entity object
      * @since 1.0
-     * @return if return true goes the area
      */
     public boolean search(int goalCol, int goalRow, Entity entity) {
         while(!goalReached && step < 500 && !entity.reachedGoal) {
@@ -289,7 +282,7 @@ public class PathFinder {
      * Opens given node
      * </p>
      * 
-     * @param node gets  object
+     * @param gets node object
      * @since 1.0
      */
     public void openNode(Node node) {

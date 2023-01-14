@@ -17,7 +17,6 @@ public class OBJ_Coin extends Entity{
      * </p>
      * 
      * @param gp is the game panel
-     * @param newValue set coin  new value 
      * @since 1.0
      */
 	public OBJ_Coin(GamePanel gp, int newValue) {

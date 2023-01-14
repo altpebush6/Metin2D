@@ -270,29 +270,9 @@ public class Entity {
      */
     public double maxSp;
     public double sp;
-    /**
-     * <p>
-     * This variable control that is player action time
-     * </p>
-     */
     public int actionLockCounter = 0;
-    /**
-     * <p>
-     * This variable keeps player's level
-     * </p>
-     */
     public int level = 1;
-    /**
-     * <p>
-     * This variable keeps player's task level
-     * </p>
-     */
     public static int taskLevel;
-    /**
-     * <p>
-     * This variable control sub type
-     * </p>
-     */
     public int subType;
 
     // Item
@@ -386,78 +366,23 @@ public class Entity {
      * </p>
      */
     public int stepCounter = 0;
-    /**
-     * <p>
-     * This variable stores step type 
-     * </p>
-     */
     public int stepType = 0;
-    /**
-     * <p>
-     * This variable controls enemy sound 
-     * </p>
-     */
     public int enemySoundCounter = 0;
-    /**
-     * <p>
-     * This variable controls dead wolf image visibility
-     * </p>
-     */
     public int invincibleCounter = 0;
 
     /**
      * <p>
-     * This variable store fight table or not
+     * This variable store fightable or not
      * </p>
      */
     public boolean invincible = false;
-    /**
-     * <p>
-     * This variable controls sprite type and time
-     * </p>
-     */
     public int spriteNum = 1, spriteCounter = 0;
-    /**
-     * <p>
-     * This variable controls dying time
-     * </p>
-     */
     int dyingCounter = 0;
-    /**
-     * <p>
-     * This variable controls hp bar
-     * </p>
-     */
     int hpBarCounter = 0;
-    /**
-     * <p>
-     * This variable controls damage count
-     * </p>
-     */
     public int damageCounter = 0;
-    /**
-     * <p>
-     * This variable controls damage time out for new skils
-     * </p>
-     */
     public int damageTimeOut = 20;
-    /**
-     * <p>
-     * This variable controls reborn status
-     * </p>
-     */
     public boolean newBorn = false;
-    /**
-     * <p>
-     * This variable controls reborn time count
-     * </p>
-     */
     public int bornCounter = 0;
-    /**
-     * <p>
-     * This variable controls object count
-     * </p>
-     */
     public int objectCounter = 0;
 
     /**
@@ -480,18 +405,7 @@ public class Entity {
     // Enemy
     public int wolfID;
 
-    /**
-     * <p>
-     * This vaiable store x coordinates
-     * </p>
-     */
-    public int drawX;
-    /**
-     * <p>
-     * This vaiable store y coordinates
-     * </p>
-     */
-    public int drawY;
+    public int drawX, drawY;
 
     /**
      * <p>
@@ -553,8 +467,6 @@ public class Entity {
      * <p>
      * This method for enchanting system
      * </p>
-     * @param entity is refers player
-     * @return false if weapon dont upgrade
      */
     public boolean increaseWeapon(Entity entity) {
         return false;
@@ -788,7 +700,6 @@ public class Entity {
      * <p>
      * This method draws entities
      * </p>
-     * @param g2 draws 2 dimensional text or shapes
      */
     public void draw(Graphics2D g2) {
 
@@ -1030,9 +941,9 @@ public class Entity {
     /**
      * <p>
      * This method ensure the dying animation
-     * </p>
+     * 
      * @param g2 for Graphics2D
-     *           
+     *           </p>
      */
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
@@ -1068,9 +979,9 @@ public class Entity {
     /**
      * <p>
      * This method ensure the born animation
-     * </p>
+     * 
      * @param g2 for Graphics2D
-     *           
+     *           </p>
      */
     public void bornAnimation(Graphics2D g2) {
         bornCounter++;
@@ -1108,12 +1019,11 @@ public class Entity {
     /**
      * <p>
      * This method pull images
-     * </p>
+     * 
      * @param imagePath image's link
-     * @param width     image's width
      * @param height    image's height
-     * @return image all setup image
-     *                  
+     * @param width     image's width
+     *                  </p>
      */
     public BufferedImage setup(String imagePath, int width, int height) {
 
@@ -1134,9 +1044,9 @@ public class Entity {
     /**
      * <p>
      * This method ensure the walking animation
-     * </p>
+     * 
      * @param spriteTime timer for animation
-     *                   
+     *                   </p>
      */
     public void animationCharacter(int spriteTime) {
         spriteCounter++;
@@ -1153,10 +1063,10 @@ public class Entity {
     /**
      * <p>
      * This method ensure the find path
-     *  </p>
+     * 
      * @param goalCol that player's want to go location
      * @param goalRow that player's want to go location
-     *               
+     *                </p>
      */
     public void searchPath(int goalCol, int goalRow) {
 

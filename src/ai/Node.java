@@ -69,8 +69,8 @@ public class Node {
      * This is constructor
      * </p>
      * 
-     * @param col refers column size
-     * @param row refers row size
+     * @param col
+     * @param row
      * @since 1.0
      */
     public Node(int col, int row) {

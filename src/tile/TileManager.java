@@ -180,7 +180,7 @@ public class TileManager {
      * Loads map from the map.txt
      * </p>
      * 
-     * @param mapPath gets path of map.txt file
+     * @param gets path of map.txt file
      * @since 1.0
      */
     public void loadMap(String mapPath) {
@@ -286,7 +286,7 @@ public class TileManager {
      * 
      * @param index indicates image index
      * @param imageName gets the image name to load
-     * @param collision gets collision property
+     * @param gets collision property
      * @since 1.0
      */
     public void setup(int index, String imageName, boolean collision) {
@@ -308,10 +308,9 @@ public class TileManager {
      * Returns the image given path and property
      * </p>
      * 
-     * @param imagePath refers image url
-     * @param width is the image width
-     * @param height is the image width
-     * @return image is set image
+     * @param index indicates image index
+     * @param imageName gets the image name to load
+     * @param gets collision property
      * @since 1.0
      */
     public BufferedImage setup(String imagePath, int width, int height) {
