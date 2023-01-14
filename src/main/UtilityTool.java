@@ -21,7 +21,6 @@ public class UtilityTool {
      * @param original refers the original image and width and height parameters represent the dimensions of the 
      * original image 
      * @since 1.0
-     * @return BufferedImage
      */
 	public BufferedImage scaleImage(BufferedImage original, int width, int height) {
 		
@@ -41,7 +40,6 @@ public class UtilityTool {
      * @param original refers the original image and width and height parameters represent the dimensions of the 
      * original image 
      * @since 1.0
-     * @return BufferedImage
      */
     public BufferedImage setup(String imagePath, int width, int height) {
 

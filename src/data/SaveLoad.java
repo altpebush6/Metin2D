@@ -21,11 +21,7 @@ import object.OBJ_SuPerisi;
  * </p>
  */
 public class SaveLoad implements Serializable{
-    /**
-     * <p>
-     * This field is instance of GamePanel class 
-     * </p>
-     */
+    
     GamePanel gp;
     
     /**
@@ -45,7 +41,6 @@ public class SaveLoad implements Serializable{
      * This method returns the object corresponding to the name
      * </p>
      * @param itemName item's name in the game
-     * @return Entity object
      */
     public Entity getObject(String itemName) {
         
