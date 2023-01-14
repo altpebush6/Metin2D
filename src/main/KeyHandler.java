@@ -428,6 +428,9 @@ public class KeyHandler implements KeyListener {
 										break;
 
 								}
+								// For different enchantLevel:
+								// gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+
 								if (gp.player.taskLevel == 0) {
 									gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
 									gp.player.taskLevel++;
@@ -613,6 +616,17 @@ public class KeyHandler implements KeyListener {
 
 		int code = e.getKeyCode();
 
+		/*
+		 * if(gp.gameState == gp.enchantState) {
+		 * 
+		 * if(gp.player.itemEnchSellected == true) {
+		 * if(code == KeyEvent.VK_Y) {
+		 * //gp.player.enchantAccepted = false;
+		 * gp.player.itemEnchSellected = false;
+		 * }
+		 * }
+		 * }
+		 */
 		if (code == KeyEvent.VK_ENTER) {
 			gp.player.interactNPCIndex = -1;
 		}
@@ -635,6 +649,20 @@ public class KeyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_SPACE) {
 			spacePressed = false;
+
+			// to detect double click
+
+			/*
+			 * gp.player.doubleClicked = false;
+			 * gp.player.spacePressed = true;
+			 * if(gp.player.spacePressed && gp.player.clickCounter < 30 &&
+			 * gp.player.clickCounter != 0) {
+			 * gp.player.doubleClicked = true;
+			 * gp.player.spacePressed = false;
+			 * gp.player.clickCounter = 0;
+			 * }
+			 * gp.player.clickCounter = 0;
+			 */
 		}
 	}
 

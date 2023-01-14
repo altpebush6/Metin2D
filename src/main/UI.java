@@ -724,7 +724,8 @@ public class UI {
 
         swordSpinImage = gp.uTool.setup("/skills/swordSpin", gp.tileSize, gp.tileSize);
         for (int i = 0; i < swordSpinImageUsed.length; i++) {
-            swordSpinImageUsed[i] = gp.uTool.setup("/skills/swordSpin" + (swordSpinImageUsed.length - i), gp.tileSize, gp.tileSize);
+            swordSpinImageUsed[i] = gp.uTool.setup("/skills/swordSpin" + (swordSpinImageUsed.length - i),
+                    gp.tileSize, gp.tileSize);
         }
 
         auraOfSwordImage = gp.uTool.setup("/skills/AuraOfSword", gp.tileSize, gp.tileSize);
@@ -1281,6 +1282,8 @@ public class UI {
         int slotY = slotYstart;
 
         // DRAW PLAYER'S ITEM
+        // System.out.println(gp.player.inventory.size());
+
         for (int i = 0; i < gp.player.inventory.size(); i++) {
             if (gp.player.inventory.get(i) != null) {
 
@@ -1326,6 +1329,7 @@ public class UI {
                         || gp.player.inventory.get(i).name == "Blue Potion") {
                     g2.setColor(Color.white);
                     g2.setFont(g2.getFont().deriveFont(Font.BOLD, 11F));
+                    // g2.drawRect(slotX + 25, slotY + 25, 20, 20);
 
                     if (gp.player.inventory.get(i).name == "Red Potion") {
                         if (gp.player.redPotionNumber < 10) {
@@ -1346,6 +1350,8 @@ public class UI {
 
                 slotX += gp.tileSize;
                 if (i % 5 == 4) {
+                    // i == 4 || i == 9 || i == 14 || i == 19 || i == 24 || i == 29 || i == 34 || i
+                    // == 39
                     slotX = slotXstart;
                     slotY += gp.tileSize;
                 }
@@ -1728,6 +1734,13 @@ public class UI {
             g2.drawImage(auraOfSwordImage, gp.tileSize * (gp.maxScreenCol - 1) - 30, gp.tileSize / 3, gp.tileSize / 2,
                     gp.tileSize / 2, null);
         }
+        /*
+         * if (gp.skills.auraSwordTimeOut != 0) {
+         * g2.drawImage(auraSwordImageUsed[gp.skills.auraSwordTimeOut / auroSwordImg],
+         * gp.tileSize * (gp.maxScreenCol - 1) - 30,gp.tileSize / 3, gp.tileSize / 2,
+         * gp.tileSize / 2, null);
+         * }
+         */
     }
 
     /**

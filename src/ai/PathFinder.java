@@ -146,7 +146,7 @@ public class PathFinder {
         
         // CHECK NPC ON THE WAY
         for(int i=0; i < gp.npc.length; i++) {
-            if(gp.npc[i] != null) {
+            if(gp.npc[i] != null) { //  && gp.npc[i] != entity
                 int npcCol = gp.npc[i].worldX / gp.tileSize;
                 int npcRow = gp.npc[i].worldY / gp.tileSize;
                 node[npcCol][npcRow].solid = true;
@@ -155,7 +155,7 @@ public class PathFinder {
         
         // CHECK ENEMIES ON THE WAY
         for(int i=0; i < gp.enemy.length; i++) {
-            if(gp.enemy[i] != null) {
+            if(gp.enemy[i] != null) { // && gp.enemy[i] != entity
                 int enemyCol = gp.enemy[i].worldX / gp.tileSize;
                 int enemyRow = gp.enemy[i].worldY / gp.tileSize;
                 node[enemyCol][enemyRow].solid = true;
