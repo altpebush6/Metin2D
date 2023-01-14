@@ -4,377 +4,90 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
+import main.MouseHandler;
 import main.UtilityTool;
 
-/**
- * <p>
- * This Class works like abstract class for object and NPC.
- * </p>
- */
 public class Entity {
 
-    /**
-     * <p>
-     * This variable determine random number
-     * </p>
-     */
     public Random rand = new Random();
 
     GamePanel gp;
 
-    /**
-     * <p>
-     * This variable for coin value
-     * </p>
-     */
+    // Object Attributes
     public int coinValue;
-
-    /**
-     * <p>
-     * This variable determine enemy dead or alive
-     * </p>
-     */
     public boolean deadObj = false;
-
-    /**
-     * <p>
-     * This variable determine object array's index element
-     * </p>
-     */
     public int objIndex;
-
-    /**
-     * <p>
-     * This variable assign for every sword's level
-     * </p>
-     */
     public int enchantLevel = 0;
-
-    /**
-     * <p>
-     * This ArrayList store the inventory index which sword is enchanted.
-     * </p>
-     */
     public ArrayList<Integer> enchantIndex = new ArrayList<Integer>();
+    
 
     // States
-    /**
-     * <p>
-     * This variables for entity's location and cameras location and speed.
-     * </p>
-     */
     public int worldX, worldY, screenX, screenY, speed, defaultSpeed;
-
-    /**
-     * <p>
-     * This variable for entity hit the items or not
-     * </p>
-     */
     public boolean collision = false;
-
-    /**
-     * <p>
-     * This variable for entity hit the items or not
-     * </p>
-     */
     public boolean collisionOn = false;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
-
-    /**
-     * <p>
-     * This variable for enemy's, player's damage area
-     * </p>
-     */
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
-    public int solidAreaDefaultX;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
-    public int solidAreaDefaultY;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
-    public int solidAreaDefaultWidth;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
-    public int solidAreaDefaultHeight;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
+    public int solidAreaDefaultX, solidAreaDefaultY, solidAreaDefaultWidth, solidAreaDefaultHeight;
     public String direction = "down";
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public boolean standing = false;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public boolean attacking = false;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public boolean alive = true;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public boolean dying = false;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public boolean hpBarOn = false;
-
-    /**
-     * <p>
-     * This variable for enemy's, player's body's area
-     * </p>
-     */
     public boolean onPath = false;
-
-    /**
-     * <p>
-     * This variable for player attack the enemy.
-     * </p>
-     */
     public boolean inFight = false;
-
-    /**
-     * <p>
-     * This variable determine enemy's name showing or not.
-     * </p>
-     */
     public boolean showNames = false;
-
-    /**
-     * <p>
-     * This boolean variable for player go to clicked point
-     * </p>
-     */
     public boolean reachedGoal = false;
-
-    /**
-     * <p>
-     * This variable control that is player use skill
-     * </p>
-     */
     public boolean knockBack = false;
 
+
     // Character Attributes
-
-    /**
-     * <p>
-     * This variable for entity's type
-     * </p>
-     */
     public int type;
-
-    /**
-     * <p>
-     * This variable determine entity's type.
-     * </p>
-     */
-    public int playerType = 1;
-
-    /**
-     * <p>
-     * This variable determine entity's type.
-     * </p>
-     */
-    public int enemyType = 2;
-
-    /**
-     * <p>
-     * This variable determine entity's type.
-     * </p>
-     */
-    public int npcType = 3;
-
-    /**
-     * <p>
-     * This variable determine entity's type.
-     * </p>
-     */
-    public int objectType = 4;
-
-    /**
-     * <p>
-     * This variable store entity's name
-     * </p>
-     */
+    public int playerType = 1, enemyType = 2, npcType = 3, objectType = 4;
     public String name;
-
-    /**
-     * <p>
-     * This is entity's maxLife
-     * </p>
-     */
     public int maxLife;
-
-    /**
-     * <p>
-     * This is entity's life
-     * </p>
-     */
     public int life;
-
-    /**
-     * <p>
-     * This variable control that is player use skill
-     * </p>
-     */
     public double maxSp;
     public double sp;
     public int actionLockCounter = 0;
     public int level = 1;
     public static int taskLevel;
     public int subType;
-
+    
     // Item
-    /**
-     * <p>
-     * This variables for weapons
-     * </p>
-     */
     public int objDetailedType;
     public int weaponAttackSize;
-
-    /**
-     * <p>
-     * This ArrayList store the player's inventory
-     * </p>
-     */
+    
     public static ArrayList<Entity> inventory = new ArrayList<>();
-
-    /**
-     * <p>
-     * This variable store inventory slot size
-     * </p>
-     */
     public final int maxInventorySize = 45;
-
-    /**
-     * <p>
-     * This variable store weapon's price
-     * </p>
-     */
-    public int price = 0;
-
-    /**
-     * <p>
-     * This variable store the weapon's description
-     * </p>
-     */
-    public String description = "";
+    public int price =0;
+    public String description = "" ;
 
     // Images
-
-    /**
-     * <p>
-     * This BufferedImage stores player's image
-     * </p>
-     */
-    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1,
-            right2, right3, right4, downCracked1, downCracked2, downCracked3;
-
-    /**
-     * <p>
-     * This BufferedImage stores dying image
-     * </p>
-     */
-    public BufferedImage[] dyingUp = new BufferedImage[5], dyingDown = new BufferedImage[5],
-            dyingLeft = new BufferedImage[5], dyingRight = new BufferedImage[5];
-    public BufferedImage[] up = new BufferedImage[4], down = new BufferedImage[4], left = new BufferedImage[4],
-            right = new BufferedImage[4];
-
-    /**
-     * <p>
-     * This BufferedImage stores attack pictures
-     * </p>
-     */
-    public BufferedImage[] attackUp = new BufferedImage[16], attackDown = new BufferedImage[16],
-            attackLeft = new BufferedImage[16], attackRight = new BufferedImage[16];
-
-    /**
-     * <p>
-     * This BufferedImage stores skill images
-     * </p>
-     */
-    public BufferedImage[] auraUp = new BufferedImage[4], auraDown = new BufferedImage[4],
-            auraLeft = new BufferedImage[4], auraRight = new BufferedImage[4];
-    public BufferedImage[] auraSwordUp = new BufferedImage[16], auraSwordDown = new BufferedImage[16],
-            auraSwordLeft = new BufferedImage[16], auraSwordRight = new BufferedImage[16];
+    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, left5, right1, right2, right3, right4, downCracked1, downCracked2, downCracked3;
+    public BufferedImage[] dyingUp = new BufferedImage[5], dyingDown = new BufferedImage[5], dyingLeft = new BufferedImage[5], dyingRight = new BufferedImage[5];
+    public BufferedImage[] up = new BufferedImage[4], down = new BufferedImage[4], left = new BufferedImage[4], right = new BufferedImage[4];
+    public BufferedImage[] attackUp = new BufferedImage[16], attackDown = new BufferedImage[16], attackLeft = new BufferedImage[16], attackRight = new BufferedImage[16];
+    public BufferedImage[] auraUp = new BufferedImage[4], auraDown = new BufferedImage[4], auraLeft = new BufferedImage[4], auraRight = new BufferedImage[4];
+    public BufferedImage[] auraSwordUp = new BufferedImage[16], auraSwordDown = new BufferedImage[16], auraSwordLeft = new BufferedImage[16], auraSwordRight = new BufferedImage[16];
     public BufferedImage image, deadImage;
-
-    /**
-     * <p>
-     * This BufferedImage store HP bar image
-     * </p>
-     */
     public BufferedImage hpBarImage, emptyBarImage;
 
     // Counter
-
-    /**
-     * <p>
-     * This variable stores timer and counters for stepping
-     * </p>
-     */
     public int stepCounter = 0;
     public int stepType = 0;
     public int enemySoundCounter = 0;
     public int invincibleCounter = 0;
-
-    /**
-     * <p>
-     * This variable store fightable or not
-     * </p>
-     */
     public boolean invincible = false;
     public int spriteNum = 1, spriteCounter = 0;
     int dyingCounter = 0;
@@ -384,99 +97,44 @@ public class Entity {
     public boolean newBorn = false;
     public int bornCounter = 0;
     public int objectCounter = 0;
-
-    /**
-     * <p>
-     * This variable for skill counter.
-     * </p>
-     */
     public int knockBackCounter = 0;
 
     // NPC
     public int npcActionCounter = 0;
-
-    /**
-     * <p>
-     * This String array stores the NPC's dialogue
-     * </p>
-     */
     public static String dialogues[] = new String[20];
 
     // Enemy
     public int wolfID;
-
+    
     public int drawX, drawY;
 
-    /**
-     * <p>
-     * This is constructor
-     * </p>
-     * 
-     * @param gp is the game panel
-     * @since 1.0
-     */
     public Entity(GamePanel gp) {
         this.gp = gp;
 
         getImages();
     }
 
-    /**
-     * <p>
-     * This method assign the images
-     * </p>
-     */
     public void getImages() {
         hpBarImage = setup("/UI/HpBarEnemy", gp.tileSize, gp.tileSize / 8);
         emptyBarImage = setup("/UI/emptyBar2", gp.tileSize, gp.tileSize / 8);
     }
 
-    /**
-     * <p>
-     * This method works like abstract method
-     * </p>
-     */
     public void setAction() {
     }
 
-    /**
-     * <p>
-     * This method works like abstract method
-     * </p>
-     */
     public void speak() {
     }
 
-    /**
-     * <p>
-     * This method works like abstract method
-     * </p>
-     */
     public void damageReaction() {
     }
-
-    /**
-     * <p>
-     * This method works like abstract method
-     * </p>
-     */
+    
     public void changeDirection() {
     }
-
-    /**
-     * <p>
-     * This method for enchanting system
-     * </p>
-     */
-    public boolean increaseWeapon(Entity entity) {
+    
+    public boolean increaseWeapon(Entity entity) { 
         return false;
     }
 
-    /**
-     * <p>
-     * This method for entity hit the object or not.
-     * </p>
-     */
     public void checkCollision() {
         // CHECK TILE COLLISION
         collisionOn = false;
@@ -494,14 +152,9 @@ public class Entity {
         }
     }
 
-    /**
-     * <p>
-     * This method updates the information about entities
-     * </p>
-     */
     public void update() {
-
-        if (dying && name == "Satellite") {
+        
+        if(dying && name == "Satellite") {
             solidArea.x = 50;
             solidArea.y = 60;
             solidArea.width = 100;
@@ -510,12 +163,12 @@ public class Entity {
             solidAreaDefaultX = solidArea.x;
             solidAreaDefaultY = solidArea.y;
         }
-
-        if (knockBack == true) {
-
+        
+        if(knockBack == true) {
+            
             checkCollision();
-
-            if (!collisionOn) {
+            
+            if(!collisionOn) {
                 int newWorldX = worldX;
                 int newWorldY = worldY;
 
@@ -554,32 +207,30 @@ public class Entity {
                         newWorldY > 0 && newWorldY < (gp.maxWorldRow - 2) * gp.tileSize) {
                     worldX = newWorldX;
                     worldY = newWorldY;
-                    if (type == enemyType && name == "Wolf") {
+                    if(type == enemyType && name == "Wolf") {
                         System.out.println("girdi ");
-                        if (newWorldX > gp.aSetter.wolfBoundary.x
-                                && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
-                                newWorldY > gp.aSetter.wolfBoundary.y
-                                && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
+                        if (newWorldX > gp.aSetter.wolfBoundary.x && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
+                                newWorldY > gp.aSetter.wolfBoundary.y && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
                             worldX = newWorldX;
                             worldY = newWorldY;
                         }
-                    } else {
-                        /*
-                         * worldX = newWorldX;
-                         * worldY = newWorldY;
-                         */
+                    }else {
+                        /* 
+                        worldX = newWorldX;
+                        worldY = newWorldY;
+                        */
                     }
                 }
             }
-
+            
             knockBackCounter++;
-            if (knockBackCounter == 8) {
+            if(knockBackCounter == 8) {
                 knockBackCounter = 0;
                 knockBack = false;
                 speed = defaultSpeed;
             }
-
-        } else {
+            
+        }else {
             setAction();
             checkCollision();
 
@@ -619,50 +270,48 @@ public class Entity {
                         break;
                 }
 
-                if (type == enemyType && name == "Wolf") {
-                    if (newWorldX > gp.aSetter.wolfBoundary.x
-                            && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
-                            newWorldY > gp.aSetter.wolfBoundary.y
-                            && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
+                if(type == enemyType && name == "Wolf") {
+                    if (newWorldX > gp.aSetter.wolfBoundary.x && newWorldX < gp.aSetter.wolfBoundary.x + gp.aSetter.wolfBoundary.width &&
+                            newWorldY > gp.aSetter.wolfBoundary.y && newWorldY < gp.aSetter.wolfBoundary.y + gp.aSetter.wolfBoundary.height) {
                         worldX = newWorldX;
                         worldY = newWorldY;
-                    } else {
+                    }else {
                         changeDirection();
                     }
-                } else {
-                    /*
-                     * worldX = newWorldX;
-                     * worldY = newWorldY;
-                     */
+                }else {
+                    /* 
+                    worldX = newWorldX;
+                    worldY = newWorldY;
+                    */
                 }
             }
         }
-
+        
         // Active showNames when mouse over entity or entity is near player
         int mouseOverX = gp.player.worldX - gp.player.screenX + gp.mouseH.mouseOverX;
         int mouseOverY = gp.player.worldY - gp.player.screenY + gp.mouseH.mouseOverY;
-
+        
         int enemyLeft = worldX + solidArea.x;
         int enemyRight = worldX + solidArea.x + solidArea.width;
         int enemyTop = worldY + solidArea.y;
         int enemyBottom = worldY + solidArea.y + solidArea.height;
-
+        
         int xDiff = Math.abs(gp.player.worldX - worldX) / gp.tileSize;
         int yDiff = Math.abs(gp.player.worldY - worldY) / gp.tileSize;
-
-        if (mouseOverX >= enemyLeft && mouseOverY >= enemyTop &&
-                mouseOverX <= enemyRight && mouseOverY <= enemyBottom) {
+        
+        if(mouseOverX >= enemyLeft && mouseOverY >= enemyTop &&
+           mouseOverX <= enemyRight && mouseOverY <= enemyBottom) {
             showNames = true;
-        } else if (xDiff + yDiff <= 5) {
+        }else if(xDiff + yDiff <= 5) {
             showNames = true;
-        } else {
+        }else {
             showNames = false;
         }
-
-        if (type == npcType) {
-            if (name == "Abulbul") {
+        
+        if(type == npcType) {
+            if(name == "Abulbul") {
                 animationCharacter(5);
-            } else {
+            }else {
                 animationCharacter(10);
             }
         }
@@ -696,18 +345,13 @@ public class Entity {
         }
     }
 
-    /**
-     * <p>
-     * This method draws entities
-     * </p>
-     */
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
 
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
+        
         drawX = worldX - gp.player.worldX + gp.player.screenX;
         drawY = worldY - gp.player.worldY + gp.player.screenY;
 
@@ -744,16 +388,16 @@ public class Entity {
             missingBottom = 0;
 
         if (worldX > gp.player.worldX - gp.player.defaultScreenX - missingRight - 96 && // is entity's location
-                                                                                        // more than screenX
+                                                                                                 // more than screenX
                 worldX < gp.player.worldX + gp.player.defaultScreenX + missingLeft + 96 && // is entity's
-                                                                                           // location less
-                                                                                           // than screenX
+                                                                                                    // location less
+                                                                                                    // than screenX
                 worldY > gp.player.worldY - gp.player.defaultScreenY - missingBottom - 96 && // is entity's
-                                                                                             // location more
-                                                                                             // than screenY
+                                                                                                      // location more
+                                                                                                      // than screenY
                 worldY < gp.player.worldY + gp.player.defaultScreenY + missingTop + 96) { // is entity's
-                                                                                          // location less than
-                                                                                          // screenY
+                                                                                                   // location less than
+                                                                                                   // screenY
 
             switch (direction) {
                 case "up":
@@ -813,7 +457,7 @@ public class Entity {
 
             // Enemy fill Hp
             damageCounter++;
-
+             
             if (type == enemyType && damageCounter == 360 && !dying) {
                 if (life != maxLife) {
                     life++;
@@ -823,7 +467,7 @@ public class Entity {
 
             // Enemy Label
             if (type == enemyType && showNames && name != "Satellite") {
-
+                
                 g2.setFont(new Font("Courier New", Font.BOLD, 12));
                 g2.setColor(Color.green);
                 g2.drawString("Lv " + level, screenX - 14, screenY - 20);
@@ -835,23 +479,21 @@ public class Entity {
             if (type == enemyType && hpBarOn == true && !dying) {
 
                 double oneScale;
-
-                if (name == "Satellite")
-                    oneScale = (double) gp.tileSize * 4 / maxLife;
-                else
-                    oneScale = (double) gp.tileSize / maxLife;
-
+               
+                if(name == "Satellite") oneScale = (double) gp.tileSize * 4 / maxLife;
+                else oneScale = (double) gp.tileSize / maxLife;
+                
+                
                 double hpBarValue = oneScale * life;
                 double maxBar = oneScale * maxLife;
+                
+   
 
                 g2.drawImage(emptyBarImage, screenX, screenY - 10, (int) maxBar, gp.tileSize / 8, null);
-
-                if (name == "Satellite")
-                    g2.drawImage(hpBarImage, screenX + 10, screenY - 10, Math.abs((int) hpBarValue - 20),
-                            gp.tileSize / 8, null);
-                else
-                    g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8,
-                            null);
+                
+                if(name == "Satellite") g2.drawImage(hpBarImage, screenX + 10, screenY - 10, Math.abs((int) hpBarValue - 20), gp.tileSize / 8,null);
+                else g2.drawImage(hpBarImage, screenX + 3, screenY - 10, Math.abs((int) hpBarValue - 3), gp.tileSize / 8,null);
+                
 
                 hpBarCounter++;
                 if (hpBarCounter > 600) {
@@ -875,18 +517,18 @@ public class Entity {
             // NPC LABEL
             if (type == npcType) {
                 g2.setFont(new Font("Courier New", Font.BOLD, 13));
-
-                switch (name) {
+                
+                switch(name) {
                     case "Abulbul":
-                        g2.setColor(new Color(0, 0, 189));
+                        g2.setColor(new Color(0, 0, 189)); 
                         g2.drawString(name, screenX + 25, screenY);
                         break;
                     case "BlackSmith":
-                        g2.setColor(new Color(0, 0, 189));
+                        g2.setColor(new Color(0, 0, 189)); 
                         g2.drawString(name, screenX + 10, screenY - 10);
                         break;
                     case "Merchant":
-                        g2.setColor(new Color(169, 103, 245));
+                        g2.setColor(new Color(169, 103, 245)); 
                         g2.drawString(name, screenX + 15, screenY + 10);
                         break;
                 }
@@ -902,32 +544,33 @@ public class Entity {
                         g2.setColor(Color.cyan);
                         g2.drawString("Dolunay Sword", screenX - 8, screenY);
                         break;
-
+                        
                     case "Su Perisi":
                         g2.setColor(Color.YELLOW);
                         g2.drawString("Su Perisi", screenX - 10, screenY - 10);
                         break;
-
+                        
                     case "Kırmızı Demir Pala":
                         g2.setColor(Color.cyan);
                         g2.drawString("Kırmızı Demir Pala", screenX - 25, screenY - 10);
                         break;
-
+                        
                     case "Geniş Kılıç":
                         g2.setColor(Color.cyan);
                         g2.drawString("Geniş Kılıç", screenX - 25, screenY - 10);
                         break;
-
+                        
                     default:
                         break;
                 }
             }
-
-            if (name == "Satellite" && life <= 0) {
+            
+            if(name == "Satellite" && life <= 0) {
                 System.out.println(life);
                 dying = true;
                 image = downCracked1;
             }
+
 
             g2.drawImage(image, null, screenX, screenY);
 
@@ -938,13 +581,6 @@ public class Entity {
         }
     }
 
-    /**
-     * <p>
-     * This method ensure the dying animation
-     * 
-     * @param g2 for Graphics2D
-     *           </p>
-     */
     public void dyingAnimation(Graphics2D g2) {
         dyingCounter++;
         int increaseAmount = 5;
@@ -976,13 +612,6 @@ public class Entity {
         }
     }
 
-    /**
-     * <p>
-     * This method ensure the born animation
-     * 
-     * @param g2 for Graphics2D
-     *           </p>
-     */
     public void bornAnimation(Graphics2D g2) {
         bornCounter++;
         int increaseAmount = 3;
@@ -1016,15 +645,6 @@ public class Entity {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
-    /**
-     * <p>
-     * This method pull images
-     * 
-     * @param imagePath image's link
-     * @param height    image's height
-     * @param width     image's width
-     *                  </p>
-     */
     public BufferedImage setup(String imagePath, int width, int height) {
 
         UtilityTool uTool = new UtilityTool();
@@ -1040,14 +660,7 @@ public class Entity {
 
         return image;
     }
-
-    /**
-     * <p>
-     * This method ensure the walking animation
-     * 
-     * @param spriteTime timer for animation
-     *                   </p>
-     */
+    
     public void animationCharacter(int spriteTime) {
         spriteCounter++;
         if (spriteCounter > spriteTime) {
@@ -1060,17 +673,9 @@ public class Entity {
         }
     }
 
-    /**
-     * <p>
-     * This method ensure the find path
-     * 
-     * @param goalCol that player's want to go location
-     * @param goalRow that player's want to go location
-     *                </p>
-     */
     public void searchPath(int goalCol, int goalRow) {
-
-        if (type == playerType) {
+        
+        if(type == playerType) {
             solidArea.x = 9;
             solidArea.y = 20;
             solidArea.width = 30;
@@ -1083,15 +688,15 @@ public class Entity {
         gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
 
         if (gp.pathFinder.search(goalCol, goalRow, this) && !standing) { // it returns true when found a way to go
-            if (reachedGoal) {
+            if(reachedGoal) {
                 onPath = false;
                 gp.player.mouseH.pressed = false;
                 reachedGoal = false;
-            } else {
+            }else {
                 // Next worldX & worldY
                 int nextX = gp.pathFinder.pathList.get(0).col * gp.tileSize;
                 int nextY = gp.pathFinder.pathList.get(0).row * gp.tileSize;
-
+    
                 // Entity's solidArea Position
                 /*
                  * int entityLeftX = (int)(worldX / gp.tileSize) * gp.tileSize;
@@ -1099,16 +704,16 @@ public class Entity {
                  * int entityTopY = (int)(worldY / gp.tileSize) * gp.tileSize;
                  * int entityBottomY = entityTopY;
                  */
-
+    
                 int entityLeftX = worldX + solidArea.x;
                 int entityRightX = worldX + solidArea.x + solidArea.width;
                 int entityTopY = worldY + solidArea.y;
                 int entityBottomY = worldY + solidArea.y + solidArea.height;
-
+    
                 // System.out.println("nextX:" + nextX + " nextY:" + nextY + " entityLeftX: " +
                 // entityLeftX + " entityRightX: " + entityRightX+ " entityTopY:" + entityTopY +
                 // " entityBottomY:" + entityBottomY);
-
+    
                 if (entityTopY > nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
                     direction = "up";
                 } else if (entityTopY < nextY && entityLeftX >= nextX && entityRightX < nextX + gp.tileSize) {
@@ -1126,7 +731,7 @@ public class Entity {
                     direction = "up";
                     checkCollision();
                     if (collisionOn) {
-
+    
                         direction = "left";
                     }
                 } else if (entityTopY > nextY && entityLeftX < nextX) {
@@ -1139,7 +744,7 @@ public class Entity {
                 } else if (entityTopY < nextY && entityLeftX > nextX) {
                     // down or left
                     direction = "down";
-
+    
                     checkCollision();
                     if (collisionOn) {
                         direction = "left";
@@ -1147,13 +752,13 @@ public class Entity {
                 } else if (entityTopY < nextY && entityLeftX < nextX) {
                     // down or right
                     direction = "down";
-
+    
                     checkCollision();
                     if (collisionOn) {
                         direction = "right";
                     }
                 }
-
+    
                 /*
                  * // If reaches the goal, stop searching
                  * int nextCol = gp.pathFinder.pathList.get(0).col;
@@ -1171,8 +776,8 @@ public class Entity {
                  */
             }
         }
-
-        if (type == playerType) {
+        
+        if(type == playerType) {
             solidArea.x = solidAreaDefaultX;
             solidArea.y = solidAreaDefaultY;
             solidArea.width = solidAreaDefaultWidth;
