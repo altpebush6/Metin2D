@@ -1,132 +1,37 @@
 package entity;
 
 import main.GamePanel;
-/**
- * <p>
- * This Class sets skills
- * </p>
- */
+
 public class Skills {
-    /**
-     * <p>
-     * This field is instance of GamePanel class 
-     * </p>
-     */
+    
     GamePanel gp;
-    /**
-     * <p>
-     * This field stores type of skill
-     * </p>
-     */
+    
     public int skillType;
-    /**
-     * <p>
-     * This field stores whether skill is used or not
-     * </p>
-     */
     public boolean skillUsed = false;
-    /**
-     * <p>
-     * This field stores sprite counter of skill
-     * </p>
-     */
     public int skillSpriteCounter = 0;
-    /**
-     * <p>
-     * This field stores standby time of skill
-     * </p>
-     */
     public int skillStandbyTime = 120; // 10s
 
     // Sword Spin
-    /**
-     * <p>
-     * This field stores sword spin type
-     * </p>
-     */
     public int swordSpinType = 1;
-    /**
-     * <p>
-     * This field stores sword spin counter
-     * </p>
-     */
     public int swordSpinCounter = 0;
-    /**
-     * <p>
-     * This field stores sword spin time out
-     * </p>
-     */
     public int swordSpinTimeOut = 0;
-    /**
-     * <p>
-     * This field stores sword spin duration
-     * </p>
-     */
     public int swordSpinDuration = 75;
-    /**
-     * <p>
-     * This field stores whether sword spin is used or not
-     * </p>
-     */
     public boolean swordSpinUsed = false;
     
     // Aura of the Sword
-    /**
-     * <p>
-     * This field stores aura sword type
-     * </p>
-     */
     public int auraSwordType = 2;
-    /**
-     * <p>
-     * This field stores aura sword counter
-     * </p>
-     */
     public int auraSwordCounter = 0;
-    /**
-     * <p>
-     * This field stores aura sword time out
-     * </p>
-     */
     public int auraSwordTimeOut = 0;
-    /**
-     * <p>
-     * This field stores aura sword duration
-     * </p>
-     */
     public int auraSwordDuration = 600;
-    /**
-     * <p>
-     * This field stores aura sword draw duration
-     * </p>
-     */
     public int auraSwordDrawDuration = 60;
-    /**
-     * <p>
-     * This field stores whether aura sword is active or not
-     * </p>
-     */
     public boolean auraSwordActive = false;
-    /**
-     * <p>
-     * This field stores increase amount
-     * </p>
-     */
+    
     public int increaseAmount;
-    /**
-     * <p>
-     * This is constructor 
-     * </p>
-     * @param gp instance of game panel class
-     */
+    
     public Skills(GamePanel gp) {
         this.gp = gp;
     }
-    /**
-     * <p>
-     * This method sets sword how to spin
-     * </p>
-     */
+    
     public void swordSpin() {
         if (swordSpinUsed && swordSpinTimeOut == 0) {
             
@@ -186,11 +91,7 @@ public class Skills {
         }
     }
   
-    /**
-     * <p>
-     * This method sets behavior of aura sword
-     * </p>
-     */
+    
     public void auraOfTheSword() {
             if (auraSwordActive && auraSwordTimeOut == 0) {         // if pressed F1 enter
                 auraSwordCounter++;
@@ -210,11 +111,7 @@ public class Skills {
             
         }
         
-    /**
-     * <p>
-     * This method draws sword spin
-     * </p>
-     */
+    
     public void drawSwordSpin() {
         switch(gp.player.spriteNum) {
             case 1: 
@@ -251,11 +148,7 @@ public class Skills {
                 break;
         }
     }
-    /**
-     * <p>
-     * This method draw aura sword
-     * </p>
-     */
+    
     public void drawAuraSword() {
         switch(gp.player.direction) {
             case "up":  case "upleft":  case "upright":     gp.player.image = gp.player.auraSwordUp[9];  gp.player.tempScreenY = gp.player.screenY - 10; break;
@@ -264,11 +157,7 @@ public class Skills {
             case "right":   gp.player.image = gp.player.auraSwordRight[9]; gp.player.tempScreenX = gp.player.screenX + 20;  break;
         }
     }
-    /**
-     * <p>
-     * This method increase timeouts
-     * </p>
-     */
+    
     public void increaseTimeouts() {
         if (gp.skills.swordSpinTimeOut != 0) {
             gp.skills.swordSpinTimeOut++;
@@ -277,11 +166,7 @@ public class Skills {
             gp.skills.auraSwordTimeOut++;
         }
     }
-    /**
-     * <p>
-     * This method resets skills
-     * </p>
-     */
+    
     public void resetSkills() {
         if (gp.skills.swordSpinTimeOut == gp.skills.skillStandbyTime) {
             gp.skills.swordSpinTimeOut = 0;
