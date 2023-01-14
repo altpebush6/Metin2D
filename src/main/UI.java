@@ -48,636 +48,220 @@ public class UI {
 
     /**
      * <p>
-     * This BufferedImage for Dolunay Sword.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage dolunayImage;
 
     /**
      * <p>
-     * This BufferedImage for empty healty bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage emptyBarImage;
 
     /**
      * <p>
-     * This BufferedImage for cursor image.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage cursorImage;
 
     /**
      * <p>
-     * This BufferedImage array for healty bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage[] hpBarImages = new BufferedImage[8];
 
     /**
      * <p>
-     * This BufferedImage arrat for sp bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage[] spBarImages = new BufferedImage[8];
 
     /**
      * <p>
-     * This BufferedImage for sword.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage auraOfSwordImage;
 
     /**
      * <p>
-     * This BufferedImage for skills.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage swordSpinImage;
 
     /**
      * <p>
-     * This BufferedImage array for skill.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage[] swordSpinImageUsed = new BufferedImage[20];
 
     /**
      * <p>
-     * This BufferedImage array for skill.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage[] auraSwordImageUsed = new BufferedImage[20];
 
     /**
      * <p>
-     * This BufferedImage for XP bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage xpTupeBg;
 
     /**
      * <p>
-     * This BufferedImage for Dragon Coin.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage dragonCoin;
 
     /**
      * <p>
-     * This BufferedImage for Buttom Bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage bottomBar;
 
     /**
      * <p>
-     * This BufferedImage for Buttom Bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage bottomBar2;
 
     /**
      * <p>
-     * This BufferedImage for skill and potion bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage itemSkillBar;
 
     /**
      * <p>
-     * This BufferedImage for Inventory Bar.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage inventoryBar;
 
     /**
      * <p>
-     * This BufferedImage for button in UI.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage btnBg;
 
     /**
      * <p>
-     * This BufferedImage for Inventory button.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage inventoryBtn;
 
     /**
      * <p>
-     * This BufferedImage for options button.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage optionsBtn;
 
     /**
      * <p>
-     * This BufferedImage for Inventory.
+     * This variable for text's font for damage.
      * </p>
      */
     BufferedImage inventory;
-
-    /**
-     * <p>
-     * This BufferedImage for merchant NPC Inventory.
-     * </p>
-     */
     BufferedImage merchantInventory;
-
-    /**
-     * <p>
-     * This BufferedImage for Blacksmith's UI .
-     * </p>
-     */
     BufferedImage blackSmithSlot;
-
-    /**
-     * <p>
-     * This BufferedImage for dead wolf image.
-     * </p>
-     */
     BufferedImage deadWolf;
-
-    /**
-     * <p>
-     * This BufferedImage for kill wolf task image.
-     * </p>
-     */
     BufferedImage wolfPNG;
-
-    /**
-     * <p>
-     * This BufferedImage for Task List screen's UI (press G).
-     * </p>
-     */
     BufferedImage taskList;
-
-    /**
-     * <p>
-     * This BufferedImage for NPC UI screen.
-     * </p>
-     */
     BufferedImage abulbulImage;
-
-    /**
-     * <p>
-     * This BufferedImage for button.
-     * </p>
-     */
     BufferedImage rectangle;
-
-    /**
-     * <p>
-     * This BufferedImage for starting screen background.
-     * </p>
-     */
     BufferedImage aybu;
-
-    /**
-     * <p>
-     * This BufferedImage for starting screen animation.
-     * </p>
-     */
     BufferedImage titleScreenPlayer;
-
-    /**
-     * <p>
-     * This BufferedImage for starting screen animation.
-     * </p>
-     */
     BufferedImage titleScreenPlayer1;
-
-    /**
-     * <p>
-     * This BufferedImage for starting screen animation.
-     * </p>
-     */
     BufferedImage titleScreenPlayer2;
-
-    /**
-     * <p>
-     * This BufferedImage for starting screen animation.
-     * </p>
-     */
     BufferedImage titleScreenPlayer3;
-
-    /**
-     * <p>
-     * This BufferedImage for starting screen animation.
-     * </p>
-     */
     BufferedImage titleScreenPlayer4;
-
-    /**
-     * <p>
-     * This BufferedImage for char status.
-     * </p>
-     */
     BufferedImage charStatus;
-
-    /**
-     * <p>
-     * This BufferedImage for right key image for NPC.
-     * </p>
-     */
-    BufferedImage rightKey;
-
-    /**
-     * <p>
-     * This BufferedImage for left key image for NPC.
-     * </p>
-     */
-    BufferedImage leftKey;
-
-    /**
-     * <p>
-     * This BufferedImage for enter key image for NPC.
-     * </p>
-     */
-    BufferedImage enterKey;
-
-    /**
-     * <p>
-     * This BufferedImage array for XP bar increases.
-     * </p>
-     */
+    BufferedImage rightKey, leftKey, enterKey;
     BufferedImage[] xpTupe = new BufferedImage[23];
-
-    /**
-     * <p>
-     * en variable for using Entity's method.
-     * </p>
-     */
     Entity en;
-
-    /**
-     * <p>
-     * This Rectangle variable for respawn here button.
-     * </p>
-     */
-    public Rectangle respawnHereRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for respawn city button.
-     * </p>
-     */
-    public Rectangle respawnCityRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for inventory button.
-     * </p>
-     */
+    public Rectangle respawnHereRec = new Rectangle(), respawnCityRec = new Rectangle();
     public Rectangle inventoryRec = new Rectangle(), optionsRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for next page button.
-     * </p>
-     */
     public Rectangle nextPageRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for starting button.
-     * </p>
-     */
     public Rectangle startRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for exit button.
-     * </p>
-     */
     public Rectangle exitRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for char status button.
-     * </p>
-     */
     public Rectangle charStatusRec = new Rectangle();
-
-    /**
-     * <p>
-     * This Rectangle variable for save button.
-     * </p>
-     */
     public Rectangle saveRec = new Rectangle();
-
-    /**
-     * <p>
-     * This variable for healty;
-     * </p>
-     */
     public int healthBar;
-
-    /**
-     * <p>
-     * This variable for SP;
-     * </p>
-     */
     public int spBar;
 
-    /**
-     * <p>
-     * This variable is timer for healty increases
-     * </p>
-     */
     public int hpBarCounter = 0;
-
-    /**
-     * <p>
-     * This variable is timer for SP increases;
-     * </p>
-     */
     public int spBarCounter = 0;
 
-    /**
-     * <p>
-     * This arraylist ensure the draw damage amount in screen.
-     * </p>
-     */
     public ArrayList<Damages> damages = new ArrayList<>();
 
-    /**
-     * <p>
-     * This boolean variable for screen message NPC etc.
-     * </p>
-     */
     public boolean messageOn = false;
 
-    /**
-     * <p>
-     * This boolean variable control the Task Screen opening.
-     * </p>
-     */
+    // TASK SCREEN OPENER
     public boolean openTaskScreen = false;
-
-    /**
-     * <p>
-     * This ArrayList variable store the message and ensure the drawing.
-     * </p>
+    /*
+     * public String message = "";
+     * int messageCounter = 0;
      */
     public ArrayList<String> message = new ArrayList<>();
-
-    /**
-     * <p>
-     * This ArrayList variable is timer for message.
-     * </p>
-     */
     public ArrayList<Integer> messageCounter = new ArrayList<>();
-
-    /**
-     * <p>
-     * This variable is store the index for inventory arraylist.
-     * </p>
-     */
     public int itemIndex;
 
-    /**
-     * <p>
-     * This string variable is store NPC's current dialogue.
-     * </p>
-     */
     public String currentDialogue = " ";
-
-    /**
-     * <p>
-     * This string variable for kill wolf task.
-     * </p>
-     */
     public String wolfCountersString = "";
-
-    /**
-     * <p>
-     * This boolean variable is store kill wolf task do or not.
-     * </p>
-     */
     public boolean wolfTaskDo = false;
-
-    /**
-     * <p>
-     * This variable is store NPC dialogue screen's page number.
-     * </p>
-     */
-    public int pageNum = 0;
-
-    /**
-     * <p>
-     * This variable is store inventory slot's column number.
-     * </p>
-     */
+    public int pageNum = 0; // FOR DIALOGUE SCREEN NEXT PAGE
     public int slotCol = 0;
-
-    /**
-     * <p>
-     * This variable is store inventory slot's row number.
-     * </p>
-     */
     public int slotRow = 0;
-
-    /**
-     * <p>
-     * This variable is store merchant NPC's inventory slot's column number.
-     * </p>
-     */
     public int npcSlotCol = 0;
-
-    /**
-     * <p>
-     * This variable is store merchant NPC's inventory slot's row number.
-     * </p>
-     */
     public int npcSlotRow = 0;
-
-    /**
-     * <p>
-     * This variable is store inventory cursor's current location.
-     * </p>
-     */
     public int cursorIndex = 0;
-
-    /**
-     * <p>
-     * This variable store ESC screen's chooses.
-     * </p>
-     */
     public int commandNum = 0;
-
-    /**
-     * <p>
-     * This variable is store merchant NPC's inventory cursor's current location.
-     * </p>
-     */
     public static int cursorNpcIndex = 0;
 
-    /**
-     * <p>
-     * This variable store ESC screen's chooses.
-     * </p>
-     */
     public int subState = 0;
 
-    /**
-     * <p>
-     * This variable is timer for blacksmith.
-     * </p>
-     */
     public int counter = 0;
-
-    /**
-     * <p>
-     * This variable controls NPC's task screen.
-     * </p>
-     */
     public boolean pressed = false;
-
-    /**
-     * <p>
-     * This variable for use entity class methods.
-     * </p>
-     */
     public Entity npc;
 
-    /**
-     * <p>
-     * This variable for healty tube.
-     * </p>
-     */
     public int fillTupeNum = 0;
-
-    /**
-     * <p>
-     * This variable for healty tube increases.
-     * </p>
-     */
     public int tupeImg;
 
-    /**
-     * <p>
-     * This variable button's color.
-     * </p>
-     */
     public int btnHover = 0;
+    public int respawnBtnWidth, respawnBtnHeight;
+    public int titleScreenBtnWidth, titleScreenHeight;
+    public int nextPageBtnWidth, nextPageBtnHeight;
 
-    /**
-     * <p>
-     * This variable store respawn button width.
-     * </p>
-     */
-    public int respawnBtnWidth;
-
-    /**
-     * <p>
-     * This variable store respawn button height.
-     * </p>
-     */
-    public int respawnBtnHeight;
-
-    /**
-     * <p>
-     * This variable store title screen text area width.
-     * </p>
-     */
-    public int titleScreenBtnWidth;
-
-    /**
-     * <p>
-     * This variable store title screen text area height.
-     * </p>
-     */
-    public int titleScreenHeight;
-
-    /**
-     * <p>
-     * This variable store next page button width.
-     * </p>
-     */
-    public int nextPageBtnWidth;
-
-    /**
-     * <p>
-     * This variable store next page button height.
-     * </p>
-     */
-    public int nextPageBtnHeight;
-
-    /**
-     * <p>
-     * This variable store player name.
-     * </p>
-     */
     public String playerName = "";
-
-    /**
-     * <p>
-     * This variable control that is input given?
-     * </p>
-     */
     public boolean enterName = false;
-
-    /**
-     * <p>
-     * This variable control sword's enchanting.
-     * </p>
-     */
     public boolean successEnch;
-
-    /**
-     * <p>
-     * This variable timer for text area.
-     * </p>
-     */
     public int textAreaCounter = 0;
-
-    /**
-     * <p>
-     * This variable store cursor's location in text area.
-     * </p>
-     */
     public int textCursorX = 690;
 
-    /**
-     * <p>
-     * This variable control the blacksmith's sound.
-     * </p>
-     */
     public boolean enhanceSE = true;
 
-    /**
-     * <p>
-     * This variable timer for title screen animation.
-     * </p>
-     */
     public int titleScreenPlayerCounter = 0;
-
-    /**
-     * <p>
-     * This variable timer for title screen character image for animation.
-     * </p>
-     */
     public int titleScreenPlayerSpriteNum = 0;
 
-    /**
-     * <p>
-     * This variable for save inventory.
-     * </p>
-     */
+    // save
     SaveLoad saveLoad = new SaveLoad(gp);
 
-    /**
-     * <p>
-     * This is constructor. Defines all image path for BufferedImage and assign the
-     * other variables.
-     * </p>
-     * 
-     * @param gp is the game panel
-     * @since 1.0
-     */
     public UI(GamePanel gp) {
         this.gp = gp;
         en = new Entity(gp);
@@ -738,14 +322,6 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * Thismethod ensure UI elements drawing.
-     * </p>
-     * 
-     * @param g2 Graphics2D for GamePanel
-     * @since 1.0
-     */
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
@@ -858,11 +434,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draw the title screen elements.
-     * </p>
-     */
     public void drawTitleScreen() {
 
         BufferedImage image = null;
@@ -932,11 +503,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method for kill wolf task. It Draws dead wolf counter.
-     * </p>
-     */
     public void drawWolfCounter() {
         if (gp.player.taskLevel == 2 && gp.keyH.missionPrize[2] == 0) {
             if (gp.player.deadWolfCounter < 3) {
@@ -957,11 +523,7 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * This method draws Option screen.
-     * </p>
-     */
+    // OPTIONS SCREEN METHOD
     public void drawOptionsScreen() {
 
         g2.setColor(Color.white);
@@ -994,11 +556,6 @@ public class UI {
         gp.keyH.enterPressed = false;
     }
 
-    /**
-     * <p>
-     * This method draw special rounded rectangle for UI
-     * </p>
-     */
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 200);
         g2.setColor(c);
@@ -1006,13 +563,6 @@ public class UI {
         // g2.drawImage(dialogueUI, null, x, y);
     }
 
-    /**
-     * <p>
-     * This method draw option menu top.
-     * 
-     * @param frameX, frameY for location
-     *                </p>
-     */
     public void options_top(int frameX, int frameY) {
 
         int textX;
@@ -1122,11 +672,7 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draw pause screen UI.
-     * </p>
-     */
+    // PAUSE SCREEN METHOD
     public void drawPauseScreen() {
 
         String text = "PAUSED";
@@ -1139,11 +685,7 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    /**
-     * <p>
-     * This method draw save screen.
-     * </p>
-     */
+    // SAVE TRY METHOD
     public void drawSaveScreen() {
 
         String text = "SAVED";
@@ -1155,11 +697,6 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    /**
-     * <p>
-     * This method draw NPC's dialogue.
-     * </p>
-     */
     public void drawStory(int x, int y) {
         Color c2 = new Color(255, 255, 255);
         g2.setColor(c2);
@@ -1235,15 +772,17 @@ public class UI {
             g2.drawString("Press       to take up the task", 1230, 850);
             g2.drawImage(enterKey, null, 1290, 830);
         }
+
+        /*
+         * for(int i=0;i<7;i++) {
+         * g2.drawString(en.dialogues[i], x, y);
+         * y += gp.tileSize;
+         * }
+         */
+
     }
 
-    /**
-     * <p>
-     * This method draw Inventory.
-     * 
-     * @param cursorState for in merchant NPC inventory or not.
-     *                    </p>
-     */
+    // INVENTORY METHOD
     public void drawInventory(boolean cursorState) {
 
         // FRAME
@@ -1351,40 +890,13 @@ public class UI {
             }
         }
 
-        /**
-         * <p>
-         * This method for cursor's location
-         * </p>
-         */
+        // CURSOR
         int cursorX = slotXstart + (gp.tileSize * slotCol);
-
-        /**
-         * <p>
-         * This method for cursor's location
-         * </p>
-         */
         int cursorY = slotYstart + (gp.tileSize * slotRow);
-
-        /**
-         * <p>
-         * This method for cursor's width.
-         * </p>
-         */
         int cursorWidth = gp.tileSize;
-
-        /**
-         * <p>
-         * This method for cursor's height.
-         * </p>
-         */
         int cursorHeight = gp.tileSize;
-
-        /**
-         * <p>
-         * This method store cursors current location .
-         * </p>
-         */
         cursorIndex = (slotRow * 5) + slotCol;
+        // System.out.println("cursor2: "+ cursorIndex2);
 
         // DRAW CURSOR
         if (cursorState) {
@@ -1398,11 +910,7 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws blacksmith's UI.
-     * </p>
-     */
+    // DRAW ENCHANTMENT
     public void drawEnchantment() {
 
         int enchantmentX = 100;
@@ -1476,11 +984,6 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * This method ensure the cursor's moving.
-     * </p>
-     */
     public boolean controlCursor() {
         if (gp.player.inventory.size() > cursorIndex) {
             if (gp.player.inventory.get(cursorIndex) != null) {
@@ -1493,11 +996,7 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * This method draws merchant screen.
-     * </p>
-     */
+    // DRAW TRADE SCREEN
     public void drawTradeScreen() {
 
         int inventoryX = 100;
@@ -1534,13 +1033,20 @@ public class UI {
             }
 
         }
+
+        /*
+         * // DESCRIPTION FRAME
+         * int dFrameX = frameX;
+         * int dFrameY = frameY + frameHeight +10 ;
+         * int dFrameWidth = frameWidth;
+         * int dFrameHeight = gp.tileSize*3;
+         * drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+         * int textX = dFrameX + 20;
+         * int textY = dFrameY + gp.tileSize;
+         * g2.setFont(g2.getFont().deriveFont(28F));
+         */
     }
 
-    /**
-     * <p>
-     * This method for merchant NPC's inventory cursor's moving.
-     * </p>
-     */
     public boolean controlNpcCursor() {
         if (Npc_Merchant.npcInventory.size() > cursorNpcIndex) {
             if (Npc_Merchant.npcInventory.get(cursorNpcIndex) != null) {
@@ -1553,13 +1059,7 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * This method draws respawn buttons.
-     * 
-     * @param g2 Gaphics2D for GamePanel
-     *           </p>
-     */
+    // DEAD MENU
     public void respawnButtons(Graphics2D g2) {
         String respawnHere = "    Restart Here";
         String respawnCity = "Restart in the City";
@@ -1593,13 +1093,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws title screen buttons.
-     * 
-     * @param g2 Gaphics2D for GamePanel
-     *           </p>
-     */
     public void enterNameButton(Graphics2D g2) {
         String text = "Save";
 
@@ -1622,13 +1115,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws title screen buttons.
-     * 
-     * @param g2 Gaphics2D for GamePanel
-     *           </p>
-     */
     public void titleScreenButtons(Graphics2D g2) {
         String start = "         Start";
         String exit = "          Exit";
@@ -1662,13 +1148,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws title screen name area.
-     * 
-     * @param g2 Gaphics2D for GamePanel
-     *           </p>
-     */
     public void titleScreenCharStatus(Graphics2D g2) {
 
         String userNameField = gp.player.name;
@@ -1686,25 +1165,13 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws centered text.
-     * 
-     * @param g2 Gaphics2D for GamePanel
-     *           </p>
-     */
+    // CENTERED TEXT
     public int getXForCenteredText(Graphics2D g2, String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return gp.screenWidth / 2 - length / 2;
     }
 
-    /**
-     * <p>
-     * This method draws skills.
-     * 
-     * @param g2 Gaphics2D for GamePanel
-     *           </p>
-     */
+    // SKILLS
     public void drawSkills(Graphics2D g2) {
 
         // SWORD SPIN
@@ -1732,11 +1199,7 @@ public class UI {
          */
     }
 
-    /**
-     * <p>
-     * This method change cursors features.
-     * </p>
-     */
+    // CURSOR
     public void changeCursor() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Point point = new Point(0, 0);
@@ -1744,11 +1207,8 @@ public class UI {
         gp.setCursor(cursor);
     }
 
-    /**
-     * <p>
-     * This method draw task list screen.
-     * </p>
-     */
+    // TASK LIST SCREEN
+
     public void drawTaskList() {
         if (openTaskScreen) {
             g2.drawImage(taskList, 100, 100, null);
@@ -1765,11 +1225,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method task screen rectangle
-     * </p>
-     */
     public void drawTaskRec(int taskRecX, int taskRecY, int taskRecWidth, int taskRecHeight, int taskLevel) {
 
         g2.setFont(g2.getFont().deriveFont(14F));
@@ -1786,11 +1241,7 @@ public class UI {
         g2.drawString(currentTask, taskRecX + 15, taskRecY + 10);
     }
 
-    /**
-     * <p>
-     * This method draw buttom bar.
-     * </p>
-     */
+    // BOTTOM BAR
     public void drawBottomBar(Graphics2D g2) {
 
         int bottomBarHeight = 32;
@@ -1926,11 +1377,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws inventory button.
-     * </p>
-     */
     public void inventoryOptionsBtn(Graphics2D g2) {
 
         int btnPosX = 1470;
@@ -1950,13 +1396,8 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * This method draws message.
-     * 
-     * @param text for which message draws
-     *             </p>
-     */
+    // MESSAGES
+
     public void addMessage(String text) {
 
         if (message.size() == 5) {
@@ -1968,11 +1409,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws message list
-     * </p>
-     */
     public void drawMessage(Graphics2D g2) {
 
         int messageX = gp.tileSize;
@@ -2000,13 +1436,38 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draws damage amount
+    /*
+     * public void showMessage(String text) {
      * 
-     * @param damageIndex determines current damage
-     *                    </p>
+     * message = text;
+     * messageOn = true;
+     * }
+     * 
+     * public void messages(Graphics2D g2) {
+     * if (messageOn) {
+     * 
+     * int messageX = gp.tileSize;
+     * int messageY = gp.tileSize * 14;
+     * 
+     * g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20F));
+     * 
+     * g2.setColor(Color.black);
+     * g2.drawString(message, messageX + 2, messageY + 2);
+     * 
+     * g2.setColor(Color.white);
+     * g2.drawString(message, messageX, messageY);
+     * 
+     * messageCounter++;
+     * 
+     * if (messageCounter > 120) { // Because of FPS is 60. 120 means 2 seconds
+     * messageCounter = 0;
+     * messageOn = false;
+     * }
+     * }
+     * }
      */
+
+    // DAMAGE
     public void damageAnimation(Graphics2D g2, int damageIndex) {
 
         damages.get(damageIndex).damagePosX += 10;
@@ -2052,13 +1513,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method draw option full screen.
-     * 
-     * @param frameX : Location
-     *               </p>
-     */
     public void options_fullScreenNotification(int frameX, int frameY) {
         int textX = frameX + gp.tileSize;
         int textY = frameY + gp.tileSize * 3;
@@ -2087,11 +1541,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method determines end game message
-     * </p>
-     */
     public void options_endGameConfirmation(int frameX, int frameY) {
 
         int textX = frameX + gp.tileSize - 32;
@@ -2132,11 +1581,6 @@ public class UI {
 
     }
 
-    /**
-     * <p>
-     * This method ensure using option screen.
-     * </p>
-     */
     public void options_control(int frameX, int frameY) {
 
         int textX;
@@ -2195,11 +1639,7 @@ public class UI {
         }
     }
 
-    /**
-     * <p>
-     * This method change the transpency.
-     * </p>
-     */
+    // TRANSPARENCY
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
