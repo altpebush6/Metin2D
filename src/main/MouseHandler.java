@@ -1,25 +1,16 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-/**
- * <p>
- * This Class ensure all interaction with mouse.
- * </p>
- */
 public class MouseHandler implements MouseListener, MouseMotionListener {
 
-    public int screenX;
-    public int screenY; 
-    public int clickedWorldX; 
-    public int clickedWorldY; 
-    public int clickedCol; 
-    public int clickedRow;
-    public int mouseOverX; 
-    public int mouseOverY;
+    public int screenX, screenY, clickedWorldX, clickedWorldY, clickedCol, clickedRow;
+    public int mouseOverX, mouseOverY;
     public boolean pressed = false;
 
     public boolean pressedOnEnemy = false;
