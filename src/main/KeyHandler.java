@@ -1,132 +1,35 @@
 package main;
 
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import entity.Player;
 import npc.Npc_Merchant;
 import object.OBJ_Dolunay;
 import object.OBJ_KDP;
 import object.OBJ_SuPerisi;
 import object.OBJ_GenisKilic;
 
-/**
- * <p>
- * This Class ensure all interaction in the game.
- * </p>
- */
 public class KeyHandler implements KeyListener {
 
-	/**
-	 * <p>
-	 * This variable for upPressed or not.
-	 * </p>
-	 */
-	public boolean upPressed;
-
-	/**
-	 * <p>
-	 * This variable for downPressed or not.
-	 * </p>
-	 */
-	public boolean downPressed;
-
-	/**
-	 * <p>
-	 * This variable for leftPressed or not.
-	 * </p>
-	 */
-	public boolean leftPressed;
-
-	/**
-	 * <p>
-	 * This variable for rightPressed or not.
-	 * </p>
-	 */
-	public boolean rightPressed;
-
-	/**
-	 * <p>
-	 * This variable for quote pressed or not.
-	 * </p>
-	 */
-	public boolean quotePressed;
-
-	/**
-	 * <p>
-	 * This variable for opening debug mode.
-	 * </p>
-	 */
-	public boolean openDebug;
-
-	/**
-	 * <p>
-	 * This variable for pressed space or not.
-	 * </p>
-	 */
-	public boolean spacePressed;
-
-	/**
-	 * <p>
-	 * This variable for enter pressed or not.
-	 * </p>
-	 */
-	public boolean enterPressed;
-
-	/**
-	 * <p>
-	 * This variable ensure the player take mission prize for one times.
-	 * </p>
-	 */
-	public int missionPrize[] = { 1, 1, 1, 1, 1 };
-
-	/**
-	 * <p>
-	 * This variable store the enchanting task do or not.
-	 * </p>
-	 */
+	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean quotePressed, openDebug;
+	public boolean spacePressed, enterPressed;
+	public int missionPrize[] = {1,1,1,1,1};
 	public int enchantMission = 0;
-
-	/**
-	 * <p>
-	 * This variable for first task taken or not.
-	 * </p>
-	 */
 	public int takeTask1 = 0;
 
 	GamePanel gp;
 
-	/**
-	 * <p>
-	 * This is constructor
-	 * </p>
-	 * 
-	 * @param gp is the game panel
-	 * @since 1.0
-	 */
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
 
 	}
 
-	/**
-	 * <p>
-	 * This is deafult method's keylistener
-	 * </p>
-	 * 
-	 * @param KeyEvent for interaction
-	 * @since 1.0
-	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 
-	/**
-	 * <p>
-	 * This is deafult method's keylistener. All interaction ensure keyPressed
-	 * </p>
-	 * 
-	 * @param KeyEvent for interaction
-	 * @since 1.0
-	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -176,11 +79,11 @@ public class KeyHandler implements KeyListener {
 					}
 				}
 			}
-			if (code == KeyEvent.VK_G) {
-				if (gp.ui.openTaskScreen == false) {
+			if(code == KeyEvent.VK_G) {
+				if (gp.ui.openTaskScreen == false ) {
 					gp.ui.openTaskScreen = true;
 				} else {
-					gp.ui.openTaskScreen = false;
+					gp.ui.openTaskScreen = false; 
 				}
 			}
 
@@ -251,78 +154,78 @@ public class KeyHandler implements KeyListener {
 
 		} else if (gp.gameState == gp.dialogueState) { // DIALOGUE STATE
 
-			if (code == KeyEvent.VK_RIGHT) {
-				if (gp.player.taskLevel == 2 && gp.ui.pageNum == 0) {
+			if(code == KeyEvent.VK_RIGHT) {
+				if(gp.player.taskLevel == 2 && gp.ui.pageNum == 0) {
 					gp.ui.pageNum++;
 				}
-
-				if (gp.player.taskLevel == 3 && gp.ui.pageNum == 0) {
+				
+				if(gp.player.taskLevel == 3 && gp.ui.pageNum == 0) {
 					gp.ui.pageNum++;
 				}
 			}
 
-			if (code == KeyEvent.VK_LEFT) {
-				if (gp.player.taskLevel == 2 && gp.ui.pageNum == 1) {
+			if(code == KeyEvent.VK_LEFT) {
+				if(gp.player.taskLevel == 2 && gp.ui.pageNum == 1) {
 					gp.ui.pageNum--;
 				}
 
-				if (gp.player.taskLevel == 3 && gp.ui.pageNum == 1) {
+				if(gp.player.taskLevel == 3 && gp.ui.pageNum == 1) {
 					gp.ui.pageNum--;
 				}
 			}
 
 			if (code == KeyEvent.VK_ENTER) {
 				gp.gameState = gp.playState;
-				if (gp.player.taskLevel == 0 && missionPrize[0] == 1) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 150);
+				if(gp.player.taskLevel == 0 && missionPrize[0] == 1){
+				    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 150);
 					missionPrize[0] = 0;
 					gp.ui.addMessage("Commissioned.");
 					gp.ui.addMessage("150 Coin received.");
-				} else if (gp.player.taskLevel == 0 && missionPrize[0] == 0) {
+				}else if(gp.player.taskLevel == 0 && missionPrize[0] == 0) {
 					gp.ui.addMessage("Already Commissioned.");
 					gp.ui.addMessage("Shop with Seller!");
-				} else if (gp.player.taskLevel == 1 && missionPrize[1] == 1) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 200);
+				}else if(gp.player.taskLevel == 1 && missionPrize[1] == 1) {
+                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 200);
 					takeTask1++;
 					missionPrize[1] = 0;
 					gp.ui.addMessage("Commissioned.");
 					gp.ui.addMessage("200 Coin received.");
-				} else if (gp.player.taskLevel == 1 && missionPrize[1] == 0) {
+				}else if(gp.player.taskLevel == 1 && missionPrize[1] == 0) {
 					gp.ui.addMessage("Already Commissioned.");
 					gp.ui.addMessage("Go to Blacksmith Rustem!");
-				} else if (gp.player.taskLevel == 2 && missionPrize[2] == 1) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 500);
+				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 1) {
+                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 500);
 					missionPrize[2] = 0;
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Commissioned.");
 					gp.ui.addMessage("500 Coin received.");
-				} else if (gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == false) {
+				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == false) {
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Already Commissioned.");
 					gp.ui.addMessage("Kill 3 Wolves!");
-				} else if (gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == true) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 1000);
+				}else if(gp.player.taskLevel == 2 && missionPrize[2] == 0 && gp.ui.wolfTaskDo == true) {
+                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 1000);
 					gp.player.taskLevel++;
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Mission Accomplished.");
 					gp.ui.addMessage("500 Coin received.");
-				} else if (gp.player.taskLevel == 3 && missionPrize[3] == 1) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 1000);
+				}else if(gp.player.taskLevel == 3 && missionPrize[3] == 1) {
+                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 1000);
 					missionPrize[3] = 0;
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Commissioned.");
 					gp.ui.addMessage("1000 Coin received.");
-				} else if (gp.player.taskLevel == 3 && missionPrize[3] == 0) {
+				}else if(gp.player.taskLevel == 3 && missionPrize[3] == 0) {
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Already Commissioned.");
 					gp.ui.addMessage("Smash the Antenna!");
-				} else if (gp.player.taskLevel == 4 && missionPrize[4] == 1) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 5000);
+				} else if(gp.player.taskLevel == 4 && missionPrize[4] == 1) {
+                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 5000);
 					missionPrize[4] = 0;
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Enjoy the village!");
 					gp.ui.addMessage("10.000 Coin received.");
-				} else if (gp.player.taskLevel == 4 && missionPrize[4] == 0) {
+				}else if(gp.player.taskLevel == 4 && missionPrize[4] == 0) {
 					gp.ui.pageNum = 0;
 					gp.ui.addMessage("Enjoy the village!");
 				}
@@ -384,8 +287,7 @@ public class KeyHandler implements KeyListener {
 											gp.player.setPlayerXP(gp.player.getPlayerXP() + 200);
 										}
 									}
-									gp.player.setPlayerCoin(gp.player.getPlayerCoin()
-											- Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+									gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
 									gp.player.redPotionNumber++;
 								}
 							} else if (Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).name == "Blue Potion") {
@@ -394,45 +296,41 @@ public class KeyHandler implements KeyListener {
 										gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
 
 										if (gp.player.taskLevel == 0) {
-											gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
+		                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
 											gp.player.taskLevel++;
 											gp.player.setPlayerXP(gp.player.getPlayerXP() + 200);
 										}
 									}
-									gp.player.setPlayerCoin(gp.player.getPlayerCoin()
-											- Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
 									gp.player.bluePotionNumber++;
 								}
 							} else {
 
-								switch (gp.ui.cursorNpcIndex) {
+								switch(gp.ui.cursorNpcIndex) {
 									case 0:
-										gp.player.inventory.add(new OBJ_KDP(gp));
-										gp.player.setPlayerCoin(gp.player.getPlayerCoin()
-												- Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-										break;
-									case 1:
-										gp.player.inventory.add(new OBJ_GenisKilic(gp));
-										gp.player.setPlayerCoin(gp.player.getPlayerCoin()
-												- Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-										break;
-									case 2:
-										gp.player.inventory.add(new OBJ_Dolunay(gp));
-										gp.player.setPlayerCoin(gp.player.getPlayerCoin()
-												- Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-										break;
-									case 3:
-										gp.player.inventory.add(new OBJ_SuPerisi(gp));
-										gp.player.setPlayerCoin(gp.player.getPlayerCoin()
-												- Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
-										break;
+    									gp.player.inventory.add(new OBJ_KDP(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+    									break;
+									case 1: 
+    									gp.player.inventory.add(new OBJ_GenisKilic(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+    									break;
+									case 2: 
+    									gp.player.inventory.add(new OBJ_Dolunay(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+    									break;
+									case 3: 
+                                        gp.player.inventory.add(new OBJ_SuPerisi(gp));
+                                        gp.player.setPlayerCoin(gp.player.getPlayerCoin() - Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex).price);
+                                        break;
 
 								}
-								// For different enchantLevel:
-								// gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+								// For different enchantLevel: 	
+								//gp.player.inventory.add(Npc_Merchant.npcInventory.get(gp.ui.cursorNpcIndex));
+								
 
 								if (gp.player.taskLevel == 0) {
-									gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
+                                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
 									gp.player.taskLevel++;
 									gp.player.setPlayerXP(gp.player.getPlayerXP() + 200);
 									gp.ui.addMessage("Görev Başarılı.");
@@ -447,8 +345,9 @@ public class KeyHandler implements KeyListener {
 						gp.ui.addMessage("Not Enough Money to Buy It");
 					}
 
+					
 				} else {
-
+					
 				}
 
 			}
@@ -492,45 +391,44 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_E) {
 
 				if (gp.ui.controlCursor() == true) {
-					if (gp.player.inventory.get(gp.ui.cursorIndex).name != "Red Potion"
-							&& gp.player.inventory.get(gp.ui.cursorIndex).name != "Blue Potion") {
-						gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
-						gp.player.enchantWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
-						gp.player.itemEnchSellected = true;
-						gp.player.setAttackPower(gp.player.getAttackPower()
-								+ gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
-					}
+				    if(gp.player.inventory.get(gp.ui.cursorIndex).name != "Red Potion" && gp.player.inventory.get(gp.ui.cursorIndex).name != "Blue Potion") {
+                        gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
+    					gp.player.enchantWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
+    					gp.player.itemEnchSellected = true;
+    	                gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
+				    }
 				}
 
 			}
-
+			
 			if (gp.player.itemEnchSellected == true) {
 				if (code == KeyEvent.VK_Y) {
-					if (gp.player.getPlayerCoin() >= 100) {
-
-						gp.player.setPlayerCoin(gp.player.getPlayerCoin() - 100);
-						gp.player.enchantAccepted = true;
-						if (takeTask1 == 1) {
-							enchantMission++;
-						}
-					} else {
-						gp.ui.addMessage("Not Enough Money to Enchant");
-					}
+				    if(gp.player.getPlayerCoin() >= 100) {
+				        
+                       gp.player.setPlayerCoin(gp.player.getPlayerCoin() - 100);
+                       gp.player.enchantAccepted = true;
+					   if(takeTask1==1) {
+						enchantMission++;
+					   }
+				    } else {
+		               gp.ui.addMessage("Not Enough Money to Enchant");
+		            }
 				}
 			}
+			
 
 			if ((code == KeyEvent.VK_ENTER || code == KeyEvent.VK_ESCAPE) && !gp.player.enchantAccepted) {
 				gp.player.enchantAccepted = false;
 				gp.player.itemEnchSellected = false;
 				gp.gameState = gp.playState;
-				if (enchantMission >= 1 && gp.player.taskLevel == 1 && takeTask1 == 1) {
-					gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
+				if(enchantMission >=1 && gp.player.taskLevel == 1 && takeTask1 == 1) {
+                    gp.player.setPlayerCoin(gp.player.getPlayerCoin() + 100);
 					gp.player.taskLevel++;
-					gp.player.setPlayerXP(gp.player.getPlayerXP() + 400);
+                    gp.player.setPlayerXP(gp.player.getPlayerXP() + 400);
 					gp.ui.addMessage("Görev başarılı.");
 					gp.ui.addMessage("XP kazanıldı.");
 					gp.ui.addMessage("100 Coin received.");
-				}
+				} 
 			}
 
 		}
@@ -586,47 +484,37 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_E) {
 
 				if (gp.ui.controlCursor() == true) {
-					if (gp.player.inventory.get(gp.ui.cursorIndex).name != "Red Potion"
-							&& gp.player.inventory.get(gp.ui.cursorIndex).name != "Blue Potion") {
-						gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
-						gp.player.currentWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
-						gp.player.setAttackPower(gp.player.getAttackPower()
-								+ gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
-					}
+				    if(gp.player.inventory.get(gp.ui.cursorIndex).name != "Red Potion" && gp.player.inventory.get(gp.ui.cursorIndex).name != "Blue Potion") {
+    				    gp.player.setAttackPower(gp.player.getAttackPower() - gp.player.currentWeapon.weaponAttackSize);
+    					gp.player.currentWeapon = gp.player.inventory.get(gp.ui.cursorIndex);
+    					gp.player.setAttackPower(gp.player.getAttackPower() + gp.player.inventory.get(gp.ui.cursorIndex).weaponAttackSize);
+				    }
 				}
 			}
-			if (code == KeyEvent.VK_ESCAPE) {
-				gp.gameState = gp.playState;
+			if(code == KeyEvent.VK_ESCAPE) {
+			    gp.gameState = gp.playState;
 			}
 		}
 
 	}
 
-	/**
-	 * <p>
-	 * This is deafult method's keylistener
-	 * </p>
-	 * 
-	 * @param KeyEvent for interaction
-	 * @since 1.0
-	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 		int code = e.getKeyCode();
 
-		/*
-		 * if(gp.gameState == gp.enchantState) {
-		 * 
-		 * if(gp.player.itemEnchSellected == true) {
-		 * if(code == KeyEvent.VK_Y) {
-		 * //gp.player.enchantAccepted = false;
-		 * gp.player.itemEnchSellected = false;
-		 * }
-		 * }
-		 * }
-		 */
+		/* 
+		  if(gp.gameState == gp.enchantState) {
+		  
+			if(gp.player.itemEnchSellected == true) {
+				if(code == KeyEvent.VK_Y) {
+					//gp.player.enchantAccepted = false;
+					gp.player.itemEnchSellected = false;
+				}
+			}
+		  }
+		 */ 
 		if (code == KeyEvent.VK_ENTER) {
 			gp.player.interactNPCIndex = -1;
 		}
@@ -666,14 +554,6 @@ public class KeyHandler implements KeyListener {
 		}
 	}
 
-	/**
-	 * <p>
-	 * This method ensure passing the option screen.
-	 * </p>
-	 * 
-	 * @param KeyEvent for interaction
-	 * @since 1.0
-	 */
 	public void optionsState(int code) {
 
 		if (code == KeyEvent.VK_ESCAPE) {
