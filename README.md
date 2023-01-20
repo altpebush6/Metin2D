@@ -1,5 +1,36 @@
 ## *JAVA PROJECT (METIN2)*
 
+
+###### **Login Screen 1**
+------------
+<img src="https://user-images.githubusercontent.com/93250409/213659269-e3120524-78f0-4211-9a43-6c1d572deca8.png" width="700" />
+<br>
+
+###### **Login Screen 2**
+------------
+<img src="https://user-images.githubusercontent.com/93250409/213659320-544dedb7-3ca8-4c99-b126-4515624b3f2a.png" width="700" />
+<br>
+
+###### **Loading Screen**
+------------
+<img src="https://user-images.githubusercontent.com/93250409/213659396-204c345f-9936-4d50-bfe2-e40ec7e31287.png" width="700" />
+<br>
+
+###### **Merchant**
+------------
+<img src="https://user-images.githubusercontent.com/93250409/213659524-fd19c8f1-3c7b-47c2-bc0d-4a7cc357f19a.png" width="700" />
+<br>
+
+###### **Blacksmith**
+------------
+<img src="https://user-images.githubusercontent.com/93250409/213659564-35a5fe3e-2567-412e-80b0-72f68dfe004b.png" width="700" />
+<br>
+
+###### **Fight**
+------------
+<img src="https://user-images.githubusercontent.com/93250409/213659986-e0235be5-e19e-407e-ac9a-cff2cc05dab9.png" width="700" />
+<br>
+
 To add this project on your workspace follow the steps: <br><br>
 1-) Download repository <br><br>
 <img src="https://user-images.githubusercontent.com/93250409/196499564-456b9c47-f3d1-4964-b334-86093e24bfd6.png" width="400" />
